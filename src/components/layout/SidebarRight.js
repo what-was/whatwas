@@ -11,7 +11,7 @@ export const SidebarRight = () => (
                 <img src="/images/profilephoto.png" alt="Burak"></img>
             </div>
         </div>
-        <div class="inboardNotes">
+        <div className="inboardNotes">
             <h3>Inboard Notes</h3>
         </div>
     </div>
