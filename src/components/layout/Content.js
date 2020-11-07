@@ -1,9 +1,11 @@
 import React from 'react';
-import { Sidebar } from './Sidebar'
+import { SidebarLeft } from './SidebarLeft'
+import { SidebarRight } from './SidebarRight'
 
 
 export const Content = () => (
     <section>
-        <Sidebar/>
+        <SidebarLeft />
+        <SidebarRight />
     </section>
 );
