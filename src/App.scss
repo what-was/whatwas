@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
 
 // Variables
 $generic-box-shadow: rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 0px 4px 11px;
@@ -27,7 +27,7 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1;
-  font-family: "Roboto", "Arial", "Helvetica", sans-serif;
+  font-family: 'Roboto', 'Arial', 'Helvetica', sans-serif;
   color: $blackColor;
   font-smooth: always;
   font-size: 16px;
@@ -149,7 +149,7 @@ header {
   top: 0;
   width: 100%;
 
-  @include mq("420px") {
+  @include mq('420px') {
     padding: 0 10px;
     nav div {
       padding: 0 !important;
@@ -240,7 +240,7 @@ header {
   display: flex;
   justify-content: center;
 
-  @include mq("900px") {
+  @include mq('900px') {
     width: $sidebar-1x-width / 3;
     li {
       padding: 10px 10px !important;
@@ -261,11 +261,11 @@ header {
     }
   }
 
-  @include mq("420px") {
+  @include mq('420px') {
     width: $sidebar-1x-width / 4;
   }
 
-  @include mqh("420px") {
+  @include mqh('420px') {
     &__bottom {
       display: none;
     }
@@ -328,4 +328,14 @@ header {
       width: 100%;
     }
   }
+}
+
+// Sidebar Right
+
+// Notes
+
+.notes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
