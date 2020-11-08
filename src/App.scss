@@ -3,10 +3,12 @@
 // Variables
 $generic-box-shadow: rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 0px 4px 11px;
 $generic-border: 1px solid #f1f1f1;
-$generic-bg: #db4c3f;
-$darkmode-header: #282828;
+$generic-bg: #0f0f1b;
+$darkmode-header: #242423;
+$backgroundColor: #ffffff;
+$backgroundAccent: #fafafa;
 
-$blackColor: #1b1c1e;
+$blackColor: #333533;
 
 $sidebar-1x-width: 225px;
 
@@ -29,6 +31,7 @@ body {
   color: $blackColor;
   font-smooth: always;
   font-size: 16px;
+  background-color: $backgroundColor;
   -webkit-font-smoothing: antialised;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -137,16 +140,20 @@ ul {
 // Header
 
 header {
-  background-color: $generic-bg;
+  background-color: $backgroundColor;
   transition: height 200ms ease-in;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  height: 55px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  height: $sidebar-1x-width / 4;
   z-index: 400;
   position: fixed;
   top: 0;
   width: 100%;
-  @include mq("900px") {
-    padding: 0 20px;
+
+  @include mq("420px") {
+    padding: 0 10px;
+    nav div {
+      padding: 0 !important;
+    }
   }
 
   nav {
@@ -162,7 +169,7 @@ header {
 
     p,
     li {
-      color: white;
+      color: $blackColor;
     }
     div {
       &.logo {
@@ -173,7 +180,8 @@ header {
 
         img {
           cursor: pointer;
-          width: 40px;
+          width: 30px;
+          filter: invert(1);
         }
       }
 
@@ -198,7 +206,7 @@ header {
 
             &:hover {
               border-radius: 3px;
-              background-color: rgba(255, 255, 255, 0.2);
+              background-color: lighten($blackColor, 70%);
             }
 
             &.settings__add {
@@ -223,12 +231,12 @@ header {
   @include no-select();
   width: $sidebar-1x-width;
   height: calc(100vh);
-  padding-top: 74px;
+  padding-top: 4rem;
   position: fixed;
   overflow-x: hidden;
   overflow-y: hidden;
-  border-radius: $generic-border;
-  background-color: #fafafa;
+  border-right: $generic-border;
+  background-color: $backgroundAccent;
   display: flex;
   justify-content: center;
 
@@ -279,10 +287,9 @@ header {
       color: $blackColor;
       display: flex;
       cursor: pointer;
-      line-height: 25px;
-      font-size: 1.1875rem;
+      line-height: 24px;
+      font-size: 1.1rem;
       font-weight: 500;
-      margin-bottom: 10px;
 
       span {
         vertical-align: baseline;
@@ -291,16 +298,16 @@ header {
         display: flex;
         align-items: center;
         vertical-align: middle;
-        margin-right: 20px;
+        margin-right: 15px;
         svg {
           width: auto;
-          height: 1.75rem;
+          height: 1.5rem;
           color: $blackColor;
         }
       }
       &:hover {
-        background-color: lighten($blackColor, 80%);
-        border-radius: 40px !important;
+        background-color: lighten($blackColor, 75%);
+        border-radius: 50px !important;
       }
     }
   }
@@ -313,9 +320,9 @@ header {
     display: flex;
     align-self: flex-end;
     position: absolute;
-    bottom: 40px;
+    bottom: 2rem;
     width: 100%;
-    padding: 0 22.5px;
+    padding: 0 25px;
     li {
       margin-bottom: 0 !important;
       width: 100%;
