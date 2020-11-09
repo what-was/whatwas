@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { RiDashboardLine } from 'react-icons/ri';
 import { FiActivity, FiMail, FiStar, FiTrash } from 'react-icons/fi';
 import { useSelectedBoardValue } from '../../context';
-import { Boards } from '../Boards'
+import { Boards } from '../Boards';
+import { AddBoard } from '../AddBoard';
 
-export const SidebarLeft = () =>
-{
-  const { setSelectedBoard } = useSelectedBoardValue;
+export const SidebarLeft = () => {
+  const { setSelectedBoard } = useSelectedBoardValue();
   const [active, setActive] = useState('Today');
   const [showBoards, setShowBoards] = useState(true);
 
@@ -41,7 +41,7 @@ export const SidebarLeft = () =>
           {/* Change to "Starred" */}
           <span>Starred</span>
         </li>
-        <Boards />
+        {showBoards && <AddBoard />}
       </ul>
       <ul className="sidebarLeft__bottom">
         <li data-testid="deleted" className="deleted">

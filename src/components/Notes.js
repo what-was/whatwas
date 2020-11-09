@@ -32,7 +32,9 @@ export const Notes = () =>
 
             <ul className="notes__list">
                 {notes.map((note) => (
-                    <li key={`${note.id}`}>
+                    <li key={`${note.id}`}
+                        className={note.noteColor ? note.noteColor : 'yellow'}
+                    >
                         <Checkbox id={note.id} />
                         <span>{note.note}</span>
                     </li>

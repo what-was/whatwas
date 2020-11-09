@@ -3,7 +3,7 @@
 // Variables
 $generic-box-shadow: rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 0px 4px 11px;
 $generic-border: 1px solid #eeeeee;
-$generic-bg: #0f0f1b;
+$generic-bg: #eb5e28;
 $darkmode-header: #242423;
 $backgroundColor: #ffffff;
 $backgroundAccent: #fafafa;
@@ -79,10 +79,10 @@ ul {
   color: #fff !important;
   border: 1px solid transparent;
   margin: 10px 5px 0 0;
-  font-weight: 10px;
+  font-weight: 500;
   font-size: 0.8125rem !important;
   line-height: 1.0625rem;
-  padding: 6px 12px 7px;
+  padding: 6px 10px 7px;
   position: relative;
   display: inline-block;
   white-space: nowrap;
@@ -90,6 +90,9 @@ ul {
   text-decoration: none !important;
   text-align: center;
   cursor: pointer;
+  &:hover {
+    background-color: lighten($generic-bg, 10%);
+  }
 }
 
 @mixin cancel() {
@@ -97,6 +100,9 @@ ul {
   cursor: pointer;
   font-size: 0.875rem;
   margin: 2px 5px;
+  &:hover {
+    color: lighten(#555, 25%);
+  }
 }
 
 @mixin note-item() {
@@ -383,17 +389,101 @@ ul {
         }
       }
     }
+    // Notes
+
+    .notes {
+      display: flex;
+      flex-grow: 1;
+      padding: 15px 20px;
+      flex-direction: column;
+      margin: 0 auto;
+      @include mq('1400px') {
+        li {
+          flex-shrink: 1;
+        }
+        li:first-of-type,
+        li:nth-child(2n-1) {
+          margin-left: 0;
+        }
+      }
+
+      &__list {
+        display: flex;
+        flex-direction: row;
+        list-style-type: none;
+        flex-wrap: wrap;
+        li:first-of-type {
+          margin-left: 0;
+        }
+        li {
+          display: flex;
+          min-width: 250px;
+          height: 200px;
+          padding: 25px 20px;
+          border-radius: 10px;
+          background-color: #ffdb58;
+          margin: 10px 10px;
+        }
+
+        // COLORS
+        .yellow {
+          background-color: #ffdb58;
+        }
+
+        .blue {
+          background-color: #a8dadc;
+        }
+      }
+    }
   }
 }
 
-// Header
+// Add Task
 
-// Notes
+.add-task {
+}
 
-.notes {
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-  flex-direction: column;
-  margin: 0 auto;
+// Add Board
+
+.add-board {
+  margin-top: 20px;
+  &__input {
+    margin-bottom: 20px;
+  }
+  &__name {
+    width: 100%;
+    border: 1px solid $blackColor;
+    background-color: white !important;
+    border-radius: 3px;
+    height: 35px;
+    padding: 0 10px;
+  }
+  &__submit {
+    @include btn(5.8rem);
+  }
+  &__cancel {
+    @include cancel();
+    align-self: flex-end;
+    margin-right: 0;
+  }
+  &__action-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 15px 22.5px;
+    border-radius: 50px;
+    &:hover {
+      background-color: lighten($blackColor, 75%);
+    }
+  }
+  &__plus {
+    font-size: 1.5rem;
+    color: $generic-bg;
+  }
+  &__text {
+    display: inline-block;
+    color: $blackColor;
+    font-size: 1rem;
+    margin-left: 15px;
+  }
 }
