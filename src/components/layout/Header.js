@@ -7,7 +7,7 @@ export const Header = () =>
         <header className="header" data-testid="header">
             <nav>
                 <div className="logo">
-                    <img src="/images/logo.png" alt="WhatWas"></img>
+                    <img src="/images/logo.png" alt="WhatWas" width="30" height="30"></img>
                 </div>
                 <div className="settings">
                     <ul>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useBoardsValue, useSelectedBoardValue } from '../context';
+import { IndividualProject } from './IndividualBoard';
 
 export const Boards = ({ activeValue = true }) =>
 {
@@ -26,7 +27,7 @@ export const Boards = ({ activeValue = true }) =>
                     }}
                 >
 
-                    {board.name}
+                    <IndividualProject board={board} />
                 </div>
             </li>
         )
