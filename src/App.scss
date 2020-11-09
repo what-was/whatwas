@@ -2,7 +2,7 @@
 
 // Variables
 $generic-box-shadow: rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 0px 4px 11px;
-$generic-border: 1px solid #f1f1f1;
+$generic-border: 1px solid #eeeeee;
 $generic-bg: #0f0f1b;
 $darkmode-header: #242423;
 $backgroundColor: #ffffff;
@@ -10,7 +10,8 @@ $backgroundAccent: #fafafa;
 
 $blackColor: #333533;
 
-$sidebar-1x-width: 225px;
+$sidebar-1x-width: 200px;
+$header-height: calc(#{$sidebar-1x-width} / 4);
 
 // General Settings
 html {
@@ -143,9 +144,9 @@ header {
   background-color: $backgroundColor;
   transition: height 200ms ease-in;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  height: $sidebar-1x-width / 4;
+  height: $header-height;
   z-index: 400;
-  position: fixed;
+  position: relative;
   top: 0;
   width: 100%;
 
@@ -210,13 +211,13 @@ header {
             }
 
             &.settings__add {
-              margin-right: 15px;
-              font-size: 40px;
+              margin-right: 0.25rem;
+              font-size: 2rem;
             }
 
             &.settings__darkmode svg {
-              width: 25px;
-              height: 25px;
+              width: auto;
+              height: 1.2rem;
             }
           }
         }
@@ -226,20 +227,25 @@ header {
 }
 
 // Sidebar Left
-
-.sidebarLeft {
+.sidebarLeft,
+.sidebarRight {
   @include no-select();
-  width: $sidebar-1x-width;
-  height: calc(100vh);
-  padding-top: 4rem;
+  height: auto;
+  padding: 1rem 0;
   position: fixed;
   overflow-x: hidden;
   overflow-y: hidden;
-  border-right: $generic-border;
   background-color: $backgroundAccent;
   display: flex;
-  justify-content: center;
+  height: 100%;
+}
 
+.sidebarLeft {
+  width: $sidebar-1x-width * 1.2;
+  border-right: $generic-border;
+  justify-content: space-between;
+  flex-direction: column;
+  height: calc(100% - #{$header-height});
   @include mq('900px') {
     width: $sidebar-1x-width / 3;
     li {
@@ -279,50 +285,46 @@ header {
 
   &__bottom,
   &__generic {
+    width: 80%;
+    margin: 0 auto;
     li {
       display: flex;
       align-items: center;
       padding: 15px 22.5px;
       list-style-type: none;
-      color: $blackColor;
-      display: flex;
+      color: lighten($blackColor, 40%);
       cursor: pointer;
       line-height: 24px;
-      font-size: 1.1rem;
-      font-weight: 500;
-
-      span {
-        vertical-align: baseline;
-      }
+      font-size: 1rem;
+      font-weight: 400;
+      position: relative;
       span:first-of-type {
         display: flex;
-        align-items: center;
         vertical-align: middle;
-        margin-right: 15px;
+        margin-right: 0.75rem;
         svg {
           width: auto;
           height: 1.5rem;
-          color: $blackColor;
+          color: lighten($blackColor, 40%);
         }
       }
       &:hover {
         background-color: lighten($blackColor, 75%);
         border-radius: 50px !important;
       }
+      &.active {
+        span {
+          font-weight: 500;
+        }
+        span,
+        span svg {
+          color: $blackColor;
+        }
+      }
     }
   }
 
-  &__generic {
-    height: 50%;
-  }
-
   &__bottom {
-    display: flex;
-    align-self: flex-end;
-    position: absolute;
-    bottom: 2rem;
-    width: 100%;
-    padding: 0 25px;
     li {
       margin-bottom: 0 !important;
       width: 100%;
@@ -331,6 +333,46 @@ header {
 }
 
 // Sidebar Right
+
+.sidebarRight {
+  width: $sidebar-1x-width * 2;
+  right: 0;
+  border-left: $generic-border;
+  align-items: center;
+  flex-flow: column;
+  .profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    padding: 15px 22.5px 35px 0;
+    border-bottom: $generic-border;
+    &__name {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.25rem;
+      p,
+      h3 {
+      }
+      p {
+        margin: 0;
+      }
+      h3 {
+        margin: 0.5rem 0 0 0;
+        font-size: 2rem;
+      }
+    }
+  }
+  .inboardNotes {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    h4 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+    }
+  }
+}
 
 // Notes
 

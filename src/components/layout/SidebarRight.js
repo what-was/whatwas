@@ -8,11 +8,11 @@ export const SidebarRight = () => (
                 <h3>Burak</h3>
             </div>
             <div className="profile__photo">
-                <img src="/images/profilephoto.png" alt="Burak"></img>
+                <img src="/images/profilephoto.png" alt="Burak" width="100" height="100"></img>
             </div>
         </div>
         <div className="inboardNotes">
-            <h3>Inboard Notes</h3>
+            <h4>Inboard Notes</h4>
         </div>
     </div>
 
