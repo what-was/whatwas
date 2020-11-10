@@ -8,7 +8,7 @@ export const AddBoard = ({ shouldShow = false }) => {
   const [boardName, setBoardName] = useState('');
 
   const boardId = generatePushId();
-  const { setBoards } = useBoardsValue();
+  const { boards, setBoards } = useBoardsValue();
 
   const addBoard = () => {
     boardName &&
@@ -23,7 +23,7 @@ export const AddBoard = ({ shouldShow = false }) => {
           visibility: '',
         })
         .then(() => {
-          setBoards([]);
+          setBoards([...boards]);
           setBoardName('');
           setShow(false);
         });

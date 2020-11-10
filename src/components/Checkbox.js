@@ -1,8 +1,10 @@
 import React from 'react';
 import { firebase } from '../firebase'
 
-export const Checkbox = ({ id }) => {
-    const archiveTask = () => {
+export const Checkbox = ({ id }) =>
+{
+    const archiveTask = () =>
+    {
         firebase.firestore()
             .collection('notes')
             .doc(id)
@@ -11,7 +13,7 @@ export const Checkbox = ({ id }) => {
             });
     };
 
-    return ( 
+    return (
         <div className="checkbox-holder" data-testid="checkbox-action" onClick={() => archiveTask()}>
             <span className="checkbox" />
         </div>

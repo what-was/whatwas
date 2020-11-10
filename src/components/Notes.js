@@ -35,7 +35,7 @@ export const Notes = () =>
                     <li key={`${note.id}`}
                         className={note.noteColor ? note.noteColor : 'yellow'}
                     >
-                        <Checkbox id={note.id} />
+                        {/* <Checkbox id={note.id} /> */}
                         <span>{note.note}</span>
                     </li>
                 ))}

@@ -3,11 +3,13 @@ import moment from 'moment';
 import { firebase } from '../firebase';
 import { collatedNotesExist } from '../helpers';
 
-export const useNotes = (selectedBoard) => {
+export const useNotes = (selectedBoard) =>
+{
   const [notes, setNotes] = useState([]);
   const [archivedNotes, setArchivedNotes] = useState([]);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     let unsubscribe = firebase
       .firestore()
       .collection('notes')
@@ -17,16 +19,17 @@ export const useNotes = (selectedBoard) => {
       selectedBoard && !collatedNotesExist(selectedBoard)
         ? (unsubscribe = unsubscribe.where('boardId', '==', selectedBoard))
         : selectedBoard === 'Today'
-        ? (unsubscribe = unsubscribe.where(
+          ? (unsubscribe = unsubscribe.where(
             'date',
             '==',
             moment().format('DD/MM/YYYY')
           ))
-        : selectedBoard === 'Inbox' || selectedBoard === 0
-        ? (unsubscribe = unsubscribe.where('date', '==', ''))
-        : unsubscribe;
+          : selectedBoard === 'Inbox' || selectedBoard === 0
+            ? (unsubscribe = unsubscribe.where('date', '==', ''))
+            : unsubscribe;
 
-    unsubscribe = unsubscribe.onSnapshot((snapshot) => {
+    unsubscribe = unsubscribe.onSnapshot((snapshot) =>
+    {
       const newNotes = snapshot.docs.map((note) => ({
         id: note.id,
         ...note.data(),
@@ -35,10 +38,10 @@ export const useNotes = (selectedBoard) => {
       setNotes(
         selectedBoard === 'In Progress'
           ? newNotes.filter(
-              (note) =>
-                moment(note.date, 'DD-MM-YY').diff(moment(), 'days') <= 7 &&
-                note.archived !== true
-            )
+            (note) =>
+              moment(note.date, 'DD-MM-YY').diff(moment(), 'days') <= 7 &&
+              note.archived !== true
+          )
           : newNotes.filter((note) => note.archived !== true)
       );
 
@@ -51,17 +54,21 @@ export const useNotes = (selectedBoard) => {
   return { notes, archivedNotes };
 };
 
-export const useBoards = () => {
+export const useBoards = () =>
+{
   const [boards, setBoards] = useState([]);
 
-  useEffect(() => {
+
+  useEffect(() =>
+  {
     firebase
       .firestore()
       .collection('boards')
       .where('userId', '==', 'ZroloardSwozGoognMXbXX')
       .orderBy('boardId')
       .get()
-      .then((snapshot) => {
+      .then((snapshot) =>
+      {
         const allBoards = snapshot.docs.map((board) => ({
           ...board.data(),
           docId: board.id,
