@@ -8,6 +8,7 @@
 
 # production
 /build
+/src/lib/firebase.prod.js
 /src/firebase.js
 
 # misc

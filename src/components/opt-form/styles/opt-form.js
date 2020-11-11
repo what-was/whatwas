@@ -19,7 +19,7 @@ export const Input = styled.input`
   padding: 10px;
   height: 2.5rem;
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 3px;
 
   @media (max-width: 1000px) {
     max-width: 250px;
@@ -36,23 +36,23 @@ export const Button = styled.button`
   align-items: center;
   height: 100%;
   height: 2.5rem;
-  background-color: #f94144;   
+  background-color: #f94144;
   color: white;
-  padding: 0 32px;
+  padding: 8px 17px;
   font-size: 1rem;
   border: 0;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 3px;
   margin-left: 1rem;
   transition: 100ms all ease;
   &:hover {
-  background-color: #ef233c; 
+    background-color: #ef233c;
   }
   @media (max-width: 1000px) {
     font-size: 16px;
   }
   @media (max-width: 375px) {
-    margin: 10px 0 0 0;
+    margin-left: 5px;
   }
 `;
 

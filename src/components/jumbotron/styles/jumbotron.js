@@ -32,17 +32,19 @@ export const Title = styled.h2`
 `;
 
 export const SubTitle = styled.h3`
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: normal;
   line-height: normal;
+  color: #828282;
   @media (max-width: 600px) {
     font-size: 18px;
   }
 `;
 
 export const Image = styled.img`
-  max-width: 100%;
+  max-width: 80%;
   height: auto;
+  float: ${({ float }) => float};
 `;
 
 export const Item = styled.div`

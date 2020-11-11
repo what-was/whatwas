@@ -12,7 +12,11 @@ export const JumbotronContainer = () => {
             <Jumbotron.SubTitle>{item.subTitle}</Jumbotron.SubTitle>
           </Jumbotron.Pane>
           <Jumbotron.Pane>
-            <Jumbotron.Image src={item.image} alt={item.alt} />
+            <Jumbotron.Image
+              float={item.direction === 'row' ? 'right' : 'left'}
+              src={item.image}
+              alt={item.alt}
+            />
           </Jumbotron.Pane>
         </Jumbotron>
       ))}
