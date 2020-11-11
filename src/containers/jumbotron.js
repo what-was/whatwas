@@ -16,6 +16,7 @@ export const JumbotronContainer = () => {
               float={item.direction === 'row' ? 'right' : 'left'}
               src={item.image}
               alt={item.alt}
+              loading="lazy"
             />
           </Jumbotron.Pane>
         </Jumbotron>

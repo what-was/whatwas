@@ -6,7 +6,7 @@ export const Container = styled.div`
   height: 100%;
   flex-wrap: wrap;
   max-width: 650px;
-  margin: 4rem auto;
+  margin: 4rem auto 7rem;
   @media (max-width: 300px) {
     padding: 15px 20px;
   }
@@ -36,8 +36,8 @@ export const Button = styled.button`
   align-items: center;
   height: 100%;
   height: 2.5rem;
-  background-color: #f94144;
-  color: white;
+  background-color: #f25042;
+  color: #fffffe;
   padding: 8px 17px;
   font-size: 1rem;
   border: 0;
@@ -46,7 +46,7 @@ export const Button = styled.button`
   margin-left: 1rem;
   transition: 100ms all ease;
   &:hover {
-    background-color: #ef233c;
+    background-color: #f94144;
   }
   @media (max-width: 1000px) {
     font-size: 16px;
@@ -58,7 +58,7 @@ export const Button = styled.button`
 
 export const Text = styled.p`
   font-size: 14px;
-  color: #666666;
+  color: #72757e;
   text-align: center;
   @media (max-width: 600px) {
     font-size: 16px;
@@ -67,7 +67,7 @@ export const Text = styled.p`
 `;
 export const Title = styled.h1`
   font-size: 3rem;
-  color: white;
+  color: #fffffe;
   text-align: center;
   line-heigth: 1;
   margin: 0;
@@ -79,7 +79,7 @@ export const Title = styled.h1`
 `;
 export const SubTitle = styled.h2`
   font-size: 1.2rem;
-  color: #828282;
+  color: #72757e;
   text-align: center;
   line-heigth: 1.5;
   font-weight: 500;

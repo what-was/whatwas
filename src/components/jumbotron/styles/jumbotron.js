@@ -35,7 +35,7 @@ export const SubTitle = styled.h3`
   font-size: 1.3rem;
   font-weight: normal;
   line-height: normal;
-  color: #828282;
+  color: #72757e;
   @media (max-width: 600px) {
     font-size: 18px;
   }
@@ -49,12 +49,13 @@ export const Image = styled.img`
 
 export const Item = styled.div`
   display: flex;
-  padding: 50px 5%;
-  color: white;
+  padding: 6rem 5%;
+  color: #fffffe;
   overflow: hidden;
 `;
 
 export const Container = styled.div`
+  background-color: #0f0f12;
   @media (max-width: 1000px) {
     ${Item}:last-of-type h2 {
       margin-bottom: 50px;

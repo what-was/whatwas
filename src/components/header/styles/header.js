@@ -17,7 +17,7 @@ export const Container = styled.div`
 `;
 
 export const Link = styled.p`
-  color: #fff;
+  color: #fffffe;
   text-decoration: none;
   margin-right: 30px;
   font-weight: ${({ active }) => (active === 'true' ? '700' : 'normal')};
@@ -72,10 +72,10 @@ export const SearchIcon = styled.button`
 
 export const ButtonLink = styled(ReachRouterLink)`
   display: block;
-  background-color: #f94144;
+  background-color: #f25042;
   width: auto;
   height: fit-content;
-  color: white;
+  color: #fffffe;
   border: 0;
   font-size: 15px;
   border-radius: 3px;
@@ -85,7 +85,7 @@ export const ButtonLink = styled(ReachRouterLink)`
   box-sizing: border-box;
   justify-content: flex-start;
   &:hover {
-    background: #ef233c;
+    background: #f94144;
   }
 `;
 
@@ -153,6 +153,7 @@ export const Logo = styled.img`
   height: 26px;
   width: auto;
   margin-right: 40px;
+  padding: 15px 10px 15px 0;
   @media (min-width: 1449px) {
     height: 26px;
     width: auto;
