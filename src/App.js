@@ -1,27 +1,33 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 // import { Header } from './components/layout/Header';
 // import { Content } from './components/layout/Content';
 // import { BoardsProvider, SelectedBoardProvider } from './context';
-import { Home, Browse, Signin, Signup } from './pages';
+import { Home, Dashboard, Signin, Signup } from './pages';
 import * as ROUTES from './constants/routes';
+import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
+import { useAuthListener } from './hooks';
 
 export const App = () =>
 {
+  const user = useAuthListener();
+
   return (
     <Router>
-      <Route exact path={ROUTES.HOME}>
-        <Home />
-      </Route>
-      <Route exact path={ROUTES.SIGN_IN}>
+      <IsUserRedirect user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.SIGN_IN} exact>
         <Signin />
-      </Route>
-      <Route exact path={ROUTES.SIGN_UP}>
+      </IsUserRedirect>
+      <IsUserRedirect user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.SIGN_UP} exact>
         <Signup />
-      </Route>
-      <Route exact path={ROUTES.BROWSE}>
-        <Browse />
-      </Route>
+      </IsUserRedirect>
+      <IsUserRedirect user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.HOME} exact>
+        <Home />
+      </IsUserRedirect>
+
+      <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
+        <Dashboard />
+      </ProtectedRoute>
+
     </Router>
 
     // <SelectedBoardProvider>

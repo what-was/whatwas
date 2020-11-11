@@ -20,7 +20,7 @@ export const Input = styled.input`
   height: 2.5rem;
   box-sizing: border-box;
   border-radius: 3px;
-
+  border: 1px solid #a81d1d;
   @media (max-width: 1000px) {
     max-width: 250px;
   }
@@ -36,7 +36,7 @@ export const Button = styled.button`
   align-items: center;
   height: 100%;
   height: 2.5rem;
-  background-color: #f25042;
+  background-color: #a81d1d;
   color: #fffffe;
   padding: 8px 17px;
   font-size: 1rem;
@@ -58,7 +58,7 @@ export const Button = styled.button`
 
 export const Text = styled.p`
   font-size: 14px;
-  color: #72757e;
+  color: #222525;
   text-align: center;
   @media (max-width: 600px) {
     font-size: 16px;
@@ -67,7 +67,7 @@ export const Text = styled.p`
 `;
 export const Title = styled.h1`
   font-size: 3rem;
-  color: #fffffe;
+  color: #232323;
   text-align: center;
   line-heigth: 1;
   margin: 0;
@@ -79,7 +79,7 @@ export const Title = styled.h1`
 `;
 export const SubTitle = styled.h2`
   font-size: 1.2rem;
-  color: #72757e;
+  color: #222525;
   text-align: center;
   line-heigth: 1.5;
   font-weight: 500;

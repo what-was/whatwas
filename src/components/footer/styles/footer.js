@@ -2,12 +2,13 @@ import styled from 'styled-components/macro';
 
 export const Container = styled.div`
   display: flex;
-  padding: 70px 56px;
+  padding: 50px 56px;
   margin: auto;
   max-width: 1000px;
   flex-direction: column;
+  margin-top: 50px;
   @media (max-width: 1000px) {
-    padding: 70px 30px;
+    padding: 50px 30px;
   }
 `;
 
@@ -37,7 +38,7 @@ export const Row = styled.div`
 `;
 
 export const Link = styled.a`
-  color: #72757e;
+  color: #222525;
   margin-bottom: 20px;
   font-size: 13px;
   text-decoration: none;
@@ -49,13 +50,14 @@ export const Link = styled.a`
 
 export const Title = styled.p`
   font-size: 16px;
-  color: #72757e;
+  color: #222525;
+  margin-top: 0;
   margin-bottom: 40px;
 `;
 
 export const Text = styled.p`
   font-size: 13px;
-  color: #72757e;
+  color: #222525;
   margin-bottom: 40px;
 `;
 

@@ -5,11 +5,11 @@ export const GlobalStyles = createGlobalStyle`
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #16161a;
-  color: #94a1b2;
+  background-color: #f8f5f2;
+  color: #222525;
   font-size: 16px;  
 }
 ::selection {
   color: #fffffe;
-  background-color: #f25042;
+  background-color: #a81d1d;
 }`;

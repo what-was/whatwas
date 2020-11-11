@@ -72,7 +72,7 @@ export const SearchIcon = styled.button`
 
 export const ButtonLink = styled(ReachRouterLink)`
   display: block;
-  background-color: #f25042;
+  background-color: #a81d1d;
   width: auto;
   height: fit-content;
   color: #fffffe;
@@ -84,6 +84,7 @@ export const ButtonLink = styled(ReachRouterLink)`
   text-decoration: none;
   box-sizing: border-box;
   justify-content: flex-start;
+  transition: 100ms all ease;
   &:hover {
     background: #f94144;
   }

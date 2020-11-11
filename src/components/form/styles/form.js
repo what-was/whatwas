@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 600px;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   box-sizing: border-box;
   width: 100%;
@@ -32,7 +32,7 @@ export const Base = styled.form`
 `;
 
 export const Title = styled.h1`
-  color: #fffffe;
+  color: #232323;
   font-size: 32px;
   font-weight: bold;
   margin-top: 10px;
@@ -40,7 +40,7 @@ export const Title = styled.h1`
 `;
 
 export const Text = styled.p`
-  color: #72757e;
+  color: #222525;
   font-size: 15px;
   font-weight: 500;
 `;
@@ -49,14 +49,14 @@ export const TextSmall = styled.p`
   margin-top: 10px;
   font-size: 12px;
   line-height: normal;
-  color: #72757e;
+  color: #222525;
 `;
 
 export const Link = styled(ReachRouterLink)`
-  color: #f94144;
-  font-size: 15px;
+  color: #2b2c34;
+  font-size: 16px;
   text-decoration: none;
-  margin-left: 2px;
+  font-weight: 700;
   &:hover {
     color: #ef233c;
     text-decoration: underline;
@@ -64,10 +64,10 @@ export const Link = styled(ReachRouterLink)`
 `;
 
 export const Input = styled.input`
-  background-color: #212121;
+  background-color: #fffffe;
   border-radius: 4px;
   border: 0;
-  color: #eff0f3;
+  color: #222525;
   height: 2rem;
   line-height: 50px;
   padding: 5px 20px;
@@ -85,17 +85,17 @@ export const Submit = styled.button`
   padding: 0.75rem;
   border: 0;
   color: #fffffe;
-  background-color: #f25042;
+  background-color: #a81d1d;
   cursor: pointer;
   transition: 100ms all ease;
   &:hover {
     background-color: #f94144;
   }
   &:disabled {
-    opacity: 0.2;
+    opacity: 0.5;
     cursor: not-allowed;
     &:hover {
-      background-color: #f25042;
+      background-color: #a81d1d;
     }
   }
 `;
