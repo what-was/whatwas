@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 // import { Header } from './components/layout/Header';
 // import { Content } from './components/layout/Content';
 // import { BoardsProvider, SelectedBoardProvider } from './context';
@@ -10,24 +10,25 @@ import { useAuthListener } from './hooks';
 
 export const App = () =>
 {
-  const user = useAuthListener();
+  const user = useAuthListener().user;
 
   return (
     <Router>
-      <IsUserRedirect user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.SIGN_IN} exact>
-        <Signin />
-      </IsUserRedirect>
-      <IsUserRedirect user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.SIGN_UP} exact>
-        <Signup />
-      </IsUserRedirect>
-      <IsUserRedirect user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.HOME} exact>
-        <Home />
-      </IsUserRedirect>
+      <Switch>
+        <IsUserRedirect user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.SIGN_IN} exact>
+          <Signin />
+        </IsUserRedirect>
+        <IsUserRedirect user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.SIGN_UP} exact>
+          <Signup />
+        </IsUserRedirect>
+        <IsUserRedirect user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.HOME} exact>
+          <Home />
+        </IsUserRedirect>
 
-      <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
-        <Dashboard />
-      </ProtectedRoute>
-
+        <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
+          <Dashboard />
+        </ProtectedRoute>
+      </Switch>
     </Router>
 
     // <SelectedBoardProvider>
