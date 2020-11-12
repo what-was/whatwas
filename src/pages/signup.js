@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { FirebaseContext } from '../context/firebase';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
@@ -46,6 +46,9 @@ export default function Signup() {
         setError(error.message);
       });
   };
+
+  document.title = 'Sign up - WhatWas';
+
   return (
     <>
       <HeaderContainer route="sign-in">

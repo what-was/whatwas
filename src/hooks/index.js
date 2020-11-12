@@ -1,4 +1,4 @@
-// import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 // import moment from 'moment';
 // import { firebase } from '../firebase';
 import { collatedNotesExist } from '../helpers';
@@ -85,3 +85,5 @@ import { collatedNotesExist } from '../helpers';
 // };
 
 export { default as useAuthListener } from './use-auth-listener';
+export { default as useContent } from './use-content';
+export { default as cacheBoards } from './cache-boards';

@@ -35,9 +35,11 @@ export default function Signin() {
         setEmailAddress('');
         setPassword('');
         setError(error.message);
+        console.log('sign in error');
       });
   };
 
+  document.title = 'Sign in - WhatWas';
   return (
     <>
       <HeaderContainer route="sign-up">
@@ -67,7 +69,7 @@ export default function Signin() {
             </Form.Submit>
           </Form.Base>
           <Form.Text>
-            Don't have an account?{' '}
+            Already have an account?{' '}
             <Form.Link to={ROUTES.SIGN_UP}>Sign up.</Form.Link>
           </Form.Text>
           <Form.TextSmall>

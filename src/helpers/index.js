@@ -1,10 +1,6 @@
-import { collatedNotes } from '../constants';
 
 export const getTitle = (boards, boardId) => boards.find(board => board.boardId === boardId);
 
-export const getCollatedTitle = (boards, key) => boards.find(board => board.key === key);
-
-export const collatedNotesExist = selectedProject => collatedNotes.find(task => task.key === selectedProject);
 
 
 // Generates Random ID

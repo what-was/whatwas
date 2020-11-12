@@ -36,11 +36,11 @@ export const Group = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  background-color: #44444459;
-  color: white;
+  background-color: #fffffe;
+  color: #222525;
   border: 1px solid white;
   transition: width 0.5s;
-  height: 30px;
+  height: 35px;
   font-size: 14px;
   margin-left: ${({ active }) => (active === true ? '10px' : '0')};
   padding: ${({ active }) => (active === true ? '0 10px' : '0')};
@@ -61,12 +61,21 @@ export const Search = styled.div`
 `;
 
 export const SearchIcon = styled.button`
+  outline: 0;
+  border: 0;
   cursor: pointer;
   background-color: transparent;
-  border: 0;
-  img {
-    filter: brightness(0) invert(1);
-    width: 16px;
+  border-radius: 20px;
+  padding: 10px;
+  transition: 200ms background-color ease;
+  svg {
+    color: #232323;
+    width: auto;
+    height: 1.3rem;
+  }
+
+  &:hover {
+    background-color: #fffffe;
   }
 `;
 
@@ -77,9 +86,9 @@ export const ButtonLink = styled(ReachRouterLink)`
   height: fit-content;
   color: #fffffe;
   border: 0;
-  font-size: 15px;
+  font-size: 1rem;
   border-radius: 3px;
-  padding: 8px 17px;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   text-decoration: none;
   box-sizing: border-box;
@@ -94,19 +103,23 @@ export const Picture = styled.button`
   background: url(${({ src }) => src});
   background-size: contain;
   border: 0;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
 `;
 
 export const Dropdown = styled.div`
   display: none;
   position: absolute;
-  background-color: black;
-  padding: 10px;
+  background-color: #fffffe;
+  padding: 15px 25px;
   width: 100px;
   top: 32px;
   right: 10px;
+  -webkit-box-shadow: 0px 30px 90px -25px rgba(220, 187, 160, 1);
+  -moz-box-shadow: 0px 30px 90px -25px rgba(220, 187, 160, 1);
+  box-shadow: 0px 30px 90px -25px rgba(220, 187, 160, 1);
+  transition: all 200ms ease;
   ${Group}:last-of-type ${Link} {
     cursor: pointer;
   }
@@ -144,10 +157,18 @@ export const Profile = styled.div`
 `;
 
 export const Text = styled.p`
-  color: white;
+  color: #232323;
   font-size: 22px;
   line-height: normal;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.45);
+`;
+export const TextLink = styled.p`
+  color: #232323;
+  font-size: 1rem !important;
+  line-height: normal;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const Logo = styled.img`
@@ -161,21 +182,7 @@ export const Logo = styled.img`
   }
 `;
 
-export const PlayButton = styled.button`
-  box-shadow: 0 0.6vw 1vw -0.4vw rgba(0, 0, 0, 0.35);
-  background-color: #e6e6e6;
-  color: #000;
-  border-width: 0;
-  padding: 10px 20px;
-  border-radius: 5px;
-  max-width: 130px;
-  font-weight: bold;
-  font-size: 20px;
-  margin-top: 10px;
-  cursor: pointer;
-  transition: background-color 0.5s ease;
-  &:hover {
-    background-color: #ff1e1e;
-    color: white;
-  }
+export const BoardTitle = styled.h3`
+  color: #232323;
+  font-size: 1.25rem;
 `;

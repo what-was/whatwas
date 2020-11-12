@@ -35,11 +35,10 @@ export const Button = styled.button`
   display: flex;
   align-items: center;
   height: 100%;
-  height: 2.5rem;
   background-color: #a81d1d;
   color: #fffffe;
-  padding: 8px 17px;
-  font-size: 1rem;
+  padding: 0.7rem 1.33rem;
+  font-size: 16px;
   border: 0;
   cursor: pointer;
   border-radius: 3px;
