@@ -181,8 +181,3 @@ export const Logo = styled.img`
     width: auto;
   }
 `;
-
-export const BoardTitle = styled.h3`
-  color: #232323;
-  font-size: 1.25rem;
-`;

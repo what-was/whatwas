@@ -11,7 +11,6 @@ import {
   SearchIcon,
   SearchInput,
   ButtonLink,
-  BoardTitle,
   TextLink,
   Text,
   Logo,
@@ -76,9 +75,6 @@ Header.Dropdown = function HeaderDropdown({ children, ...restProps }) {
   return <Dropdown {...restProps}>{children}</Dropdown>;
 };
 
-Header.BoardTitle = function HeaderBoardTitle({ children, ...restProps }) {
-  return <BoardTitle {...restProps}>{children}</BoardTitle>;
-};
 Header.TextLink = function HeaderTextLink({ children, ...restProps }) {
   return <TextLink {...restProps}>{children}</TextLink>;
 };

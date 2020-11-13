@@ -4,8 +4,6 @@ import { useContent } from '../hooks';
 import { Board, Dashboard } from '../components';
 
 
-import logo from '../logo-white.svg';
-
 export function DashboardContainer()
 {
     const [title, setTitle] = useState('Dashboard');
@@ -17,17 +15,20 @@ export function DashboardContainer()
     console.log(user);
     return (
         <Dashboard>
-            {boards && boards.boards.map(board => (
-                <Board>
-                    <Board.Title>{board.name}</Board.Title>
-                    <Board.ProfileContainer>
-                        <Board.ProfilePhoto src={user.photoURL} />
-                        <Board.ProfileName>{user.displayName}</Board.ProfileName>
-                    </Board.ProfileContainer>
-                </Board>)
+            <Dashboard.Title>{title}</Dashboard.Title>
+            <Dashboard.Inner>
+                {boards && boards.boards.map(board => (
+                    <Board>
+                        <Board.Title>{board.name}</Board.Title>
+                        <Board.ProfileContainer>
+                            <Board.ProfilePhoto src={user.photoURL} />
+                            <Board.ProfileName>{user.displayName}</Board.ProfileName>
+                        </Board.ProfileContainer>
+                    </Board>)
 
-            )
-            }
+                )
+                }
+            </Dashboard.Inner>
         </Dashboard>
     );
 }

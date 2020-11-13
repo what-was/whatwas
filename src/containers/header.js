@@ -26,7 +26,6 @@ export function HeaderContainer({ children, route, title }) {
       <Header.Frame>
         <Header.Group>
           <Header.Logo to={ROUTES.DASHBOARD} src={logo} alt="WhatWas" />
-          <Header.BoardTitle>{title}</Header.BoardTitle>
         </Header.Group>
         <Header.Group>
           <Header.Search

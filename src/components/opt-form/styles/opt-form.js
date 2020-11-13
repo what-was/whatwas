@@ -59,6 +59,7 @@ export const Text = styled.p`
   font-size: 14px;
   color: #222525;
   text-align: center;
+  margin: 1rem 0;
   @media (max-width: 600px) {
     font-size: 16px;
     line-height: 22px;
@@ -80,9 +81,9 @@ export const SubTitle = styled.h2`
   font-size: 1.2rem;
   color: #222525;
   text-align: center;
-  line-heigth: 1.5;
+  line-height: 1.5;
   font-weight: 500;
-  margin: 15px 0 30px;
+  margin: 1.5rem 0 3rem;
   @media (max-width: 600px) {
     max-width: 350px;
     font-size: 1.1rem;
