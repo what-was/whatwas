@@ -3,7 +3,7 @@ import { FirebaseContext } from '../context/firebase';
 
 import { useAuthListener } from '.';
 
-export default function useContent(target, whereDb, query, localProp) {
+export default function useContent(target) {
   const [content, setContent] = useState([]);
   const { firebase } = useContext(FirebaseContext);
   const user = useAuthListener().user;
