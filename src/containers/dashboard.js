@@ -9,16 +9,14 @@ export function DashboardContainer()
     const [title, setTitle] = useState('Dashboard');
     const user = JSON.parse(localStorage.getItem('authUser'));
     const boards = useContent('boards');
-    console.log(boards.boards[2]);
     document.title = `${title} - WhatWas`;
 
-    console.log(user);
     return (
         <Dashboard>
             <Dashboard.Title>{title}</Dashboard.Title>
             <Dashboard.Inner>
                 {boards && boards.boards.map(board => (
-                    <Board>
+                    <Board key={board.id}>
                         <Board.Title>{board.name}</Board.Title>
                         <Board.ProfileContainer>
                             <Board.ProfilePhoto src={user.photoURL} />
