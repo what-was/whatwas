@@ -2,28 +2,40 @@ import React, { useState, useContext } from 'react';
 import { Header } from '../components';
 import * as ROUTES from '../constants/routes';
 import { FirebaseContext } from '../context/firebase';
-import logo from '../logo-white.svg';
+import logo from '../logo-black.svg';
 
 export function HeaderContainer({ children, route, title }) {
   const [searchTerm, setSearchTerm] = useState('');
   const user = JSON.parse(localStorage.getItem('authUser'));
   const { firebase } = useContext(FirebaseContext);
 
+  let ctaText;
+  if (window.location.pathname === '/signin') {
+    ctaText = "Don't have an account?";
+  } else if (window.location.pathname === '/signup') {
+    ctaText = 'Already have an account?';
+  } else {
+    ctaText = null;
+  }
+
   return !user ? (
     <Header>
       <Header.Frame>
         <Header.Logo to={ROUTES.HOME} src={logo} alt="WhatWas" />
-        <Header.ButtonLink
-          to={route === 'sign-in' ? ROUTES.SIGN_IN : ROUTES.SIGN_UP}
-        >
-          {route === 'sign-in' ? 'Sign in' : 'Sign up'}
-        </Header.ButtonLink>
+        <Header.Group>
+          <Header.Text>{ctaText}</Header.Text>
+          <Header.ButtonLink
+            to={route === 'sign-in' ? ROUTES.SIGN_IN : ROUTES.SIGN_UP}
+          >
+            {route === 'sign-in' ? 'Sign in' : 'Sign up'}
+          </Header.ButtonLink>
+        </Header.Group>
       </Header.Frame>
       {children}
     </Header>
   ) : (
     <Header>
-      <Header.Frame>
+      <Header.Frame className="signed-in">
         <Header.Group>
           <Header.Logo to={ROUTES.DASHBOARD} src={logo} alt="WhatWas" />
         </Header.Group>

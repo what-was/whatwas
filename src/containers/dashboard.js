@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
 import * as ROUTES from '../constants/routes';
-import { useContent } from '../hooks';
 import { Board, Dashboard } from '../components';
 
+export function DashboardContainer() {
+  const [title, setTitle] = useState('Dashboard');
+  const user = JSON.parse(localStorage.getItem('authUser'));
 
-export function DashboardContainer()
-{
-    const [title, setTitle] = useState('Dashboard');
-    const user = JSON.parse(localStorage.getItem('authUser'));
-    const boards = useContent('boards');
-    document.title = `${title} - WhatWas`;
+  document.title = `${title} - WhatWas`;
 
-    return (
-        <Dashboard>
-            <Dashboard.Title>{title}</Dashboard.Title>
-            <Dashboard.Inner>
-                {boards && boards.boards.map(board => (
+  return (
+    <Dashboard>
+      <Dashboard.Title>{title}</Dashboard.Title>
+      <Dashboard.Inner>
+        {/* {boards && boards.boards.map(board => (
                     <Board key={board.id}>
                         <Board.Title>{board.name}</Board.Title>
                         <Board.ProfileContainer>
@@ -25,8 +22,8 @@ export function DashboardContainer()
                     </Board>)
 
                 )
-                }
-            </Dashboard.Inner>
-        </Dashboard>
-    );
+                } */}
+      </Dashboard.Inner>
+    </Dashboard>
+  );
 }

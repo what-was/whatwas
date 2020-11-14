@@ -3,7 +3,7 @@ import { Link as ReachRouterLink } from 'react-router-dom';
 
 export const Container = styled.div`
   display: flex;
-  margin: 0 56px;
+  margin: ${(props) => (props.className === 'signed-in' ? '0 28px' : '0 56px')};
   height: 64px;
   padding: 18px 0;
   justify-content: space-between;
@@ -114,7 +114,7 @@ export const Dropdown = styled.div`
   background-color: #fffffe;
   padding: 15px 25px;
   width: 100px;
-  top: 32px;
+  top: 2.5rem;
   right: 10px;
   -webkit-box-shadow: 0px 30px 90px -25px rgba(220, 187, 160, 1);
   -moz-box-shadow: 0px 30px 90px -25px rgba(220, 187, 160, 1);
@@ -158,8 +158,9 @@ export const Profile = styled.div`
 
 export const Text = styled.p`
   color: #232323;
-  font-size: 22px;
+  font-size: 1rem;
   line-height: normal;
+  margin-right: 10px;
 `;
 export const TextLink = styled.p`
   color: #232323;

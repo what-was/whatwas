@@ -23,6 +23,10 @@ export default function Signup() {
     '' ||
     !emailAddress.includes('@');
 
+  if (emailAddress.length === 0 && localStorage.getItem('signupEmail')) {
+    setEmailAddress(localStorage.getItem('signupEmail'));
+  }
+
   const handleSignup = (event) => {
     event.preventDefault();
 
@@ -51,49 +55,43 @@ export default function Signup() {
 
   return (
     <>
-      <HeaderContainer route="sign-in">
-        <Form>
-          <Form.Title>Sign Up</Form.Title>
-          {error && <Form.Error>{error}</Form.Error>}
+      <HeaderContainer route="sign-in" />
+      <Form>
+        <Form.Title>Sign Up</Form.Title>
+        {error && <Form.Error>{error}</Form.Error>}
 
-          <Form.Base onSubmit={handleSignup} method="POST">
-            <Form.TextSmall>Full name</Form.TextSmall>
-            <Form.Input
-              placeholder="First name"
-              value={firstName}
-              onChange={({ target }) => setFirstName(target.value)}
-              aria-label="First Name"
-            />
-            <Form.TextSmall>Email adress</Form.TextSmall>
-            <Form.Input
-              placeholder="Email address"
-              value={emailAddress}
-              onChange={({ target }) => setEmailAddress(target.value)}
-              aria-label="Email Address"
-            />
-            <Form.TextSmall>Password</Form.TextSmall>
-            <Form.Input
-              type="password"
-              autoComplete="off"
-              placeholder="Password"
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-              aria-label="Password"
-            />
-            <Form.Submit disabled={isInvalid} type="submit">
-              Sign up
-            </Form.Submit>
-          </Form.Base>
-          <Form.Text>
-            Already have an account?{' '}
-            <Form.Link to={ROUTES.SIGN_IN}>Sign in.</Form.Link>
-          </Form.Text>
-          <Form.TextSmall>
-            This page is protected by Google reCAPTCHA to ensure you're not a
-            bot.
-          </Form.TextSmall>
-        </Form>
-      </HeaderContainer>
+        <Form.Base onSubmit={handleSignup} method="POST">
+          <Form.TextSmall>Full name</Form.TextSmall>
+          <Form.Input
+            placeholder="First name"
+            value={firstName}
+            onChange={({ target }) => setFirstName(target.value)}
+            aria-label="First Name"
+          />
+          <Form.TextSmall>Email adress</Form.TextSmall>
+          <Form.Input
+            placeholder="Email address"
+            value={emailAddress}
+            onChange={({ target }) => setEmailAddress(target.value)}
+            aria-label="Email Address"
+          />
+          <Form.TextSmall>Password</Form.TextSmall>
+          <Form.Input
+            type="password"
+            autoComplete="off"
+            placeholder="Password"
+            value={password}
+            onChange={({ target }) => setPassword(target.value)}
+            aria-label="Password"
+          />
+          <Form.Submit disabled={isInvalid} type="submit">
+            Sign up
+          </Form.Submit>
+        </Form.Base>
+        <Form.TextSmall>
+          This page is protected by Google reCAPTCHA to ensure you're not a bot.
+        </Form.TextSmall>
+      </Form>
       <FooterContainer></FooterContainer>
     </>
   );

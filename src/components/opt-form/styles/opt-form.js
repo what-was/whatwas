@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 
-export const Container = styled.div`
+export const Container = styled.form`
   display: flex;
   justify-content: center;
   height: 100%;
@@ -44,6 +44,7 @@ export const Button = styled.button`
   border-radius: 3px;
   margin-left: 1rem;
   transition: 100ms all ease;
+  font-weight: 500;
   &:hover {
     background-color: #f94144;
   }
@@ -82,7 +83,7 @@ export const SubTitle = styled.h2`
   color: #222525;
   text-align: center;
   line-height: 1.5;
-  font-weight: 500;
+  font-weight: 400;
   margin: 1.5rem 0 3rem;
   @media (max-width: 600px) {
     max-width: 350px;

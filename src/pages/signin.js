@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  useContext,
-} from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FirebaseContext } from '../context/firebase';
 import { HeaderContainer } from '../containers/header';
@@ -45,42 +42,36 @@ export default function Signin() {
   document.title = 'Sign in - WhatWas';
   return (
     <>
-      <HeaderContainer route="sign-up">
-        <Form>
-          <Form.Title>Sign In</Form.Title>
-          {error && <Form.Error>{error}</Form.Error>}
+      <HeaderContainer route="sign-up" />
+      <Form>
+        <Form.Title>Sign In</Form.Title>
+        {error && <Form.Error>{error}</Form.Error>}
 
-          <Form.Base onSubmit={handleSignin} method="POST">
-            <Form.TextSmall>Email Adress</Form.TextSmall>
-            <Form.Input
-              placeholder="Email Address"
-              value={emailAddress}
-              onChange={({ target }) => setEmailAddress(target.value)}
-              aria-label="Email Address"
-            />
-            <Form.TextSmall>Password</Form.TextSmall>
-            <Form.Input
-              type="password"
-              autoComplete="off"
-              placeholder="Password"
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-              aria-label="Password"
-            />
-            <Form.Submit disabled={isInvalid} type="submit">
-              Sign In
-            </Form.Submit>
-          </Form.Base>
-          <Form.Text>
-            Already have an account?{' '}
-            <Form.Link to={ROUTES.SIGN_UP}>Sign up.</Form.Link>
-          </Form.Text>
-          <Form.TextSmall>
-            This page is protected by Google reCAPTCHA to ensure you're not a
-            bot.
-          </Form.TextSmall>
-        </Form>
-      </HeaderContainer>
+        <Form.Base onSubmit={handleSignin} method="POST">
+          <Form.TextSmall>Email Adress</Form.TextSmall>
+          <Form.Input
+            placeholder="Email Address"
+            value={emailAddress}
+            onChange={({ target }) => setEmailAddress(target.value)}
+            aria-label="Email Address"
+          />
+          <Form.TextSmall>Password</Form.TextSmall>
+          <Form.Input
+            type="password"
+            autoComplete="off"
+            placeholder="Password"
+            value={password}
+            onChange={({ target }) => setPassword(target.value)}
+            aria-label="Password"
+          />
+          <Form.Submit disabled={isInvalid} type="submit">
+            Sign In
+          </Form.Submit>
+        </Form.Base>
+        <Form.TextSmall>
+          This page is protected by Google reCAPTCHA to ensure you're not a bot.
+        </Form.TextSmall>
+      </Form>
       <FooterContainer></FooterContainer>
     </>
   );

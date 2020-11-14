@@ -46,8 +46,8 @@ export const Text = styled.p`
 `;
 
 export const TextSmall = styled.p`
-  margin-top: 10px;
-  font-size: 12px;
+  margin: 5px 0 5px;
+  font-size: 14px;
   line-height: normal;
   color: #222525;
 `;
@@ -80,7 +80,7 @@ export const Input = styled.input`
 export const Submit = styled.button`
   border-radius: 4px;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 600;
   margin: 24px 0 12px;
   padding: 0.75rem;
   border: 0;

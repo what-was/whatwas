@@ -1,7 +1,9 @@
 import React from 'react';
 import { DashboardContainer } from '../containers/dashboard';
 import { HeaderContainer } from '../containers/header';
+import { SidebarContainer } from '../containers/sidebar';
 import { FooterContainer } from '../containers/footer';
+import { InnerPage } from '../components';
 
 export default function Dashboard() {
   const user = JSON.parse(localStorage.getItem('authUser'));
@@ -9,9 +11,11 @@ export default function Dashboard() {
   return (
     <>
       <HeaderContainer title="Dashboard" />
-
-      <DashboardContainer />
-      <FooterContainer />
+      <InnerPage>
+        <SidebarContainer />
+        <DashboardContainer />
+      </InnerPage>
+      {/* <FooterContainer /> */}
     </>
   );
 }

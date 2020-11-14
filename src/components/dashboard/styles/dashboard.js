@@ -1,31 +1,39 @@
 import styled from 'styled-components/macro';
 
+const backgroundColor = '#f8f5f2';
+const containerColor = '#fffffe';
+
 export const Container = styled.div`
   display: flex;
   flex-flow: wrap;
-  max-width: 82rem;
-  margin: 0 auto;
+  flex-grow: 1;
+  margin: 0 28px 28px;
   flex-direction: column;
-  padding: 1rem;
+  padding: 1.5rem 2rem;
+  background-color: ${containerColor};
+  border-radius: 20px;
 
-  @media (max-width: 1349px) {
-    max-width: 61.5rem;
-  }
-  @media (max-width: 1020px) {
-    max-width: 57rem;
-  }
-  @media (max-width: 950px) {
-    max-width: 38rem;
-  }
-  @media (max-width: 640px) {
-    max-width: 19rem;
+  @media (max-width: 1000px) {
+    margin: 0 30px 0 0;
   }
 `;
 
 export const Title = styled.h3`
-  margin: 2rem 1.25rem;
-  font-size: 2.4rem;
-  @media (max-width: 1020px) {
+  margin: 1rem;
+  border-radius: 0 0 10px 0;
+  position: absolute;
+  font-size: 2rem;
+  font-weight: 600;
+  @media (max-width: 800px) {
+    margin: 2rem 0.5rem;
+  }
+`;
+
+export const SubTitle = styled.h3`
+  margin: 1.5rem 1.5rem 2rem;
+  font-size: 1.7rem;
+  font-weight: 500;
+  @media (max-width: 800px) {
     margin: 2rem 0.5rem;
   }
 `;
