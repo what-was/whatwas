@@ -12,6 +12,9 @@ export const Container = styled.div`
   padding: 1.5rem 2rem;
   background-color: ${containerColor};
   border-radius: 20px;
+  -webkit-box-shadow: 0px 20px 30px -15px rgba(220, 187, 160, 1);
+  -moz-box-shadow: 0px 20px 30px -15px rgba(220, 187, 160, 1);
+  box-shadow: 0px 20px 30px -15px rgba(220, 187, 160, 1);
 
   @media (max-width: 1000px) {
     margin: 0 30px 0 0;
