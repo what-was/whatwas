@@ -23,8 +23,15 @@ export const ListItem = styled.li`
   list-style-type: none;
   padding: 10px 28px;
   cursor: pointer;
+
+  ${'' /* ${(props) =>
+    props.status === 'active' ? 'font-weight: 700' : 'font-weight: 400'} */}
+
   &:hover {
     background-color: #fffdfc;
+  }
+  &:focus {
+    outline: 0;
   }
 `;
 

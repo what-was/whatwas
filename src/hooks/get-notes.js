@@ -1,0 +1,89 @@
+import { useState, useEffect, useContext } from 'react';
+import { FirebaseContext } from '../context/firebase';
+
+export default function getNotes(boardId) {
+  const [notes, setNotes] = useState([]);
+  // const [archivedNotes, setArchivedNotes] = useState([]);
+  const { firebase } = useContext(FirebaseContext);
+
+  const user = JSON.parse(localStorage.getItem('authUser'));
+
+  useEffect(() => {
+    if (boardId !== '') {
+      firebase
+        .firestore()
+        .collection('notes')
+        .where('boardId', '==', boardId)
+        .orderBy('updatedAt', 'desc')
+        .get()
+        .then((snapshot) => {
+          const allNotes = snapshot.docs.map((content) => ({
+            ...content.data(),
+            docId: content.id,
+          }));
+          if (JSON.stringify(allNotes) !== JSON.stringify(notes)) {
+            setNotes(allNotes);
+          }
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
+    } else {
+      firebase
+        .firestore()
+        .collection('notes')
+        .where('uid', '==', user.uid)
+        .orderBy('updatedAt', 'desc')
+        .limit(10)
+        .get()
+        .then((snapshot) => {
+          const allNotes = snapshot.docs.map((content) => ({
+            ...content.data(),
+            docId: content.id,
+          }));
+          if (JSON.stringify(allNotes) !== JSON.stringify(notes)) {
+            setNotes(allNotes);
+          }
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
+    }
+  }, [boardId]);
+
+  return { notes };
+}
+
+export const getTitle = (boardId) => {
+  const [title, setTitle] = useState('');
+  // const [archivedNotes, setArchivedNotes] = useState([]);
+  const { firebase } = useContext(FirebaseContext);
+
+  const user = JSON.parse(localStorage.getItem('authUser'));
+
+  useEffect(() => {
+    if (boardId !== '') {
+      firebase
+        .firestore()
+        .collection('boards')
+        .where('boardId', '==', boardId)
+        .limit(1)
+        .get()
+        .then((snapshot) => {
+          const selectedTitle = snapshot.docs.map((content) => ({
+            ...content.data(),
+            docId: content.id,
+          }));
+          if (JSON.stringify(selectedTitle) !== JSON.stringify(title)) {
+            setTitle(selectedTitle[0].name);
+          }
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
+    } else {
+      setTitle('Dashboard');
+    }
+  }, [boardId]);
+  return title;
+};

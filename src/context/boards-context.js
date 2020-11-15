@@ -1,10 +1,10 @@
 import React, { createContext, useContext } from 'react';
-import { useBoards } from '../hooks';
+import { useBoards, useContent } from '../hooks';
 
 export const BoardsContext = createContext();
 export const BoardsProvider = ({ children }) =>
 {
-  const { boards, setBoards } = useBoards();
+  const { boards, setBoards } = useContent('boards');
 
   return (
     <BoardsContext.Provider value={{ boards, setBoards }}>

@@ -1,50 +1,43 @@
 import React from 'react';
-import
-{
-    Container,
-    List,
-    BoardContainer,
-    BoardName,
-    ListItem,
-    AddBoard,
+import {
+  Container,
+  List,
+  BoardContainer,
+  BoardName,
+  ListItem,
+  AddBoard,
 } from './styles/sidebar';
 
 import { BiPlus } from 'react-icons/bi';
 
-export default function Sidebar({ children })
-{
-    return <Container>{children}</Container>;
+export default function Sidebar({ children }) {
+  return <Container>{children}</Container>;
 }
 
-Sidebar.List = function SidebarList({ children, ...restProps })
-{
-    return <List {...restProps}>{children}</List>;
+Sidebar.List = function SidebarList({ children, ...restProps }) {
+  return <List {...restProps}>{children}</List>;
 };
 
-Sidebar.ListItem = function SidebarListItem({ children, ...restProps })
-{
-    return <ListItem {...restProps}>{children}</ListItem>;
+Sidebar.ListItem = function SidebarListItem({ children, ...restProps }) {
+  return <ListItem {...restProps}>{children}</ListItem>;
 };
 
 Sidebar.BoardContainer = function SidebarBoardContainer({
-    children,
-    ...restProps
-})
-{
-    return <BoardContainer {...restProps}> {children}</BoardContainer>;
+  children,
+  ...restProps
+}) {
+  return <BoardContainer {...restProps}> {children}</BoardContainer>;
 };
 
-Sidebar.BoardName = function SidebarBoardName({ children, ...restProps })
-{
-    return <BoardName {...restProps}> {children}</BoardName>;
+Sidebar.BoardName = function SidebarBoardName({ children, ...restProps }) {
+  return <BoardName {...restProps}> {children}</BoardName>;
 };
 
-Sidebar.AddBoard = function SidebarAddBoard({ children, ...restProps })
-{
-    return (
-        <AddBoard {...restProps}>
-            <BiPlus />
-            {children}
-        </AddBoard>
-    );
+Sidebar.AddBoard = function SidebarAddBoard({ children, ...restProps }) {
+  return (
+    <AddBoard {...restProps}>
+      <BiPlus />
+      {children}
+    </AddBoard>
+  );
 };

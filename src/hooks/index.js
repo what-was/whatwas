@@ -86,3 +86,5 @@ import { collatedNotesExist } from '../helpers';
 
 export { default as useAuthListener } from './use-auth-listener';
 export { default as useContent } from './use-content';
+export { default as getNotes } from './get-notes';
+export { getTitle } from './get-notes';

@@ -1,28 +1,44 @@
-import React from 'react';
-import { Board, Sidebar } from '../components';
-import { useContent } from '../hooks';
+import React, { useState } from 'react';
+import { Sidebar } from '../components';
+import { useSelectedBoardValue, useBoardsValue } from '../context';
 
-export function SidebarContainer()
-{
-    const boards = useContent('boards');
-    const user = JSON.parse(localStorage.getItem('authUser'));
+export function SidebarContainer({ activeValue = true }) {
+  // const boards = useContent('boards');
+  const { boards } = useBoardsValue();
+  const { setSelectedBoard } = useSelectedBoardValue();
+  const [active, setActive] = useState(activeValue);
+  const user = JSON.parse(localStorage.getItem('authUser'));
 
-    return (
-        <Sidebar>
-            <Sidebar.List>
-                {boards &&
-                    boards.boards.map((board) => (
-                        <Sidebar.ListItem key={board.id}>
-                            <Sidebar.BoardName>{board.name}</Sidebar.BoardName>
-                            {/* <Board.ProfileContainer>
-                                <Board.ProfilePhoto src={user.photoURL} />
-                                <Board.ProfileName>{user.displayName}</Board.ProfileName>
-                            </Board.ProfileContainer> */}
-                        </Sidebar.ListItem>
-                    ))}
-            </Sidebar.List>
+  return (
+    <Sidebar>
+      <Sidebar.List>
+        {boards &&
+          boards.map((board) => (
+            <Sidebar.ListItem
+              key={board.boardId}
+              data-doc-id={board.docId}
+              data-testid="board-action"
+              role="button"
+              tabIndex={0}
+              aria-label={`Select ${board.name} as the board`}
+              status={active === board.boardId ? 'active' : ''}
+              onClick={() => {
+                setActive(board.boardId);
+                setSelectedBoard(board.boardId);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setActive(board.boardId);
+                  setSelectedBoard(board.boardId);
+                }
+              }}
+            >
+              <Sidebar.BoardName>{board.name}</Sidebar.BoardName>
+            </Sidebar.ListItem>
+          ))}
+      </Sidebar.List>
 
-            <Sidebar.AddBoard>Add Board</Sidebar.AddBoard>
-        </Sidebar>
-    );
+      <Sidebar.AddBoard>Add Board</Sidebar.AddBoard>
+    </Sidebar>
+  );
 }

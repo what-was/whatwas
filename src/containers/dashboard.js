@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import * as ROUTES from '../constants/routes';
-import { Board, Dashboard } from '../components';
+import { Dashboard } from '../components';
+import { BoardContainer } from './board';
 
 export function DashboardContainer() {
-  const [title, setTitle] = useState('Dashboard');
   const user = JSON.parse(localStorage.getItem('authUser'));
-
-  document.title = `${title} - WhatWas`;
 
   return (
     <Dashboard>
-      <Dashboard.Title>{title}</Dashboard.Title>
       <Dashboard.Inner>
+        <BoardContainer />
         {/* {boards && boards.boards.map(board => (
                     <Board key={board.id}>
                         <Board.Title>{board.name}</Board.Title>

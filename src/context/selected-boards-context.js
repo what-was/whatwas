@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
 
 export const SelectedBoardContext = createContext();
-export const SelectedBoardProvider = ({ children }) =>
-{
-  const [selectedBoard, setSelectedBoard] = useState('Today');
+export const SelectedBoardProvider = ({ children }) => {
+  const [selectedBoard, setSelectedBoard] = useState('');
 
   return (
     <SelectedBoardContext.Provider value={{ selectedBoard, setSelectedBoard }}>
@@ -13,4 +12,3 @@ export const SelectedBoardProvider = ({ children }) =>
 };
 
 export const useSelectedBoardValue = () => useContext(SelectedBoardContext);
-

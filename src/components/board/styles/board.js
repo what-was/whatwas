@@ -1,19 +1,39 @@
 import styled from 'styled-components/macro';
 
+const backgroundColor = (color) => {
+  switch (color) {
+    case 'yellow':
+      return '#fff05a';
+      break;
+    case 'blue':
+      return '#85beff';
+      break;
+    case 'pink':
+      return 'pink';
+      break;
+    case 'orange':
+      return '#ffdc5c';
+      break;
+    default:
+      'yellow';
+      break;
+  }
+};
+
 export const Container = styled.div`
   display: flex;
-  ${'' /* justify-content: space-between;
   flex-direction: column;
-  padding: 1rem 1.25rem;
-  background-color: #f8f5f2;
-  border: 1px solid #232323;
-  margin: 1.25rem;
-  border-radius: 10px;
-  color: #222525;
-  cursor: pointer; */}
 `;
 
-export const Title = styled.h3`
+export const Title = styled.h2`
+  display: flex;
+  margin: 2rem 3rem 1.25rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #232323;
+`;
+
+export const NoteTitle = styled.h4`
   margin: 0;
   font-size: 1.2rem;
   font-weight: 700;
@@ -28,26 +48,31 @@ export const Title = styled.h3`
   }
 `;
 
-export const NotesList = styled.span``;
+export const NoteContainer = styled.div`
+  display: flex;
+`;
+
+export const NotesList = styled.div`
+  background-color: ${(props) => backgroundColor(props.color)}};
+  margin: 1rem 0.75rem;
+  padding: 1rem 1.25rem;
+  max-width: 250px;
+  border-radius: 10px;
+`;
+
 export const ProfileContainer = styled.div`
   display: flex;
   align-items: center;
 `;
 
-export const ProfilePhoto = styled.button`
-  background: url(${({ src }) => src});
-  background-size: contain;
-  border: 0;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-`;
+export const NoteUpdatedDate = styled.p``;
 
-export const ProfileName = styled.p`
-  font-size: 15px;
+export const NoteSummary = styled.p`
+  font-size: 1rem;
   margin: 0;
-  margin-left: 10px;
-  text-transform: capitalize;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
-
-export const UpdatedText = styled.p``;
