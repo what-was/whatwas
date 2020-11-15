@@ -1,8 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
-// import { Header } from './components/layout/Header';
-// import { Content } from './components/layout/Content';
-// import { BoardsProvider, SelectedBoardProvider } from './context';
 import { Home, Dashboard, Signin, Signup } from './pages';
 import * as ROUTES from './constants/routes';
 import { IsUserRedirect, ProtectedRoute } from './helpers/routes';

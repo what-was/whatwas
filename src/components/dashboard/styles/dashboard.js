@@ -17,7 +17,7 @@ export const Container = styled.div`
   box-shadow: 0px 15px 40px -15px rgba(220, 187, 160, 0.5);
 
   @media (max-width: 1000px) {
-    margin: 0 30px 0 0;
+    margin: 0 30px 0 15px;
   }
 `;
 

@@ -8,6 +8,7 @@ export const OptFormContainer = () => {
   const [emailAddress, setEmailAddress] = useState('');
 
   const handleSubmit = () => {
+    localStorage.setItem('signupEmail', '');
     if (emailAddress.length > 0 && emailAddress.includes('@')) {
       localStorage.setItem('signupEmail', emailAddress);
       history.push(SIGN_UP);
