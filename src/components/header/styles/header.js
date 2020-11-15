@@ -4,9 +4,9 @@ import { Link as ReachRouterLink } from 'react-router-dom';
 export const Container = styled.div`
   display: flex;
   margin: ${(props) => (props.className === 'signed-in' ? '0 28px' : '0 56px')};
-  height: 64px;
+  height: 50px;
   padding: ${(props) =>
-    props.className === 'signed-in' ? '5px 0px' : '18px 0px'};
+    props.className === 'signed-in' ? '10px 0px' : '30px 0px'};
   justify-content: space-between;
   align-items: center;
   a {
@@ -174,11 +174,11 @@ export const TextLink = styled.p`
 `;
 
 export const Logo = styled.img`
-  height: 26px;
+  height: 32px;
   width: auto;
   margin-right: 40px;
   padding: 15px 10px 15px 0;
-  @media (min-width: 1449px) {
+  @media (max-width: 1000px) {
     height: 26px;
     width: auto;
   }

@@ -23,7 +23,7 @@ export const List = styled.ul`
 
 export const ListItem = styled.li`
   list-style-type: none;
-  padding: 7px 28px;
+  padding: 5px 28px;
   cursor: pointer;
   font-weight: ${(props) => (props.status === 'active' ? '700' : '500')};
 
