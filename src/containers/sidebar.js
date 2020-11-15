@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Sidebar } from '../components';
 import { useSelectedBoardValue, useBoardsValue } from '../context';
 
-export function SidebarContainer({ activeValue = true }) {
+export function SidebarContainer({}) {
   // const boards = useContent('boards');
   const { boards } = useBoardsValue();
   const { setSelectedBoard } = useSelectedBoardValue();
-  const [active, setActive] = useState(activeValue);
+  const [active, setActive] = useState('');
   const user = JSON.parse(localStorage.getItem('authUser'));
 
   return (

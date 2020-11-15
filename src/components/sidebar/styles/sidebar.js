@@ -4,7 +4,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 190px;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 75px);
+  border-right: 1px solid #ede7e1;
 `;
 
 export const BoardContainer = styled.div`
@@ -15,17 +16,16 @@ export const BoardContainer = styled.div`
 export const List = styled.ul`
   list-style-type: none;
   padding: 0;
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 40px);
   overflow: hidden auto;
+  margin-top: 0;
 `;
 
 export const ListItem = styled.li`
   list-style-type: none;
-  padding: 10px 28px;
+  padding: 7px 28px;
   cursor: pointer;
-
-  ${'' /* ${(props) =>
-    props.status === 'active' ? 'font-weight: 700' : 'font-weight: 400'} */}
+  font-weight: ${(props) => (props.status === 'active' ? '700' : '500')};
 
   &:hover {
     background-color: #fffdfc;
@@ -36,8 +36,7 @@ export const ListItem = styled.li`
 `;
 
 export const BoardName = styled.p`
-  font-weight: 600;
-  font-size: 1rem;
+  font-size: 16px;
   color: #222525;
   margin: 0;
 `;
@@ -49,7 +48,7 @@ export const AddBoard = styled.button`
   color: #222525;
   background-color: #f8f5f2;
   border: 0;
-  border-top: 1px solid #e3deda;
+  border-top: 1px solid #ede7e1;
   padding: 15px 28px;
   cursor: pointer;
   margin: auto 0 0;

@@ -1,8 +1,3 @@
-
-export const getTitle = (boards, boardId) => boards.find(board => board.boardId === boardId);
-
-
-
 // Generates Random ID
 export const generatePushId = (() =>
 {

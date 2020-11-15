@@ -18,8 +18,16 @@ Sidebar.List = function SidebarList({ children, ...restProps }) {
   return <List {...restProps}>{children}</List>;
 };
 
-Sidebar.ListItem = function SidebarListItem({ children, ...restProps }) {
-  return <ListItem {...restProps}>{children}</ListItem>;
+Sidebar.ListItem = function SidebarListItem({
+  children,
+  status,
+  ...restProps
+}) {
+  return (
+    <ListItem status={status} {...restProps}>
+      {children}
+    </ListItem>
+  );
 };
 
 Sidebar.BoardContainer = function SidebarBoardContainer({

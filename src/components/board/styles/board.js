@@ -3,16 +3,25 @@ import styled from 'styled-components/macro';
 const backgroundColor = (color) => {
   switch (color) {
     case 'yellow':
-      return '#fff05a';
+      return '#fee651';
       break;
     case 'blue':
-      return '#85beff';
+      return '#a2d6f9';
       break;
     case 'pink':
-      return 'pink';
+      return '#ffc2d4';
       break;
     case 'orange':
-      return '#ffdc5c';
+      return '#ffbf81';
+      break;
+    case 'green':
+      return '#9cd39c';
+      break;
+    case 'grey':
+      return '#e9ecef';
+      break;
+    case 'brown':
+      return '#beb1ab';
       break;
     default:
       'yellow';
@@ -27,7 +36,7 @@ export const Container = styled.div`
 
 export const Title = styled.h2`
   display: flex;
-  margin: 2rem 3rem 1.25rem;
+  margin: 1rem 2rem 2rem;
   font-size: 2rem;
   font-weight: 700;
   color: #232323;

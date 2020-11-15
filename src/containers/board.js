@@ -20,7 +20,10 @@ export const BoardContainer = () =>
 
     return (
         <Board>
-            <Board.Title>{title}</Board.Title>
+            <Board.NoteContainer>
+                <Board.Title>{title}</Board.Title>
+                <Board.Title>Add Note</Board.Title>
+            </Board.NoteContainer>
             <Board.NoteContainer>
                 {notes && notes.map((note) => (
                     <Board.NotesList key={note.noteId} color={note.noteColor}>

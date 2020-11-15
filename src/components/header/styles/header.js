@@ -5,7 +5,8 @@ export const Container = styled.div`
   display: flex;
   margin: ${(props) => (props.className === 'signed-in' ? '0 28px' : '0 56px')};
   height: 64px;
-  padding: 18px 0;
+  padding: ${(props) =>
+    props.className === 'signed-in' ? '5px 0px' : '18px 0px'};
   justify-content: space-between;
   align-items: center;
   a {
@@ -116,9 +117,9 @@ export const Dropdown = styled.div`
   width: 100px;
   top: 2.5rem;
   right: 10px;
-  -webkit-box-shadow: 0px 30px 90px -25px rgba(220, 187, 160, 1);
-  -moz-box-shadow: 0px 30px 90px -25px rgba(220, 187, 160, 1);
-  box-shadow: 0px 30px 90px -25px rgba(220, 187, 160, 1);
+  -webkit-box-shadow: 0px 10px 40px -15px rgba(220, 187, 160, 0.7);
+  -moz-box-shadow: 0px 10px 40px -15px rgba(220, 187, 160, 0.7);
+  box-shadow: 0px 10px 40px -15px rgba(220, 187, 160, 0.7);
   transition: all 200ms ease;
   ${Group}:last-of-type ${Link} {
     cursor: pointer;
