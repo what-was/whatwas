@@ -19,10 +19,10 @@ export default function Signup() {
   const isInvalid =
     firstName === '' ||
     (firstName.length < 3 && password === '') ||
-    (password.length <= 7 && emailAddress) ||
-    '' ||
+    (password.length <= 6 && emailAddress === '') ||
     !emailAddress.includes('@');
 
+  // Recall email address from home page (probably there is better formula for this job but for now, that's the way. )
   if (emailAddress.length === 0 && localStorage.getItem('signupEmail')) {
     setEmailAddress(localStorage.getItem('signupEmail'));
   }
@@ -63,34 +63,34 @@ export default function Signup() {
         <Form.Base onSubmit={handleSignup} method="POST">
           <Form.TextSmall>Full name</Form.TextSmall>
           <Form.Input
-            placeholder="First name"
+            placeholder="Enter your first name"
             value={firstName}
             onChange={({ target }) => setFirstName(target.value)}
-            aria-label="First Name"
+            aria-label="Enter your first name"
           />
           <Form.TextSmall>Email adress</Form.TextSmall>
           <Form.Input
-            placeholder="Email address"
+            placeholder="Enter your email address"
             value={emailAddress}
             onChange={({ target }) => setEmailAddress(target.value)}
-            aria-label="Email Address"
+            aria-label="Enter your email address"
           />
           <Form.TextSmall>Password</Form.TextSmall>
           <Form.Input
             type="password"
             autoComplete="off"
-            placeholder="Password"
+            placeholder="Enter your password"
             value={password}
             onChange={({ target }) => setPassword(target.value)}
-            aria-label="Password"
+            aria-label="Enter your password"
           />
           <Form.Submit disabled={isInvalid} type="submit">
             Sign up
           </Form.Submit>
         </Form.Base>
-        <Form.TextSmall>
+        <Form.Text>
           This page is protected by Google reCAPTCHA to ensure you're not a bot.
-        </Form.TextSmall>
+        </Form.Text>
       </Form>
       <FooterContainer></FooterContainer>
     </>

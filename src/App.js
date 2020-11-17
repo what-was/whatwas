@@ -41,14 +41,5 @@ export const App = () => {
         </ProtectedRoute>
       </Switch>
     </Router>
-
-    // <SelectedBoardProvider>
-    //   <BoardsProvider>
-    //     <div className="App">
-    //       <Header />
-    //       <Content />
-    //     </div>
-    //   </BoardsProvider>
-    // </SelectedBoardProvider>
   );
 };

@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 190px;
-  height: calc(100vh - 75px);
+  height: calc(100vh - 70px);
   border-right: 1px solid #ede7e1;
 `;
 
@@ -16,7 +16,7 @@ export const BoardContainer = styled.div`
 export const List = styled.ul`
   list-style-type: none;
   padding: 0;
-  max-height: calc(100vh - 40px);
+  max-height: calc(100vh - 100px);
   overflow: hidden auto;
   margin-top: 0;
 `;

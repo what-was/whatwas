@@ -4,7 +4,7 @@ import { Link as ReachRouterLink } from 'react-router-dom';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 600px;
+  min-height: 550px;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   box-sizing: border-box;
@@ -35,19 +35,20 @@ export const Title = styled.h1`
   color: #232323;
   font-size: 32px;
   font-weight: bold;
-  margin-top: 10px;
-  margin-bottom: 30px;
+  margin: 0 0 20px;
 `;
 
 export const Text = styled.p`
-  color: #222525;
-  font-size: 15px;
-  font-weight: 500;
+  color: #7a7a7a;
+  font-size: 12px;
+  font-weight: 400;
+  margin: auto 0 0;
 `;
 
 export const TextSmall = styled.p`
-  margin: 5px 0 5px;
+  margin: 8px 0;
   font-size: 14px;
+  font-weight: 500;
   line-height: normal;
   color: #222525;
 `;
@@ -69,19 +70,17 @@ export const Input = styled.input`
   border: 0;
   color: #222525;
   height: 2rem;
+  font-size: 14px;
   line-height: 50px;
   padding: 5px 20px;
   margin-bottom: 10px;
-  &:last-of-type {
-    margin-bottom: 2rem;
-  }
 `;
 
 export const Submit = styled.button`
   border-radius: 4px;
   font-size: 16px;
   font-weight: 600;
-  margin: 24px 0 12px;
+  margin: 12px 0;
   padding: 0.75rem;
   border: 0;
   color: #fffffe;
@@ -98,4 +97,23 @@ export const Submit = styled.button`
       background-color: #a81d1d;
     }
   }
+`;
+
+export const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: auto;
+  padding: 5px 5px 5px 0;
+  cursor: pointer;
+`;
+
+export const CheckboxText = styled.span`
+  margin-left: 5px;
+  font-size: 14px;
+`;
+
+export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
+cursor: pointer;
+}
+ 
 `;

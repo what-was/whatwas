@@ -12,13 +12,18 @@ export default function Signin() {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [checkboxChecked, setCheckboxChecked] = useState(false);
 
   // Todo: validation
   const isInvalid =
     password === '' ||
-    (password.length <= 7 && emailAddress) ||
+    (password.length <= 6 && emailAddress) ||
     '' ||
     !emailAddress.includes('@');
+
+  const handleCheckboxChange = (event) => {
+    setCheckboxChecked(!checkboxChecked);
+  };
 
   const handleSignin = (event) => {
     event.preventDefault();
@@ -28,6 +33,9 @@ export default function Signin() {
       .auth()
       .signInWithEmailAndPassword(emailAddress, password)
       .then(() => {
+        if (checkboxChecked) {
+          localStorage.setItem('remember', true);
+        }
         // Push to home page
         history.push(ROUTES.HOME);
       })
@@ -50,27 +58,34 @@ export default function Signin() {
         <Form.Base onSubmit={handleSignin} method="POST">
           <Form.TextSmall>Email Adress</Form.TextSmall>
           <Form.Input
-            placeholder="Email Address"
+            placeholder="Enter your email address"
             value={emailAddress}
             onChange={({ target }) => setEmailAddress(target.value)}
-            aria-label="Email Address"
+            aria-label="Enter your email address"
           />
           <Form.TextSmall>Password</Form.TextSmall>
           <Form.Input
             type="password"
             autoComplete="off"
-            placeholder="Password"
+            placeholder="Enter your password"
             value={password}
             onChange={({ target }) => setPassword(target.value)}
-            aria-label="Password"
+            aria-label="Enter your password"
           />
-          <Form.Submit disabled={isInvalid} type="submit">
+          <Form.CheckboxContainer onClick={() => handleCheckboxChange()}>
+            <Form.Checkbox
+              checked={checkboxChecked}
+              onChange={() => handleCheckboxChange()}
+            />
+            <Form.CheckboxText>Remember me!</Form.CheckboxText>
+          </Form.CheckboxContainer>
+          <Form.Submit disabled={isInvalid} type="submit" aria-label="Submit">
             Sign In
           </Form.Submit>
         </Form.Base>
-        <Form.TextSmall>
+        <Form.Text>
           This page is protected by Google reCAPTCHA to ensure you're not a bot.
-        </Form.TextSmall>
+        </Form.Text>
       </Form>
       <FooterContainer></FooterContainer>
     </>
