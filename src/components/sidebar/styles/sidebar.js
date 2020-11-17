@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 
-export const Container = styled.div`
+export const Container = styled.nav`
   display: flex;
   flex-direction: column;
   width: 190px;
@@ -8,7 +8,7 @@ export const Container = styled.div`
   border-right: 1px solid #ede7e1;
 `;
 
-export const BoardContainer = styled.div`
+export const BoardContainer = styled.aside`
   display: flex;
   padding: 5px 10px;
 `;

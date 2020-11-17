@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 import { Link as ReachRouterLink } from 'react-router-dom';
 
-export const Container = styled.div`
+export const Container = styled.header`
   display: flex;
   margin: ${(props) => (props.className === 'signed-in' ? '0 28px' : '0 56px')};
   height: 50px;

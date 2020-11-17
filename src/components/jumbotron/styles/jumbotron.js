@@ -48,14 +48,14 @@ export const Image = styled.img`
   float: ${({ float }) => float};
 `;
 
-export const Item = styled.div`
+export const Item = styled.article`
   display: flex;
   padding: 6rem 5%;
   color: #fffffe;
   overflow: hidden;
 `;
 
-export const Container = styled.div`
+export const Container = styled.section`
   background-color: #fffffe;
   @media (max-width: 1000px) {
     ${Item}:last-of-type h2 {
