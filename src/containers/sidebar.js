@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { Sidebar } from '../components';
 import { useSelectedBoardValue, useBoardsValue } from '../context';
+import { AddBoardContainer } from './add-board';
 
-export function SidebarContainer({}) {
+export function SidebarContainer({ })
+{
+
   // const boards = useContent('boards');
   const { boards } = useBoardsValue();
   const { setSelectedBoard } = useSelectedBoardValue();
   const [active, setActive] = useState('');
-  const user = JSON.parse(localStorage.getItem('authUser'));
+  const [addBoardOpen, setAddBoardOpen] = useState(false);
+
+
+
 
   return (
     <Sidebar>
@@ -22,11 +28,13 @@ export function SidebarContainer({}) {
               tabIndex={0}
               aria-label={`Select ${board.name} as the board`}
               status={active === board.boardId ? 'active' : ''}
-              onClick={() => {
+              onClick={() =>
+              {
                 setActive(board.boardId);
                 setSelectedBoard(board.boardId);
               }}
-              onKeyDown={(e) => {
+              onKeyDown={(e) =>
+              {
                 if (e.key === 'Enter') {
                   setActive(board.boardId);
                   setSelectedBoard(board.boardId);
@@ -38,7 +46,12 @@ export function SidebarContainer({}) {
           ))}
       </Sidebar.List>
 
-      <Sidebar.AddBoard>Add Board</Sidebar.AddBoard>
+      <Sidebar.AddBoard onClick={() => setAddBoardOpen(!addBoardOpen)}>
+        Add Board
+      </Sidebar.AddBoard>
+      {addBoardOpen && (
+        <AddBoardContainer />
+      )}
     </Sidebar>
   );
 }

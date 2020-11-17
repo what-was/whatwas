@@ -6,6 +6,7 @@ import { HeaderContainer } from '../containers/header';
 
 export default function Home() {
   document.title = 'WhatWas';
+
   return (
     <>
       <HeaderContainer route="sign-in">

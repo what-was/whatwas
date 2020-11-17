@@ -7,3 +7,4 @@ export { default as Dashboard } from './dashboard';
 export { default as Board } from './board';
 export { default as Sidebar } from './sidebar';
 export { default as InnerPage } from './innerpage';
+export { default as AddItem } from './add-board';
