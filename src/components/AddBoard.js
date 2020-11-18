@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { firebase } from '../firebase';
 import { generatePushId } from '../helpers';
 import { useBoardsValue } from '../context';
+import { BiPlus } from 'react-icons/bi';
 
 export const AddBoard = ({ shouldShow = false }) => {
   const [show, setShow] = useState(shouldShow);

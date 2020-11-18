@@ -1,5 +1,11 @@
 import React from 'react';
-import { Container, Title, Submit, Description } from './styles/add-board';
+import {
+  Container,
+  Title,
+  Submit,
+  Description,
+  Close,
+} from './styles/add-board';
 
 export default function AddBoard({ children, ...restProps }) {
   return (
@@ -16,6 +22,7 @@ AddBoard.Title = function AddBoardTitle({ children, ...restProps }) {
     </Title>
   );
 };
+
 AddBoard.Description = function AddBoardDescription({
   children,
   ...restProps
@@ -29,4 +36,8 @@ AddBoard.Description = function AddBoardDescription({
 
 AddBoard.Submit = function AddBoardSubmit({ children, ...restProps }) {
   return <Submit {...restProps}>{children}</Submit>;
+};
+
+AddBoard.Close = function AddBoardClose({ children, ...restProps }) {
+  return <Close {...restProps}>{children}</Close>;
 };
