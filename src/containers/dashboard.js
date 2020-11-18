@@ -3,6 +3,7 @@ import * as ROUTES from '../constants/routes';
 import { Dashboard } from '../components';
 import { BoardContainer } from './board';
 
+
 export function DashboardContainer() {
   const user = JSON.parse(localStorage.getItem('authUser'));
 

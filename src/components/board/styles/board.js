@@ -32,6 +32,8 @@ const backgroundColor = (color) => {
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  flex-wrap: wrap;
 `;
 
 export const Title = styled.h2`

@@ -1,39 +1,34 @@
 import React from 'react';
-import {
-  Container,
-  CTAButton,
-  CTAText,
-  Close,
-  Input,
-  Title,
-} from './styles/add-note';
+// import {
+
+// } from './styles/add-note';
 import { RiCloseLine } from 'react-icons/ri';
 
-export default function AddNote({ children, ...restProps }) {
-  return <Container {...restProps}>{children}</Container>;
-}
+// export default function AddNote({ children, ...restProps }) {
+//   return <Container {...restProps}>{children}</Container>;
+// }
 
-AddNote.CTAButton = function AddNoteCTAButton({ children, ...restProps }) {
-  return <CTAButton {...restProps}>{children}</CTAButton>;
-};
+// AddNote.CTAButton = function AddNoteCTAButton({ children, ...restProps }) {
+//   return <CTAButton {...restProps}>{children}</CTAButton>;
+// };
 
-AddNote.CTAText = function AddNoteCTAText({ children, ...restProps }) {
-  return <CTAText {...restProps}>{children}</CTAText>;
-};
+// AddNote.CTAText = function AddNoteCTAText({ children, ...restProps }) {
+//   return <CTAText {...restProps}>{children}</CTAText>;
+// };
 
-AddNote.Input = function AddNoteInput({ children, ...restProps }) {
-  return <Input {...restProps}>{children}</Input>;
-};
+// AddNote.Input = function AddNoteInput({ children, ...restProps }) {
+//   return <Input {...restProps}>{children}</Input>;
+// };
 
-AddNote.Title = function AddNoteTitle({ children, ...restProps }) {
-  return <Title {...restProps}>{children}</Title>;
-};
+// AddNote.Title = function AddNoteTitle({ children, ...restProps }) {
+//   return <Title {...restProps}>{children}</Title>;
+// };
 
-AddNote.Close = function AddNoteClose({ children, ...restProps }) {
-  return (
-    <Close {...restProps}>
-      <RiCloseLine />
-      {children}
-    </Close>
-  );
-};
+// AddNote.Close = function AddNoteClose({ children, ...restProps }) {
+//   return (
+//     <Close {...restProps}>
+//       <RiCloseLine />
+//       {children}
+//     </Close>
+//   );
+// };

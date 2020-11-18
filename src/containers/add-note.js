@@ -17,18 +17,7 @@ export const AddNoteContainer = (clicked) =>
 
     return (
         <>
-            <AddNote open={addNoteClicked}>
-                <AddNote.Close open={addNoteClicked} onClick={() => handleAddNote()} />
-                <AddNote.CTAButton open={addNoteClicked} onClick={() => handleAddNote()}>
-                    <BiPlus />
-                    <AddNote.CTAText>
-                        Add Note
-                    </AddNote.CTAText>
-                </AddNote.CTAButton>
-                <AddNote.Title placeholder="Untitled" value={titleInput} onChange={(e) => { setTitleInput(e.target.value) }} open={addNoteClicked} />
-                <AddNote.Input rows='3' data-min-rows='3' placeholder='Type your note' value={noteInput} onChange={(e) => { setNoteInput(e.target.value) }} autoFocus open={addNoteClicked} />
-
-            </AddNote>
+            
         </>
     );
 };

@@ -1,12 +1,13 @@
 import styled from 'styled-components/macro';
 
 export const Container = styled.section`
-  height: ${(props) => (props.open ? '100%' : '2.5rem')};
-  width: ${(props) => (props.open ? '100%' : '6.2rem')};
+  height: ${(props) => (props.open ? '100%' : '2.7rem')};
+  width: ${(props) => (props.open ? '100%' : '8.7rem')};
   background-color: #181818;
   border-radius: ${(props) => (props.open ? '15px' : '50px')};
   transition: 0.4s all ease-in;
-  margin-bottom: 2rem;
+  margin: 1rem 0.75rem 2rem;
+  flex-grow: 1;
 `;
 
 export const CTAButton = styled.div`

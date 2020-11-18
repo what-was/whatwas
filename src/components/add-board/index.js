@@ -5,6 +5,12 @@ import {
   Submit,
   Description,
   Close,
+  NoteContainer,
+  CTAButton,
+  CTAText,
+  NoteClose,
+  Input,
+  NoteTitle,
 } from './styles/add-board';
 
 export default function AddBoard({ children, ...restProps }) {
@@ -40,4 +46,30 @@ AddBoard.Submit = function AddBoardSubmit({ children, ...restProps }) {
 
 AddBoard.Close = function AddBoardClose({ children, ...restProps }) {
   return <Close {...restProps}>{children}</Close>;
+};
+
+// Add Note
+
+AddBoard.NoteContainer = ({ children, ...restProps }) => {
+  return <NoteContainer {...restProps}>{children}</NoteContainer>;
+};
+
+AddBoard.CTAButton = function AddNoteCTAButton({ children, ...restProps }) {
+  return <CTAButton {...restProps}>{children}</CTAButton>;
+};
+
+AddBoard.CTAText = function AddNoteCTAText({ children, ...restProps }) {
+  return <CTAText {...restProps}>{children}</CTAText>;
+};
+
+AddBoard.Input = function AddNoteInput({ children, ...restProps }) {
+  return <Input {...restProps}>{children}</Input>;
+};
+
+AddBoard.NoteTitle = function AddNoteTitle({ children, ...restProps }) {
+  return <NoteTitle {...restProps}>{children}</NoteTitle>;
+};
+
+AddBoard.NoteClose = function AddNoteClose({ children, ...restProps }) {
+  return <NoteClose {...restProps}>{children}</NoteClose>;
 };

@@ -23,7 +23,6 @@ export function SidebarContainer({ })
   const handleAction = () =>
   {
     setAddBoardOpen(!addBoardOpen);
-
   };
 
   useEffect(() =>
@@ -35,13 +34,8 @@ export function SidebarContainer({ })
     };
   }, []);
 
-
-
-
-
   return (
-
-    <Sidebar >
+    <Sidebar>
       <Sidebar.List>
         {boards &&
           boards.map((board) => (
