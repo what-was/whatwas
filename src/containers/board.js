@@ -29,7 +29,13 @@ export const BoardContainer = () => {
         {notes &&
           notes.map((note) => (
             <Board.NotesList key={note.noteId} color={note.noteColor}>
+              <Board.NoteTitle>{note.noteTitle}</Board.NoteTitle>
               <Board.NoteSummary>{note.note}</Board.NoteSummary>
+              <Board.TagsContainer>
+                {note.tags.map((tag) => (
+                  <Board.Tag>{tag}</Board.Tag>
+                ))}
+              </Board.TagsContainer>
               {/* <Board.NoteUpdatedDate>{note.updatedAt.toDate().toString()}</Board.NoteUpdatedDate> */}
             </Board.NotesList>
           ))}

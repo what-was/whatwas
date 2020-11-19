@@ -3,29 +3,21 @@ import styled from 'styled-components/macro';
 const backgroundColor = (color) => {
   switch (color) {
     case 'yellow':
-      return '#fee651';
-      break;
+      return '#ffd670';
     case 'blue':
       return '#a2d6f9';
-      break;
     case 'pink':
       return '#ffc2d4';
-      break;
     case 'orange':
       return '#ffbf81';
-      break;
     case 'green':
       return '#9cd39c';
-      break;
     case 'grey':
       return '#e9ecef';
-      break;
     case 'brown':
       return '#beb1ab';
-      break;
     default:
       'yellow';
-      break;
   }
 };
 
@@ -44,15 +36,28 @@ export const Title = styled.h2`
   color: #232323;
 `;
 
+export const NotesList = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f5f2;
+  margin: 1rem 0.75rem;
+  padding: 1.5rem 2.5rem;
+  border-radius: 10px;
+  width: 20%;
+  cursor: pointer;
+  background-color: ${(props) => backgroundColor(props.color)}};
+`;
+
 export const NoteTitle = styled.h4`
   margin: 0;
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #232323;
   word-wrap: break-word;
   margin-bottom: 1rem;
   cursor: pointer;
   padding: 0.5rem 0;
+  width: auto;
 
   &:hover {
     text-decoration: underline;
@@ -61,14 +66,6 @@ export const NoteTitle = styled.h4`
 
 export const NoteContainer = styled.div`
   display: flex;
-`;
-
-export const NotesList = styled.div`
-  background-color: ${(props) => backgroundColor(props.color)}};
-  margin: 1rem 0.75rem;
-  padding: 1rem 1.25rem;
-  max-width: 250px;
-  border-radius: 10px;
 `;
 
 export const ProfileContainer = styled.div`
@@ -86,4 +83,26 @@ export const NoteSummary = styled.p`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+`;
+
+export const TagsContainer = styled.div`
+  display: flex;
+  margin-top: 2rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+`;
+
+export const Tag = styled.div`
+  width: auto;
+  height: auto;
+  background-color: rgba(250, 250, 250, 0.6);
+  color: #232323;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 13px;
+  margin: 0 10px 10px 0;
+
+  &:hover {
+    background-color: rgba(250, 250, 250, 0.8);
+  }
 `;

@@ -72,6 +72,7 @@ export default function Signup() {
           <Form.Input
             placeholder="Enter your email address"
             value={emailAddress}
+            type="email"
             onChange={({ target }) => setEmailAddress(target.value)}
             aria-label="Enter your email address"
           />
