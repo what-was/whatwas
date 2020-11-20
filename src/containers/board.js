@@ -54,16 +54,16 @@ export const BoardContainer = () =>
         </Board.AddNoteButton>
       </Board.UpperContainer>
       <Board.NoteContainer>
-
         {notes &&
           notes.map((note) => (
-            <Board.NotesList key={note.noteId} color={note.noteColor}>
+            <Board.NotesList key={note.docId} color={note.noteColor}>
               <Board.NoteTitle>{note.noteTitle}</Board.NoteTitle>
               <Board.NoteSummary>{note.note}</Board.NoteSummary>
               <Board.TagsContainer>
                 {note.tags.map((tag) => (
-                  <Board.Tag>{tag}</Board.Tag>
+                  <Board.Tag key={tag}>{tag}</Board.Tag>
                 ))}
+
               </Board.TagsContainer>
               {/* <Board.NoteUpdatedDate>{note.updatedAt.toDate().toString()}</Board.NoteUpdatedDate> */}
             </Board.NotesList>

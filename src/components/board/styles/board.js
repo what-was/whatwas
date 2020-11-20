@@ -1,24 +1,21 @@
 import styled from 'styled-components/macro';
 
-const backgroundColor = (color) =>
-{
+const backgroundColor = (color) => {
   switch (color) {
     case 'yellow':
-      return '#ffd670';
+      return '#fcf4bc';
     case 'blue':
-      return '#a2d6f9';
+      return '#caf0f8';
     case 'pink':
       return '#ffc2d4';
     case 'orange':
-      return '#ffbf81';
+      return '#ffd6a5';
     case 'green':
-      return '#9cd39c';
+      return '#b7e4c7';
     case 'grey':
       return '#e9ecef';
-    case 'brown':
-      return '#beb1ab';
     default:
-      'yellow';
+      return '#fcf4bc';
   }
 };
 
@@ -33,8 +30,9 @@ export const UpperContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 1rem 2rem;
+  margin: 1rem 0.75rem;
   flex-wrap: wrap;
+  width: 100%;
 `;
 
 export const Title = styled.h2`
@@ -48,20 +46,20 @@ export const Title = styled.h2`
 export const AddNoteButton = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 0 0 2.5rem;
+  margin: 0 0 0 2rem;
   font-size: 1rem;
   font-weight: 500;
   color: #232323;
-  padding: .75rem 1.25rem;
+  padding: 0.75rem 1.25rem;
   border-radius: 50px;
   background-color: rgba(227, 222, 218, 0.6);
   cursor: pointer;
   transition: 100ms all ease;
-  svg{
+  svg {
     height: 1rem;
     font-weight: 600;
     width: auto;
-    margin-right: .25rem;
+    margin-right: 0.25rem;
   }
 
   &:hover {
@@ -69,16 +67,27 @@ export const AddNoteButton = styled.div`
   }
 `;
 
+export const NoteContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+`;
+
 export const NotesList = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #f8f5f2;
   margin: 1rem 0.75rem;
-  padding: 1.5rem 2.5rem;
+  padding: 1.5rem 2rem;
   border-radius: 10px;
-  width: 20%;
+  max-width: 19.5%;
+  width: auto;
   cursor: pointer;
   background-color: ${(props) => backgroundColor(props.color)}};
+  text-decoration: none;
+  
+  &:hover h4 {
+      text-decoration: underline;
+  }
 `;
 
 export const NoteTitle = styled.h4`
@@ -95,10 +104,6 @@ export const NoteTitle = styled.h4`
   &:hover {
     text-decoration: underline;
   }
-`;
-
-export const NoteContainer = styled.div`
-  display: flex;
 `;
 
 export const ProfileContainer = styled.div`
@@ -128,7 +133,7 @@ export const TagsContainer = styled.div`
 export const Tag = styled.div`
   width: auto;
   height: auto;
-  background-color: rgba(250, 250, 250, 0.6);
+  background-color: rgba(255, 255, 255, 0.7);
   color: #232323;
   padding: 2px 10px;
   border-radius: 4px;
@@ -136,6 +141,6 @@ export const Tag = styled.div`
   margin: 10px 10px 0 0;
 
   &:hover {
-    background-color: rgba(250, 250, 250, 0.8);
+    background-color: rgba(255, 255, 255, 1);
   }
 `;
