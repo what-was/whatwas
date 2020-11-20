@@ -13,7 +13,7 @@ export const Container = styled.aside`
   left: 60px;
   right: 60px;
   margin-right: auto;
-  height: calc(100% - 19rem);
+  height: calc(100% - 15rem);
   padding: 3rem 3rem;
 `;
 
@@ -22,7 +22,7 @@ export const Container = styled.aside`
 // Title Input
 export const Title = styled.input`
   -webkit-tap-highlight-color: transparent;
-  margin: 2rem 0 0;
+  margin: 1rem 0 0;
   font-size: 3rem;
   background: transparent;
   color: #fffffe;
@@ -130,8 +130,9 @@ export const CTAText = styled.span`
 
 export const NoteTitle = styled.input`
   -webkit-tap-highlight-color: transparent;
-  margin: 0rem 0 1rem 20px;
-  font-size: 2rem;
+  margin: ${(props) =>
+    props.addNote ? '1rem 0 1rem 20px' : '0rem 0 1rem 20px'};
+  font-size: ${(props) => (props.addNote ? '2.5rem' : '2rem')};
   width: 100%;
   max-width: calc(100% - 3rem);
   background-color: transparent;
@@ -153,7 +154,7 @@ export const Input = styled.textarea`
   margin: 0 auto;
   width: 100%;
   max-width: calc(100% - 3rem);
-  max-height: 18rem;
+  max-height: ${(props) => (props.addNote ? '100%' : '18rem')};
   height: 100%;
   outline: 0;
   border: 0;

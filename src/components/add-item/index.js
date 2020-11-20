@@ -11,17 +11,17 @@ import {
   NoteClose,
   Input,
   NoteTitle,
-} from './styles/add-board';
+} from './styles/add-item';
 
-export default function AddBoard({ children, ...restProps }) {
+export default function AddItem({ children, ...restProps }) {
   return (
-    <Container data-class="add-board" {...restProps}>
+    <Container data-class="add-item" {...restProps}>
       {children}
     </Container>
   );
 }
 
-AddBoard.Title = function AddBoardTitle({ children, ...restProps }) {
+AddItem.Title = function AddItemTitle({ children, ...restProps }) {
   return (
     <Title contentEditable="true" spellCheck="false" {...restProps}>
       {children}
@@ -29,10 +29,7 @@ AddBoard.Title = function AddBoardTitle({ children, ...restProps }) {
   );
 };
 
-AddBoard.Description = function AddBoardDescription({
-  children,
-  ...restProps
-}) {
+AddItem.Description = function AddItemDescription({ children, ...restProps }) {
   return (
     <Description contentEditable="true" spellCheck="false" {...restProps}>
       {children}
@@ -40,36 +37,36 @@ AddBoard.Description = function AddBoardDescription({
   );
 };
 
-AddBoard.Submit = function AddBoardSubmit({ children, ...restProps }) {
+AddItem.Submit = function AddItemSubmit({ children, ...restProps }) {
   return <Submit {...restProps}>{children}</Submit>;
 };
 
-AddBoard.Close = function AddBoardClose({ children, ...restProps }) {
+AddItem.Close = function AddItemClose({ children, ...restProps }) {
   return <Close {...restProps}>{children}</Close>;
 };
 
 // Add Note
 
-AddBoard.NoteContainer = ({ children, ...restProps }) => {
+AddItem.NoteContainer = ({ children, ...restProps }) => {
   return <NoteContainer {...restProps}>{children}</NoteContainer>;
 };
 
-AddBoard.CTAButton = function AddNoteCTAButton({ children, ...restProps }) {
+AddItem.CTAButton = function AddNoteCTAButton({ children, ...restProps }) {
   return <CTAButton {...restProps}>{children}</CTAButton>;
 };
 
-AddBoard.CTAText = function AddNoteCTAText({ children, ...restProps }) {
+AddItem.CTAText = function AddNoteCTAText({ children, ...restProps }) {
   return <CTAText {...restProps}>{children}</CTAText>;
 };
 
-AddBoard.Input = function AddNoteInput({ children, ...restProps }) {
+AddItem.Input = function AddNoteInput({ children, ...restProps }) {
   return <Input {...restProps}>{children}</Input>;
 };
 
-AddBoard.NoteTitle = function AddNoteTitle({ children, ...restProps }) {
+AddItem.NoteTitle = function AddNoteTitle({ children, ...restProps }) {
   return <NoteTitle {...restProps}>{children}</NoteTitle>;
 };
 
-AddBoard.NoteClose = function AddNoteClose({ children, ...restProps }) {
+AddItem.NoteClose = function AddNoteClose({ children, ...restProps }) {
   return <NoteClose {...restProps}>{children}</NoteClose>;
 };

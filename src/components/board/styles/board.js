@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro';
 
-const backgroundColor = (color) => {
+const backgroundColor = (color) =>
+{
   switch (color) {
     case 'yellow':
       return '#ffd670';
@@ -28,12 +29,44 @@ export const Container = styled.div`
   flex-wrap: wrap;
 `;
 
+export const UpperContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 1rem 2rem;
+  flex-wrap: wrap;
+`;
+
 export const Title = styled.h2`
   display: flex;
-  margin: 1rem 2rem 2rem;
   font-size: 2rem;
   font-weight: 700;
   color: #232323;
+  margin: 0;
+`;
+
+export const AddNoteButton = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0 0 0 2.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #232323;
+  padding: .75rem 1.25rem;
+  border-radius: 50px;
+  background-color: rgba(227, 222, 218, 0.6);
+  cursor: pointer;
+  transition: 100ms all ease;
+  svg{
+    height: 1rem;
+    font-weight: 600;
+    width: auto;
+    margin-right: .25rem;
+  }
+
+  &:hover {
+    background-color: rgba(227, 222, 218, 0.8);
+  }
 `;
 
 export const NotesList = styled.div`
@@ -77,7 +110,7 @@ export const NoteUpdatedDate = styled.p``;
 
 export const NoteSummary = styled.p`
   font-size: 1rem;
-  margin: 0;
+  margin: 0 0 1rem;
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -87,7 +120,7 @@ export const NoteSummary = styled.p`
 
 export const TagsContainer = styled.div`
   display: flex;
-  margin-top: 2rem;
+  margin: auto auto 0 0;
   align-items: flex-end;
   flex-wrap: wrap;
 `;
@@ -97,10 +130,10 @@ export const Tag = styled.div`
   height: auto;
   background-color: rgba(250, 250, 250, 0.6);
   color: #232323;
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 2px 10px;
+  border-radius: 4px;
   font-size: 13px;
-  margin: 0 10px 10px 0;
+  margin: 10px 10px 0 0;
 
   &:hover {
     background-color: rgba(250, 250, 250, 0.8);

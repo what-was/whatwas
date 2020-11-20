@@ -1,23 +1,38 @@
-import React, { useState } from 'react';
-import { AddNote } from '../components';
-import { BiPlus } from 'react-icons/bi';
+import React, { useState, useEffect } from 'react';
+import { AddItem } from '../components';
+import { RiCloseLine } from 'react-icons/ri';
 
-export const AddNoteContainer = (clicked) =>
+export const AddNoteContainer = (props) =>
 {
-    const [addNoteClicked, setAddNoteClicked] = useState(false);
-
-    const [titleInput, setTitleInput] = useState('');
+    const [addNoteTitle, setAddNoteTitle] = useState('Note Title');
     const [noteInput, setNoteInput] = useState('');
 
-    const handleAddNote = () =>
-    {
-        setAddNoteClicked(!addNoteClicked);
-    };
-
-
     return (
-        <>
-            
-        </>
+        <AddItem>
+            <AddItem.Close onClick={props.action}>
+                <RiCloseLine />
+            </AddItem.Close>
+            <AddItem.NoteTitle
+                placeholder="Note Title"
+                hasOpen={true}
+                addNote={true}
+                onChange={(event) => setAddNoteTitle(event.target.value)}
+                type="text"
+            />
+            <AddItem.Input
+                rows="3"
+                data-min-rows="3"
+                placeholder="Type your note"
+                value={noteInput}
+                hasOpen={true}
+                addNote={true}
+
+                onChange={(e) =>
+                {
+                    setNoteInput(e.target.value);
+                }}
+            />
+            <AddItem.Submit>Add</AddItem.Submit>
+        </AddItem>
     );
 };
