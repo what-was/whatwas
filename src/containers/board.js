@@ -4,8 +4,7 @@ import { Board } from '../components';
 import { getNotes, getTitle } from '../hooks';
 import { AddNoteContainer } from './add-note';
 import { BiPlus } from 'react-icons/bi';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { NoteContainer } from './note';
+import { Link } from 'react-router-dom';
 
 export const BoardContainer = () => {
   const [title, setTitle] = useState('Dashboard');

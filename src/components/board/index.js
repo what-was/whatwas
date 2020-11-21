@@ -71,3 +71,4 @@ Board.Tag = function BoardTag({ children, ...restProps })
 {
   return <Tag {...restProps}>{children}</Tag>;
 };
+

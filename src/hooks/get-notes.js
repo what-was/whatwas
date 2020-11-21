@@ -3,7 +3,6 @@ import { FirebaseContext } from '../context/firebase';
 
 export default function getNotes(boardId) {
   const [notes, setNotes] = useState([]);
-  // const [archivedNotes, setArchivedNotes] = useState([]);
   const { firebase } = useContext(FirebaseContext);
 
   const user = JSON.parse(localStorage.getItem('authUser'));
@@ -56,10 +55,7 @@ export default function getNotes(boardId) {
 
 export const getTitle = (boardId) => {
   const [title, setTitle] = useState('');
-  // const [archivedNotes, setArchivedNotes] = useState([]);
   const { firebase } = useContext(FirebaseContext);
-
-  const user = JSON.parse(localStorage.getItem('authUser'));
 
   useEffect(() => {
     if (boardId !== '') {
@@ -86,4 +82,34 @@ export const getTitle = (boardId) => {
     }
   }, [boardId]);
   return title;
+};
+
+export const getSingleNote = (noteId) => {
+  const [note, setNote] = useState({});
+  const { firebase } = useContext(FirebaseContext);
+
+  useEffect(
+    () => {
+      if (noteId !== '') {
+        firebase
+          .firestore()
+          .collection('notes')
+          .where('noteId', '==', noteId)
+          .get()
+          .then((snapshot) => {
+            const currNote = snapshot.docs.map((content) => ({
+              ...content.data(),
+              docId: content.id,
+            }));
+            setNote(currNote[0]);
+          })
+          .catch((error) => {
+            console.error(error.message);
+          });
+      }
+    },
+    { noteId }
+  );
+
+  return note;
 };

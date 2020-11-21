@@ -10,14 +10,9 @@ export default function Dashboard() {
 
   return (
     <>
-      <HeaderContainer title="Dashboard" />
+      <HeaderContainer title="Note" />
       <InnerPage>
-        <SelectedBoardProvider>
-          <BoardsProvider>
-            <SidebarContainer />
-            <NoteContainer />
-          </BoardsProvider>
-        </SelectedBoardProvider>
+        <NoteContainer />
       </InnerPage>
       {/* <FooterContainer /> */}
     </>
