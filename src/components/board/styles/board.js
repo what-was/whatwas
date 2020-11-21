@@ -77,13 +77,19 @@ export const NotesList = styled.div`
   display: flex;
   flex-direction: column;
   margin: 1rem 0.75rem;
-  padding: 1.5rem 2rem;
   border-radius: 10px;
   max-width: 19.5%;
+  
+  padding: 1.5rem 2rem;
   width: auto;
   cursor: pointer;
   background-color: ${(props) => backgroundColor(props.color)}};
   text-decoration: none;
+  a{
+
+    text-decoration: none;
+    color: #222525;
+  }
   
   &:hover h4 {
       text-decoration: underline;

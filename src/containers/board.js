@@ -4,9 +4,10 @@ import { Board } from '../components';
 import { getNotes, getTitle } from '../hooks';
 import { AddNoteContainer } from './add-note';
 import { BiPlus } from 'react-icons/bi';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { NoteContainer } from './note';
 
-export const BoardContainer = () =>
-{
+export const BoardContainer = () => {
   const [title, setTitle] = useState('Dashboard');
   const [addNoteOpen, setAddNoteOpen] = useState(false);
   const { selectedBoard } = useSelectedBoardValue();
@@ -15,29 +16,24 @@ export const BoardContainer = () =>
 
   let container = useRef(null);
 
-  const handleAddNote = () =>
-  {
+  const handleAddNote = () => {
     setAddNoteOpen(!addNoteOpen);
-  }
+  };
 
   if (selectedBoard !== '' && boardTitle !== title) {
     setTitle(boardTitle);
     document.title = `${boardTitle} - WhatWas`;
   }
 
-  const handleClickOutside = (event) =>
-  {
+  const handleClickOutside = (event) => {
     if (container.current && !container.current.contains(event.target)) {
       setAddNoteOpen(false);
     }
   };
 
-
-  useEffect(() =>
-  {
+  useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
-    return () =>
-    {
+    return () => {
       document.removeEventListener('click', handleClickOutside, true);
     };
   }, []);
@@ -57,15 +53,16 @@ export const BoardContainer = () =>
         {notes &&
           notes.map((note) => (
             <Board.NotesList key={note.docId} color={note.noteColor}>
-              <Board.NoteTitle>{note.noteTitle}</Board.NoteTitle>
-              <Board.NoteSummary>{note.note}</Board.NoteSummary>
-              <Board.TagsContainer>
-                {note.tags.map((tag) => (
-                  <Board.Tag key={tag}>{tag}</Board.Tag>
-                ))}
-
-              </Board.TagsContainer>
-              {/* <Board.NoteUpdatedDate>{note.updatedAt.toDate().toString()}</Board.NoteUpdatedDate> */}
+              <Link to={`note/` + note.noteId}>
+                <Board.NoteTitle>{note.noteTitle}</Board.NoteTitle>
+                <Board.NoteSummary>{note.note}</Board.NoteSummary>
+                <Board.TagsContainer>
+                  {note.tags.map((tag) => (
+                    <Board.Tag key={tag}>{tag}</Board.Tag>
+                  ))}
+                </Board.TagsContainer>
+                {/* <Board.NoteUpdatedDate>{note.updatedAt.toDate().toString()}</Board.NoteUpdatedDate> */}
+              </Link>
             </Board.NotesList>
           ))}
         <aside ref={container}>
