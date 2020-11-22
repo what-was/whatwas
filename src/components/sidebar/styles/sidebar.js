@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 export const Container = styled.nav`
   display: flex;
   flex-direction: column;
-  max-width: 200px;
+  max-width: 220px;
   width: 100%;
   height: calc(100vh - 70px);
   border-right: 1px solid #ede7e1;
@@ -32,7 +32,8 @@ export const ListItem = styled.li`
   padding: 5px 28px;
   cursor: pointer;
   font-weight: ${(props) => (props.status === 'active' ? '700' : '500')};
-
+  background-color: ${(props) =>
+    props.status === 'active' ? '#e0dcd7' : 'transparent'};
   &:hover {
     background-color: #fffdfc;
   }
@@ -45,7 +46,6 @@ export const BoardName = styled.p`
   font-size: 15px;
   color: #222525;
   margin: 0;
-  font-weight: 500;
   &::selection {
     background-color: transparent !important;
     color: black !important;

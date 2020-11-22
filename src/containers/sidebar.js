@@ -107,7 +107,6 @@ export function SidebarContainer({}) {
                   }
                 }}
               >
-                {console.log(board, 'sidebar console')}
                 <Sidebar.BoardName>{board.name}</Sidebar.BoardName>
               </Sidebar.ListItem>
             ))}
