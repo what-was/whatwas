@@ -7,6 +7,11 @@ export const Container = styled.nav`
   width: 100%;
   height: calc(100vh - 70px);
   border-right: 1px solid #ede7e1;
+
+  &::selection {
+    background-color: transparent !important;
+    color: black !important;
+  }
 `;
 
 export const BoardContainer = styled.aside`
@@ -37,9 +42,14 @@ export const ListItem = styled.li`
 `;
 
 export const BoardName = styled.p`
-  font-size: 16px;
+  font-size: 15px;
   color: #222525;
   margin: 0;
+  font-weight: 500;
+  &::selection {
+    background-color: transparent !important;
+    color: black !important;
+  }
 `;
 
 export const AddBoard = styled.button`
