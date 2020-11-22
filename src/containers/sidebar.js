@@ -1,35 +1,34 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Sidebar } from '../components';
-import { useSelectedBoardValue, useBoardsValue } from '../context';
+import {
+  useSelectedBoardValue,
+  useBoardsValue,
+  useCollectionsValue,
+} from '../context';
 import { AddBoardContainer } from './add-board';
 
-export function SidebarContainer({ })
-{
-  // const boards = useContent('boards');
+export function SidebarContainer({}) {
   const { boards } = useBoardsValue();
+  const { collection } = useCollectionsValue();
   const { setSelectedBoard } = useSelectedBoardValue();
   const [active, setActive] = useState('');
   const [addBoardOpen, setAddBoardOpen] = useState(false);
 
   let container = useRef(null);
 
-  const handleClickOutside = (event) =>
-  {
+  const handleClickOutside = (event) => {
     if (container.current && !container.current.contains(event.target)) {
       setAddBoardOpen(false);
     }
   };
 
-  const handleAction = () =>
-  {
+  const handleAction = () => {
     setAddBoardOpen(!addBoardOpen);
   };
 
-  useEffect(() =>
-  {
+  useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
-    return () =>
-    {
+    return () => {
       document.removeEventListener('click', handleClickOutside, true);
     };
   }, []);
@@ -47,19 +46,18 @@ export function SidebarContainer({ })
               tabIndex={0}
               aria-label={`Select ${board.name} as the board`}
               status={active === board.boardId ? 'active' : ''}
-              onClick={() =>
-              {
+              onClick={() => {
                 setActive(board.boardId);
                 setSelectedBoard(board.boardId);
               }}
-              onKeyDown={(e) =>
-              {
+              onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   setActive(board.boardId);
                   setSelectedBoard(board.boardId);
                 }
               }}
             >
+              {console.log(collection, 'sidebar console')}
               <Sidebar.BoardName>{board.name}</Sidebar.BoardName>
             </Sidebar.ListItem>
           ))}

@@ -13,6 +13,8 @@ export const BoardContainer = () => {
   const { notes } = getNotes(selectedBoard);
   const boardTitle = getTitle(selectedBoard);
 
+  const [starred, setStarred] = useState(false);
+
   let container = useRef(null);
 
   const handleAddNote = () => {
@@ -28,6 +30,10 @@ export const BoardContainer = () => {
     if (container.current && !container.current.contains(event.target)) {
       setAddNoteOpen(false);
     }
+  };
+
+  const handleFavorite = () => {
+    setStarred(!starred);
   };
 
   useEffect(() => {
@@ -55,12 +61,19 @@ export const BoardContainer = () => {
               <Link to={`note/` + note.noteId}>
                 <Board.NoteTitle>{note.noteTitle}</Board.NoteTitle>
                 <Board.NoteSummary>{note.note}</Board.NoteSummary>
-                <Board.TagsContainer>
-                  {note.tags.map((tag) => (
-                    <Board.Tag key={tag}>{tag}</Board.Tag>
-                  ))}
-                </Board.TagsContainer>
-                {/* <Board.NoteUpdatedDate>{note.updatedAt.toDate().toString()}</Board.NoteUpdatedDate> */}
+
+                <Board.LowerContainer>
+                  <Board.TagsContainer>
+                    {note.tags &&
+                      note.tags
+                        .slice(0, 3)
+                        .map((tag) => <Board.Tag key={tag}>{tag}</Board.Tag>)}
+                  </Board.TagsContainer>
+                  {/* <Board.Favorite
+                  starred={starred}
+                  onClick={() => handleFavorite()}
+                /> */}
+                </Board.LowerContainer>
               </Link>
             </Board.NotesList>
           ))}

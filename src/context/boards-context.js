@@ -1,9 +1,8 @@
 import React, { createContext, useContext } from 'react';
-import { useBoards, useContent } from '../hooks';
+import { useContent, getCollections } from '../hooks';
 
 export const BoardsContext = createContext();
-export const BoardsProvider = ({ children }) =>
-{
+export const BoardsProvider = ({ children }) => {
   const { boards, setBoards } = useContent('boards');
 
   return (

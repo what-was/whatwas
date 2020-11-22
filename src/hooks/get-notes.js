@@ -8,12 +8,14 @@ export default function getNotes(boardId) {
   const user = JSON.parse(localStorage.getItem('authUser'));
 
   useEffect(() => {
-    if (boardId !== '') {
+    if (boardId === '') {
       firebase
         .firestore()
         .collection('notes')
-        .where('boardId', '==', boardId)
-        .orderBy('updatedAt', 'desc')
+        .where('uid', '==', user.uid)
+        .where('archived', '==', false)
+        .orderBy('hierarchy', 'desc')
+        .limit(10)
         .get()
         .then((snapshot) => {
           const allNotes = snapshot.docs.map((content) => ({
@@ -31,8 +33,9 @@ export default function getNotes(boardId) {
       firebase
         .firestore()
         .collection('notes')
-        .where('uid', '==', user.uid)
-        .orderBy('updatedAt', 'desc')
+        .where('boardId', '==', boardId)
+        .where('archived', '==', false)
+        .orderBy('hierarchy', 'desc')
         .limit(10)
         .get()
         .then((snapshot) => {

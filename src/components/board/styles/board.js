@@ -30,9 +30,8 @@ export const UpperContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 1rem 0.75rem;
+  margin: 1rem 1rem;
   flex-wrap: wrap;
-  width: 100%;
 `;
 
 export const Title = styled.h2`
@@ -77,18 +76,22 @@ export const NoteContainer = styled.div`
 export const NotesList = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 1rem 0.75rem;
+  margin: 1rem 1rem;
   border-radius: 10px;
-  max-width: 18%;
-  min-width: 240px;
-  padding: 1.5rem 2rem;
+  width: 250px;
+  min-height: 200px;
+  padding: 2rem 2.25rem;
   cursor: pointer;
   background-color: ${(props) => backgroundColor(props.color)}};
   text-decoration: none;
   
   a{
+    width: 100%;
+    height: 100%;
     text-decoration: none;
     color: #222525;
+    display: flex;
+    flex-direction: column;
   }
   
   &:hover h4 {
@@ -97,12 +100,12 @@ export const NotesList = styled.div`
 `;
 
 export const NoteTitle = styled.h4`
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  font-weight: 700;
   color: #232323;
   word-wrap: break-word;
-  margin-bottom: 1rem;
   cursor: pointer;
   padding: 0.5rem 0;
   width: auto;
@@ -117,21 +120,26 @@ export const ProfileContainer = styled.div`
   align-items: center;
 `;
 
-export const NoteUpdatedDate = styled.p``;
+export const LowerContainer = styled.div`
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: auto;
+`;
 
 export const NoteSummary = styled.p`
   font-size: 1rem;
-  margin: 0 0 1rem;
+  margin: 0;
   line-height: 1.5;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;
 
 export const TagsContainer = styled.div`
   display: flex;
-  margin: auto auto 0 0;
   align-items: flex-end;
   flex-wrap: wrap;
 `;
@@ -148,5 +156,19 @@ export const Tag = styled.div`
 
   &:hover {
     background-color: rgba(255, 255, 255, 1);
+  }
+`;
+
+export const Favorite = styled.div`
+  position: relative;
+  padding: 5px;
+  height: auto;
+  align-items: flex-end;
+  display: flex;
+  cursor: pointer;
+
+  svg {
+    height: 1.5rem;
+    width: auto;
   }
 `;
