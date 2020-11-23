@@ -12,6 +12,7 @@ export const ButtonContainer = styled.section`
   align-items: center;
   padding: 5px 14px 5px 28px;
   cursor: pointer;
+  color: #232323;
   svg {
     font-size: 0.75rem;
   }
@@ -23,12 +24,11 @@ export const ButtonContainer = styled.section`
 export const BoardList = styled.ul`
   display: flex;
   flex-direction: column;
-  background-color: #e0dcd7;
+  background-color: #ede8e4;
   list-style: none;
-  padding: 1px 0;
+  padding: 0;
   li {
-    padding: 5px 40px;
-
+    padding-left: 40px;
     &:hover {
       background-color: #fffdfc;
     }

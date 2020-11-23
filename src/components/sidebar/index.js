@@ -6,9 +6,10 @@ import {
   BoardName,
   ListItem,
   AddBoard,
+  MoreButton,
 } from './styles/sidebar';
 
-import { BiPlus } from 'react-icons/bi';
+import { BiPlus, BiDotsHorizontalRounded } from 'react-icons/bi';
 
 export default function Sidebar({ children }) {
   return <Container>{children}</Container>;
@@ -48,4 +49,8 @@ Sidebar.AddBoard = function SidebarAddBoard({ children, ...restProps }) {
       {children}
     </AddBoard>
   );
+};
+
+Sidebar.MoreButton = function SidebarMoreButton({ children, ...restProps }) {
+  return <MoreButton {...restProps}>{children}</MoreButton>;
 };

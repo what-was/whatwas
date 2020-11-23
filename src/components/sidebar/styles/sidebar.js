@@ -28,24 +28,33 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   list-style-type: none;
-  padding: 5px 28px;
+  padding: 5px 14px 5px 28px;
   cursor: pointer;
   font-weight: ${(props) => (props.status === 'active' ? '700' : '500')};
   background-color: ${(props) =>
-    props.status === 'active' ? '#e0dcd7' : 'transparent'};
+    props.status === 'active' ? '#fffffe' : 'transparent'};
+
+  color: #232323;
   &:hover {
     background-color: #fffdfc;
   }
   &:focus {
     outline: 0;
   }
+
+  &:hover #more-btn {
+    display: flex;
+  }
 `;
 
 export const BoardName = styled.p`
-  font-size: 15px;
-  color: #222525;
+  font-size: 0.925rem;
   margin: 0;
+  width: 100%;
   &::selection {
     background-color: transparent !important;
     color: black !important;
@@ -56,7 +65,7 @@ export const AddBoard = styled.button`
   display: flex;
   font-weight: 500;
   font-size: 1rem;
-  color: #222525;
+  color: #232323;
   background-color: #f8f5f2;
   border: 0;
   border-top: 1px solid #ede7e1;
@@ -76,4 +85,11 @@ export const AddBoard = styled.button`
   &:focus {
     outline: 0;
   }
+`;
+
+export const MoreButton = styled.div`
+  display: none;
+  align-items: center;
+  font-size: 1.2rem;
+  z-index: 99;
 `;

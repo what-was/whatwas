@@ -80,7 +80,7 @@ export const NotesList = styled.div`
   border-radius: 10px;
   width: 250px;
   min-height: 200px;
-  padding: 2rem 2.25rem;
+  padding: 1.5rem 2.25rem;
   cursor: pointer;
   background-color: ${(props) => backgroundColor(props.color)}};
   text-decoration: none;
