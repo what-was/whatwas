@@ -3,17 +3,23 @@ import { Link as ReachRouterLink } from 'react-router-dom';
 
 export const Container = styled.header`
   display: flex;
-  margin: ${(props) => (props.className === 'signed-in' ? '0 28px' : '0 56px')};
+  position: sticky;
+  top: 0;
+  background-color: ${(props) =>
+    props.className === 'signed-in' ? 'transparent' : '#f8f5f2'};
   height: 50px;
+  margin: ${(props) => (props.className === 'signed-in' ? '0 28px' : '0')};
   padding: ${(props) =>
-    props.className === 'signed-in' ? '10px 0px' : '30px 0px'};
+    props.className === 'signed-in' ? '10px 0px' : '20px 56px'};
   justify-content: space-between;
   align-items: center;
   a {
     display: flex;
   }
   @media (max-width: 1000px) {
-    margin: 0 30px;
+    margin: ${(props) => (props.className === 'signed-in' ? '0 30px' : '0')};
+    padding: ${(props) =>
+      props.className === 'signed-in' ? '10px 0px' : '10px 15px'};
   }
 `;
 
