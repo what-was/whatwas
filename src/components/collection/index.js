@@ -4,11 +4,16 @@ import {
   ButtonContainer,
   Title,
   BoardList,
+  List,
 } from './styles/collection';
 
 export default function Collection({ children }) {
   return <Container>{children}</Container>;
 }
+
+Collection.List = function CollectionList({ children, ...restProps }) {
+  return <List {...restProps}>{children}</List>;
+};
 
 Collection.ButtonContainer = function CollectionButtonContainer({
   children,

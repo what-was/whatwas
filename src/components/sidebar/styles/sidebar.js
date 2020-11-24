@@ -3,8 +3,7 @@ import styled from 'styled-components/macro';
 export const Container = styled.nav`
   display: flex;
   flex-direction: column;
-  max-width: 220px;
-  width: 100%;
+  width: 240px;
   height: calc(100vh - 70px);
   border-right: 1px solid #ede7e1;
 
@@ -16,7 +15,7 @@ export const Container = styled.nav`
 
 export const BoardContainer = styled.aside`
   display: flex;
-  padding: 5px 10px;
+  padding: 5px 24px;
 `;
 
 export const List = styled.ul`
@@ -33,7 +32,7 @@ export const ListItem = styled.li`
   justify-content: space-between;
   align-items: center;
   list-style-type: none;
-  padding: 5px 14px 5px 28px;
+  padding: 9px 24px;
   cursor: pointer;
   font-weight: ${(props) => (props.status === 'active' ? '700' : '500')};
   background-color: ${(props) =>
@@ -53,7 +52,7 @@ export const ListItem = styled.li`
 `;
 
 export const BoardName = styled.p`
-  font-size: 0.925rem;
+  font-size: 11pt;
   margin: 0;
   width: 100%;
   &::selection {
@@ -75,9 +74,9 @@ export const AddBoard = styled.button`
   margin: auto 0 0;
   align-items: center;
   svg {
-    height: 20px;
+    height: 18px;
     width: auto;
-    margin-right: 5px;
+    margin-right: 12px;
   }
 
   &:hover {

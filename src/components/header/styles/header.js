@@ -11,7 +11,7 @@ export const Container = styled.header`
   margin: ${(props) => (props.className === 'signed-in' ? '0 28px' : '0')};
   padding: ${(props) =>
     props.className === 'signed-in' ? '10px 0px' : '20px 56px'};
-  justify-content: space-between;
+
   align-items: center;
   a {
     display: flex;
@@ -47,17 +47,25 @@ export const SearchInput = styled.input`
   color: #222525;
   border: 1px solid white;
   transition: width 0.5s;
-  height: 35px;
+  height: 2rem;
   font-size: 14px;
-  margin-left: ${({ active }) => (active === true ? '10px' : '0')};
-  padding: ${({ active }) => (active === true ? '0 10px' : '0')};
-  opacity: ${({ active }) => (active === true ? '1' : '0')};
-  width: ${({ active }) => (active === true ? '200px' : '0px')};
+  padding: 0 10px;
+  width: 90%;
+  &:focus {
+    outline: 0;
+    border: 0;
+  }
 `;
 
 export const Search = styled.div`
   display: flex;
   align-items: center;
+  -webkit-box-align: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 40px;
+  width: 420px;
+  padding: 5px 15px;
   svg {
     color: white;
     cursor: pointer;
@@ -73,12 +81,11 @@ export const SearchIcon = styled.button`
   cursor: pointer;
   background-color: transparent;
   border-radius: 20px;
-  padding: 10px;
   transition: 200ms background-color ease;
   svg {
     color: #232323;
     width: auto;
-    height: 1.3rem;
+    height: 1.2rem;
   }
 
   &:hover {
@@ -152,7 +159,6 @@ export const Dropdown = styled.div`
 export const Profile = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 20px;
   position: relative;
   button {
     cursor: pointer;
@@ -188,4 +194,20 @@ export const Logo = styled.img`
     height: 26px;
     width: auto;
   }
+`;
+
+export const LeftGroup = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const RightGroup = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const CenterGroup = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
 `;

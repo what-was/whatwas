@@ -7,8 +7,12 @@ export const Container = styled.aside`
   margin-left: auto;
   max-width: 960px;
   border-radius: 15px;
-  background: #242526;
-  box-shadow: 0px 10px 60px -10px rgba(220, 187, 160, 1);
+  background-color: #232323;
+  ${
+    '' /* backdrop-filter: blur(10px);
+  background-color: rgba(35, 35, 35, 0.9); */
+  }
+  ${'' /* box-shadow: 0px 10px 60px -10px rgba(220, 187, 160, 1); */}
   top: 60px;
   left: 60px;
   right: 60px;
@@ -163,6 +167,8 @@ export const Input = styled.textarea`
   color: #fffffe;
   resize: none;
   overflow: hidden;
+  line-height: 1.5;
+  font-weight: normal;
   transition: 2s opacity ease-in;
   &:focus::placeholder {
     color: transparent;

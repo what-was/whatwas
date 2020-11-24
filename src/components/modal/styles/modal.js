@@ -14,6 +14,8 @@ export const Inner = styled.div`
   top: 0;
   right: 0;
   background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 10px 15px -5px rgba(220, 187, 160, 0.4);
 `;
 
 export const WarningText = styled.p`
@@ -25,22 +27,25 @@ export const WarningText = styled.p`
 `;
 
 export const ConfirmButton = styled.button`
-  background-color: red;
-  color: #fff !important;
+  background-color: #ff6470;
+  color: #fff;
   border: 1px solid transparent;
-  margin-right: 5px;
-  margin-top: 10px;
+  border-radius: 5px;
+  margin: 10px 5px 0 0;
   font-weight: bold;
-  font-size: 13px !important;
+  font-size: 13px;
   line-height: 17px;
   padding: 6px 12px 7px 12px;
   position: relative;
   display: inline-block;
   white-space: nowrap;
-  border-radius: 3px !important;
-  text-decoration: none !important;
+  text-decoration: none;
   text-align: center;
   cursor: pointer;
+
+  &:hover {
+    background-color: #f45d48;
+  }
 `;
 
 export const Cancel = styled.span`
@@ -49,4 +54,8 @@ export const Cancel = styled.span`
   cursor: pointer;
   font-size: 14px;
   margin: 2px 5px;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;

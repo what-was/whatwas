@@ -36,14 +36,16 @@ export function HeaderContainer({ children, route, title }) {
   ) : (
     <Header>
       <Header.Frame className="signed-in">
-        <Header.Group>
+        <Header.LeftGroup>
           <Header.Logo to={ROUTES.DASHBOARD} src={logo} alt="WhatWas" />
-        </Header.Group>
-        <Header.Group>
+        </Header.LeftGroup>
+        <Header.CenterGroup>
           <Header.Search
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
           />
+        </Header.CenterGroup>
+        <Header.RightGroup>
           <Header.Profile>
             <Header.Picture src={user.photoURL} />
             <Header.Dropdown>
@@ -65,7 +67,7 @@ export function HeaderContainer({ children, route, title }) {
               </Header.Group>
             </Header.Dropdown>
           </Header.Profile>
-        </Header.Group>
+        </Header.RightGroup>
       </Header.Frame>
     </Header>
   );

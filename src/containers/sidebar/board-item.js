@@ -53,7 +53,7 @@ export function BoardItemContainer(props) {
             }
           }}
         >
-          {board.name}
+          {board.name ? board.name : 'untitled'}
         </Sidebar.BoardName>
 
         <Sidebar.MoreButton id="more-btn">

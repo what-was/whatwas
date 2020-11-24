@@ -14,6 +14,9 @@ import {
   TextLink,
   Text,
   Logo,
+  LeftGroup,
+  RightGroup,
+  CenterGroup,
 } from './styles/header';
 import { FiSearch } from 'react-icons/fi';
 
@@ -42,21 +45,15 @@ Header.Search = function HeaderSearch({
   setSearchTerm,
   ...restProps
 }) {
-  const [searchActive, setSearchActive] = useState(false);
-
   return (
     <Search {...restProps}>
-      <SearchIcon
-        onClick={() => setSearchActive((searchActive) => !searchActive)}
-        data-testid="search-click"
-      >
+      <SearchIcon data-testid="search-click">
         <FiSearch />
       </SearchIcon>
       <SearchInput
         value={searchTerm}
         onChange={({ target }) => setSearchTerm(target.value)}
         placeholder="Search on WhatWas"
-        active={searchActive}
         data-testid="search-input"
       />
     </Search>
@@ -85,4 +82,16 @@ Header.Text = function HeaderText({ children, ...restProps }) {
 
 Header.ButtonLink = function HeaderButtonLink({ children, ...restProps }) {
   return <ButtonLink {...restProps}>{children}</ButtonLink>;
+};
+
+Header.LeftGroup = function HeaderLeftGroup({ children, ...restProps }) {
+  return <LeftGroup {...restProps}>{children}</LeftGroup>;
+};
+
+Header.RightGroup = function HeaderRightGroup({ children, ...restProps }) {
+  return <RightGroup {...restProps}>{children}</RightGroup>;
+};
+
+Header.CenterGroup = function HeaderCenterGroup({ children, ...restProps }) {
+  return <CenterGroup {...restProps}>{children}</CenterGroup>;
 };

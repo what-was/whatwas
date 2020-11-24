@@ -1,10 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Sidebar, Collection } from '../components';
-import {
-  useSelectedBoardValue,
-  useBoardsValue,
-  useCollectionsValue,
-} from '../context';
+import { useBoardsValue, useCollectionsValue } from '../context';
 import { AddBoardContainer } from './add-board';
 import { AiFillCaretDown, AiFillCaretRight } from 'react-icons/ai';
 import { BoardItemContainer } from './sidebar/board-item';
@@ -13,7 +9,7 @@ export function SidebarContainer({}) {
   const { boards } = useBoardsValue();
   const { collection } = useCollectionsValue();
   const [addBoardOpen, setAddBoardOpen] = useState(false);
-  const [collectionOpen, setCollectionOpen] = useState(false);
+  const [collectionOpen, setCollectionOpen] = useState([]);
   const [active, setActive] = useState('');
   const [listItemModal, setListItemModal] = useState(false);
 
@@ -34,8 +30,14 @@ export function SidebarContainer({}) {
     setAddBoardOpen(!addBoardOpen);
   };
 
-  const handleCollectionOpen = () => {
-    setCollectionOpen(!collectionOpen);
+  const handleCollectionOpen = (collectionId) => {
+    collectionOpen.includes(collectionId)
+      ? setCollectionOpen(
+          collectionOpen.filter((collection) => collection !== collectionId)
+        )
+      : setCollectionOpen((collectionOpen) =>
+          collectionOpen.concat(collectionId)
+        );
   };
 
   const handleMoreButton = (e) => {
@@ -52,32 +54,46 @@ export function SidebarContainer({}) {
   return (
     <Sidebar>
       <Sidebar.List>
-        {collection &&
-          collection.map((collection) => (
-            <Collection key={collection.collectionId}>
-              <Collection.ButtonContainer
-                onClick={() => handleCollectionOpen()}
-              >
-                {collectionOpen ? <AiFillCaretDown /> : <AiFillCaretRight />}
-                <Collection.Title>{collection.collectionName}</Collection.Title>
-              </Collection.ButtonContainer>
-              {collectionOpen && (
-                <Collection.BoardList>
-                  {boards &&
-                    boards
-                      .filter((board) => board.collectionId !== '')
-                      .map((board) => (
-                        <BoardItemContainer
-                          key={board.boardId}
-                          board={board}
-                          clickAction={() => boardItemAction(board.boardId)}
-                          activeBoard={active}
-                        />
-                      ))}
-                </Collection.BoardList>
-              )}
-            </Collection>
-          ))}
+        {collection && (
+          <Collection.List>
+            {collection.map((collection) => (
+              <Collection key={collection.collectionId}>
+                <Collection.ButtonContainer
+                  onClick={() => handleCollectionOpen(collection.collectionId)}
+                >
+                  <Collection.Title>
+                    {collection.collectionName
+                      ? collection.collectionName
+                      : 'untitled collection'}
+                  </Collection.Title>
+                  {collectionOpen.includes(collection.collectionId) ? (
+                    <AiFillCaretDown />
+                  ) : (
+                    <AiFillCaretRight />
+                  )}
+                </Collection.ButtonContainer>
+                {collectionOpen.includes(collection.collectionId) && (
+                  <Collection.BoardList>
+                    {boards &&
+                      boards
+                        .filter(
+                          (board) =>
+                            board.collectionId === collection.collectionId
+                        )
+                        .map((board) => (
+                          <BoardItemContainer
+                            key={board.boardId}
+                            board={board}
+                            clickAction={() => boardItemAction(board.boardId)}
+                            activeBoard={active}
+                          />
+                        ))}
+                  </Collection.BoardList>
+                )}
+              </Collection>
+            ))}
+          </Collection.List>
+        )}
         {boards &&
           boards
             .filter((board) => board.collectionId === '')
