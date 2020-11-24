@@ -7,15 +7,14 @@ import {
 } from '../context';
 import { AddBoardContainer } from './add-board';
 import { AiFillCaretDown, AiFillCaretRight } from 'react-icons/ai';
-import { BiDotsHorizontalRounded } from 'react-icons/bi';
+import { BoardItemContainer } from './sidebar/board-item';
 
 export function SidebarContainer({}) {
   const { boards } = useBoardsValue();
   const { collection } = useCollectionsValue();
-  const { setSelectedBoard } = useSelectedBoardValue();
-  const [active, setActive] = useState('');
   const [addBoardOpen, setAddBoardOpen] = useState(false);
   const [collectionOpen, setCollectionOpen] = useState(false);
+  const [active, setActive] = useState('');
   const [listItemModal, setListItemModal] = useState(false);
 
   let container = useRef(null);
@@ -24,6 +23,11 @@ export function SidebarContainer({}) {
     if (container.current && !container.current.contains(event.target)) {
       setAddBoardOpen(false);
     }
+  };
+
+  const boardItemAction = (id) => {
+    setActive(id);
+    // setSelectedBoard(id);
   };
 
   const handleAction = () => {
@@ -54,8 +58,8 @@ export function SidebarContainer({}) {
               <Collection.ButtonContainer
                 onClick={() => handleCollectionOpen()}
               >
-                <Collection.Title>{collection.collectionName}</Collection.Title>
                 {collectionOpen ? <AiFillCaretDown /> : <AiFillCaretRight />}
+                <Collection.Title>{collection.collectionName}</Collection.Title>
               </Collection.ButtonContainer>
               {collectionOpen && (
                 <Collection.BoardList>
@@ -63,30 +67,12 @@ export function SidebarContainer({}) {
                     boards
                       .filter((board) => board.collectionId !== '')
                       .map((board) => (
-                        <Sidebar.ListItem
+                        <BoardItemContainer
                           key={board.boardId}
-                          data-doc-id={board.docId}
-                          data-testid="board-action"
-                          role="button"
-                          tabIndex={0}
-                          aria-label={`Select ${board.name} as the board`}
-                          status={active === board.boardId ? 'active' : ''}
-                          onClick={() => {
-                            setActive(board.boardId);
-                            setSelectedBoard(board.boardId);
-                          }}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                              setActive(board.boardId);
-                              setSelectedBoard(board.boardId);
-                            }
-                          }}
-                        >
-                          <Sidebar.BoardName>{board.name}</Sidebar.BoardName>
-                          <Sidebar.MoreButton>
-                            <BiDotsHorizontalRounded />
-                          </Sidebar.MoreButton>
-                        </Sidebar.ListItem>
+                          board={board}
+                          clickAction={() => boardItemAction(board.boardId)}
+                          activeBoard={active}
+                        />
                       ))}
                 </Collection.BoardList>
               )}
@@ -96,34 +82,12 @@ export function SidebarContainer({}) {
           boards
             .filter((board) => board.collectionId === '')
             .map((board) => (
-              <Sidebar.ListItem
+              <BoardItemContainer
                 key={board.boardId}
-                data-doc-id={board.docId}
-                data-testid="board-action"
-                role="button"
-                tabIndex={0}
-                aria-label={`Select ${board.name} as the board`}
-                status={active === board.boardId ? 'active' : ''}
-              >
-                <Sidebar.BoardName
-                  onClick={() => {
-                    setActive(board.boardId);
-                    setSelectedBoard(board.boardId);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      setActive(board.boardId);
-                      setSelectedBoard(board.boardId);
-                    }
-                  }}
-                >
-                  {board.name}
-                </Sidebar.BoardName>
-
-                <Sidebar.MoreButton id="more-btn">
-                  <BiDotsHorizontalRounded onClick={() => alert('afdhömdfh')} />
-                </Sidebar.MoreButton>
-              </Sidebar.ListItem>
+                board={board}
+                clickAction={() => boardItemAction(board.boardId)}
+                activeBoard={active}
+              />
             ))}
       </Sidebar.List>
 

@@ -25,6 +25,7 @@ export const List = styled.ul`
   max-height: calc(100vh - 100px);
   overflow: hidden auto;
   margin-top: 0;
+  height: 100%;
 `;
 
 export const ListItem = styled.li`

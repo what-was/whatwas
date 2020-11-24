@@ -8,13 +8,13 @@ export const Container = styled.section`
 export const ButtonContainer = styled.section`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  padding: 5px 14px 5px 28px;
+  padding: 5px 14px;
   cursor: pointer;
   color: #232323;
   svg {
     font-size: 0.75rem;
+    margin-right: 5px;
   }
 
   &:hover {

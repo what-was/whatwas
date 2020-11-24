@@ -10,3 +10,4 @@ export { default as Collection } from './collection';
 export { default as InnerPage } from './innerpage';
 export { default as AddItem } from './add-item';
 export { default as Note } from './note';
+export { default as Modal } from './modal';
