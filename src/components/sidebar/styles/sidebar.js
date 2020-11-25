@@ -40,7 +40,7 @@ export const ListItem = styled.li`
 
   color: #191818;
   &:hover {
-    background-color: #fffdfc;
+    background-color: rgba(255, 255, 255, 0.6);
   }
   &:focus {
     outline: 0;

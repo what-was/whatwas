@@ -26,13 +26,13 @@ export const ButtonContainer = styled.section`
 export const BoardList = styled.ul`
   display: flex;
   flex-direction: column;
-  background-color: #dfddda;
+  background-color: #edeae6;
   list-style: none;
   padding: 0;
   li {
     padding-left: 36px;
     &:hover {
-      background-color: #fffdfc;
+      background-color: rgba(255, 255, 255, 0.6);
     }
   }
 `;

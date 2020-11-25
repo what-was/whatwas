@@ -78,9 +78,8 @@ export const NotesList = styled.div`
   flex-direction: column;
   margin: 1rem 1rem;
   border-radius: 10px;
-  width: 250px;
-  ${'' /* min-height: 200px; */}
-  padding: 1rem 2.25rem;
+  width: 19.6rem;
+  padding: 1rem 1.5rem;
   cursor: pointer;
   background-color: #fffffe;
   border: 1px solid #ede7e1;
@@ -97,34 +96,30 @@ export const NotesList = styled.div`
 
   &:hover {
     box-shadow: 0 10px 45px -20px rgba(100, 100, 100, 0.3);
-    h4 {
-      background-position-y: 5%;
-    }
-  }
-
-  h4 {
-    text-decoration: none;
-    background-position-y: 0%;
-    background-image: linear-gradient(
-      transparent 50%,
-      ${(props) => backgroundColor(props.color)} 50%
-    );
-    transition: background 200ms ease;
-    background-size: 2px;
-    background-size: auto 190%;
   }
 `;
 
 export const NoteTitle = styled.h4`
+  display: flex;
   margin: 0 0 0.25rem 0;
   font-size: 1.25rem;
   line-height: 1.2;
   font-weight: 700;
   color: #232323;
-  word-wrap: break-word;
   cursor: pointer;
   padding: 0.5rem 0;
   width: auto;
+  align-items: flex-start;
+  word-wrap: normal;
+  &::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: ${(props) => backgroundColor(props.color)};
+    margin: 5px 10px 0 0;
+    display: table;
+  }
 `;
 
 export const ProfileContainer = styled.div`
