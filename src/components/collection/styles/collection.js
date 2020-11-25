@@ -18,7 +18,7 @@ export const ButtonContainer = styled.section`
   justify-content: space-between;
   padding: 12px 24px;
   cursor: pointer;
-  color: #232323;
+  color: #191818;
   svg {
     font-size: 0.75rem;
   }
@@ -26,7 +26,7 @@ export const ButtonContainer = styled.section`
 export const BoardList = styled.ul`
   display: flex;
   flex-direction: column;
-  background-color: rgba(200, 200, 200, 0.4);
+  background-color: #dfddda;
   list-style: none;
   padding: 0;
   li {

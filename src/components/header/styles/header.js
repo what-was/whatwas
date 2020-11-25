@@ -42,21 +42,6 @@ export const Group = styled.div`
   align-items: center;
 `;
 
-export const SearchInput = styled.input`
-  background-color: #fffffe;
-  color: #222525;
-  border: 1px solid white;
-  transition: width 0.5s;
-  height: 2rem;
-  font-size: 14px;
-  padding: 0 10px;
-  width: 90%;
-  &:focus {
-    outline: 0;
-    border: 0;
-  }
-`;
-
 export const Search = styled.div`
   display: flex;
   align-items: center;
@@ -70,8 +55,26 @@ export const Search = styled.div`
     color: white;
     cursor: pointer;
   }
+
   @media (max-width: 700px) {
     display: none;
+  }
+`;
+
+export const SearchInput = styled.input`
+  background-color: #fffffe;
+  color: #222525;
+  border: 1px solid white;
+  transition: width 0.5s;
+  height: 2rem;
+  font-size: 14px;
+  padding: 0 10px;
+  width: 90%;
+  &:focus {
+    outline: 0;
+  }
+  &:focus + ${Search} {
+    border: blue auto 3px !important;
   }
 `;
 

@@ -91,28 +91,25 @@ export const getSingleNote = (noteId) => {
   const [note, setNote] = useState({});
   const { firebase } = useContext(FirebaseContext);
 
-  useEffect(
-    () => {
-      if (noteId !== '') {
-        firebase
-          .firestore()
-          .collection('notes')
-          .where('noteId', '==', noteId)
-          .get()
-          .then((snapshot) => {
-            const currNote = snapshot.docs.map((content) => ({
-              ...content.data(),
-              docId: content.id,
-            }));
-            setNote(currNote[0]);
-          })
-          .catch((error) => {
-            console.error(error.message);
-          });
-      }
-    },
-    { noteId }
-  );
+  useEffect(() => {
+    if (noteId !== '') {
+      firebase
+        .firestore()
+        .collection('notes')
+        .where('noteId', '==', noteId)
+        .get()
+        .then((snapshot) => {
+          const currNote = snapshot.docs.map((content) => ({
+            ...content.data(),
+            docId: content.id,
+          }));
+          setNote(currNote[0]);
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
+    }
+  }, [noteId]);
 
   return note;
 };

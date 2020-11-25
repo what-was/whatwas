@@ -79,13 +79,14 @@ export const NotesList = styled.div`
   margin: 1rem 1rem;
   border-radius: 10px;
   width: 250px;
-  min-height: 200px;
-  padding: 1.5rem 2.25rem;
+  ${'' /* min-height: 200px; */}
+  padding: 1rem 2.25rem;
   cursor: pointer;
-  background-color: ${(props) => backgroundColor(props.color)}};
+  background-color: #fffffe;
+  border: 1px solid #ede7e1;
   text-decoration: none;
-  
-  a{
+  transition: box-shadow 350ms ease;
+  a {
     width: 100%;
     height: 100%;
     text-decoration: none;
@@ -93,9 +94,24 @@ export const NotesList = styled.div`
     display: flex;
     flex-direction: column;
   }
-  
-  &:hover h4 {
-      text-decoration: underline;
+
+  &:hover {
+    box-shadow: 0 10px 45px -20px rgba(100, 100, 100, 0.3);
+    h4 {
+      background-position-y: 100%;
+    }
+  }
+
+  h4 {
+    text-decoration: none;
+    background-position-y: 0%;
+    background-image: linear-gradient(
+      transparent 50%,
+      ${(props) => backgroundColor(props.color)} 50%
+    );
+    transition: background 200ms ease-in-out;
+    background-size: 2px;
+    background-size: auto 190%;
   }
 `;
 
@@ -109,10 +125,6 @@ export const NoteTitle = styled.h4`
   cursor: pointer;
   padding: 0.5rem 0;
   width: auto;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 export const ProfileContainer = styled.div`
@@ -147,7 +159,7 @@ export const TagsContainer = styled.div`
 export const Tag = styled.div`
   width: auto;
   height: auto;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(200, 200, 200, 0.2);
   color: #232323;
   padding: 2px 10px;
   border-radius: 4px;
@@ -155,7 +167,7 @@ export const Tag = styled.div`
   margin: 10px 10px 0 0;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(200, 200, 200, 0.4);
   }
 `;
 

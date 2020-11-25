@@ -12,7 +12,6 @@ export const BoardContainer = () => {
   const { selectedBoard } = useSelectedBoardValue();
   const { notes } = getNotes(selectedBoard);
   const boardTitle = getTitle(selectedBoard);
-
   const [starred, setStarred] = useState(false);
 
   let container = useRef(null);
@@ -59,8 +58,9 @@ export const BoardContainer = () => {
           notes.map((note) => (
             <Board.NotesList key={note.docId} color={note.noteColor}>
               <Link to={`note/` + note.noteId}>
-                <Board.NoteTitle>{note.noteTitle}</Board.NoteTitle>
-                <Board.NoteSummary>{note.note}</Board.NoteSummary>
+                <Board.NoteTitle color={note.noteColor}>
+                  {note.noteTitle}
+                </Board.NoteTitle>
 
                 <Board.LowerContainer>
                   <Board.TagsContainer>

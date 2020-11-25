@@ -38,7 +38,7 @@ export const ListItem = styled.li`
   background-color: ${(props) =>
     props.status === 'active' ? '#fffffe' : 'transparent'};
 
-  color: #232323;
+  color: #191818;
   &:hover {
     background-color: #fffdfc;
   }
