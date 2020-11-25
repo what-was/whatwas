@@ -98,7 +98,7 @@ export const NotesList = styled.div`
   &:hover {
     box-shadow: 0 10px 45px -20px rgba(100, 100, 100, 0.3);
     h4 {
-      background-position-y: 100%;
+      background-position-y: 5%;
     }
   }
 
@@ -109,7 +109,7 @@ export const NotesList = styled.div`
       transparent 50%,
       ${(props) => backgroundColor(props.color)} 50%
     );
-    transition: background 200ms ease-in-out;
+    transition: background 200ms ease;
     background-size: 2px;
     background-size: auto 190%;
   }

@@ -1,13 +1,16 @@
 import React, { useState, useContext } from 'react';
-import { Header } from '../components';
+import { Header, Sidebar } from '../components';
 import * as ROUTES from '../constants/routes';
+import { useSidebarValue } from '../context';
 import { FirebaseContext } from '../context/firebase';
 import logo from '../logo-black.svg';
+import { RiMenuLine } from 'react-icons/ri';
 
 export function HeaderContainer({ children, route, title }) {
   const [searchTerm, setSearchTerm] = useState('');
   const user = JSON.parse(localStorage.getItem('authUser'));
   const { firebase } = useContext(FirebaseContext);
+  const { sidebar, setSidebar } = useSidebarValue();
 
   let ctaText;
   if (window.location.pathname === '/signin') {
@@ -37,6 +40,9 @@ export function HeaderContainer({ children, route, title }) {
     <Header>
       <Header.Frame className="signed-in">
         <Header.LeftGroup>
+          <Sidebar.CloseButton onClick={() => setSidebar(!sidebar)}>
+            <RiMenuLine />
+          </Sidebar.CloseButton>
           <Header.Logo to={ROUTES.DASHBOARD} src={logo} alt="WhatWas" />
         </Header.LeftGroup>
         <Header.CenterGroup>

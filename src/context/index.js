@@ -14,6 +14,11 @@ import {
   CollectionsProvider,
   useCollectionsValue,
 } from './collections-context';
+import {
+  SidebarContext,
+  SidebarProvider,
+  useSidebarValue,
+} from './sidebar-context';
 
 export {
   BoardsContext,
@@ -25,4 +30,7 @@ export {
   CollectionsContext,
   CollectionsProvider,
   useCollectionsValue,
+  SidebarContext,
+  SidebarProvider,
+  useSidebarValue,
 };

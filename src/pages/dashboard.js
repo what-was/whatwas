@@ -7,6 +7,7 @@ import {
   BoardsProvider,
   SelectedBoardProvider,
   CollectionsProvider,
+  SidebarProvider,
 } from '../context/';
 
 export default function Dashboard() {
@@ -14,17 +15,19 @@ export default function Dashboard() {
 
   return (
     <>
-      <HeaderContainer title="Dashboard" />
-      <InnerPage>
-        <CollectionsProvider>
-          <SelectedBoardProvider>
-            <BoardsProvider>
-              <SidebarContainer />
-              <DashboardContainer />
-            </BoardsProvider>
-          </SelectedBoardProvider>
-        </CollectionsProvider>
-      </InnerPage>
+      <SidebarProvider>
+        <HeaderContainer title="Dashboard" />
+        <InnerPage>
+          <CollectionsProvider>
+            <SelectedBoardProvider>
+              <BoardsProvider>
+                <SidebarContainer />
+                <DashboardContainer />
+              </BoardsProvider>
+            </SelectedBoardProvider>
+          </CollectionsProvider>
+        </InnerPage>
+      </SidebarProvider>
       {/* <FooterContainer /> */}
     </>
   );

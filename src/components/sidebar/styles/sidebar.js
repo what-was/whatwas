@@ -93,3 +93,31 @@ export const MoreButton = styled.div`
   font-size: 1.2rem;
   z-index: 99;
 `;
+
+export const CloseButton = styled.button`
+  border: 0;
+  background-color: transparent;
+  display: flex;
+  align-items: flex-end;
+  ${'' /* margin: auto 5px 0 0; */}
+  margin-right: 10px;
+  padding: 5px;
+  font-size: 1.3rem;
+  align-self: flex-end;
+  margin-bottom: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: #dfddda;
+    border-radius: 5px;
+  }
+
+  &:focus {
+    border: 0;
+    outline: 0;
+  }
+
+  @media (max-width: 1000px) {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+`;
