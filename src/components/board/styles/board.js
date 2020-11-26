@@ -78,7 +78,7 @@ export const NotesList = styled.div`
   flex-direction: column;
   margin: 1rem 1rem;
   border-radius: 10px;
-  width: 19.6rem;
+  flex: 0 1 19rem;
   padding: 1rem 1.5rem;
   cursor: pointer;
   background-color: #fffffe;
