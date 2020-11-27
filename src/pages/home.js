@@ -12,8 +12,8 @@ export default function Home() {
       <HeaderContainer route="sign-in">
         <OptFormContainer />
         <JumbotronContainer />
-        <FooterContainer />
       </HeaderContainer>
+      <FooterContainer />
     </>
   );
 }

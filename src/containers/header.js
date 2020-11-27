@@ -6,7 +6,7 @@ import { FirebaseContext } from '../context/firebase';
 import logo from '../logo-black.svg';
 import { RiMenuLine } from 'react-icons/ri';
 
-export function HeaderContainer({ children, route, title }) {
+export function HeaderContainer({ children, route }) {
   const [searchTerm, setSearchTerm] = useState('');
   const user = JSON.parse(localStorage.getItem('authUser'));
   const { firebase } = useContext(FirebaseContext);

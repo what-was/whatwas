@@ -11,7 +11,10 @@ export const Container = styled.header`
   margin: ${(props) => (props.className === 'signed-in' ? '0 28px' : '0')};
   padding: ${(props) =>
     props.className === 'signed-in' ? '10px 0px' : '20px 56px'};
-
+  ${
+    '' /* justify-content: ${(props) =>
+    props.className === 'signed-in' ? '' : 'space-between'}; */
+  }
   align-items: center;
   a {
     display: flex;

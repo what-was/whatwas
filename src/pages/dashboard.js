@@ -15,20 +15,18 @@ export default function Dashboard() {
 
   return (
     <>
-      <SidebarProvider>
-        <HeaderContainer title="Dashboard" />
-        <InnerPage>
-          <CollectionsProvider>
-            <SelectedBoardProvider>
-              <BoardsProvider>
-                <SidebarContainer />
-                <DashboardContainer />
-              </BoardsProvider>
-            </SelectedBoardProvider>
-          </CollectionsProvider>
-        </InnerPage>
-      </SidebarProvider>
-      {/* <FooterContainer /> */}
+      {/* <HeaderContainer />
+      <InnerPage>
+        <CollectionsProvider>
+          <SelectedBoardProvider>
+            <BoardsProvider>
+              <SidebarContainer /> */}
+
+      <DashboardContainer />
+      {/* </BoardsProvider>
+          </SelectedBoardProvider>
+        </CollectionsProvider>
+      </InnerPage> */}
     </>
   );
 }
