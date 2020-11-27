@@ -9,25 +9,17 @@ import {
   CollectionsProvider,
   SidebarProvider,
 } from '../context/';
-
+import { ContextContainer } from '../containers/context-container';
 export default function Dashboard() {
   const user = JSON.parse(localStorage.getItem('authUser'));
 
   return (
     <>
-      {/* <HeaderContainer />
+      <HeaderContainer />
       <InnerPage>
-        <CollectionsProvider>
-          <SelectedBoardProvider>
-            <BoardsProvider>
-              <SidebarContainer /> */}
-
-      <NoteContainer />
-      {/* </BoardsProvider>
-          </SelectedBoardProvider>
-        </CollectionsProvider>
-      </InnerPage> */}
-      {/* <FooterContainer /> */}
+        <SidebarContainer />
+        <NoteContainer />
+      </InnerPage>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Header, Sidebar } from '../components';
 import * as ROUTES from '../constants/routes';
 import { useSidebarValue } from '../context';
@@ -10,7 +10,9 @@ export function HeaderContainer({ children, route }) {
   const [searchTerm, setSearchTerm] = useState('');
   const user = JSON.parse(localStorage.getItem('authUser'));
   const { firebase } = useContext(FirebaseContext);
-  const { sidebar, setSidebar } = useSidebarValue();
+
+  // TODO => Figure out how to run if current header belongs to signed-in user.
+  // const { sidebar, setSidebar } = useSidebarValue();
 
   let ctaText;
   if (window.location.pathname === '/signin') {

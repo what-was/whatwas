@@ -14,12 +14,14 @@ export function IsUserRedirect({ user, loggedInPath, children, ...rest })
                     return (
                         <Redirect
                             to={{
-                                pathname: loggedInPath
-                            }} />
-                    )
-                } else { return null; }
-            }
-            }
+                                pathname: loggedInPath,
+                            }}
+                        />
+                    );
+                } else {
+                    return null;
+                }
+            }}
         />
     );
 }
@@ -35,14 +37,17 @@ export function ProtectedRoute({ user, children, ...rest })
                     return children;
                 } else if (!user) {
                     return (
-                        <Redirect to={{
-                            pathname: 'signin',
-                            state: { from: location }
-                        }} />
+                        <Redirect
+                            to={{
+                                pathname: '/signin',
+                                state: { from: location },
+                            }}
+                        />
                     );
-                } else { return null; }
+                } else {
+                    return null;
+                }
             }}
         />
-
     );
 }

@@ -3,30 +3,19 @@ import { DashboardContainer } from '../containers/dashboard';
 import { HeaderContainer } from '../containers/header';
 import { SidebarContainer } from '../containers/sidebar';
 import { InnerPage } from '../components';
-import {
-  BoardsProvider,
-  SelectedBoardProvider,
-  CollectionsProvider,
-  SidebarProvider,
-} from '../context/';
+
+import { ContextContainer } from '../containers/context-container';
 
 export default function Dashboard() {
   const user = JSON.parse(localStorage.getItem('authUser'));
 
   return (
     <>
-      {/* <HeaderContainer />
+      <HeaderContainer />
       <InnerPage>
-        <CollectionsProvider>
-          <SelectedBoardProvider>
-            <BoardsProvider>
-              <SidebarContainer /> */}
-
-      <DashboardContainer />
-      {/* </BoardsProvider>
-          </SelectedBoardProvider>
-        </CollectionsProvider>
-      </InnerPage> */}
+        <SidebarContainer />
+        <DashboardContainer />
+      </InnerPage>
     </>
   );
 }
