@@ -11,3 +11,4 @@ export { default as InnerPage } from './innerpage';
 export { default as AddItem } from './add-item';
 export { default as Note } from './note';
 export { default as Modal } from './modal';
+export { default as ColorFilter } from './color-filter';

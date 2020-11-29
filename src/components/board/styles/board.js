@@ -30,32 +30,33 @@ export const UpperContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 1rem 1rem;
+  margin: 1rem 0.5rem;
   flex-wrap: wrap;
 `;
 
 export const Title = styled.h2`
   display: flex;
-  font-size: 2rem;
+  font-size: 24px;
   font-weight: 700;
   color: #232323;
   margin: 0;
+  cursor: default;
 `;
 
 export const AddNoteButton = styled.div`
   display: flex;
   align-items: center;
   margin: 0 0 0 2rem;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
   color: #232323;
-  padding: 0.75rem 1.25rem;
+  padding: 0.5rem 1rem;
   border-radius: 50px;
   background-color: rgba(227, 222, 218, 0.6);
   cursor: pointer;
   transition: 100ms all ease;
   svg {
-    height: 1rem;
+    height: 16px;
     font-weight: 600;
     width: auto;
     margin-right: 0.25rem;
@@ -76,10 +77,10 @@ export const NoteContainer = styled.div`
 export const NotesList = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 1rem 1rem;
+  margin: 1rem 0.5rem;
   border-radius: 10px;
-  flex: 0 1 19rem;
-  padding: 1rem 1.5rem;
+  flex: 0 1 240px;
+  padding: 1rem 1.25rem;
   cursor: pointer;
   background-color: #fffffe;
   border: 1px solid #ede7e1;
@@ -102,22 +103,22 @@ export const NotesList = styled.div`
 export const NoteTitle = styled.h4`
   display: flex;
   margin: 0 0 0.25rem 0;
-  font-size: 1.25rem;
+  font-size: 16px;
   line-height: 1.2;
-  font-weight: 700;
+  font-weight: 600;
   color: #232323;
   cursor: pointer;
-  padding: 0.5rem 0;
+  padding: 0 0 0.5rem 0;
   width: auto;
   align-items: flex-start;
   word-wrap: normal;
   &::before {
     content: '';
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background-color: ${(props) => backgroundColor(props.color)};
-    margin: 5px 10px 0 0;
+    margin: 5px 10px auto 0;
     display: table;
   }
 `;

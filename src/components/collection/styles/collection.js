@@ -38,8 +38,8 @@ export const BoardList = styled.ul`
 `;
 
 export const Title = styled.h5`
-  font-size: 0.925rem;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
   margin: 0;
   &::selection {
     background-color: transparent !important;

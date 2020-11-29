@@ -5,6 +5,7 @@ import { getNotes, getTitle } from '../hooks';
 import { AddNoteContainer } from './add-note';
 import { BiPlus } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
+import { ColorFilterContainer } from './board/color-filter';
 
 export const BoardContainer = () => {
   const [title, setTitle] = useState('Dashboard');
@@ -13,6 +14,7 @@ export const BoardContainer = () => {
   const { notes } = getNotes(selectedBoard);
   const boardTitle = getTitle(selectedBoard);
   const [starred, setStarred] = useState(false);
+  const [colorFilter, setColorFilter] = useState('');
 
   let container = useRef(null);
 
@@ -35,6 +37,14 @@ export const BoardContainer = () => {
     setStarred(!starred);
   };
 
+  const handleFilter = (color) => {
+    if (color !== '' && color !== 'default') {
+      setColorFilter(color);
+    } else if (color === 'default') {
+      setColorFilter('');
+    }
+  };
+
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
     return () => {
@@ -52,31 +62,58 @@ export const BoardContainer = () => {
           <BiPlus />
           Add Note
         </Board.AddNoteButton>
+        <ColorFilterContainer onClick={(color) => handleFilter(color)} />
       </Board.UpperContainer>
       <Board.NoteContainer>
-        {notes &&
-          notes.map((note) => (
-            <Board.NotesList key={note.docId} color={note.noteColor}>
-              <Link to={`note/` + note.noteId}>
-                <Board.NoteTitle color={note.noteColor}>
-                  {note.noteTitle}
-                </Board.NoteTitle>
+        {notes && colorFilter.length > 1
+          ? notes
+              .filter((note) => note.noteColor === colorFilter)
+              .map((note) => (
+                <Board.NotesList key={note.docId} color={note.noteColor}>
+                  <Link to={`note/` + note.noteId}>
+                    <Board.NoteTitle color={note.noteColor}>
+                      {note.noteTitle}
+                    </Board.NoteTitle>
 
-                <Board.LowerContainer>
-                  <Board.TagsContainer>
-                    {note.tags &&
-                      note.tags
-                        .slice(0, 3)
-                        .map((tag) => <Board.Tag key={tag}>{tag}</Board.Tag>)}
-                  </Board.TagsContainer>
-                  {/* <Board.Favorite
+                    <Board.LowerContainer>
+                      <Board.TagsContainer>
+                        {note.tags &&
+                          note.tags
+                            .slice(0, 3)
+                            .map((tag) => (
+                              <Board.Tag key={tag}>{tag}</Board.Tag>
+                            ))}
+                      </Board.TagsContainer>
+                      {/* <Board.Favorite
                   starred={starred}
                   onClick={() => handleFavorite()}
                 /> */}
-                </Board.LowerContainer>
-              </Link>
-            </Board.NotesList>
-          ))}
+                    </Board.LowerContainer>
+                  </Link>
+                </Board.NotesList>
+              ))
+          : notes.map((note) => (
+              <Board.NotesList key={note.docId} color={note.noteColor}>
+                <Link to={`note/` + note.noteId}>
+                  <Board.NoteTitle color={note.noteColor}>
+                    {note.noteTitle}
+                  </Board.NoteTitle>
+
+                  <Board.LowerContainer>
+                    <Board.TagsContainer>
+                      {note.tags &&
+                        note.tags
+                          .slice(0, 3)
+                          .map((tag) => <Board.Tag key={tag}>{tag}</Board.Tag>)}
+                    </Board.TagsContainer>
+                    {/* <Board.Favorite
+                  starred={starred}
+                  onClick={() => handleFavorite()}
+                /> */}
+                  </Board.LowerContainer>
+                </Link>
+              </Board.NotesList>
+            ))}
         <aside ref={container}>
           {addNoteOpen && <AddNoteContainer action={() => handleAddNote()} />}
         </aside>

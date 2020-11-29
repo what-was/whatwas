@@ -34,7 +34,7 @@ export const ListItem = styled.li`
   list-style-type: none;
   padding: 9px 24px;
   cursor: pointer;
-  font-weight: ${(props) => (props.status === 'active' ? '700' : '500')};
+  font-weight: ${(props) => (props.status === 'active' ? '600' : '500')};
   background-color: ${(props) =>
     props.status === 'active' ? '#fffffe' : 'transparent'};
 
@@ -52,7 +52,7 @@ export const ListItem = styled.li`
 `;
 
 export const BoardName = styled.p`
-  font-size: 11pt;
+  font-size: 14px;
   margin: 0;
   width: 100%;
   &::selection {
