@@ -1,18 +1,15 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Header, Sidebar } from '../components';
 import * as ROUTES from '../constants/routes';
-import { useSidebarValue } from '../context';
 import { FirebaseContext } from '../context/firebase';
 import logo from '../logo-black.svg';
-import { RiMenuLine } from 'react-icons/ri';
+import { useAuthListener } from '../hooks';
+import { SidebarToggleContainer } from './header/sidebar-toogle';
 
 export function HeaderContainer({ children, route }) {
   const [searchTerm, setSearchTerm] = useState('');
-  const user = JSON.parse(localStorage.getItem('authUser'));
   const { firebase } = useContext(FirebaseContext);
-
-  // TODO => Figure out how to run if current header belongs to signed-in user.
-  // const { sidebar, setSidebar } = useSidebarValue();
+  const { user } = useAuthListener();
 
   let ctaText;
   if (window.location.pathname === '/signin') {
@@ -42,9 +39,7 @@ export function HeaderContainer({ children, route }) {
     <Header>
       <Header.Frame className="signed-in">
         <Header.LeftGroup>
-          <Sidebar.CloseButton onClick={() => setSidebar(!sidebar)}>
-            <RiMenuLine />
-          </Sidebar.CloseButton>
+          <SidebarToggleContainer />
           <Header.Logo to={ROUTES.DASHBOARD} src={logo} alt="WhatWas" />
         </Header.LeftGroup>
         <Header.CenterGroup>

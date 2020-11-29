@@ -42,13 +42,6 @@ export const App = () => {
           <Home />
         </IsUserRedirect>
 
-        {/* 404 */}
-        {/* {user ? (
-          <Redirect to={ROUTES.DASHBOARD} />
-        ) : (
-          <Redirect to={ROUTES.HOME} />
-        )} */}
-
         {user !== null ? (
           <ContextContainer>
             <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
@@ -67,6 +60,13 @@ export const App = () => {
               <Note />
             </ProtectedRoute>
           </>
+        )}
+
+        {/* 404 */}
+        {user ? (
+          <Redirect to={ROUTES.DASHBOARD} />
+        ) : (
+          <Redirect to={ROUTES.HOME} />
         )}
       </Switch>
     </Router>
