@@ -14,8 +14,8 @@ const backgroundColor = (color) => {
       return '#b7e4c7';
     case 'grey':
       return '#e9ecef';
-    default:
-      return '#fcf4bc';
+    case 'default':
+      return 'grey';
   }
 };
 

@@ -22,6 +22,14 @@ export const BoardContainer = () => {
     setAddNoteOpen(!addNoteOpen);
   };
 
+  const handleFilter = (color) => {
+    if (color !== '' && color !== 'default') {
+      setColorFilter(color);
+    } else if (color === 'default') {
+      setColorFilter('');
+    }
+  };
+
   if (selectedBoard !== '' && boardTitle !== title) {
     setTitle(boardTitle);
     document.title = `${boardTitle} - WhatWas`;
@@ -35,14 +43,6 @@ export const BoardContainer = () => {
 
   const handleFavorite = () => {
     setStarred(!starred);
-  };
-
-  const handleFilter = (color) => {
-    if (color !== '' && color !== 'default') {
-      setColorFilter(color);
-    } else if (color === 'default') {
-      setColorFilter('');
-    }
   };
 
   useEffect(() => {

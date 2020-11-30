@@ -15,14 +15,13 @@ const backgroundColor = (color) => {
     case 'grey':
       return '#e9ecef';
     default:
-      return '#fcf4bc';
+      return 'transparent';
   }
 };
 
 export const Container = styled.div`
   display: flex;
   margin-left: auto;
-  cursor: pointer;
   align-items: center;
 `;
 
@@ -30,8 +29,9 @@ export const Button = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid #ede7e1;
-  padding: 5px 20px;
+  padding: 5px 15px;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 export const Dropdown = styled.div`
@@ -53,6 +53,8 @@ export const Item = styled.div`
   display: flex;
   align-items: center;
   padding: 10px 20px;
+  cursor: pointer;
+
   &:hover {
     background-color: #edeae6;
   }
@@ -73,9 +75,11 @@ export const Color = styled.span`
   height: 10px;
   border-radius: 15px;
   background-color: ${(props) => backgroundColor(props.color)};
+  border: ${(props) => (props.color === 'default' ? '1px solid grey' : '')};
 `;
 
 export const Tag = styled.p`
   font-size: 14px;
   margin: 0 15px 0 0;
+  cursor: default;
 `;
