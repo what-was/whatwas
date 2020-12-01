@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Container,
+  AddColorContainer,
   Button,
   Dropdown,
   Inner,
@@ -8,6 +9,10 @@ import {
   Name,
   Color,
   Tag,
+  ColorPicker,
+  SingleColor,
+  ColorButton,
+  ColorLabel,
 } from './styles/color-filter';
 
 export default function ColorFilter({ children, ...restProps }) {
@@ -42,4 +47,38 @@ ColorFilter.Color = function ColorFilterColor({ children, ...restProps }) {
 
 ColorFilter.Tag = function ColorFilterTag({ children, ...restProps }) {
   return <Tag {...restProps}>{children}</Tag>;
+};
+
+ColorFilter.AddColorContainer = function ColorFilterAddColorContainer({
+  children,
+  ...restProps
+}) {
+  return <AddColorContainer {...restProps}>{children}</AddColorContainer>;
+};
+ColorFilter.ColorPicker = function ColorFilterColorPicker({
+  children,
+  ...restProps
+}) {
+  return <ColorPicker {...restProps}>{children}</ColorPicker>;
+};
+
+ColorFilter.SingleColor = function ColorFilterSingleColor({
+  children,
+  ...restProps
+}) {
+  return <SingleColor {...restProps}>{children}</SingleColor>;
+};
+
+ColorFilter.ColorButton = function ColorFilterColorButton({
+  children,
+  ...restProps
+}) {
+  return <ColorButton {...restProps}>{children}</ColorButton>;
+};
+
+ColorFilter.ColorLabel = function ColorFilterColorLabel({
+  children,
+  ...restProps
+}) {
+  return <ColorLabel {...restProps}>{children}</ColorLabel>;
 };

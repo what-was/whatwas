@@ -21,6 +21,11 @@ export const Container = styled.aside`
   padding: 3rem 3rem;
 `;
 
+export const InnerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 // Select collection dropdown
 
 // Title Input
@@ -137,8 +142,6 @@ export const NoteTitle = styled.input`
   margin: ${(props) =>
     props.addNote ? '1rem 0 1rem 20px' : '0rem 0 1rem 20px'};
   font-size: ${(props) => (props.addNote ? '2.5rem' : '2rem')};
-  width: 100%;
-  max-width: calc(100% - 3rem);
   background-color: transparent;
   color: #fffffe;
   outline: 0;
@@ -147,6 +150,7 @@ export const NoteTitle = styled.input`
   display: ${(props) => (props.hasOpen ? 'block' : 'none')};
   opacity: ${(props) => (props.hasOpen ? '1' : '0')};
   transition: 2s opacity ease-in;
+  padding: 0;
   &:focus::placeholder {
     color: transparent;
   }
@@ -166,10 +170,10 @@ export const Input = styled.textarea`
   caret-color: #fffffe;
   color: #fffffe;
   resize: none;
-  overflow: hidden;
   line-height: 1.5;
   font-weight: normal;
   transition: 2s opacity ease-in;
+  padding: 0;
   &:focus::placeholder {
     color: transparent;
   }

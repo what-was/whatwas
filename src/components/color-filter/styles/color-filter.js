@@ -3,17 +3,17 @@ import styled from 'styled-components/macro';
 const backgroundColor = (color) => {
   switch (color) {
     case 'yellow':
-      return '#fcf4bc';
+      return '#fff475';
     case 'blue':
-      return '#caf0f8';
+      return '#cbf0f8';
     case 'pink':
       return '#ffc2d4';
     case 'orange':
-      return '#ffd6a5';
+      return '#fbbc04';
     case 'green':
-      return '#b7e4c7';
+      return '#ccff90';
     case 'grey':
-      return '#e9ecef';
+      return '#e8eaed';
     default:
       return 'transparent';
   }
@@ -82,4 +82,62 @@ export const Tag = styled.p`
   font-size: 14px;
   margin: 0 15px 0 0;
   cursor: default;
+  color: ${(props) => (props.darkmode === 'true' ? '#757575' : 'black')};
 `;
+
+export const AddColorContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0 1.5rem 20px;
+`;
+
+export const ColorPicker = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const SingleColor = styled.div`
+  display: inline-block;
+  margin: 0 5px;
+  position: relative;
+`;
+
+export const ColorButton = styled.input`
+  display: none;
+  background-color: ${(props) => backgroundColor(props.color)};
+  + label {
+    color: ${(props) => (props.color === 'default' ? '#fffffe' : '#333')};
+    font-size: 1.1rem;
+
+    span {
+      display: flex;
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+      cursor: pointer;
+      border-radius: 50%;
+      border: 0;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+      background-repeat: no-repeat;
+      background-position: center;
+      justify-content: center;
+      align-items: center;
+      border: ${(props) =>
+        props.color === 'default' ? '1px solid #9b98a6' : '0'};
+      background-color: ${(props) =>
+        props.color === 'default'
+          ? 'transparent'
+          : backgroundColor(props.color)};
+
+      svg {
+        opacity: 0;
+        transition: all 0.2s ease;
+      }
+    }
+  }
+  &:checked + label span svg {
+    opacity: 1;
+  }
+`;
+
+export const ColorLabel = styled.label``;

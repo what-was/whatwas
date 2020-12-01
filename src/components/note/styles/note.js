@@ -3,19 +3,19 @@ import styled from 'styled-components/macro';
 const backgroundColor = (color) => {
   switch (color) {
     case 'yellow':
-      return '#fcf4bc';
+      return '#fff475';
     case 'blue':
-      return '#caf0f8';
+      return '#cbf0f8';
     case 'pink':
       return '#ffc2d4';
     case 'orange':
-      return '#ffd6a5';
+      return '#fbbc04';
     case 'green':
-      return '#b7e4c7';
+      return '#ccff90';
     case 'grey':
-      return '#e9ecef';
+      return '#e8eaed';
     default:
-      return '#fcf4bc';
+      return 'transparent';
   }
 };
 

@@ -11,6 +11,7 @@ import {
   NoteClose,
   Input,
   NoteTitle,
+  InnerContainer,
 } from './styles/add-item';
 
 export default function AddItem({ children, ...restProps }) {
@@ -69,4 +70,11 @@ AddItem.NoteTitle = function AddNoteTitle({ children, ...restProps }) {
 
 AddItem.NoteClose = function AddNoteClose({ children, ...restProps }) {
   return <NoteClose {...restProps}>{children}</NoteClose>;
+};
+
+AddItem.InnerContainer = function AddNoteInnerContainer({
+  children,
+  ...restProps
+}) {
+  return <InnerContainer {...restProps}>{children}</InnerContainer>;
 };
