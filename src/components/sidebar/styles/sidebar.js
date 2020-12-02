@@ -3,7 +3,8 @@ import styled from 'styled-components/macro';
 export const Container = styled.nav`
   display: flex;
   flex-direction: column;
-  width: 240px;
+  max-width: 240px;
+  width: 100%;
   height: calc(100vh - 70px);
   border-right: 1px solid #ede7e1;
 

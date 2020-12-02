@@ -66,26 +66,3 @@ export const Text = styled.p`
   font-size: 1rem;
   line-height: 1.5;
 `;
-
-export const TagsContainer = styled.div`
-  display: flex;
-  margin: auto auto 0 0;
-  align-items: flex-end;
-  flex-wrap: wrap;
-`;
-
-export const Tag = styled.div`
-  width: auto;
-  height: auto;
-  background-color: rgba(0, 0, 0, 0.1);
-  color: #232323;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 13px;
-  margin: 10px 10px 0 0;
-  cursor: pointer;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-`;

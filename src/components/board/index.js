@@ -9,8 +9,6 @@ import {
   NoteSummary,
   NoteContainer,
   LowerContainer,
-  TagsContainer,
-  Tag,
   Favorite,
 } from './styles/board';
 
@@ -56,14 +54,6 @@ Board.NoteTitle = function BoardNoteTitle({ children, ...restProps }) {
 
 Board.NoteSummary = function BoardNoteSummary({ children, ...restProps }) {
   return <NoteSummary {...restProps}>{children}</NoteSummary>;
-};
-
-Board.TagsContainer = function BoardTagsContainer({ children, ...restProps }) {
-  return <TagsContainer {...restProps}>{children}</TagsContainer>;
-};
-
-Board.Tag = function BoardTag({ children, ...restProps }) {
-  return <Tag {...restProps}>{children}</Tag>;
 };
 
 Board.Favorite = function BoardFavorite({ children, starred, ...restProps }) {

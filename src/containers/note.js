@@ -19,10 +19,6 @@ export const NoteContainer = () => {
       <Note.InnerContainer>
         <Note.Title color={notes.noteColor}>{notes.noteTitle}</Note.Title>
         <Note.Text>{notes.note}</Note.Text>
-        <Note.TagsContainer>
-          {notes.tags &&
-            notes.tags.map((tag) => <Note.Tag key={tag}>{tag}</Note.Tag>)}
-        </Note.TagsContainer>
       </Note.InnerContainer>
     </Note>
   );

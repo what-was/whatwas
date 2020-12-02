@@ -1,27 +1,15 @@
 // Generates Random ID
-export const generatePushId = (() =>
-{
-    const PUSH_CHARS =
-        '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
+export const generatePushId = (() => {
+  const PUSH_CHARS =
+    '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-    const lastRandChars = [];
+  const ID_LENGTH = 12;
 
-    return function ()
-    {
-        let now = new Date().getTime();
-
-        const timeStampChars = new Array(8);
-        for (var i = 7; i >= 0; i--) {
-            timeStampChars[i] = PUSH_CHARS.charAt(now % 64);
-            now = Math.floor(now / 64);
-        }
-
-        let id = timeStampChars.join('');
-
-        for (i = 0; i < 12; i++) {
-            id += PUSH_CHARS.charAt(lastRandChars[i]);
-        }
-
-        return id;
-    };
+  return function () {
+    let id = '';
+    for (let i = 0; i < ID_LENGTH; i++) {
+      id += PUSH_CHARS.charAt(Math.floor(Math.random() * PUSH_CHARS.length));
+    }
+    return id;
+  };
 })();

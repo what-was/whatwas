@@ -5,8 +5,6 @@ import {
   Title,
   Text,
   NoteUpdatedDate,
-  TagsContainer,
-  Tag,
 } from './styles/note';
 
 export default function Note({ children, ...restProps }) {
@@ -30,12 +28,4 @@ Note.NoteUpdatedDate = function NoteNoteUpdatedDate({
   ...restProps
 }) {
   return <NoteUpdatedDate {...restProps}>{children}</NoteUpdatedDate>;
-};
-
-Note.TagsContainer = function NoteTagsContainer({ children, ...restProps }) {
-  return <TagsContainer {...restProps}>{children}</TagsContainer>;
-};
-
-Note.Tag = function NoteTag({ children, ...restProps }) {
-  return <Tag {...restProps}>{children}</Tag>;
 };

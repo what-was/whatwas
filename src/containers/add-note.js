@@ -1,15 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { AddItem } from '../components';
 import { RiCloseLine } from 'react-icons/ri';
 import { AddColorContainer } from './board/add-color';
+import { generatePushId } from '../helpers';
+import { FirebaseContext } from '../context/firebase';
 
 export const AddNoteContainer = (props) => {
   const [addNoteTitle, setAddNoteTitle] = useState('Note Title');
   const [noteInput, setNoteInput] = useState('');
   const [colorPick, setColorPick] = useState('');
+  const { firebase } = useContext(FirebaseContext);
+
+  const noteId = generatePushId();
+
+  const user = JSON.parse(localStorage.getItem('authUser')).uid;
 
   const handleColorPick = (color) => {
     setColorPick(color);
+  };
+
+  const addNote = () => {
+    const boardId = props.boardId;
+
+    return (
+      addNoteTitle &&
+      noteInput &&
+      firebase
+        .firestore()
+        .collection('notes')
+        .add({
+          archived: false,
+          boardId: boardId,
+          hierarchy: 10000,
+          note: noteInput,
+          noteColor: colorPick,
+          noteId: noteId,
+          noteTitle: addNoteTitle,
+          uid: user,
+          updatedAt: Date.now(),
+        })
+        .then(() => {
+          setAddNoteTitle('');
+          setNoteInput('');
+          setColorPick('');
+          props.action();
+        })
+    );
   };
 
   return (
@@ -38,7 +74,7 @@ export const AddNoteContainer = (props) => {
         }}
       />
 
-      <AddItem.Submit>Add</AddItem.Submit>
+      <AddItem.Submit onClick={() => addNote()}>Add</AddItem.Submit>
     </AddItem>
   );
 };

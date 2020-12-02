@@ -76,14 +76,11 @@ export const BoardContainer = () => {
                     </Board.NoteTitle>
 
                     <Board.LowerContainer>
-                      <Board.TagsContainer>
-                        {note.tags &&
-                          note.tags
-                            .slice(0, 3)
-                            .map((tag) => (
-                              <Board.Tag key={tag}>{tag}</Board.Tag>
-                            ))}
-                      </Board.TagsContainer>
+                      <Board.NoteSummary>
+                        {note.note.length > 140
+                          ? note.note.substring(0, 140) + '...'
+                          : note.note}
+                      </Board.NoteSummary>
                       {/* <Board.Favorite
                   starred={starred}
                   onClick={() => handleFavorite()}
@@ -99,23 +96,27 @@ export const BoardContainer = () => {
                     {note.noteTitle}
                   </Board.NoteTitle>
 
-                  <Board.LowerContainer>
-                    <Board.TagsContainer>
-                      {note.tags &&
-                        note.tags
-                          .slice(0, 3)
-                          .map((tag) => <Board.Tag key={tag}>{tag}</Board.Tag>)}
-                    </Board.TagsContainer>
-                    {/* <Board.Favorite
+                  {/* <Board.LowerContainer> */}
+                  <Board.NoteSummary>
+                    {note.note.length > 140
+                      ? note.note.substring(0, 140) + '...'
+                      : note.note}
+                  </Board.NoteSummary>
+                  {/* <Board.Favorite
                   starred={starred}
                   onClick={() => handleFavorite()}
                 /> */}
-                  </Board.LowerContainer>
+                  {/* </Board.LowerContainer> */}
                 </Link>
               </Board.NotesList>
             ))}
         <aside ref={container}>
-          {addNoteOpen && <AddNoteContainer action={() => handleAddNote()} />}
+          {addNoteOpen && (
+            <AddNoteContainer
+              boardId={selectedBoard}
+              action={() => handleAddNote()}
+            />
+          )}
         </aside>
       </Board.NoteContainer>
     </Board>

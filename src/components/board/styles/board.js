@@ -30,7 +30,7 @@ export const UpperContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 1rem 0.5rem;
+  margin: 1rem 12px 1rem 5px;
   flex-wrap: wrap;
 `;
 
@@ -70,16 +70,14 @@ export const AddNoteButton = styled.div`
 export const NoteContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
-  margin: 0 auto;
 `;
 
 export const NotesList = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 1rem 0.5rem;
+  margin: 5px 5px;
   border-radius: 10px;
-  flex: 0 1 240px;
+  flex: 0 1 260px;
   padding: 1rem 1.25rem;
   cursor: pointer;
   background-color: #fffffe;
@@ -130,41 +128,17 @@ export const ProfileContainer = styled.div`
 
 export const LowerContainer = styled.div`
   display: flex;
-  align-items: flex-end;
   flex-direction: row;
-  justify-content: space-between;
-  margin-top: auto;
 `;
 
 export const NoteSummary = styled.p`
-  font-size: 1rem;
+  font-size: 14px;
   margin: 0;
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
-`;
-
-export const TagsContainer = styled.div`
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
-`;
-
-export const Tag = styled.div`
-  width: auto;
-  height: auto;
-  background-color: rgba(200, 200, 200, 0.2);
-  color: #232323;
-  padding: 2px 10px;
-  border-radius: 4px;
-  font-size: 13px;
-  margin: 10px 10px 0 0;
-
-  &:hover {
-    background-color: rgba(200, 200, 200, 0.4);
-  }
 `;
 
 export const Favorite = styled.div`
