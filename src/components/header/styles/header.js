@@ -208,6 +208,7 @@ export const LeftGroup = styled.div`
 export const RightGroup = styled.div`
   display: flex;
   align-items: center;
+  margin-left: auto;
 `;
 
 export const CenterGroup = styled.div`

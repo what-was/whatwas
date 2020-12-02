@@ -88,7 +88,7 @@ export const Tag = styled.p`
 export const AddColorContainer = styled.div`
   display: flex;
   align-items: center;
-  margin: 0.5rem 0 1.5rem 20px;
+  margin: 0rem 0 1rem 20px;
 `;
 
 export const ColorPicker = styled.div`

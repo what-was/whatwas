@@ -159,9 +159,9 @@ export const NoteTitle = styled.input`
 export const Input = styled.textarea`
   display: ${(props) => (props.hasOpen ? 'block' : 'none')};
   opacity: ${(props) => (props.hasOpen ? '1' : '0')};
-  margin: 0 20px;
+  margin: 0 20px 10px;
   width: 100%;
-  max-width: calc(100% - 3rem);
+  max-width: calc(100% - 1rem);
   max-height: ${(props) => (props.addNote ? '100%' : '18rem')};
   height: 100%;
   outline: 0;
