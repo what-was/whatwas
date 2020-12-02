@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Sidebar, Modal } from '../../components';
 import { useSelectedBoardValue } from '../../context';
 import { BiTrashAlt } from 'react-icons/bi';
+import { FirebaseContext } from '../../context/firebase';
 
 export function BoardItemContainer(props) {
   const board = props.board;
@@ -10,6 +11,8 @@ export function BoardItemContainer(props) {
   const { setSelectedBoard } = useSelectedBoardValue();
 
   const [listItemModal, setListItemModal] = useState(false);
+
+  const { firebase } = useContext(FirebaseContext);
 
   let container = useRef(null);
 
@@ -21,6 +24,21 @@ export function BoardItemContainer(props) {
 
   const handleMoreButton = (e) => {
     setListItemModal(!listItemModal);
+  };
+
+  console.log(board);
+  const handleBoardDelete = (board) => {
+    firebase
+      .firestore()
+      .collection('boards')
+      .doc(board)
+      .update({
+        hasDeleted: true,
+      })
+      .then(() => {
+        setListItemModal(!listItemModal);
+      })
+      .catch((error) => console.error(error));
   };
 
   useEffect(() => {
@@ -64,7 +82,12 @@ export function BoardItemContainer(props) {
         <Modal>
           <Modal.Inner>
             <Modal.WarningText>Are you sure?</Modal.WarningText>
-            <Modal.ConfirmButton type="button">Confirm</Modal.ConfirmButton>
+            <Modal.ConfirmButton
+              type="button"
+              onClick={() => handleBoardDelete(board.docId)}
+            >
+              Confirm
+            </Modal.ConfirmButton>
             <Modal.Cancel onClick={() => setListItemModal(!listItemModal)}>
               Cancel
             </Modal.Cancel>

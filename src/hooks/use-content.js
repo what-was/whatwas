@@ -12,6 +12,7 @@ export default function useContent(target) {
       .firestore()
       .collection(target)
       .where('uid', '==', user.uid)
+      .where('hasDeleted', '==', false)
       .get()
       .then((snapshot) => {
         const allContent = snapshot.docs.map((content) => ({
