@@ -1,18 +1,92 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { AddItem } from '../components';
+import { AddColorContainer } from './board/add-color';
+import { generatePushId } from '../helpers';
+import { FirebaseContext } from '../context/firebase';
 import { RiCloseLine } from 'react-icons/ri';
 import { BiPlus } from 'react-icons/bi';
 
 export const AddBoardContainer = (props) => {
+  // Board states
   const [addBoardTitle, setAddBoardTitle] = useState('Board Title');
-
   const [addNoteClicked, setAddNoteClicked] = useState(false);
+  const [boardDescription, setBoardDescription] = useState('');
 
+  // Note states
   const [titleInput, setTitleInput] = useState('');
   const [noteInput, setNoteInput] = useState('');
+  const [colorPick, setColorPick] = useState('');
 
-  const handleAddNote = () => {
+  // Firebase context
+  const { firebase } = useContext(FirebaseContext);
+
+  // Generate board id & note id
+  const boardId = generatePushId();
+  const noteId = generatePushId();
+
+  // Getting user id
+  const user = JSON.parse(localStorage.getItem('authUser')).uid;
+
+  // Getting color pick
+  const handleColorPick = (color) => {
+    setColorPick(color);
+  };
+
+  // Open "Add Note" section
+  const handleAddNoteButton = () => {
     setAddNoteClicked(!addNoteClicked);
+  };
+
+  // Adding board to firebase
+  const addBoard = () => {
+    const boardTitle =
+      addBoardTitle !== 'Board Title' ? addBoardTitle : 'untitled';
+
+    firebase
+      .firestore()
+      .collection('boards')
+      .add({
+        boardId: boardId,
+        name: boardTitle,
+        uid: user,
+        hasDeleted: false,
+        visibility: '',
+        collectionId: '',
+        description: boardDescription,
+        updatedAt: Date.now(),
+      })
+      .then(() => {
+        setTitleInput('');
+        setNoteInput('');
+        setColorPick('');
+        props.action();
+      });
+
+    if (titleInput.length > 2 && noteInput.length) {
+      addNote();
+    }
+  };
+
+  const addNote = () => {
+    firebase
+      .firestore()
+      .collection('notes')
+      .add({
+        archived: false,
+        boardId: boardId,
+        hierarchy: 10000,
+        note: noteInput,
+        noteColor: colorPick,
+        noteId: noteId,
+        noteTitle: titleInput,
+        uid: user,
+        updatedAt: Date.now(),
+      })
+      .then(() => {
+        setTitleInput('');
+        setNoteInput('');
+        setColorPick('');
+      });
   };
 
   return (
@@ -29,11 +103,12 @@ export const AddBoardContainer = (props) => {
         type="texarea"
         rows={3}
         placeholder="Type description to your board, or continue with adding notes."
+        onChange={(event) => setBoardDescription(event.target.value)}
       />
       <AddItem.NoteContainer hasOpen={addNoteClicked}>
         <AddItem.CTAButton
           hasOpen={addNoteClicked}
-          onClick={() => handleAddNote()}
+          onClick={() => handleAddNoteButton()}
         >
           <BiPlus />
           <AddItem.CTAText>Add Note</AddItem.CTAText>
@@ -41,7 +116,7 @@ export const AddBoardContainer = (props) => {
 
         <AddItem.NoteClose
           hasOpen={addNoteClicked}
-          onClick={() => handleAddNote()}
+          onClick={() => handleAddNoteButton()}
         >
           <RiCloseLine />
         </AddItem.NoteClose>
@@ -52,6 +127,10 @@ export const AddBoardContainer = (props) => {
             setTitleInput(e.target.value);
           }}
           hasOpen={addNoteClicked}
+        />
+        <AddColorContainer
+          hasOpen={addNoteClicked}
+          onChange={(color) => handleColorPick(color)}
         />
         <AddItem.Input
           rows="3"
@@ -65,7 +144,7 @@ export const AddBoardContainer = (props) => {
           hasOpen={addNoteClicked}
         />
       </AddItem.NoteContainer>
-      <AddItem.Submit>Save</AddItem.Submit>
+      <AddItem.Submit onClick={() => addBoard()}>Save</AddItem.Submit>
     </AddItem>
   );
 };

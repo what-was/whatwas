@@ -86,7 +86,7 @@ export const Tag = styled.p`
 `;
 
 export const AddColorContainer = styled.div`
-  display: flex;
+  display: ${(props) => (props.hasOpen ? 'flex' : 'none')};
   align-items: center;
   margin: 0rem 0 1rem 20px;
 `;

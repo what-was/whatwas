@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Sidebar, Modal } from '../../components';
 import { useSelectedBoardValue } from '../../context';
-import { BiDotsHorizontalRounded } from 'react-icons/bi';
+import { BiTrashAlt } from 'react-icons/bi';
 
 export function BoardItemContainer(props) {
   const board = props.board;
@@ -57,7 +57,7 @@ export function BoardItemContainer(props) {
         </Sidebar.BoardName>
 
         <Sidebar.MoreButton id="more-btn">
-          <BiDotsHorizontalRounded onClick={() => handleMoreButton()} />
+          <BiTrashAlt onClick={() => handleMoreButton()} />
         </Sidebar.MoreButton>
       </Sidebar.ListItem>
       {listItemModal && (

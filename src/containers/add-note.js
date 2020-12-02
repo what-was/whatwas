@@ -60,7 +60,10 @@ export const AddNoteContainer = (props) => {
         onChange={(event) => setAddNoteTitle(event.target.value)}
         type="text"
       />
-      <AddColorContainer onChange={(color) => handleColorPick(color)} />
+      <AddColorContainer
+        hasOpen={true}
+        onChange={(color) => handleColorPick(color)}
+      />
 
       <AddItem.Input
         rows="3"

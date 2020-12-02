@@ -49,6 +49,7 @@ export const ListItem = styled.li`
 
   &:hover #more-btn {
     display: flex;
+    font-size: 16px;
   }
 `;
 

@@ -14,12 +14,13 @@ export const AddColorContainer = (props) => {
     'grey',
   ];
 
+  const show = props.hasOpen ? true : false;
   const handleSelectedColor = (color) => {
     setSelectedColor(color);
   };
 
   return (
-    <ColorFilter.AddColorContainer>
+    <ColorFilter.AddColorContainer hasOpen={show}>
       <ColorFilter.Tag darkmode="true">Color</ColorFilter.Tag>
       <ColorFilter.ColorPicker>
         {colorList.map((color) => (
