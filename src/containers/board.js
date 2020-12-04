@@ -11,11 +11,11 @@ import { ColorFilterContainer } from './board/color-filter';
 export const BoardContainer = React.memo(() => {
   const [title, setTitle] = useState('Dashboard');
   const [addNoteOpen, setAddNoteOpen] = useState(false);
-  const { selectedBoard } = useSelectedBoardValue();
+  // const { selectedBoard } = useSelectedBoardValue();
 
   let { boardId } = useParams();
 
-  const getBoardId = boardId === undefined ? '' : selectedBoard;
+  const getBoardId = boardId === undefined ? '' : boardId;
 
   const { notes } = getNotes(getBoardId);
   const boardTitle = getTitle(getBoardId);
@@ -55,15 +55,15 @@ export const BoardContainer = React.memo(() => {
   };
 
   // Setting window title
-  if (selectedBoard !== '' && boardTitle !== title) {
+  if (boardId !== '' && boardTitle !== title) {
     setTitle(boardTitle);
     document.title = `${boardTitle} - WhatWas`;
   }
 
   // Todo: favorite note
-  const handleFavorite = () => {
-    setStarred(!starred);
-  };
+  // const handleFavorite = () => {
+  //   setStarred(!starred);
+  // };
 
   // let options = { year: 'numeric', month: 'long', day: 'numeric', timezone: 'short' };
 

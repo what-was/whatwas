@@ -7,8 +7,12 @@ import {
   useSidebarValue,
 } from '../context';
 import { AddBoardContainer } from './add-board';
-import { AiFillCaretDown, AiFillCaretRight } from 'react-icons/ai';
 import { BoardItemContainer } from './sidebar/board-item';
+import {
+  AiFillCaretDown,
+  AiFillCaretRight,
+  AiOutlineFolder,
+} from 'react-icons/ai';
 
 export const SidebarContainer = React.memo(({}) => {
   const { boards } = useBoardsValue();

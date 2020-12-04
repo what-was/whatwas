@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Sidebar, Modal } from '../../components';
 import { useSelectedBoardValue } from '../../context';
-import { BiTrashAlt } from 'react-icons/bi';
 import { FirebaseContext } from '../../context/firebase';
+import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { AiOutlineFolder } from 'react-icons/ai';
 
 export const BoardItemContainer = React.memo((props) => {
   const board = props.board;
@@ -26,7 +27,11 @@ export const BoardItemContainer = React.memo((props) => {
     setListItemModal(!listItemModal);
   };
 
-  const handleBoardDelete = (board) => {
+  const handleBoardNameChange = (newName) => {
+    
+
+  }
+  const handleBoardDelete = (board) => { 
     firebase
       .firestore()
       .collection('boards')
@@ -58,6 +63,7 @@ export const BoardItemContainer = React.memo((props) => {
         aria-label={`Select ${board.name} as the board`}
         status={active === board.boardId ? 'active' : ''}
       >
+        <AiOutlineFolder />
         <Sidebar.BoardName
           onClick={() => {
             props.clickAction();
@@ -72,9 +78,8 @@ export const BoardItemContainer = React.memo((props) => {
         >
           {board.name ? board.name : 'untitled'}
         </Sidebar.BoardName>
-
         <Sidebar.MoreButton id="more-btn">
-          <BiTrashAlt onClick={() => handleMoreButton()} />
+          <BiDotsVerticalRounded onClick={() => handleMoreButton()} />
         </Sidebar.MoreButton>
       </Sidebar.ListItem>
       {listItemModal && (

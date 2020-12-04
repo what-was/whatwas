@@ -81,9 +81,10 @@ export const NotesList = styled.div`
   padding: 1rem 1.25rem;
   cursor: pointer;
   background-color: #fffffe;
-  border: 1px solid #ede7e1;
+  ${'' /* border: 1px solid #ede7e1; */}
   text-decoration: none;
   transition: box-shadow 350ms ease;
+  background-color: ${(props) => backgroundColor(props.color)};
   a {
     width: 100%;
     height: 100%;
@@ -110,7 +111,8 @@ export const NoteTitle = styled.h4`
   width: auto;
   align-items: flex-start;
   word-wrap: normal;
-  &::before {
+  ${
+    '' /* &::before {
     content: '';
     width: 10px;
     height: 10px;
@@ -118,6 +120,7 @@ export const NoteTitle = styled.h4`
     background-color: ${(props) => backgroundColor(props.color)};
     margin: 5px 10px auto 0;
     display: table;
+  } */
   }
 `;
 

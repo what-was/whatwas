@@ -43,22 +43,23 @@ export const ListItem = styled.li`
     props.status === 'active' ? '#fffffe' : 'transparent'};
 
   color: #191818;
+
+  font-size: 16px;
+
   &:hover {
     background-color: rgba(255, 255, 255, 0.6);
+    #more-btn {
+      display: flex;
+    }
   }
   &:focus {
     outline: 0;
-  }
-
-  &:hover #more-btn {
-    display: flex;
-    font-size: 16px;
   }
 `;
 
 export const BoardName = styled.p`
   font-size: 14px;
-  margin: 0;
+  margin: 0 0 0 5px;
   width: 100%;
   &::selection {
     background-color: transparent !important;
