@@ -52,10 +52,10 @@ export function HeaderContainer({ children, route }) {
           <Header.Profile>
             <Header.Picture src={user.photoURL} />
             <Header.Dropdown>
-              <Header.Group>
+              <Header.LeftGroup>
                 <Header.Picture src={user.photoURL} />
                 <Header.TextLink>{user.displayName}</Header.TextLink>
-              </Header.Group>
+              </Header.LeftGroup>
               <Header.Group>
                 <Header.TextLink
                   onClick={() =>

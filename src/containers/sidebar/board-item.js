@@ -4,7 +4,7 @@ import { useSelectedBoardValue } from '../../context';
 import { BiTrashAlt } from 'react-icons/bi';
 import { FirebaseContext } from '../../context/firebase';
 
-export function BoardItemContainer(props) {
+export const BoardItemContainer = React.memo((props) => {
   const board = props.board;
   const active = props.activeBoard;
 
@@ -26,7 +26,6 @@ export function BoardItemContainer(props) {
     setListItemModal(!listItemModal);
   };
 
-  console.log(board);
   const handleBoardDelete = (board) => {
     firebase
       .firestore()
@@ -96,4 +95,4 @@ export function BoardItemContainer(props) {
       )}
     </>
   );
-}
+});

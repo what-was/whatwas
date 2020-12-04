@@ -10,6 +10,7 @@ import {
   SidebarProvider,
 } from '../context/';
 import { ContextContainer } from '../containers/context-container';
+
 export default function Dashboard() {
   const user = JSON.parse(localStorage.getItem('authUser'));
 

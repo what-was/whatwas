@@ -67,6 +67,7 @@ export const AddBoardContainer = (props) => {
     }
   };
 
+  // Adding note to firebase
   const addNote = () => {
     firebase
       .firestore()

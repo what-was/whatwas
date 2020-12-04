@@ -43,7 +43,11 @@ export const AddNoteContainer = (props) => {
           setAddNoteTitle('');
           setNoteInput('');
           setColorPick('');
-          props.action();
+          props.action(true);
+        })
+        .catch((error) => {
+          console.error(error);
+          props.action(false);
         })
     );
   };

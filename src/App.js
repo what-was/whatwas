@@ -44,20 +44,40 @@ export const App = () => {
 
         {user !== null ? (
           <ContextContainer>
+            <ProtectedRoute
+              user={user}
+              path={ROUTES.DASHBOARD + `/:boardId`}
+              exact
+            >
+              <Dashboard />
+            </ProtectedRoute>
             <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
               <Dashboard />
             </ProtectedRoute>
             <ProtectedRoute user={user} path={ROUTES.NOTE + `/:noteId`} exact>
               <Note />
+            </ProtectedRoute>
+            <ProtectedRoute user={user} path={ROUTES.NOTE} exact>
+              <Redirect to={ROUTES.DASHBOARD} />
             </ProtectedRoute>
           </ContextContainer>
         ) : (
           <>
+            <ProtectedRoute
+              user={user}
+              path={ROUTES.DASHBOARD + `/:boardId`}
+              exact
+            >
+              <Dashboard />
+            </ProtectedRoute>
             <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
               <Dashboard />
             </ProtectedRoute>
             <ProtectedRoute user={user} path={ROUTES.NOTE + `/:noteId`} exact>
               <Note />
+            </ProtectedRoute>
+            <ProtectedRoute user={user} path={ROUTES.NOTE} exact>
+              <Redirect to={ROUTES.DASHBOARD} />
             </ProtectedRoute>
           </>
         )}

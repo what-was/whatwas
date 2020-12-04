@@ -120,6 +120,7 @@ export const ButtonLink = styled(ReachRouterLink)`
 export const Picture = styled.button`
   background: url(${({ src }) => src});
   background-size: contain;
+  background-repeat: no-repeat;
   border: 0;
   width: 40px;
   height: 40px;
@@ -131,7 +132,7 @@ export const Dropdown = styled.div`
   position: absolute;
   background-color: #fffffe;
   padding: 15px 25px;
-  width: 100px;
+  max-width: 250px;
   top: 2.5rem;
   right: 10px;
   -webkit-box-shadow: 0px 10px 40px -15px rgba(220, 187, 160, 0.7);
@@ -184,6 +185,8 @@ export const TextLink = styled.p`
   font-size: 1rem !important;
   line-height: normal;
   cursor: pointer;
+  width: 100%;
+
   &:hover {
     text-decoration: underline;
   }

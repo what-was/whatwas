@@ -26,6 +26,9 @@ export const List = styled.ul`
   overflow: hidden auto;
   margin-top: 0;
   height: 100%;
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const ListItem = styled.li`

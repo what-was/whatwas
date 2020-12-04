@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Sidebar, Collection } from '../components';
 import {
   useBoardsValue,
@@ -9,7 +10,7 @@ import { AddBoardContainer } from './add-board';
 import { AiFillCaretDown, AiFillCaretRight } from 'react-icons/ai';
 import { BoardItemContainer } from './sidebar/board-item';
 
-export function SidebarContainer({}) {
+export const SidebarContainer = React.memo(({}) => {
   const { boards } = useBoardsValue();
   const { collection } = useCollectionsValue();
   const { sidebar } = useSidebarValue();
@@ -89,12 +90,19 @@ export function SidebarContainer({}) {
                               board.collectionId === collection.collectionId
                           )
                           .map((board) => (
-                            <BoardItemContainer
+                            <Link
                               key={board.boardId}
-                              board={board}
-                              clickAction={() => boardItemAction(board.boardId)}
-                              activeBoard={active}
-                            />
+                              to={'/dashboard/' + board.boardId}
+                            >
+                              <BoardItemContainer
+                                key={board.boardId}
+                                board={board}
+                                clickAction={() =>
+                                  boardItemAction(board.boardId)
+                                }
+                                activeBoard={active}
+                              />
+                            </Link>
                           ))}
                     </Collection.BoardList>
                   )}
@@ -106,12 +114,14 @@ export function SidebarContainer({}) {
             boards
               .filter((board) => board.collectionId === '')
               .map((board) => (
-                <BoardItemContainer
-                  key={board.boardId}
-                  board={board}
-                  clickAction={() => boardItemAction(board.boardId)}
-                  activeBoard={active}
-                />
+                <Link key={board.boardId} to={'/dashboard/' + board.boardId}>
+                  <BoardItemContainer
+                    key={board.boardId}
+                    board={board}
+                    clickAction={() => boardItemAction(board.boardId)}
+                    activeBoard={active}
+                  />
+                </Link>
               ))}
         </Sidebar.List>
 
@@ -129,4 +139,4 @@ export function SidebarContainer({}) {
       </Sidebar>
     )
   );
-}
+});
