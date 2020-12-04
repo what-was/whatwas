@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Sidebar, Modal } from '../../components';
+import { Link } from 'react-router-dom';
+import { MoreButtonContainer } from './more-button';
 import { useSelectedBoardValue } from '../../context';
 import { FirebaseContext } from '../../context/firebase';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
@@ -27,11 +29,8 @@ export const BoardItemContainer = React.memo((props) => {
     setListItemModal(!listItemModal);
   };
 
-  const handleBoardNameChange = (newName) => {
-    
-
-  }
-  const handleBoardDelete = (board) => { 
+  const handleBoardNameChange = (newName) => {};
+  const handleBoardDelete = (board) => {
     firebase
       .firestore()
       .collection('boards')
@@ -64,40 +63,24 @@ export const BoardItemContainer = React.memo((props) => {
         status={active === board.boardId ? 'active' : ''}
       >
         <AiOutlineFolder />
-        <Sidebar.BoardName
-          onClick={() => {
-            props.clickAction();
-            setSelectedBoard(board.boardId);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+        <Link key={board.boardId} to={'/dashboard/' + board.boardId}>
+          <Sidebar.BoardName
+            onClick={() => {
               props.clickAction();
               setSelectedBoard(board.boardId);
-            }
-          }}
-        >
-          {board.name ? board.name : 'untitled'}
-        </Sidebar.BoardName>
-        <Sidebar.MoreButton id="more-btn">
-          <BiDotsVerticalRounded onClick={() => handleMoreButton()} />
-        </Sidebar.MoreButton>
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                props.clickAction();
+                setSelectedBoard(board.boardId);
+              }
+            }}
+          >
+            {board.name ? board.name : 'untitled'}
+          </Sidebar.BoardName>
+        </Link>
+        <MoreButtonContainer board={board} />
       </Sidebar.ListItem>
-      {listItemModal && (
-        <Modal>
-          <Modal.Inner>
-            <Modal.WarningText>Are you sure?</Modal.WarningText>
-            <Modal.ConfirmButton
-              type="button"
-              onClick={() => handleBoardDelete(board.docId)}
-            >
-              Confirm
-            </Modal.ConfirmButton>
-            <Modal.Cancel onClick={() => setListItemModal(!listItemModal)}>
-              Cancel
-            </Modal.Cancel>
-          </Modal.Inner>
-        </Modal>
-      )}
     </>
   );
 });

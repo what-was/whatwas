@@ -9,7 +9,7 @@ export const Inner = styled.div`
   z-index: 1;
   width: 150px;
   padding: 10px;
-  top: 0;
+  top: 10px;
   right: 0;
   background-color: white;
   border-radius: 10px;
@@ -22,6 +22,23 @@ export const WarningText = styled.p`
   line-height: normal;
   font-weight: normal;
   font-size: 15px;
+`;
+
+export const InnerButton = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  cursor: pointer;
+  color: #555;
+  font-size: 16px;
+  font-weight: 400;
+  svg {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    color: #232323;
+  }
 `;
 
 export const ConfirmButton = styled.button`

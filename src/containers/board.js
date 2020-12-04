@@ -126,7 +126,7 @@ export const BoardContainer = React.memo(() => {
         <aside ref={container}>
           {addNoteOpen && (
             <AddNoteContainer
-              boardId={selectedBoard}
+              boardId={boardId}
               action={(update) => handleAddNote(update)}
             />
           )}

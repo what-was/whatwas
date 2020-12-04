@@ -122,56 +122,9 @@ export const Picture = styled.button`
   background-size: contain;
   background-repeat: no-repeat;
   border: 0;
-  width: 40px;
-  height: 40px;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
   cursor: pointer;
-`;
-
-export const Dropdown = styled.div`
-  display: none;
-  position: absolute;
-  background-color: #fffffe;
-  padding: 15px 25px;
-  max-width: 250px;
-  top: 2.5rem;
-  right: 10px;
-  -webkit-box-shadow: 0px 10px 40px -15px rgba(220, 187, 160, 0.7);
-  -moz-box-shadow: 0px 10px 40px -15px rgba(220, 187, 160, 0.7);
-  box-shadow: 0px 10px 40px -15px rgba(220, 187, 160, 0.7);
-  transition: all 200ms ease;
-  ${Group}:last-of-type ${Link} {
-    cursor: pointer;
-  }
-  ${Group} {
-    margin-bottom: 10px;
-    &:last-of-type {
-      margin-bottom: 0;
-    }
-    ${Link}, ${Picture} {
-      cursor: default;
-    }
-  }
-  button {
-    margin-right: 10px;
-  }
-  p {
-    font-size: 12px;
-    margin-bottom: 0;
-    margin-top: 0;
-  }
-`;
-
-export const Profile = styled.div`
-  display: flex;
-  align-items: center;
-  position: relative;
-  button {
-    cursor: pointer;
-  }
-  &:hover > ${Dropdown} {
-    display: flex;
-    flex-direction: column;
-  }
 `;
 
 export const Text = styled.p`
@@ -185,8 +138,6 @@ export const TextLink = styled.p`
   font-size: 1rem !important;
   line-height: normal;
   cursor: pointer;
-  width: 100%;
-
   &:hover {
     text-decoration: underline;
   }
@@ -218,4 +169,51 @@ export const CenterGroup = styled.div`
   display: flex;
   align-items: center;
   margin: 0 auto;
+`;
+
+export const Dropdown = styled.div`
+  display: none;
+  position: absolute;
+  background-color: #fffffe;
+  padding: 15px 25px;
+  width: 150px;
+  top: 2.5rem;
+  right: 10px;
+  -webkit-box-shadow: 0px 10px 40px -15px rgba(220, 187, 160, 0.7);
+  -moz-box-shadow: 0px 10px 40px -15px rgba(220, 187, 160, 0.7);
+  box-shadow: 0px 10px 40px -15px rgba(220, 187, 160, 0.7);
+  transition: all 200ms ease;
+  ${Group}:last-of-type ${Link} {
+    cursor: pointer;
+  }
+  ${LeftGroup} {
+    margin-bottom: 10px;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+    ${Link}, ${Picture} {
+      cursor: default;
+    }
+  }
+  button {
+    margin-right: 10px;
+  }
+  p {
+    font-size: 12px;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+`;
+
+export const Profile = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+  button {
+    cursor: pointer;
+  }
+  &:hover > ${Dropdown} {
+    display: flex;
+    flex-direction: column;
+  }
 `;

@@ -14,7 +14,7 @@ export default function getNotes(boardId) {
         .collection('notes')
         .where('uid', '==', user.uid)
         .where('archived', '==', false)
-        .orderBy('hierarchy', 'desc')
+        .orderBy('updatedAt', 'desc')
         .limit(10)
         .get()
         .then((snapshot) => {
@@ -35,7 +35,7 @@ export default function getNotes(boardId) {
         .collection('notes')
         .where('boardId', '==', boardId)
         .where('archived', '==', false)
-        .orderBy('hierarchy', 'desc')
+        .orderBy('updatedAt', 'desc')
         .limit(10)
         .get()
         .then((snapshot) => {

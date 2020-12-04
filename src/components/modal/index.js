@@ -5,6 +5,7 @@ import {
   ConfirmButton,
   Cancel,
   WarningText,
+  InnerButton,
 } from './styles/modal';
 
 export default function Modal({ children, ...restProps }) {
@@ -25,4 +26,8 @@ Modal.ConfirmButton = function ModalConfirmButton({ children, ...restProps }) {
 
 Modal.Cancel = function ModalCancel({ children, ...restProps }) {
   return <Cancel {...restProps}>{children}</Cancel>;
+};
+
+Modal.InnerButton = function ModalInnerButton({ children, ...restProps }) {
+  return <InnerButton {...restProps}>{children}</InnerButton>;
 };

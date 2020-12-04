@@ -33,7 +33,6 @@ export const List = styled.ul`
 
 export const ListItem = styled.li`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   list-style-type: none;
   padding: 9px 24px;
@@ -45,6 +44,11 @@ export const ListItem = styled.li`
   color: #191818;
 
   font-size: 16px;
+
+  a {
+    display: flex;
+    color: #232323;
+  }
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.6);
@@ -94,10 +98,10 @@ export const AddBoard = styled.button`
 `;
 
 export const MoreButton = styled.div`
-  display: none;
+  display: ${(props) => (props.hover ? 'flex' : 'none')};
   align-items: center;
   font-size: 1.2rem;
-  z-index: 99;
+  margin-left: auto;
 `;
 
 export const CloseButton = styled.button`

@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Sidebar, Collection } from '../components';
 import {
   useBoardsValue,
@@ -94,19 +93,12 @@ export const SidebarContainer = React.memo(({}) => {
                               board.collectionId === collection.collectionId
                           )
                           .map((board) => (
-                            <Link
+                            <BoardItemContainer
                               key={board.boardId}
-                              to={'/dashboard/' + board.boardId}
-                            >
-                              <BoardItemContainer
-                                key={board.boardId}
-                                board={board}
-                                clickAction={() =>
-                                  boardItemAction(board.boardId)
-                                }
-                                activeBoard={active}
-                              />
-                            </Link>
+                              board={board}
+                              clickAction={() => boardItemAction(board.boardId)}
+                              activeBoard={active}
+                            />
                           ))}
                     </Collection.BoardList>
                   )}
@@ -118,14 +110,12 @@ export const SidebarContainer = React.memo(({}) => {
             boards
               .filter((board) => board.collectionId === '')
               .map((board) => (
-                <Link key={board.boardId} to={'/dashboard/' + board.boardId}>
-                  <BoardItemContainer
-                    key={board.boardId}
-                    board={board}
-                    clickAction={() => boardItemAction(board.boardId)}
-                    activeBoard={active}
-                  />
-                </Link>
+                <BoardItemContainer
+                  key={board.boardId}
+                  board={board}
+                  clickAction={() => boardItemAction(board.boardId)}
+                  activeBoard={active}
+                />
               ))}
         </Sidebar.List>
 

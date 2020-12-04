@@ -50,10 +50,10 @@ export function HeaderContainer({ children, route }) {
         </Header.CenterGroup>
         <Header.RightGroup>
           <Header.Profile>
-            <Header.Picture src={user.photoURL} />
+            <Header.Picture size="40" src={user.photoURL} />
             <Header.Dropdown>
               <Header.LeftGroup>
-                <Header.Picture src={user.photoURL} />
+                <Header.Picture size="30" src={user.photoURL}></Header.Picture>
                 <Header.TextLink>{user.displayName}</Header.TextLink>
               </Header.LeftGroup>
               <Header.Group>
