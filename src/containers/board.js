@@ -54,6 +54,34 @@ export const BoardContainer = React.memo(() => {
     }
   };
 
+  // Formatting updated date function
+  const formatDate = (dateInput) => {
+    // Getting date from fetched db.
+    const date = new Date(dateInput);
+
+    let hours = date.getHours();
+
+    // Day
+    let dd = date.getDate();
+
+    // Month
+    let mm = date.getMonth() + 1;
+
+    // Year
+    const yyyy = date.getFullYear();
+
+    // Visualisation matters
+    if (dd < 10) {
+      dd = `0${dd}`;
+    }
+
+    if (mm < 10) {
+      mm = `0${mm}`;
+    }
+
+    return `${mm}/${dd}/${yyyy}`;
+  };
+
   // Setting window title
   if (boardId !== '' && boardTitle !== title) {
     setTitle(boardTitle);
@@ -88,16 +116,19 @@ export const BoardContainer = React.memo(() => {
                       {note.noteTitle}
                     </Board.NoteTitle>
 
-                    <Board.LowerContainer>
-                      <Board.NoteSummary>
-                        {note.note.length > 140
-                          ? note.note.substring(0, 140) + '...'
-                          : note.note}
-                      </Board.NoteSummary>
-                      {/* <Board.Favorite
+                    <Board.NoteSummary>
+                      {note.note.length > 140
+                        ? note.note.substring(0, 140) + '...'
+                        : note.note}
+                    </Board.NoteSummary>
+                    {/* <Board.Favorite
                   starred={starred}
                   onClick={() => handleFavorite()}
                 /> */}
+                    <Board.LowerContainer>
+                      <Board.NoteUpdatedDate>
+                        Last update:
+                      </Board.NoteUpdatedDate>
                     </Board.LowerContainer>
                   </Link>
                 </Board.NotesList>
@@ -109,7 +140,6 @@ export const BoardContainer = React.memo(() => {
                     {note.noteTitle}
                   </Board.NoteTitle>
 
-                  {/* <Board.LowerContainer> */}
                   <Board.NoteSummary>
                     {note.note.length > 140
                       ? note.note.substring(0, 140) + '...'
@@ -119,7 +149,11 @@ export const BoardContainer = React.memo(() => {
                   starred={starred}
                   onClick={() => handleFavorite()}
                 /> */}
-                  {/* </Board.LowerContainer> */}
+                  <Board.LowerContainer>
+                    <Board.NoteUpdatedDate>
+                      Last update: <em>{formatDate(note.updatedAt)}</em>
+                    </Board.NoteUpdatedDate>
+                  </Board.LowerContainer>
                 </Link>
               </Board.NotesList>
             ))}

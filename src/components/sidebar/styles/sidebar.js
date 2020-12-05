@@ -35,7 +35,7 @@ export const ListItem = styled.li`
   display: flex;
   align-items: center;
   list-style-type: none;
-  padding: 9px 24px;
+  padding: 0 24px;
   cursor: pointer;
   font-weight: ${(props) => (props.status === 'active' ? '600' : '500')};
   background-color: ${(props) =>
@@ -47,7 +47,9 @@ export const ListItem = styled.li`
 
   a {
     display: flex;
+    align-items: center;
     color: #232323;
+    padding: 9px 0;
   }
 
   &:hover {

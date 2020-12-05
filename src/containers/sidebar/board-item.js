@@ -62,20 +62,22 @@ export const BoardItemContainer = React.memo((props) => {
         aria-label={`Select ${board.name} as the board`}
         status={active === board.boardId ? 'active' : ''}
       >
-        <AiOutlineFolder />
-        <Link key={board.boardId} to={'/dashboard/' + board.boardId}>
-          <Sidebar.BoardName
-            onClick={() => {
+        <Link
+          key={board.boardId}
+          to={'/dashboard/' + board.boardId}
+          onClick={() => {
+            props.clickAction();
+            setSelectedBoard(board.boardId);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
               props.clickAction();
               setSelectedBoard(board.boardId);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                props.clickAction();
-                setSelectedBoard(board.boardId);
-              }
-            }}
-          >
+            }
+          }}
+        >
+          <AiOutlineFolder />
+          <Sidebar.BoardName>
             {board.name ? board.name : 'untitled'}
           </Sidebar.BoardName>
         </Link>

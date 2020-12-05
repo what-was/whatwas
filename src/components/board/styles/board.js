@@ -15,7 +15,7 @@ const backgroundColor = (color) => {
     case 'grey':
       return '#e8eaed';
     default:
-      return 'transparent';
+      return '#f8f9fa';
   }
 };
 
@@ -80,8 +80,6 @@ export const NotesList = styled.div`
   flex: 0 1 260px;
   padding: 1rem 1.25rem;
   cursor: pointer;
-  background-color: #fffffe;
-  ${'' /* border: 1px solid #ede7e1; */}
   text-decoration: none;
   transition: box-shadow 350ms ease;
   background-color: ${(props) => backgroundColor(props.color)};
@@ -101,13 +99,13 @@ export const NotesList = styled.div`
 
 export const NoteTitle = styled.h4`
   display: flex;
-  margin: 0 0 0.25rem 0;
+  margin: 0;
   font-size: 16px;
   line-height: 1.2;
   font-weight: 600;
   color: #232323;
   cursor: pointer;
-  padding: 0 0 0.5rem 0;
+  padding: 0 0 5px 0;
   width: auto;
   align-items: flex-start;
   word-wrap: normal;
@@ -132,6 +130,7 @@ export const ProfileContainer = styled.div`
 export const LowerContainer = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: auto;
 `;
 
 export const NoteSummary = styled.p`
@@ -156,4 +155,9 @@ export const Favorite = styled.div`
     height: 1.5rem;
     width: auto;
   }
+`;
+
+export const NoteUpdatedDate = styled.div`
+  font-size: 12px;
+  margin-top: 5px;
 `;

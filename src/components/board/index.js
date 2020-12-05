@@ -10,6 +10,7 @@ import {
   NoteContainer,
   LowerContainer,
   Favorite,
+  NoteUpdatedDate,
 } from './styles/board';
 
 import { RiStarSLine, RiStarFill } from 'react-icons/ri';

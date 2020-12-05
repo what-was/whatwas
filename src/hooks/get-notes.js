@@ -15,7 +15,7 @@ export default function getNotes(boardId) {
         .where('uid', '==', user.uid)
         .where('archived', '==', false)
         .orderBy('updatedAt', 'desc')
-        .limit(10)
+        .limit(40)
         .get()
         .then((snapshot) => {
           const allNotes = snapshot.docs.map((content) => ({
