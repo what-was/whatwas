@@ -40,13 +40,16 @@ export const MoreButtonContainer = (props) => {
     };
   }, []);
 
-  let history = useHistory();
+  // Name Change Function
   const handleBoardNameChange = (newName) => {};
-  const handleBoardDelete = (board) => {
+
+  // Delete board
+  let history = useHistory();
+  const handleBoardDelete = (docId, boardId) => {
     firebase
       .firestore()
       .collection('boards')
-      .doc(board)
+      .doc(docId)
       .update({
         hasDeleted: true,
       })
@@ -75,7 +78,10 @@ export const MoreButtonContainer = (props) => {
                   <Modal.WarningText>Are you sure?</Modal.WarningText>
                   <Modal.ConfirmButton
                     type="button"
-                    onClick={() => handleBoardDelete(board.docId)}
+                    onClick={() => {
+                      console.log(board);
+                      handleBoardDelete(board.docId, board.boardId);
+                    }}
                   >
                     Confirm
                   </Modal.ConfirmButton>

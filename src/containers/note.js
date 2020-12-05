@@ -17,7 +17,7 @@ export const NoteContainer = () => {
   return (
     <Note>
       <Note.InnerContainer>
-        <Note.Title color={notes.noteColor}>{notes.noteTitle}</Note.Title>
+        <Note.Title color={notes.noteColor}>{title}</Note.Title>
         <Note.Text>{notes.note}</Note.Text>
       </Note.InnerContainer>
     </Note>

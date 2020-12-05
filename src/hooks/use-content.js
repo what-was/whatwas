@@ -19,7 +19,6 @@ export default function useContent(target) {
           ...content.data(),
           docId: content.id,
         }));
-
         // To aviod infinite loop on contents, we are simply checking if the content has changed.
         if (JSON.stringify(allContent) !== JSON.stringify(content)) {
           setContent(allContent);
