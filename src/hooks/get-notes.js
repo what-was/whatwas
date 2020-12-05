@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { FirebaseContext } from '../context/firebase';
 
-export default function getNotes(boardId) {
+export const getNotes = (boardId) => {
   const [notes, setNotes] = useState([]);
   const { firebase } = useContext(FirebaseContext);
 
@@ -16,18 +16,16 @@ export default function getNotes(boardId) {
         .where('archived', '==', false)
         .orderBy('updatedAt', 'desc')
         .limit(40)
-        .get()
-        .then((snapshot) => {
-          const allNotes = snapshot.docs.map((content) => ({
-            ...content.data(),
-            docId: content.id,
+        .onSnapshot((snapshot) => {
+          const allNotes = snapshot.docs.map((note) => ({
+            id: note.id,
+            ...note.data(),
           }));
+
+          // To aviod infinite loop on contents, we are simply checking if the content has changed.
           if (JSON.stringify(allNotes) !== JSON.stringify(notes)) {
             setNotes(allNotes);
           }
-        })
-        .catch((error) => {
-          console.error(error.message);
         });
     } else {
       firebase
@@ -36,25 +34,23 @@ export default function getNotes(boardId) {
         .where('boardId', '==', boardId)
         .where('archived', '==', false)
         .orderBy('updatedAt', 'desc')
-        .limit(10)
-        .get()
-        .then((snapshot) => {
-          const allNotes = snapshot.docs.map((content) => ({
-            ...content.data(),
-            docId: content.id,
+        .limit(60)
+        .onSnapshot((snapshot) => {
+          const allNotes = snapshot.docs.map((note) => ({
+            id: note.id,
+            ...note.data(),
           }));
+
+          // To aviod infinite loop on contents, we are simply checking if the content has changed.
           if (JSON.stringify(allNotes) !== JSON.stringify(notes)) {
             setNotes(allNotes);
           }
-        })
-        .catch((error) => {
-          console.error(error.message);
         });
     }
   }, [boardId]);
 
   return { notes };
-}
+};
 
 export const getTitle = (boardId) => {
   const [title, setTitle] = useState('');

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { AddItem } from '../components';
 import { AddColorContainer } from './board/add-color';
 import { generatePushId } from '../helpers';
@@ -37,6 +38,9 @@ export const AddBoardContainer = (props) => {
     setAddNoteClicked(!addNoteClicked);
   };
 
+  // History
+  let history = useHistory();
+
   // Adding board to firebase
   const addBoard = () => {
     const boardTitle =
@@ -60,6 +64,7 @@ export const AddBoardContainer = (props) => {
         setNoteInput('');
         setColorPick('');
         props.action();
+        history.push(`/dashboard/${boardId}`);
       });
 
     if (titleInput.length > 2 && noteInput.length) {

@@ -8,13 +8,13 @@ export default function useContent(target) {
   const user = useAuthListener().user;
 
   useEffect(() => {
-    const unsubscribe = firebase
+    firebase
       .firestore()
       .collection(target)
       .where('uid', '==', user.uid)
       .where('hasDeleted', '==', false)
-      .get()
-      .then((snapshot) => {
+      .orderBy('updatedAt', 'desc')
+      .onSnapshot((snapshot) => {
         const allContent = snapshot.docs.map((content) => ({
           ...content.data(),
           docId: content.id,
@@ -24,11 +24,8 @@ export default function useContent(target) {
         if (JSON.stringify(allContent) !== JSON.stringify(content)) {
           setContent(allContent);
         }
-      })
-      .catch((error) => {
-        console.error(error.message);
       });
-  }, []);
+  }, [target]);
 
   return { [target]: content };
 }

@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { useSelectedBoardValue } from '../context';
 import { Board } from '../components';
 import { getNotes, getTitle } from '../hooks';
 import { AddNoteContainer } from './add-note';
@@ -9,7 +8,7 @@ import { BiPlus } from 'react-icons/bi';
 import { ColorFilterContainer } from './board/color-filter';
 import { formatDate } from '../helpers';
 
-export const BoardContainer = React.memo(() => {
+export const BoardContainer = () => {
   const [title, setTitle] = useState('Dashboard');
   const [addNoteOpen, setAddNoteOpen] = useState(false);
   // const { selectedBoard } = useSelectedBoardValue();
@@ -72,10 +71,12 @@ export const BoardContainer = React.memo(() => {
     <Board>
       <Board.UpperContainer>
         <Board.Title>{title}</Board.Title>
-        <Board.AddNoteButton onClick={handleAddNote}>
-          <BiPlus />
-          Add Note
-        </Board.AddNoteButton>
+        {boardId !== undefined && (
+          <Board.AddNoteButton onClick={handleAddNote}>
+            <BiPlus />
+            Add Note
+          </Board.AddNoteButton>
+        )}
         <ColorFilterContainer onClick={(color) => handleFilter(color)} />
       </Board.UpperContainer>
       <Board.NoteContainer>
@@ -83,7 +84,7 @@ export const BoardContainer = React.memo(() => {
           ? notes
               .filter((note) => note.noteColor === colorFilter)
               .map((note) => (
-                <Board.NotesList key={note.docId} color={note.noteColor}>
+                <Board.NotesList key={note.id} color={note.noteColor}>
                   <Link to={`/note/` + note.noteId}>
                     <Board.NoteTitle color={note.noteColor}>
                       {note.noteTitle}
@@ -107,7 +108,7 @@ export const BoardContainer = React.memo(() => {
                 </Board.NotesList>
               ))
           : notes.map((note) => (
-              <Board.NotesList key={note.docId} color={note.noteColor}>
+              <Board.NotesList key={note.id} color={note.noteColor}>
                 <Link to={`/note/` + note.noteId}>
                   <Board.NoteTitle color={note.noteColor}>
                     {note.noteTitle}
@@ -141,4 +142,4 @@ export const BoardContainer = React.memo(() => {
       </Board.NoteContainer>
     </Board>
   );
-});
+};

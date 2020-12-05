@@ -13,7 +13,7 @@ import {
   AiOutlineFolder,
 } from 'react-icons/ai';
 
-export const SidebarContainer = React.memo(({}) => {
+export const SidebarContainer = ({}) => {
   const { boards } = useBoardsValue();
   const { collection } = useCollectionsValue();
   const { sidebar } = useSidebarValue();
@@ -21,6 +21,7 @@ export const SidebarContainer = React.memo(({}) => {
   const [collectionOpen, setCollectionOpen] = useState([]);
   const [active, setActive] = useState('');
   const [listItemModal, setListItemModal] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
 
   let container = useRef(null);
 
@@ -51,6 +52,10 @@ export const SidebarContainer = React.memo(({}) => {
 
   const handleMoreButton = (e) => {
     setListItemModal(!listItemModal);
+  };
+
+  const handleRender = () => {
+    props.action();
   };
 
   useEffect(() => {
@@ -126,11 +131,13 @@ export const SidebarContainer = React.memo(({}) => {
           <aside ref={container}>
             <AddBoardContainer
               id="addBoardContainer"
-              action={() => handleAction()}
+              action={() => {
+                handleAction();
+              }}
             />
           </aside>
         )}
       </Sidebar>
     )
   );
-});
+};

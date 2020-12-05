@@ -20,7 +20,7 @@ export const AddNoteContainer = (props) => {
   };
 
   const addNote = () => {
-    const boardId = props.boardId;
+    const boardId = props.boardId === '' ? '' : props.boardId;
 
     return (
       addNoteTitle &&

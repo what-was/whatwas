@@ -30,7 +30,7 @@ export const UpperContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 1rem 12px 1rem 5px;
+  margin: 0 12px 1rem 5px;
   flex-wrap: wrap;
 `;
 
@@ -70,6 +70,7 @@ export const AddNoteButton = styled.div`
 export const NoteContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 `;
 
 export const NotesList = styled.div`
@@ -77,12 +78,13 @@ export const NotesList = styled.div`
   flex-direction: column;
   margin: 5px 5px;
   border-radius: 10px;
-  flex: 0 1 260px;
+  flex: 0 1 250px;
   padding: 1rem 1.25rem;
   cursor: pointer;
   text-decoration: none;
   transition: box-shadow 350ms ease;
   background-color: ${(props) => backgroundColor(props.color)};
+
   a {
     width: 100%;
     height: 100%;
