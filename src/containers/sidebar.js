@@ -64,7 +64,7 @@ export const SidebarContainer = React.memo(({}) => {
     sidebar && (
       <Sidebar>
         <Sidebar.List>
-          {collection && (
+          {collection.length > 0 && (
             <Collection.List>
               {collection.map((collection) => (
                 <Collection key={collection.collectionId}>

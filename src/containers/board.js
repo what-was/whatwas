@@ -7,6 +7,7 @@ import { getNotes, getTitle } from '../hooks';
 import { AddNoteContainer } from './add-note';
 import { BiPlus } from 'react-icons/bi';
 import { ColorFilterContainer } from './board/color-filter';
+import { formatDate } from '../helpers';
 
 export const BoardContainer = React.memo(() => {
   const [title, setTitle] = useState('Dashboard');
@@ -52,34 +53,6 @@ export const BoardContainer = React.memo(() => {
     } else if (color === 'default') {
       setColorFilter('');
     }
-  };
-
-  // Formatting updated date function
-  const formatDate = (dateInput) => {
-    // Getting date from fetched db.
-    const date = new Date(dateInput);
-
-    let hours = date.getHours();
-
-    // Day
-    let dd = date.getDate();
-
-    // Month
-    let mm = date.getMonth() + 1;
-
-    // Year
-    const yyyy = date.getFullYear();
-
-    // Visualisation matters
-    if (dd < 10) {
-      dd = `0${dd}`;
-    }
-
-    if (mm < 10) {
-      mm = `0${mm}`;
-    }
-
-    return `${mm}/${dd}/${yyyy}`;
   };
 
   // Setting window title
@@ -151,7 +124,7 @@ export const BoardContainer = React.memo(() => {
                 /> */}
                   <Board.LowerContainer>
                     <Board.NoteUpdatedDate>
-                      Last update: <em>{formatDate(note.updatedAt)}</em>
+                      Last update: {formatDate(note.updatedAt)}
                     </Board.NoteUpdatedDate>
                   </Board.LowerContainer>
                 </Link>
