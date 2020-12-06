@@ -93,7 +93,8 @@ export const getSingleNote = (noteId) => {
         .firestore()
         .collection('notes')
         .where('noteId', '==', noteId)
-        .onSnapshot((snapshot) => {
+        .get()
+        .then((snapshot) => {
           const currNote = snapshot.docs.map((content) => ({
             ...content.data(),
             docId: content.id,

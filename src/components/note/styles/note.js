@@ -29,7 +29,6 @@ export const Container = styled.div`
   border-radius: 20px;
   height: calc(100vh - 162px);
   box-shadow: 0px 15px 40px -15px rgba(220, 187, 160, 0.5);
-  overflow: auto;
 
   .ql-editor {
     padding: 2rem;
@@ -40,14 +39,17 @@ export const InnerContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  overflow: auto;
   flex-wrap: wrap;
+  max-width: 50rem;
+  margin: 0 auto;
 `;
 
 export const TitleContainer = styled.div`
   display: flex;
   width: 100%;
-  margin-right: auto;
   align-items: center;
+  padding: 0 2rem;
 `;
 
 export const Title = styled.input`
@@ -59,13 +61,13 @@ export const Title = styled.input`
     transparent 95%,
     ${(props) => backgroundColor(props.color)} 5%
   );
-  background-position-y: 3.5rem;
   line-height: 1.2;
-  margin: 0;
-  padding: 20px 0;
+  margin: 0 auto;
+  padding: 20px 0 0;
   justify-content: center;
   border: 0;
-  width: 90%;
+  width: 100%;
+  text-align: center;
 
   &:focus {
     outline: 0;

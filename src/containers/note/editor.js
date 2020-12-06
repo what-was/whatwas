@@ -27,17 +27,17 @@ export const Editor = (props) => {
               color={notes.noteColor}
             />
           </Note.TitleContainer>
-        </Note.InnerContainer>
-        <ReactQuill
-          placeholder={'Input'}
-          theme="bubble"
-          getContent={setValue}
-          value={value}
-          onChange={setValue}
-          ref={editorRef}
-        />
+          <ReactQuill
+            placeholder={'Input'}
+            theme="bubble"
+            getContent={setValue}
+            value={value}
+            onChange={setValue}
+            ref={editorRef}
+          />
 
-        <Note.SaveButton>Save</Note.SaveButton>
+          <Note.SaveButton>Save</Note.SaveButton>
+        </Note.InnerContainer>
       </>
     )
   );
