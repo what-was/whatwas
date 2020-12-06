@@ -78,7 +78,7 @@ export const NotesList = styled.div`
   flex-direction: column;
   margin: 5px 5px;
   border-radius: 10px;
-  flex: 0 1 250px;
+  flex: 0 1 262px;
   padding: 1rem 1.25rem;
   cursor: pointer;
   text-decoration: none;
@@ -135,7 +135,7 @@ export const LowerContainer = styled.div`
   margin-top: auto;
 `;
 
-export const NoteSummary = styled.p`
+export const NoteSummary = styled.div`
   font-size: 14px;
   margin: 0;
   line-height: 1.5;
@@ -143,6 +143,13 @@ export const NoteSummary = styled.p`
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+
+  .ql-editor {
+    padding: 0;
+    p {
+      cursor: pointer;
+    }
+  }
 `;
 
 export const Favorite = styled.div`

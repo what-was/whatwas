@@ -7,6 +7,7 @@ import { AddNoteContainer } from './add-note';
 import { BiPlus } from 'react-icons/bi';
 import { ColorFilterContainer } from './board/color-filter';
 import { formatDate } from '../helpers';
+import { ReadOnlyNote } from './board/readonly-note';
 
 export const BoardContainer = () => {
   const [title, setTitle] = useState('Dashboard');
@@ -67,23 +68,52 @@ export const BoardContainer = () => {
 
   // let options = { year: 'numeric', month: 'long', day: 'numeric', timezone: 'short' };
 
-  return (
-    <Board>
-      <Board.UpperContainer>
-        <Board.Title>{title}</Board.Title>
-        {boardId !== undefined && (
-          <Board.AddNoteButton onClick={handleAddNote}>
-            <BiPlus />
-            Add Note
-          </Board.AddNoteButton>
-        )}
-        <ColorFilterContainer onClick={(color) => handleFilter(color)} />
-      </Board.UpperContainer>
-      <Board.NoteContainer>
-        {notes && colorFilter.length > 1
-          ? notes
-              .filter((note) => note.noteColor === colorFilter)
-              .map((note) => (
+  if (notes.length > 0) {
+    return (
+      <Board>
+        <Board.UpperContainer>
+          <Board.Title>{title}</Board.Title>
+          {boardId !== undefined && (
+            <Board.AddNoteButton onClick={handleAddNote}>
+              <BiPlus />
+              Add Note
+            </Board.AddNoteButton>
+          )}
+          <ColorFilterContainer onClick={(color) => handleFilter(color)} />
+        </Board.UpperContainer>
+        <Board.NoteContainer>
+          {notes && colorFilter.length > 1
+            ? notes
+                .filter((note) => note.noteColor === colorFilter)
+                .map((note) => (
+                  <Board.NotesList key={note.id} color={note.noteColor}>
+                    <Link to={`/note/` + note.noteId}>
+                      <Board.NoteTitle color={note.noteColor}>
+                        {note.noteTitle}
+                      </Board.NoteTitle>
+
+                      <Board.NoteSummary>
+                        {note.note.length > 140 ? (
+                          <ReadOnlyNote
+                            note={note.note.substring(0, 140) + '...'}
+                          />
+                        ) : (
+                          <ReadOnlyNote note={note.note} />
+                        )}
+                      </Board.NoteSummary>
+                      {/* <Board.Favorite
+                  starred={starred}
+                  onClick={() => handleFavorite()}
+                /> */}
+                      <Board.LowerContainer>
+                        <Board.NoteUpdatedDate>
+                          Last update:
+                        </Board.NoteUpdatedDate>
+                      </Board.LowerContainer>
+                    </Link>
+                  </Board.NotesList>
+                ))
+            : notes.map((note) => (
                 <Board.NotesList key={note.id} color={note.noteColor}>
                   <Link to={`/note/` + note.noteId}>
                     <Board.NoteTitle color={note.noteColor}>
@@ -91,9 +121,11 @@ export const BoardContainer = () => {
                     </Board.NoteTitle>
 
                     <Board.NoteSummary>
-                      {note.note.length > 140
-                        ? note.note.substring(0, 140) + '...'
-                        : note.note}
+                      {note.note.length > 140 ? (
+                        <ReadOnlyNote note={note.note.substring(0, 140)} />
+                      ) : (
+                        <ReadOnlyNote note={note.note} />
+                      )}
                     </Board.NoteSummary>
                     {/* <Board.Favorite
                   starred={starred}
@@ -101,45 +133,23 @@ export const BoardContainer = () => {
                 /> */}
                     <Board.LowerContainer>
                       <Board.NoteUpdatedDate>
-                        Last update:
+                        Last update: {formatDate(note.updatedAt)}
                       </Board.NoteUpdatedDate>
                     </Board.LowerContainer>
                   </Link>
                 </Board.NotesList>
-              ))
-          : notes.map((note) => (
-              <Board.NotesList key={note.id} color={note.noteColor}>
-                <Link to={`/note/` + note.noteId}>
-                  <Board.NoteTitle color={note.noteColor}>
-                    {note.noteTitle}
-                  </Board.NoteTitle>
-
-                  <Board.NoteSummary>
-                    {note.note.length > 140
-                      ? note.note.substring(0, 140) + '...'
-                      : note.note}
-                  </Board.NoteSummary>
-                  {/* <Board.Favorite
-                  starred={starred}
-                  onClick={() => handleFavorite()}
-                /> */}
-                  <Board.LowerContainer>
-                    <Board.NoteUpdatedDate>
-                      Last update: {formatDate(note.updatedAt)}
-                    </Board.NoteUpdatedDate>
-                  </Board.LowerContainer>
-                </Link>
-              </Board.NotesList>
-            ))}
-        <aside ref={container}>
-          {addNoteOpen && (
-            <AddNoteContainer
-              boardId={boardId}
-              action={(update) => handleAddNote(update)}
-            />
-          )}
-        </aside>
-      </Board.NoteContainer>
-    </Board>
-  );
+              ))}
+          <aside ref={container}>
+            {addNoteOpen && (
+              <AddNoteContainer
+                boardId={boardId}
+                action={(update) => handleAddNote(update)}
+              />
+            )}
+          </aside>
+        </Board.NoteContainer>
+      </Board>
+    );
+  }
+  return <p>loading</p>;
 };

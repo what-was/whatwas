@@ -98,7 +98,9 @@ export const getSingleNote = (noteId) => {
             ...content.data(),
             docId: content.id,
           }));
-          setNote(currNote[0]);
+          if (JSON.stringify(currNote) !== JSON.stringify(note)) {
+            setNote(currNote[0]);
+          }
         });
     }
   }, [noteId]);
