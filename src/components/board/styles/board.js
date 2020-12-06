@@ -78,7 +78,7 @@ export const NotesList = styled.div`
   flex-direction: column;
   margin: 5px 5px;
   border-radius: 10px;
-  flex: 0 1 262px;
+  flex: ${(props) => (props.sidebarOpen ? '0 1 262px' : '0 1 310px')};
   padding: 1rem 1.25rem;
   cursor: pointer;
   text-decoration: none;

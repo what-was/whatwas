@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { Board } from '../components';
+import { useSidebarValue } from '../context';
 import { getNotes, getTitle } from '../hooks';
 import { AddNoteContainer } from './add-note';
 import { BiPlus } from 'react-icons/bi';
@@ -13,6 +14,8 @@ export const BoardContainer = () => {
   const [title, setTitle] = useState('Dashboard');
   const [addNoteOpen, setAddNoteOpen] = useState(false);
   // const { selectedBoard } = useSelectedBoardValue();
+
+  const { sidebar } = useSidebarValue();
 
   let { boardId } = useParams();
 
@@ -107,14 +110,18 @@ export const BoardContainer = () => {
                 /> */}
                       <Board.LowerContainer>
                         <Board.NoteUpdatedDate>
-                          Last update:
+                          Last update: {formatDate(note.updatedAt)}
                         </Board.NoteUpdatedDate>
                       </Board.LowerContainer>
                     </Link>
                   </Board.NotesList>
                 ))
             : notes.map((note) => (
-                <Board.NotesList key={note.id} color={note.noteColor}>
+                <Board.NotesList
+                  key={note.id}
+                  sidebarOpen={sidebar}
+                  color={note.noteColor}
+                >
                   <Link to={`/note/` + note.noteId}>
                     <Board.NoteTitle color={note.noteColor}>
                       {note.noteTitle}

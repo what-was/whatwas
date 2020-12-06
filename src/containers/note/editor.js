@@ -34,6 +34,7 @@ export const Editor = (props) => {
             value={value}
             onChange={setValue}
             ref={editorRef}
+            preserveWhitespace={true}
           />
 
           <Note.SaveButton>Save</Note.SaveButton>

@@ -29,10 +29,6 @@ export const Container = styled.div`
   border-radius: 20px;
   height: calc(100vh - 162px);
   box-shadow: 0px 15px 40px -15px rgba(220, 187, 160, 0.5);
-
-  .ql-editor {
-    padding: 2rem;
-  }
 `;
 
 export const InnerContainer = styled.div`
@@ -41,8 +37,38 @@ export const InnerContainer = styled.div`
   align-items: center;
   overflow: auto;
   flex-wrap: wrap;
-  max-width: 50rem;
+  max-width: 45rem;
   margin: 0 auto;
+
+  .quill {
+    width: 100%;
+  }
+
+  .ql-editor {
+    padding: 3rem 2rem;
+    font-family: 'Georgia', 'Cambria', 'Times New Roman', serif;
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: -0.003em;
+
+    a {
+      display: inline;
+      z-index: 9999999999999999;
+      cursor: pointer;
+      &::before {
+        font-family: sans-serif;
+      }
+    }
+
+    h1 {
+      font-size: 2rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
 `;
 
 export const TitleContainer = styled.div`
@@ -54,8 +80,9 @@ export const TitleContainer = styled.div`
 
 export const Title = styled.input`
   display: flex;
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 42px;
+  letter-spacing: -0.015em;
+  font-weight: 600;
   color: #232323;
   background-image: linear-gradient(
     transparent 95%,
