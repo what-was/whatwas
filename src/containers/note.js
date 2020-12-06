@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Note } from '../components';
 import { getSingleNote } from '../hooks';
+import { Note } from '../components';
+
+import { Editor } from './note/editor';
 
 export const NoteContainer = () => {
   let { noteId } = useParams();
@@ -14,12 +16,17 @@ export const NoteContainer = () => {
     document.title = notes.noteTitle;
   }
 
+  if (notes.note === undefined) {
+    return (
+      <Note>
+        <p>Loading</p>
+      </Note>
+    );
+  }
+
   return (
     <Note>
-      <Note.InnerContainer>
-        <Note.Title color={notes.noteColor}>{title}</Note.Title>
-        <Note.Text>{notes.note}</Note.Text>
-      </Note.InnerContainer>
+      <Editor note={notes} />
     </Note>
   );
 };

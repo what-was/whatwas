@@ -2,9 +2,11 @@ import React from 'react';
 import {
   Container,
   InnerContainer,
+  TitleContainer,
   Title,
   Text,
   NoteUpdatedDate,
+  SaveButton,
 } from './styles/note';
 
 export default function Note({ children, ...restProps }) {
@@ -28,4 +30,12 @@ Note.NoteUpdatedDate = function NoteNoteUpdatedDate({
   ...restProps
 }) {
   return <NoteUpdatedDate {...restProps}>{children}</NoteUpdatedDate>;
+};
+
+Note.SaveButton = function NoteSaveButton({ children, ...restProps }) {
+  return <SaveButton {...restProps}>{children}</SaveButton>;
+};
+
+Note.TitleContainer = function NoteSaveButton({ children, ...restProps }) {
+  return <TitleContainer {...restProps}>{children}</TitleContainer>;
 };
