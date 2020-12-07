@@ -40,7 +40,13 @@ export function HeaderContainer({ children, route }) {
       <Header.Frame className="signed-in">
         <Header.LeftGroup>
           <SidebarToggleContainer />
-          <Header.Logo to={ROUTES.DASHBOARD} src={logo} alt="WhatWas" />
+          <Header.Logo
+            width="172"
+            height="62"
+            to={ROUTES.DASHBOARD}
+            src={logo}
+            alt="WhatWas"
+          />
         </Header.LeftGroup>
         <Header.CenterGroup>
           <Header.Search
