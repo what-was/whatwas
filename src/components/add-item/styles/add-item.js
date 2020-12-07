@@ -8,17 +8,20 @@ export const Container = styled.aside`
   max-width: 960px;
   border-radius: 15px;
   background-color: #232323;
-  ${
-    '' /* backdrop-filter: blur(10px);
-  background-color: rgba(35, 35, 35, 0.9); */
-  }
-  ${'' /* box-shadow: 0px 10px 60px -10px rgba(220, 187, 160, 1); */}
   top: 60px;
   left: 60px;
   right: 60px;
   margin-right: auto;
   height: calc(100% - 15rem);
   padding: 3rem 3rem;
+  z-index: 99999;
+
+  @media (max-width: 600px) {
+    position: fixed;
+    padding: 1.5rem;
+    left: 15px;
+    right: 15px;
+  }
 `;
 
 export const InnerContainer = styled.div`
@@ -42,6 +45,10 @@ export const Title = styled.input`
   &:focus::placeholder {
     color: transparent;
   }
+
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
+  }
 `;
 
 // Board Description
@@ -57,6 +64,10 @@ export const Description = styled.input`
 
   &:focus::placeholder {
     color: transparent;
+  }
+
+  @media (max-width: 600px) {
+    line-break: anywhere;
   }
 `;
 

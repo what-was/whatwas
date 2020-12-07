@@ -54,6 +54,8 @@ export const SidebarContainer = ({}) => {
     props.action();
   };
 
+  console.log(sidebar);
+
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
     return () => {
@@ -63,7 +65,7 @@ export const SidebarContainer = ({}) => {
 
   return (
     sidebar && (
-      <Sidebar>
+      <Sidebar openStatus={sidebar}>
         <Sidebar.List>
           {collection && (
             <Collection.List>

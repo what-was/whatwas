@@ -77,7 +77,6 @@ export const AddBoard = styled.div`
   font-weight: 500;
   font-size: 14px;
   color: #232323;
-  background-color: #f8f5f2;
   border: 0;
   padding: 5px;
   margin-left: auto;

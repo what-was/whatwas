@@ -13,8 +13,6 @@ export const Container = styled.div`
   background-color: ${containerColor};
   border-radius: 20px;
   height: calc(100vh - 146px);
-  -webkit-box-shadow: 0px 15px 40px -15px rgba(220, 187, 160, 0.5);
-  -moz-box-shadow: 0px 15px 40px -15px rgba(220, 187, 160, 0.5);
   box-shadow: 0px 15px 40px -15px rgba(220, 187, 160, 0.5);
   overflow: auto;
 

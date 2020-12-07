@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 
 export const Container = styled.nav`
-  display: flex;
+  display: ${(props) => (props.openStatus ? 'flex' : 'none')};
   flex-direction: column;
   max-width: 240px;
   width: 100%;
@@ -11,6 +11,13 @@ export const Container = styled.nav`
   &::selection {
     background-color: transparent !important;
     color: black !important;
+  }
+
+  @media (max-width: 600px) {
+    position: absolute;
+    background-color: #f8f5f2;
+    box-shadow: 15px 15px 30px -15px rgba(0, 0, 0, 0.4);
+    z-index: 999;
   }
 `;
 

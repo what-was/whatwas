@@ -13,8 +13,8 @@ import {
 import { BiPlus } from 'react-icons/bi';
 import { RiMenuLine } from 'react-icons/ri';
 
-export default function Sidebar({ children }) {
-  return <Container>{children}</Container>;
+export default function Sidebar({ children, ...restProps }) {
+  return <Container {...restProps}>{children}</Container>;
 }
 
 Sidebar.List = function SidebarList({ children, ...restProps }) {
