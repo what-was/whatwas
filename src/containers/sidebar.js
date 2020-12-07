@@ -54,8 +54,6 @@ export const SidebarContainer = ({}) => {
     props.action();
   };
 
-  console.log(sidebar);
-
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
     return () => {

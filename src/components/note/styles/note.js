@@ -29,6 +29,10 @@ export const Container = styled.div`
   border-radius: 20px;
   height: calc(100vh - 162px);
   box-shadow: 0px 15px 40px -15px rgba(220, 187, 160, 0.5);
+
+  @media (max-width: 600px) {
+    padding: 1rem 1.5rem;
+  }
 `;
 
 export const InnerContainer = styled.div`
@@ -83,6 +87,10 @@ export const TitleContainer = styled.div`
   padding: 0 2rem;
   max-width: 45rem;
   margin: 0 auto;
+
+  @media (max-width: 600px) {
+    padding: 0;
+  }
 `;
 
 export const Title = styled.div`
@@ -107,6 +115,10 @@ export const Title = styled.div`
   &:focus {
     outline: 0;
     border: 0;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 28px;
   }
 `;
 

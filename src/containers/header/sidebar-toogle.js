@@ -5,6 +5,7 @@ import { RiMenuLine } from 'react-icons/ri';
 
 export const SidebarToggleContainer = () => {
   const { sidebar, setSidebar } = useSidebarValue();
+
   return (
     <Sidebar.CloseButton onClick={() => setSidebar(!sidebar)}>
       <RiMenuLine />
