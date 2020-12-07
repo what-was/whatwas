@@ -5,7 +5,11 @@ import {
   Title,
   BoardList,
   List,
+  AddCollection,
+  AddBoard,
 } from './styles/collection';
+
+import { BiPlus } from 'react-icons/bi';
 
 export default function Collection({ children }) {
   return <Container>{children}</Container>;
@@ -31,4 +35,25 @@ Collection.BoardList = function CollectionBoardList({
 
 Collection.Title = function CollectionTitle({ children, ...restProps }) {
   return <Title {...restProps}>{children}</Title>;
+};
+
+Collection.AddCollection = function CollectionAddCollection({
+  children,
+  ...restProps
+}) {
+  return (
+    <AddCollection {...restProps}>
+      <BiPlus />
+      {children}
+    </AddCollection>
+  );
+};
+
+Collection.AddBoard = function CollectionAddBoard({ children, ...restProps }) {
+  return (
+    <AddBoard {...restProps}>
+      <BiPlus />
+      {children}
+    </AddBoard>
+  );
 };

@@ -139,9 +139,6 @@ export const NoteSummary = styled.div`
   font-size: 14px;
   margin: 0;
   line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
   overflow: hidden;
 
   .ql-editor {

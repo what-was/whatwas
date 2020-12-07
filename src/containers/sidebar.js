@@ -7,11 +7,7 @@ import {
 } from '../context';
 import { AddBoardContainer } from './add-board';
 import { BoardItemContainer } from './sidebar/board-item';
-import {
-  AiFillCaretDown,
-  AiFillCaretRight,
-  AiOutlineFolder,
-} from 'react-icons/ai';
+import { AiFillCaretDown, AiFillCaretRight } from 'react-icons/ai';
 
 export const SidebarContainer = ({}) => {
   const { boards } = useBoardsValue();
@@ -69,8 +65,11 @@ export const SidebarContainer = ({}) => {
     sidebar && (
       <Sidebar>
         <Sidebar.List>
-          {collection.length > 0 && (
+          {collection && (
             <Collection.List>
+              <Collection.AddCollection>
+                Add Collection
+              </Collection.AddCollection>
               {collection.map((collection) => (
                 <Collection key={collection.collectionId}>
                   <Collection.ButtonContainer
@@ -78,16 +77,17 @@ export const SidebarContainer = ({}) => {
                       handleCollectionOpen(collection.collectionId)
                     }
                   >
-                    <Collection.Title>
-                      {collection.collectionName
-                        ? collection.collectionName
-                        : 'untitled collection'}
-                    </Collection.Title>
                     {collectionOpen.includes(collection.collectionId) ? (
                       <AiFillCaretDown />
                     ) : (
                       <AiFillCaretRight />
                     )}
+                    <Collection.Title>
+                      {collection.collectionName
+                        ? collection.collectionName
+                        : 'untitled collection'}
+                    </Collection.Title>
+                    <Collection.AddBoard />
                   </Collection.ButtonContainer>
                   {collectionOpen.includes(collection.collectionId) && (
                     <Collection.BoardList>

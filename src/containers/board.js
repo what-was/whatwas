@@ -96,10 +96,8 @@ export const BoardContainer = () => {
                       </Board.NoteTitle>
 
                       <Board.NoteSummary>
-                        {note.note.length > 140 ? (
-                          <ReadOnlyNote
-                            note={note.note.substring(0, 140) + '...'}
-                          />
+                        {note.note.length > 200 ? (
+                          <ReadOnlyNote note={note.note.substring(0, 200)} />
                         ) : (
                           <ReadOnlyNote note={note.note} />
                         )}
@@ -128,8 +126,8 @@ export const BoardContainer = () => {
                     </Board.NoteTitle>
 
                     <Board.NoteSummary>
-                      {note.note.length > 140 ? (
-                        <ReadOnlyNote note={note.note.substring(0, 140)} />
+                      {note.note.length > 200 ? (
+                        <ReadOnlyNote note={note.note.substring(0, 200)} />
                       ) : (
                         <ReadOnlyNote note={note.note} />
                       )}

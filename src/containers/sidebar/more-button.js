@@ -79,7 +79,6 @@ export const MoreButtonContainer = (props) => {
                   <Modal.ConfirmButton
                     type="button"
                     onClick={() => {
-                      console.log(board);
                       handleBoardDelete(board.docId, board.boardId);
                     }}
                   >

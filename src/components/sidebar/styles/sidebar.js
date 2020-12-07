@@ -81,7 +81,7 @@ export const AddBoard = styled.button`
   background-color: #f8f5f2;
   border: 0;
   border-top: 1px solid #ede7e1;
-  padding: 15px 28px;
+  padding: 15px 24px;
   cursor: pointer;
   margin: auto 0 0;
   align-items: center;

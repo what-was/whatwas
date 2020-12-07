@@ -43,7 +43,6 @@ export default function Signin() {
         setEmailAddress('');
         setPassword('');
         setError(error.message);
-        console.log('sign in error');
       });
   };
 
