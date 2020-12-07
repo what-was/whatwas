@@ -38,6 +38,7 @@ export const InnerContainer = styled.div`
   overflow: auto;
   flex-wrap: wrap;
   max-width: 45rem;
+  width: 100%;
   margin: 0 auto;
 
   .quill {
@@ -47,14 +48,18 @@ export const InnerContainer = styled.div`
   .ql-editor {
     padding: 3rem 2rem;
     font-family: 'Georgia', 'Cambria', 'Times New Roman', serif;
-    font-size: 20px;
-    line-height: 32px;
+    font-size: 16px;
+    line-height: 1.5;
     letter-spacing: -0.003em;
-
+    clear: both;
     a {
-      display: inline;
-      z-index: 9999999999999999;
+      display: inline-block;
+      color: #f94144;
       cursor: pointer;
+
+      &:visited {
+        color: #f94144;
+      }
       &::before {
         font-family: sans-serif;
       }
@@ -76,26 +81,29 @@ export const TitleContainer = styled.div`
   width: 100%;
   align-items: center;
   padding: 0 2rem;
+  max-width: 45rem;
+  margin: 0 auto;
 `;
 
-export const Title = styled.input`
+export const Title = styled.div`
   display: flex;
-  font-size: 42px;
+  font-size: 40px;
   letter-spacing: -0.015em;
-  font-weight: 600;
+  font-weight: 700;
   color: #232323;
-  background-image: linear-gradient(
+  background: linear-gradient(
     transparent 95%,
     ${(props) => backgroundColor(props.color)} 5%
   );
-  line-height: 1.2;
+  line-height: 48px;
   margin: 0 auto;
-  padding: 20px 0 0;
-  justify-content: center;
+  padding: 0 2rem;
+  justify-content: flex-start;
   border: 0;
   width: 100%;
-  text-align: center;
-
+  height: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
   &:focus {
     outline: 0;
     border: 0;
@@ -124,5 +132,8 @@ export const SaveButton = styled.button`
   margin: 0 0 0 auto;
   &:hover {
     background-color: #f94144;
+  }
+  &:focus {
+    outline: 0;
   }
 `;

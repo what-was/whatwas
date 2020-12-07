@@ -1,12 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import { Note } from '../../components';
+import { FirebaseContext } from '../../context/firebase';
 import 'react-quill/dist/quill.bubble.css';
 
 export const Editor = (props) => {
   let notes = props.note;
-  const [value, setValue] = useState(notes.note);
-  const [title, setTitle] = useState(notes.noteTitle);
+  const [currentNote, setCurrentNote] = useState(notes.note);
+  const [currentTitle, setCurrentTitle] = useState(notes.noteTitle);
+  const [value, setValue] = useState(currentNote);
+  const [title, setTitle] = useState(currentTitle);
+
+  const { firebase } = useContext(FirebaseContext);
+
+  const user = JSON.parse(localStorage.getItem('authUser'));
 
   const editorRef = useRef(null);
 
@@ -14,19 +21,44 @@ export const Editor = (props) => {
     editorRef.current.focus();
   }, []);
 
-  const handleSave = () => {};
+  const handleSave = () => {
+    if (currentNote !== value || currentTitle !== title) {
+      firebase
+        .firestore()
+        .collection('notes')
+        .doc(notes.docId)
+        .update({
+          noteTitle: title,
+          note: value,
+          updatedAt: Date.now(),
+        })
+        .then(() => {
+          setCurrentNote(value);
+          setCurrentTitle(title);
+        })
+        .catch((error) => console.error(error));
+    }
+  };
 
   return (
     notes && (
       <>
+        <Note.TitleContainer>
+          <Note.Title
+            contentEditable
+            suppressContentEditableWarning
+            spellCheck={false}
+            onChange={(e) => {
+              setTitle(e.target.value);
+              saveButtonTextFunction();
+            }}
+            color={notes.noteColor}
+          >
+            {title}
+          </Note.Title>
+        </Note.TitleContainer>
+
         <Note.InnerContainer>
-          <Note.TitleContainer>
-            <Note.Title
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              color={notes.noteColor}
-            />
-          </Note.TitleContainer>
           <ReactQuill
             placeholder={'Input'}
             theme="bubble"
@@ -35,9 +67,10 @@ export const Editor = (props) => {
             onChange={setValue}
             ref={editorRef}
             preserveWhitespace={true}
+            readOnly={user.uid !== notes.uid}
           />
 
-          <Note.SaveButton>Save</Note.SaveButton>
+          <Note.SaveButton onClick={() => handleSave()}>Save</Note.SaveButton>
         </Note.InnerContainer>
       </>
     )

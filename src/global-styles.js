@@ -15,17 +15,17 @@ export const GlobalStyles = createGlobalStyle`
   background-color: #a81d1d;
 }
   &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #f7f4f0;
+    ${'' /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */}
+    background-color: #f1f1f1;
   }
 
   &::-webkit-scrollbar {
     width: 5px;
-    background-color: #f7f4f0;
+    background-color: #c1c1c1;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #313030;
+    background-color: #c1c1c1;
   }
 
 
