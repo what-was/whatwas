@@ -53,6 +53,7 @@ Header.Search = function HeaderSearch({
       <SearchInput
         value={searchTerm}
         onChange={({ target }) => setSearchTerm(target.value)}
+        aria-label="Search on WhatWas"
         placeholder="Search on WhatWas"
         data-testid="search-input"
       />
