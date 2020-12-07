@@ -7,7 +7,10 @@ export const SidebarToggleContainer = () => {
   const { sidebar, setSidebar } = useSidebarValue();
 
   return (
-    <Sidebar.CloseButton onClick={() => setSidebar(!sidebar)}>
+    <Sidebar.CloseButton
+      aria-label="Toggle sidebar"
+      onClick={() => setSidebar(!sidebar)}
+    >
       <RiMenuLine />
     </Sidebar.CloseButton>
   );

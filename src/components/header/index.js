@@ -47,7 +47,7 @@ Header.Search = function HeaderSearch({
 }) {
   return (
     <Search {...restProps}>
-      <SearchIcon data-testid="search-click">
+      <SearchIcon aria-label="Search on WhatWas?" data-testid="search-click">
         <FiSearch />
       </SearchIcon>
       <SearchInput

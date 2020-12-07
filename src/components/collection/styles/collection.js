@@ -5,7 +5,7 @@ export const Container = styled.section`
   flex-direction: column;
 `;
 
-export const List = styled.div`
+export const List = styled.li`
   padding: 0 0 6px 0;
   border-bottom: 1px solid #ede7e1;
   margin-bottom: 12px;

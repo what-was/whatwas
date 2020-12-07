@@ -33,6 +33,7 @@ export const Container = styled.div`
   @media (max-width: 600px) {
     padding: 1rem 1.5rem;
     margin: 0 15px;
+    height: calc(100vh - 122px);
   }
 `;
 

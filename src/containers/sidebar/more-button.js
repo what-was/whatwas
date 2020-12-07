@@ -54,7 +54,6 @@ export const MoreButtonContainer = (props) => {
         hasDeleted: true,
       })
       .then(() => {
-        setListItemModal(!listItemModal);
         history.push('/dashboard');
       })
       .catch((error) => console.error(error));

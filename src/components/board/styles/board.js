@@ -34,7 +34,7 @@ export const UpperContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-export const Title = styled.h2`
+export const Title = styled.h1`
   display: flex;
   font-size: 24px;
   font-weight: 700;
@@ -123,7 +123,7 @@ export const NotesList = styled.div`
   }
 `;
 
-export const NoteTitle = styled.h4`
+export const NoteTitle = styled.h2`
   display: flex;
   margin: 0;
   font-size: 16px;
