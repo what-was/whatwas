@@ -2,11 +2,14 @@ import React from 'react';
 import {
   Container,
   ButtonContainer,
+  ButtonInnerContainer,
   Title,
   BoardList,
   List,
   AddCollection,
   AddBoard,
+  Modal,
+  ModalInner,
 } from './styles/collection';
 
 import { BiPlus } from 'react-icons/bi';
@@ -24,6 +27,13 @@ Collection.ButtonContainer = function CollectionButtonContainer({
   ...restProps
 }) {
   return <ButtonContainer {...restProps}>{children}</ButtonContainer>;
+};
+
+Collection.ButtonInnerContainer = function CollectionButtonContainer({
+  children,
+  ...restProps
+}) {
+  return <ButtonInnerContainer {...restProps}>{children}</ButtonInnerContainer>;
 };
 
 Collection.BoardList = function CollectionBoardList({
@@ -55,5 +65,25 @@ Collection.AddBoard = function CollectionAddBoard({ children, ...restProps }) {
       <BiPlus />
       {children}
     </AddBoard>
+  );
+};
+
+Collection.Modal = function CollectionModal({ children, ...restProps }) {
+  return (
+    <Modal {...restProps}>
+      <BiPlus />
+      {children}
+    </Modal>
+  );
+};
+Collection.ModalInner = function CollectionModalInner({
+  children,
+  ...restProps
+}) {
+  return (
+    <ModalInner {...restProps}>
+      <BiPlus />
+      {children}
+    </ModalInner>
   );
 };

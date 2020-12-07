@@ -22,6 +22,9 @@ export const Container = styled.header`
     padding: ${(props) =>
       props.className === 'signed-in' ? '10px 0px' : '10px 15px'};
   }
+  @media (max-width: 600px) {
+    margin: ${(props) => (props.className === 'signed-in' ? '0 15px' : '0')};
+  }
 `;
 
 export const Link = styled.p`

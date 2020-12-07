@@ -4,6 +4,7 @@ export const Container = styled.nav`
   display: ${(props) => (props.openStatus ? 'flex' : 'none')};
   flex-direction: column;
   max-width: 240px;
+  min-width: 240px;
   width: 100%;
   height: calc(100vh - 70px);
   border-right: 1px solid #ede7e1;
@@ -42,7 +43,8 @@ export const ListItem = styled.li`
   display: flex;
   align-items: center;
   list-style-type: none;
-  padding: 0 24px;
+  padding: 0 12px 0 24px;
+  max-width: 100%;
   cursor: pointer;
   font-weight: ${(props) => (props.status === 'active' ? '600' : '500')};
   background-color: ${(props) =>
@@ -57,6 +59,7 @@ export const ListItem = styled.li`
     align-items: center;
     color: #232323;
     padding: 9px 0;
+    width: 100%;
   }
 
   &:hover {
@@ -73,7 +76,9 @@ export const ListItem = styled.li`
 export const BoardName = styled.p`
   font-size: 14px;
   margin: 0 0 0 5px;
+  max-width: 100%;
   width: 100%;
+  line-break: anywhere;
   &::selection {
     background-color: transparent !important;
     color: black !important;

@@ -72,21 +72,23 @@ export const SidebarContainer = ({}) => {
               </Collection.AddCollection>
               {collection.map((collection) => (
                 <Collection key={collection.collectionId}>
-                  <Collection.ButtonContainer
-                    onClick={() =>
-                      handleCollectionOpen(collection.collectionId)
-                    }
-                  >
-                    {collectionOpen.includes(collection.collectionId) ? (
-                      <AiFillCaretDown />
-                    ) : (
-                      <AiFillCaretRight />
-                    )}
-                    <Collection.Title>
-                      {collection.collectionName
-                        ? collection.collectionName
-                        : 'untitled collection'}
-                    </Collection.Title>
+                  <Collection.ButtonContainer>
+                    <Collection.ButtonInnerContainer
+                      onClick={() =>
+                        handleCollectionOpen(collection.collectionId)
+                      }
+                    >
+                      {collectionOpen.includes(collection.collectionId) ? (
+                        <AiFillCaretDown />
+                      ) : (
+                        <AiFillCaretRight />
+                      )}
+                      <Collection.Title>
+                        {collection.collectionName
+                          ? collection.collectionName
+                          : 'untitled collection'}
+                      </Collection.Title>
+                    </Collection.ButtonInnerContainer>
                     <Collection.AddBoard />
                   </Collection.ButtonContainer>
                   {collectionOpen.includes(collection.collectionId) && (

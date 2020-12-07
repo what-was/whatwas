@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 export const SidebarContext = createContext();
 export const SidebarProvider = ({ children }) => {
   const [sidebar, setSidebar] = useState(
-    window.innerWidth < '600' ? false : true
+    window.innerWidth < '1000' ? false : true
   );
 
   return (

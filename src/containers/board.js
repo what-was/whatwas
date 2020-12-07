@@ -78,7 +78,6 @@ export const BoardContainer = () => {
           <Board.Title>{title}</Board.Title>
           {boardId !== undefined && (
             <Board.AddNoteButton onClick={handleAddNote}>
-              <BiPlus />
               Add Note
             </Board.AddNoteButton>
           )}

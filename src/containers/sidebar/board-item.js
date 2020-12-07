@@ -76,7 +76,7 @@ export const BoardItemContainer = React.memo((props) => {
             }
           }}
         >
-          <AiOutlineFolder />
+          {/* <AiOutlineFolder /> */}
           <Sidebar.BoardName>
             {board.name ? board.name : 'untitled'}
           </Sidebar.BoardName>

@@ -55,6 +55,10 @@ export const AddNoteButton = styled.div`
   background-color: rgba(227, 222, 218, 0.6);
   cursor: pointer;
   transition: 100ms all ease;
+
+  p {
+    margin: 0;
+  }
   svg {
     height: 16px;
     font-weight: 600;
@@ -64,6 +68,19 @@ export const AddNoteButton = styled.div`
 
   &:hover {
     background-color: rgba(227, 222, 218, 0.8);
+  }
+
+  @media (max-width: 720px) {
+    margin: 0;
+    padding: 10px;
+    margin-left: auto;
+    svg {
+      margin: 0;
+    }
+
+    > :not(svg) {
+      display: none;
+    }
   }
 `;
 
@@ -101,7 +118,7 @@ export const NotesList = styled.div`
     flex: ${(props) => (props.sidebarOpen ? '0 1 275px' : '0 1 280px')};
   }
 
-  @media (max-width: 550px) {
+  @media (max-width: 600px) {
     flex: 0 1 430px;
   }
 `;

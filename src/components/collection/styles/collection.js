@@ -11,11 +11,11 @@ export const List = styled.div`
   margin-bottom: 12px;
 `;
 
-export const ButtonContainer = styled.section`
+export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 6px 24px;
+  padding: 6px 12px 6px 24px;
   cursor: pointer;
   color: #191818;
   svg {
@@ -23,6 +23,20 @@ export const ButtonContainer = styled.section`
     margin-right: 6px;
   }
 `;
+
+export const ButtonInnerContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  color: #191818;
+  width: 100%;
+  svg {
+    font-size: 0.75rem;
+    margin-right: 6px;
+  }
+`;
+
 export const BoardList = styled.ul`
   display: flex;
   flex-direction: column;
@@ -58,6 +72,8 @@ export const AddCollection = styled.div`
   padding: 5px 24px;
   cursor: pointer;
   align-items: center;
+  margin-bottom: 6px;
+
   svg {
     height: 18px;
     width: auto;
@@ -95,4 +111,14 @@ export const AddBoard = styled.div`
   &:focus {
     outline: 0;
   }
+`;
+
+export const Modal = styled.aside`
+  position: relative;
+`;
+export const ModalInner = styled.aside`
+  position: absolute;
+  max-width: 200px;
+  width: 100%;
+  top: 5px;
 `;

@@ -19,6 +19,10 @@ export const Container = styled.div`
   @media (max-width: 1000px) {
     margin: 0 30px 0 15px;
   }
+  @media (max-width: 600px) {
+    margin: 0 15px 0 15px;
+    padding: 16px 24px;
+  }
 `;
 
 export const Title = styled.h3`

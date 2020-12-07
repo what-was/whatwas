@@ -14,6 +14,7 @@ import {
 } from './styles/board';
 
 import { RiStarSLine, RiStarFill } from 'react-icons/ri';
+import { BiPlus } from 'react-icons/bi';
 
 export default function Board({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
@@ -31,7 +32,12 @@ Board.Title = function BoardTitle({ children, ...restProps }) {
 };
 
 Board.AddNoteButton = function BoardAddNoteButton({ children, ...restProps }) {
-  return <AddNoteButton {...restProps}>{children}</AddNoteButton>;
+  return (
+    <AddNoteButton {...restProps}>
+      <BiPlus />
+      <p>{children}</p>
+    </AddNoteButton>
+  );
 };
 
 Board.NoteContainer = function BoardNoteContainer({ children, ...restProps }) {

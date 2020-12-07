@@ -23,6 +23,10 @@ export const Container = styled.div`
   display: flex;
   margin-left: auto;
   align-items: center;
+
+  @media (max-width: 600px) {
+    margin-top: 10px;
+  }
 `;
 
 export const Button = styled.div`
