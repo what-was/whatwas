@@ -25,6 +25,7 @@ export const Container = styled.header`
   @media (max-width: 600px) {
     margin: ${(props) => (props.className === 'signed-in' ? '0 15px' : '0')};
   }
+  z-index: 9999;
 `;
 
 export const Link = styled.p`

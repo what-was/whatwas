@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import { Note } from '../../components';
 import { AddColorContainer } from '../board/add-color';
-import { formatDateDay } from '../../helpers';
+import { formatDate } from '../../helpers';
 import { FirebaseContext } from '../../context/firebase';
 import 'react-quill/dist/quill.bubble.css';
 
@@ -55,7 +55,7 @@ export const Editor = (props) => {
       <>
         <Note.UpperContainer>
           <Note.NoteUpdatedDate>
-            Updated at: {formatDateDay(notes.updatedAt)}
+            Updated at: {formatDate(notes.updatedAt)}
           </Note.NoteUpdatedDate>
           <AddColorContainer
             hasOpen={true}

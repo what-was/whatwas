@@ -29,11 +29,14 @@ export const Container = styled.div`
   border-radius: 20px;
   height: calc(100vh - 162px);
   box-shadow: 0px 15px 40px -15px rgba(220, 187, 160, 0.5);
+  overflow-y: auto;
+  overflow-x: hidden;
 
   @media (max-width: 600px) {
     padding: 1rem 1.5rem;
     margin: 0 15px;
     height: calc(100vh - 122px);
+    max-width: 80%;
   }
 `;
 export const UpperContainer = styled.div`
@@ -47,13 +50,17 @@ export const UpperContainer = styled.div`
   > div {
     margin: 0;
   }
+  @media (max-width: 860px) {
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const InnerContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  overflow: auto;
   flex-wrap: wrap;
   max-width: 45rem;
   width: 100%;
@@ -102,7 +109,7 @@ export const TitleContainer = styled.div`
   max-width: 45rem;
   margin: 0 auto;
 
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     padding: 0;
   }
 `;
@@ -138,6 +145,9 @@ export const Title = styled.div`
 export const NoteUpdatedDate = styled.p`
   margin: 0;
   font-size: 14px;
+  @media (max-width: 860px) {
+    margin-bottom: 10px;
+  }
 `;
 
 export const Text = styled.p`
