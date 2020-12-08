@@ -15,7 +15,7 @@ export const SidebarContainer = ({}) => {
   // Contexts
   const { boards } = useBoardsValue();
   const { collection } = useCollectionsValue();
-  const { sidebar } = useSidebarValue();
+  const { sidebar, setSidebar } = useSidebarValue();
 
   // Add Board Modal
   const [addBoardOpen, setAddBoardOpen] = useState(false);
@@ -35,14 +35,23 @@ export const SidebarContainer = ({}) => {
 
   let container = useRef(null);
 
+  const clientWidth = window.innerWidth;
+
+  useEffect(() => {}, []);
+
   const handleClickOutside = (event) => {
     if (container.current && !container.current.contains(event.target)) {
       setAddBoardOpen(false);
     }
   };
 
+  // Sidebar default close on mobile devices
+  // Activate selected board
   const boardItemAction = (id) => {
     setActive(id);
+    if (clientWidth < 600) {
+      setSidebar(false);
+    }
     // setSelectedBoard(id);
   };
 

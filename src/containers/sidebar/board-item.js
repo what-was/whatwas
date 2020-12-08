@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import { Sidebar, Modal } from '../../components';
+import { Sidebar } from '../../components';
 import { Link } from 'react-router-dom';
 import { MoreButtonContainer } from './more-button';
 import { useSelectedBoardValue } from '../../context';
 import { FirebaseContext } from '../../context/firebase';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { FiFolder } from 'react-icons/fi';
 
 export const BoardItemContainer = React.memo((props) => {

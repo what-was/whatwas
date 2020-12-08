@@ -7,7 +7,7 @@ export const Container = styled.header`
   top: 0;
   background-color: ${(props) =>
     props.className === 'signed-in'
-      ? 'transparent'
+      ? ({ theme }) => theme.body
       : ({ theme }) => theme.body};
   height: 50px;
   margin: ${(props) => (props.className === 'signed-in' ? '0 28px' : '0')};
@@ -25,6 +25,8 @@ export const Container = styled.header`
       props.className === 'signed-in' ? '10px 0px' : '10px 15px'};
   }
   @media (max-width: 600px) {
+    position: relative;
+
     margin: ${(props) => (props.className === 'signed-in' ? '0 15px' : '0')};
   }
   z-index: 9999;
@@ -111,13 +113,11 @@ export const SearchIcon = styled.button`
 export const ButtonLink = styled(ReachRouterLink)`
   display: block;
   background-color: #a81d1d;
-  width: auto;
-  height: fit-content;
-  color: ${({ theme }) => theme.title};
+  padding: 10px 15px;
+  color: ${({ theme }) => theme.buttonText};
   border: 0;
   font-size: 1rem;
-  border-radius: 3px;
-  padding: 0.5rem 1rem;
+  border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
   box-sizing: border-box;
@@ -142,7 +142,11 @@ export const Text = styled.p`
   color: ${({ theme }) => theme.text};
   font-size: 1rem;
   line-height: normal;
-  margin-right: 10px;
+  margin: 0 10px 0 0;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 export const TextLink = styled.p`
   color: ${({ theme }) => theme.text};

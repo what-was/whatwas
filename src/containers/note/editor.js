@@ -14,6 +14,7 @@ export const Editor = (props) => {
   const [value, setValue] = useState(currentNote);
   const [title, setTitle] = useState(currentTitle);
   const [color, setColor] = useState(currentColor);
+  const [buttonText, setButtonText] = useState('Save');
 
   const { firebase } = useContext(FirebaseContext);
 
@@ -42,9 +43,13 @@ export const Editor = (props) => {
           updatedAt: Date.now(),
         })
         .then(() => {
+          setButtonText('...');
           setCurrentNote(value);
           setCurrentTitle(title);
           setCurrentColor(color);
+          setTimeout(() => {
+            setButtonText('Save');
+          }, 1000);
         })
         .catch((error) => console.error(error));
     }
@@ -89,7 +94,9 @@ export const Editor = (props) => {
             readOnly={user.uid !== notes.uid}
           />
 
-          <Note.SaveButton onClick={() => handleSave()}>Save</Note.SaveButton>
+          <Note.SaveButton onClick={() => handleSave()}>
+            {buttonText}
+          </Note.SaveButton>
         </Note.InnerContainer>
       </>
     )

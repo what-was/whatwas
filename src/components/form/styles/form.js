@@ -65,13 +65,13 @@ export const Link = styled(ReachRouterLink)`
 `;
 
 export const Input = styled.input`
+  display: inline;
   background-color: #fffffe;
   border-radius: 4px;
   border: 0;
   color: #222525;
-  height: 2rem;
   font-size: 14px;
-  line-height: 50px;
+  line-height: 30px;
   padding: 5px 20px;
   margin-bottom: 10px;
 `;

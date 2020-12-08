@@ -50,7 +50,7 @@ export const Inner = styled.div`
   right: 0;
   flex-flow: column;
   background-color: ${({ theme }) => theme.background};
-  border: 1px solid ${({ theme }) => theme.border}; ;
+  border: 1px solid ${({ theme }) => theme.border};
 `;
 
 export const Item = styled.div`
@@ -110,7 +110,8 @@ export const ColorButton = styled.input`
   display: none;
   background-color: ${(props) => backgroundColor(props.color)};
   + label {
-    color: ${(props) => (props.color === 'default' ? '#fffffe' : '#333')};
+    color: ${(props) =>
+      props.color === 'default' ? '#fffffe' : ({ theme }) => theme.title};
     font-size: 1.1rem;
 
     span {

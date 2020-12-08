@@ -35,7 +35,8 @@ export const Container = styled.div`
   @media (max-width: 600px) {
     padding: 1rem 1.5rem;
     margin: 0 15px;
-    height: calc(100vh - 122px);
+    height: calc(100vh - 220px);
+
     max-width: 80%;
   }
 `;
@@ -74,7 +75,7 @@ export const InnerContainer = styled.div`
     padding: 3rem 2rem;
     font-family: 'Georgia', 'Cambria', 'Times New Roman', serif;
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.6;
     letter-spacing: -0.003em;
     clear: both;
     a {

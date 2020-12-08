@@ -1,6 +1,5 @@
 import styled from 'styled-components/macro';
 
-
 export const Container = styled.div`
   display: flex;
   flex-flow: wrap;
@@ -18,6 +17,7 @@ export const Container = styled.div`
     margin: 0 30px 0 15px;
   }
   @media (max-width: 600px) {
+    height: calc(100vh - 220px);
     margin: 0 15px 0 15px;
     padding: 16px 24px;
   }
