@@ -43,16 +43,21 @@ export const ListItem = styled.li`
   display: flex;
   align-items: center;
   list-style-type: none;
-  padding: 0 12px 0 24px;
+  padding: 0 24px 0 24px;
   max-width: 100%;
   cursor: pointer;
   font-weight: ${(props) => (props.status === 'active' ? '600' : '500')};
   background-color: ${(props) =>
     props.status === 'active' ? '#fffffe' : 'transparent'};
-
   color: #191818;
-
   font-size: 16px;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    stroke: #898c94;
+    margin-right: 10px;
+  }
 
   a {
     display: flex;
@@ -64,6 +69,9 @@ export const ListItem = styled.li`
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.6);
+    svg {
+      stroke: #3a3c42;
+    }
     #more-btn {
       display: flex;
     }
@@ -75,10 +83,9 @@ export const ListItem = styled.li`
 
 export const BoardName = styled.p`
   font-size: 14px;
-  margin: 0 0 0 5px;
-  max-width: 100%;
   width: 100%;
   line-break: anywhere;
+  margin: 0;
   &::selection {
     background-color: transparent !important;
     color: black !important;
@@ -116,6 +123,9 @@ export const MoreButton = styled.div`
   align-items: center;
   font-size: 1.2rem;
   margin-left: auto;
+  svg {
+    margin: 0;
+  }
 `;
 
 export const CloseButton = styled.button`

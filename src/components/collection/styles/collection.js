@@ -75,9 +75,10 @@ export const AddCollection = styled.div`
   margin-bottom: 6px;
 
   svg {
+    width: 18px;
     height: 18px;
-    width: auto;
-    margin-right: 6px;
+    stroke: #898c94;
+    margin-right: 10px;
   }
 
   &:hover {
@@ -94,20 +95,25 @@ export const AddBoard = styled.div`
   font-size: 14px;
   color: #232323;
   border: 0;
-  padding: 5px;
+  padding: 8px;
   margin-left: auto;
-  border-radius: 10px;
+  border-radius: 16px;
   align-items: center;
   cursor: pointer;
   svg {
-    margin-right: 0;
+    width: 18px;
     height: 18px;
-    width: auto;
+    stroke: #898c94;
+    margin-right: 0;
   }
 
   &:hover {
     background-color: #fffdfc;
+    svg {
+      stroke: #3a3c42;
+    }
   }
+
   &:focus {
     outline: 0;
   }

@@ -5,15 +5,24 @@ export const Container = styled.div`
 `;
 
 export const Inner = styled.div`
+  display: flex;
+  flex-direction: column;
   position: absolute;
   z-index: 1;
-  width: 150px;
+  width: ${(props) => (props.modalType === 'add-item' ? '185px' : '150px')};
   padding: 10px;
   top: 10px;
   right: 0;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 10px 15px -5px rgba(220, 187, 160, 0.4);
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
 `;
 
 export const WarningText = styled.p`
@@ -46,7 +55,6 @@ export const ConfirmButton = styled.button`
   color: #fff;
   border: 1px solid transparent;
   border-radius: 5px;
-  margin: 10px 5px 0 0;
   font-weight: bold;
   font-size: 13px;
   line-height: 17px;
@@ -73,4 +81,9 @@ export const Cancel = styled.span`
   &:hover {
     text-decoration: underline;
   }
+`;
+
+export const Input = styled.input`
+  font-size: 14px;
+  line-height: 22px;
 `;

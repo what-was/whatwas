@@ -5,7 +5,7 @@ import { MoreButtonContainer } from './more-button';
 import { useSelectedBoardValue } from '../../context';
 import { FirebaseContext } from '../../context/firebase';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
-import { AiOutlineFolder } from 'react-icons/ai';
+import { FiFolder } from 'react-icons/fi';
 
 export const BoardItemContainer = React.memo((props) => {
   const board = props.board;
@@ -76,7 +76,7 @@ export const BoardItemContainer = React.memo((props) => {
             }
           }}
         >
-          {/* <AiOutlineFolder /> */}
+          <FiFolder />
           <Sidebar.BoardName>
             {board.name ? board.name : 'untitled'}
           </Sidebar.BoardName>

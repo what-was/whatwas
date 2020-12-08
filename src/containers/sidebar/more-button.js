@@ -75,19 +75,21 @@ export const MoreButtonContainer = (props) => {
               {warnModal && (
                 <Modal.Inner>
                   <Modal.WarningText>Are you sure?</Modal.WarningText>
-                  <Modal.ConfirmButton
-                    type="button"
-                    onClick={() => {
-                      handleBoardDelete(board.docId, board.boardId);
-                    }}
-                  >
-                    Confirm
-                  </Modal.ConfirmButton>
-                  <Modal.Cancel
-                    onClick={() => setListItemModal(!listItemModal)}
-                  >
-                    Cancel
-                  </Modal.Cancel>
+                  <Modal.ButtonsContainer>
+                    <Modal.ConfirmButton
+                      type="button"
+                      onClick={() => {
+                        handleBoardDelete(board.docId, board.boardId);
+                      }}
+                    >
+                      Confirm
+                    </Modal.ConfirmButton>
+                    <Modal.Cancel
+                      onClick={() => setListItemModal(!listItemModal)}
+                    >
+                      Cancel
+                    </Modal.Cancel>
+                  </Modal.ButtonsContainer>
                 </Modal.Inner>
               )}
             </Modal.Inner>

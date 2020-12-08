@@ -7,6 +7,7 @@ import {
 } from '../context';
 import { AddBoardContainer } from './add-board';
 import { BoardItemContainer } from './sidebar/board-item';
+import { AddCollectionBoardContainer } from './sidebar/add-collection-board';
 import { AiFillCaretDown, AiFillCaretRight } from 'react-icons/ai';
 
 export const SidebarContainer = ({}) => {
@@ -14,6 +15,8 @@ export const SidebarContainer = ({}) => {
   const { collection } = useCollectionsValue();
   const { sidebar } = useSidebarValue();
   const [addBoardOpen, setAddBoardOpen] = useState(false);
+  const [addCollectionBoard, setAddCollectionBoard] = useState(false);
+  const [addCollectionBoardId, setAddCollectionBoardId] = useState('');
   const [collectionOpen, setCollectionOpen] = useState([]);
   const [active, setActive] = useState('');
   const [listItemModal, setListItemModal] = useState(false);
@@ -50,8 +53,11 @@ export const SidebarContainer = ({}) => {
     setListItemModal(!listItemModal);
   };
 
-  const handleRender = () => {
-    props.action();
+  const handleAddCollectionBoard = (collectionId) => {
+    setAddCollectionBoard(!addCollectionBoard);
+    addCollectionBoardId === ''
+      ? setAddCollectionBoardId(collectionId)
+      : setAddCollectionBoardId('');
   };
 
   useEffect(() => {
@@ -89,7 +95,19 @@ export const SidebarContainer = ({}) => {
                           : 'untitled collection'}
                       </Collection.Title>
                     </Collection.ButtonInnerContainer>
-                    <Collection.AddBoard />
+                    <Collection.AddBoard
+                      onClick={() => {
+                        handleAddCollectionBoard(collection.collectionId);
+                      }}
+                    />
+                    {addCollectionBoardId === collection.collectionId && (
+                      <AddCollectionBoardContainer
+                        collectionId={collection.collectionId}
+                        action={() => {
+                          handleAddCollectionBoard(collection.collectionId);
+                        }}
+                      />
+                    )}
                   </Collection.ButtonContainer>
                   {collectionOpen.includes(collection.collectionId) && (
                     <Collection.BoardList>

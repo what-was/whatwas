@@ -13,6 +13,7 @@ import {
 } from './styles/collection';
 
 import { BiPlus } from 'react-icons/bi';
+import { FiFolderPlus } from 'react-icons/fi';
 
 export default function Collection({ children }) {
   return <Container>{children}</Container>;
@@ -62,7 +63,7 @@ Collection.AddCollection = function CollectionAddCollection({
 Collection.AddBoard = function CollectionAddBoard({ children, ...restProps }) {
   return (
     <AddBoard {...restProps}>
-      <BiPlus />
+      <FiFolderPlus />
       {children}
     </AddBoard>
   );

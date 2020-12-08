@@ -1,11 +1,13 @@
-import React, { Children } from 'react';
+import React from 'react';
 import {
   Container,
   Inner,
+  ButtonsContainer,
   ConfirmButton,
   Cancel,
   WarningText,
   InnerButton,
+  Input,
 } from './styles/modal';
 
 export default function Modal({ children, ...restProps }) {
@@ -14,6 +16,13 @@ export default function Modal({ children, ...restProps }) {
 
 Modal.Inner = function ModalInner({ children, ...restProps }) {
   return <Inner {...restProps}>{children}</Inner>;
+};
+
+Modal.ButtonsContainer = function ModalButtonsContainer({
+  children,
+  ...restProps
+}) {
+  return <ButtonsContainer {...restProps}>{children}</ButtonsContainer>;
 };
 
 Modal.WarningText = function ModalWarningText({ children, ...restProps }) {
@@ -30,4 +39,7 @@ Modal.Cancel = function ModalCancel({ children, ...restProps }) {
 
 Modal.InnerButton = function ModalInnerButton({ children, ...restProps }) {
   return <InnerButton {...restProps}>{children}</InnerButton>;
+};
+Modal.Input = function ModalInput({ children, ...restProps }) {
+  return <Input {...restProps}>{children}</Input>;
 };
