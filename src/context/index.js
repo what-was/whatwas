@@ -19,6 +19,11 @@ import {
   SidebarProvider,
   useSidebarValue,
 } from './sidebar-context';
+import {
+  ThemeModeContext,
+  ThemeModeProvider,
+  useThemeModeValue,
+} from './theme-context';
 
 export {
   BoardsContext,
@@ -33,4 +38,7 @@ export {
   SidebarContext,
   SidebarProvider,
   useSidebarValue,
+  ThemeModeContext,
+  ThemeModeProvider,
+  useThemeModeValue,
 };

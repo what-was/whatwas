@@ -52,7 +52,7 @@ export const Search = styled.div`
   align-items: center;
   -webkit-box-align: center;
   align-items: center;
-  background-color: white;
+  background-color: ${({ theme }) => theme.background};
   border-radius: 40px;
   width: 420px;
   padding: 5px 15px;
@@ -67,7 +67,7 @@ export const Search = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  background-color: #fffffe;
+  background-color: ${({ theme }) => theme.background};
   color: #222525;
   border: 1px solid white;
   transition: width 0.5s;
@@ -75,6 +75,8 @@ export const SearchInput = styled.input`
   font-size: 14px;
   padding: 0 10px;
   width: 90%;
+  outline: 0;
+  border: 0;
   &:focus {
     outline: 0;
   }
@@ -84,20 +86,23 @@ export const SearchInput = styled.input`
 `;
 
 export const SearchIcon = styled.button`
+  display: flex;
+  align-items: center;
   outline: 0;
   border: 0;
   cursor: pointer;
   background-color: transparent;
   border-radius: 20px;
   transition: 200ms background-color ease;
+  padding: 10px;
   svg {
-    color: #232323;
+    color: ${({ theme }) => theme.title};
     width: auto;
-    height: 1.2rem;
+    height: 18px;
   }
 
   &:hover {
-    background-color: #fffffe;
+    background-color: ${({ theme }) => theme.body};
   }
 `;
 
@@ -106,7 +111,7 @@ export const ButtonLink = styled(ReachRouterLink)`
   background-color: #a81d1d;
   width: auto;
   height: fit-content;
-  color: #fffffe;
+  color: ${({ theme }) => theme.title};
   border: 0;
   font-size: 1rem;
   border-radius: 3px;
@@ -132,13 +137,13 @@ export const Picture = styled.button`
 `;
 
 export const Text = styled.p`
-  color: #232323;
+  color: ${({ theme }) => theme.text};
   font-size: 1rem;
   line-height: normal;
   margin-right: 10px;
 `;
 export const TextLink = styled.p`
-  color: #232323;
+  color: ${({ theme }) => theme.text};
   font-size: 1rem !important;
   line-height: normal;
   cursor: pointer;
@@ -178,14 +183,12 @@ export const CenterGroup = styled.div`
 export const Dropdown = styled.div`
   display: none;
   position: absolute;
-  background-color: #fffffe;
+  background-color: ${({ theme }) => theme.background};
   padding: 15px 25px;
   width: 150px;
   top: 2.5rem;
   right: 10px;
-  -webkit-box-shadow: 0px 10px 40px -15px rgba(220, 187, 160, 0.7);
-  -moz-box-shadow: 0px 10px 40px -15px rgba(220, 187, 160, 0.7);
-  box-shadow: 0px 10px 40px -15px rgba(220, 187, 160, 0.7);
+  box-shadow: 0px 10px 40px -15px ${({ theme }) => theme.smallBoxShadow};
   transition: all 200ms ease;
   ${Group}:last-of-type ${Link} {
     cursor: pointer;

@@ -3,19 +3,19 @@ import styled from 'styled-components/macro';
 const backgroundColor = (color) => {
   switch (color) {
     case 'yellow':
-      return '#fff475';
+      return ({ theme }) => theme.yellow;
     case 'blue':
-      return '#cbf0f8';
+      return ({ theme }) => theme.blue;
     case 'pink':
-      return '#ffc2d4';
+      return ({ theme }) => theme.pink;
     case 'orange':
-      return '#fbbc04';
+      return ({ theme }) => theme.orange;
     case 'green':
-      return '#ccff90';
+      return ({ theme }) => theme.green;
     case 'grey':
-      return '#e8eaed';
+      return ({ theme }) => theme.grey;
     default:
-      return 'transparent';
+      return ({ theme }) => theme.default;
   }
 };
 
@@ -32,7 +32,7 @@ export const Container = styled.div`
 export const Button = styled.div`
   display: flex;
   align-items: center;
-  border: 1px solid #ede7e1;
+  border: 1px solid ${({ theme }) => theme.border};
   padding: 5px 15px;
   border-radius: 5px;
   cursor: pointer;
@@ -49,8 +49,8 @@ export const Inner = styled.div`
   top: 24px;
   right: 0;
   flex-flow: column;
-  background-color: #fffffe;
-  border: 1px solid #ede7e1;
+  background-color: ${({ theme }) => theme.background};
+  border: 1px solid ${({ theme }) => theme.border}; ;
 `;
 
 export const Item = styled.div`
@@ -60,7 +60,7 @@ export const Item = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: #edeae6;
+    background-color: ${({ theme }) => theme.backgroundHover};
   }
 `;
 
@@ -86,7 +86,7 @@ export const Tag = styled.p`
   font-size: 14px;
   margin: 0 15px 0 0;
   cursor: default;
-  color: ${(props) => (props.darkmode === 'true' ? '#757575' : 'black')};
+  color: ${({ theme }) => theme.text};
 `;
 
 export const AddColorContainer = styled.div`

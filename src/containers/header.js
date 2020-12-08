@@ -56,7 +56,7 @@ export function HeaderContainer({ children, route }) {
           />
         </Header.CenterGroup>
         <Header.RightGroup>
-          {/* <ToggleThemeContainer /> */}
+          <ToggleThemeContainer />
           <Header.Profile>
             <Header.Picture
               aria-label={`Picture of ${user.displayName}`}

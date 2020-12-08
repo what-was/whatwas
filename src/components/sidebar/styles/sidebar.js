@@ -7,7 +7,7 @@ export const Container = styled.nav`
   min-width: 240px;
   width: 100%;
   height: calc(100vh - 70px);
-  border-right: 1px solid #ede7e1;
+  border-right: 1px solid ${({ theme }) => theme.border};
 
   &::selection {
     background-color: transparent !important;
@@ -16,7 +16,7 @@ export const Container = styled.nav`
 
   @media (max-width: 600px) {
     position: absolute;
-    background-color: #f8f5f2;
+    background-color: ${({ theme }) => theme.body};
     box-shadow: 15px 15px 30px -15px rgba(0, 0, 0, 0.4);
     z-index: 999;
   }
@@ -46,31 +46,33 @@ export const ListItem = styled.li`
   padding: 0 24px 0 24px;
   max-width: 100%;
   cursor: pointer;
-  font-weight: ${(props) => (props.status === 'active' ? '600' : '500')};
+  font-weight: ${(props) => (props.status === 'active' ? '600' : '400')};
   background-color: ${(props) =>
-    props.status === 'active' ? '#fffffe' : 'transparent'};
-  color: #191818;
+    props.status === 'active'
+      ? ({ theme }) => theme.backgroundHover
+      : 'transparent'};
+  color: ${({ theme }) => theme.text};
   font-size: 16px;
 
   svg {
     width: 18px;
     height: 18px;
-    stroke: #898c94;
+    stroke: ${({ theme }) => theme.text};
     margin-right: 10px;
   }
 
   a {
     display: flex;
     align-items: center;
-    color: #232323;
+    color: ${({ theme }) => theme.text};
     padding: 9px 0;
     width: 100%;
   }
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: ${({ theme }) => theme.backgroundHover};
     svg {
-      stroke: #3a3c42;
+      stroke: ${({ theme }) => theme.text};
     }
     #more-btn {
       display: flex;
@@ -96,10 +98,10 @@ export const AddBoard = styled.button`
   display: flex;
   font-weight: 500;
   font-size: 1rem;
-  color: #232323;
-  background-color: #f8f5f2;
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.body};
   border: 0;
-  border-top: 1px solid #ede7e1;
+  border-top: 1px solid ${({ theme }) => theme.border};
   padding: 15px 24px;
   cursor: pointer;
   margin: auto 0 0;
@@ -111,7 +113,7 @@ export const AddBoard = styled.button`
   }
 
   &:hover {
-    background-color: #fffdfc;
+    background-color: ${({ theme }) => theme.backgroundHover};
   }
   &:focus {
     outline: 0;
@@ -140,8 +142,9 @@ export const CloseButton = styled.button`
   align-self: flex-end;
   margin-bottom: 10px;
   cursor: pointer;
+  color: ${({ theme }) => theme.text};
   &:hover {
-    background-color: #dfddda;
+    background-color: ${({ theme }) => theme.background};
     border-radius: 5px;
   }
 

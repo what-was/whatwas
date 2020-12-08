@@ -1,7 +1,5 @@
 import styled from 'styled-components/macro';
 
-const backgroundColor = '#f8f5f2';
-const containerColor = '#fffffe';
 
 export const Container = styled.div`
   display: flex;
@@ -10,10 +8,10 @@ export const Container = styled.div`
   margin: 0 28px 28px;
   flex-direction: column;
   padding: 24px 28px;
-  background-color: ${containerColor};
+  background-color: ${({ theme }) => theme.background};
   border-radius: 20px;
   height: calc(100vh - 146px);
-  box-shadow: 0px 15px 40px -15px rgba(220, 187, 160, 0.5);
+  box-shadow: 0px 15px 40px -15px ${({ theme }) => theme.boxShadow};
   overflow: auto;
 
   @media (max-width: 1000px) {

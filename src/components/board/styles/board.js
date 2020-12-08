@@ -3,19 +3,19 @@ import styled from 'styled-components/macro';
 const backgroundColor = (color) => {
   switch (color) {
     case 'yellow':
-      return '#fff475';
+      return ({ theme }) => theme.yellow;
     case 'blue':
-      return '#cbf0f8';
+      return ({ theme }) => theme.blue;
     case 'pink':
-      return '#ffc2d4';
+      return ({ theme }) => theme.pink;
     case 'orange':
-      return '#fbbc04';
+      return ({ theme }) => theme.orange;
     case 'green':
-      return '#ccff90';
+      return ({ theme }) => theme.green;
     case 'grey':
-      return '#e8eaed';
+      return ({ theme }) => theme.grey;
     default:
-      return '#f8f9fa';
+      return ({ theme }) => theme.default;
   }
 };
 
@@ -38,7 +38,7 @@ export const Title = styled.h1`
   display: flex;
   font-size: 24px;
   font-weight: 700;
-  color: #232323;
+  color: ${({ theme }) => theme.title};
   margin: 0;
   cursor: default;
 `;
@@ -49,7 +49,7 @@ export const AddNoteButton = styled.div`
   margin: 0 0 0 2rem;
   font-size: 16px;
   font-weight: 500;
-  color: #232323;
+  color: ${({ theme }) => theme.title};
   padding: 0.5rem 1rem;
   border-radius: 50px;
   background-color: rgba(227, 222, 218, 0.6);
@@ -106,13 +106,13 @@ export const NotesList = styled.div`
     width: 100%;
     height: 100%;
     text-decoration: none;
-    color: #222525;
+    color: ${({ theme }) => theme.text};
     display: flex;
     flex-direction: column;
   }
 
   &:hover {
-    box-shadow: 0 10px 45px -20px rgba(100, 100, 100, 0.3);
+    box-shadow: 0 10px 45px -20px ${({ theme }) => theme.smallBoxShadow};
   }
   @media (max-width: 1000px) {
     flex: ${(props) => (props.sidebarOpen ? '0 1 275px' : '0 1 280px')};
@@ -129,7 +129,7 @@ export const NoteTitle = styled.h2`
   font-size: 16px;
   line-height: 1.2;
   font-weight: 600;
-  color: #232323;
+  color: ${({ theme }) => theme.title};
   cursor: pointer;
   padding: 0 0 5px 0;
   width: auto;

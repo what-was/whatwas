@@ -3,19 +3,19 @@ import styled from 'styled-components/macro';
 const backgroundColor = (color) => {
   switch (color) {
     case 'yellow':
-      return '#fff475';
+      return ({ theme }) => theme.yellow;
     case 'blue':
-      return '#cbf0f8';
+      return ({ theme }) => theme.blue;
     case 'pink':
-      return '#ffc2d4';
+      return ({ theme }) => theme.pink;
     case 'orange':
-      return '#fbbc04';
+      return ({ theme }) => theme.orange;
     case 'green':
-      return '#ccff90';
+      return ({ theme }) => theme.green;
     case 'grey':
-      return '#e8eaed';
+      return ({ theme }) => theme.grey;
     default:
-      return 'transparent';
+      return ({ theme }) => theme.default;
   }
 };
 
@@ -25,10 +25,10 @@ export const Container = styled.div`
   flex-grow: 1;
   margin: 0 28px 28px;
   padding: 2rem 3rem;
-  background-color: #fffffe;
+  background-color: ${({ theme }) => theme.background};
   border-radius: 20px;
   height: calc(100vh - 162px);
-  box-shadow: 0px 15px 40px -15px rgba(220, 187, 160, 0.5);
+  box-shadow: 0px 15px 40px -15px ${({ theme }) => theme.boxShadow};
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -79,11 +79,11 @@ export const InnerContainer = styled.div`
     clear: both;
     a {
       display: inline-block;
-      color: #f94144;
+      color: ${({ theme }) => theme.accent};
       cursor: pointer;
 
       &:visited {
-        color: #f94144;
+        color: ${({ theme }) => theme.accent};
       }
       &::before {
         font-family: sans-serif;
@@ -108,6 +108,7 @@ export const TitleContainer = styled.div`
   padding: 0 2rem;
   max-width: 45rem;
   margin: 0 auto;
+  justify-content: center;
 
   @media (max-width: 1000px) {
     padding: 0;
@@ -119,7 +120,7 @@ export const Title = styled.div`
   font-size: 40px;
   letter-spacing: -0.015em;
   font-weight: 700;
-  color: #232323;
+  color: ${({ theme }) => theme.title};
   background: linear-gradient(
     transparent 95%,
     ${(props) => backgroundColor(props.color)} 5%
@@ -161,15 +162,15 @@ export const SaveButton = styled.button`
   align-items: center;
   font-size: 16px;
   padding: 0.75rem 1rem;
-  background-color: #a81d1d;
+  background-color: ${({ theme }) => theme.accent};
   border-radius: 20px;
   border: 0;
-  color: #fffffe;
+  color: ${({ theme }) => theme.buttonText};
   cursor: pointer;
   transition: background-color 200ms ease;
   margin: 0 0 0 auto;
   &:hover {
-    background-color: #f94144;
+    background-color: ${({ theme }) => theme.accentHover};
   }
   &:focus {
     outline: 0;

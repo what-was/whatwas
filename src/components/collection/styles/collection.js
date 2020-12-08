@@ -7,7 +7,7 @@ export const Container = styled.section`
 
 export const List = styled.li`
   padding: 0 0 6px 0;
-  border-bottom: 1px solid #ede7e1;
+  border-bottom: 1px solid ${({ theme }) => theme.border};
   margin-bottom: 12px;
 `;
 
@@ -17,7 +17,7 @@ export const ButtonContainer = styled.div`
   align-items: center;
   padding: 6px 12px 6px 24px;
   cursor: pointer;
-  color: #191818;
+  color: ${({ theme }) => theme.text};
   svg {
     font-size: 0.75rem;
     margin-right: 6px;
@@ -29,7 +29,7 @@ export const ButtonInnerContainer = styled.div`
   flex-direction: row;
   align-items: center;
   cursor: pointer;
-  color: #191818;
+  color: ${({ theme }) => theme.text};
   width: 100%;
   svg {
     font-size: 0.75rem;
@@ -40,13 +40,13 @@ export const ButtonInnerContainer = styled.div`
 export const BoardList = styled.ul`
   display: flex;
   flex-direction: column;
-  background-color: #edeae6;
+  background-color: ${({ theme }) => theme.backgroundDeep};
   list-style: none;
   padding: 0;
   li {
     padding-left: 36px;
     &:hover {
-      background-color: rgba(255, 255, 255, 0.6);
+      background-color: ${({ theme }) => theme.backgroundDeepHover};
     }
   }
 `;
@@ -67,10 +67,10 @@ export const AddCollection = styled.div`
   display: flex;
   font-weight: 500;
   font-size: 14px;
-  color: #232323;
-  background-color: #f8f5f2;
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.body};
   border: 0;
-  border-bottom: 1px solid #ede7e1;
+  border-bottom: 1px solid ${({ theme }) => theme.border};
   padding: 5px 24px;
   cursor: pointer;
   align-items: center;
@@ -79,12 +79,12 @@ export const AddCollection = styled.div`
   svg {
     width: 18px;
     height: 18px;
-    stroke: #898c94;
+    stroke: ${({ theme }) => theme.text};
     margin-right: 10px;
   }
 
   &:hover {
-    background-color: #fffdfc;
+    background-color: ${({ theme }) => theme.backgroundHover};
   }
   &:focus {
     outline: 0;
@@ -95,7 +95,7 @@ export const AddBoard = styled.div`
   display: flex;
   font-weight: 500;
   font-size: 14px;
-  color: #232323;
+  color: ${({ theme }) => theme.text};
   border: 0;
   padding: 8px;
   margin-left: auto;
@@ -105,14 +105,14 @@ export const AddBoard = styled.div`
   svg {
     width: 18px;
     height: 18px;
-    stroke: #898c94;
+    stroke: ${({ theme }) => theme.text};
     margin-right: 0;
   }
 
   &:hover {
-    background-color: #fffdfc;
+    background-color: ${({ theme }) => theme.backgroundHover};
     svg {
-      stroke: #3a3c42;
+      stroke: ${({ theme }) => theme.text};
     }
   }
 

@@ -2,12 +2,12 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
   html, body {
-  font-family: 'Inter', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f8f5f2;
+  background-color: ${({ theme }) => theme.body};
   line-height: 1.5;
-  color: #222525;
+  color: ${({ theme }) => theme.text};
   font-size: 16px;  
 }
 ::selection {
@@ -28,5 +28,7 @@ export const GlobalStyles = createGlobalStyle`
     background-color: #c1c1c1;
   }
 
-
+.quill {
+ font-family: 'Roboto','Helvetica', 'Arial', sans-serif;
+}
 `;

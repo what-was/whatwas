@@ -1,7 +1,5 @@
 import styled from 'styled-components/macro';
 
-const localTheme = window.localStorage.getItem('theme');
-
 export const Container = styled.div`
   margin-right: 20px;
 `;
@@ -11,12 +9,12 @@ export const Button = styled.div`
   justify-content: center;
   padding: 10px;
   cursor: pointer;
-  border-radius: 20px;
+  border-radius: 50px;
   &:hover {
-    background-color: ${localTheme === 'light' ? '#fffffe' : 'black'};
+    background-color: ${({ theme }) => theme.background};
   }
   svg {
-    color: ${localTheme === 'light' ? '#232323' : '#fffffe'};
+    color: ${({ theme }) => theme.text};
     height: 24px;
     width: auto;
   }

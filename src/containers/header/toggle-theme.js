@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ToggleTheme } from '../../components';
-
+import { useThemeModeValue } from '../../context';
 import { BiMoon, BiSun } from 'react-icons/bi';
 
 export const ToggleThemeContainer = (props) => {
-  const [theme, setTheme] = useState('light');
+  const { theme, setTheme } = useThemeModeValue();
 
   const setMode = (mode) => {
     window.localStorage.setItem('theme', mode);
@@ -14,11 +14,6 @@ export const ToggleThemeContainer = (props) => {
   const themeToggler = () => {
     theme === 'light' ? setMode('dark') : setMode('light');
   };
-
-  useEffect(() => {
-    const localTheme = window.localStorage.getItem('theme');
-    localTheme && setTheme(localTheme);
-  }, []);
 
   if (theme === 'light') {
     return (

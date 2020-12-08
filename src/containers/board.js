@@ -1,14 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import React, { useState, useRef, useEffect, Suspense } from 'react';
+import { Link, useParams } from 'react-router-dom';
+// Components
 import { Board } from '../components';
+import { AddNoteContainer } from './add-note';
+import { ColorFilterContainer } from './board/color-filter';
+
+import { ReadOnlyNote } from './board/readonly-note';
+// Hooks
 import { useSidebarValue } from '../context';
 import { getNotes, getTitle } from '../hooks';
-import { AddNoteContainer } from './add-note';
-import { BiPlus } from 'react-icons/bi';
-import { ColorFilterContainer } from './board/color-filter';
+
+// Helpers
 import { formatDate } from '../helpers';
-import { ReadOnlyNote } from './board/readonly-note';
 
 export const BoardContainer = () => {
   const [title, setTitle] = useState('Dashboard');
