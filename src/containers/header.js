@@ -15,7 +15,6 @@ export function HeaderContainer({ children, route }) {
   const { user } = useAuthListener();
 
   const { theme } = useThemeModeValue();
-  console.log(typeof theme);
 
   let ctaText;
   if (window.location.pathname === '/signin') {

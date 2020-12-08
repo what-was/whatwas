@@ -47,6 +47,7 @@ export const InnerButton = styled.div`
 
   &:hover {
     color: ${({ theme }) => theme.text};
+    background-color: ${({ theme }) => theme.backgroundHover};
   }
 `;
 

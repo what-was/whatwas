@@ -11,7 +11,6 @@ export const ThemeModeProvider = ({ children }) => {
     localTheme && setTheme(localTheme);
   }, []);
 
-  console.log(theme);
   return (
     <ThemeModeContext.Provider value={{ theme, setTheme }}>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>

@@ -87,7 +87,10 @@ export const MoreButtonContainer = (props) => {
                       Confirm
                     </Modal.ConfirmButton>
                     <Modal.Cancel
-                      onClick={() => setListItemModal(!listItemModal)}
+                      onClick={() => {
+                        setListItemModal(!listItemModal);
+                        setWarnModal(false);
+                      }}
                     >
                       Cancel
                     </Modal.Cancel>

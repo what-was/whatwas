@@ -16,16 +16,16 @@ export const GlobalStyles = createGlobalStyle`
 }
   &::-webkit-scrollbar-track {
     ${'' /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */}
-    background-color: #f1f1f1;
+    background-color: ${({ theme }) => theme.scrollBackground};
   }
 
   &::-webkit-scrollbar {
     width: 5px;
-    background-color: #c1c1c1;
+    background-color: ${({ theme }) => theme.scrollThumb};
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #c1c1c1;
+    background-color: ${({ theme }) => theme.scrollThumb};
   }
 
 .quill {
