@@ -1,16 +1,21 @@
 import React, { useState, useContext } from 'react';
-import { Header, Sidebar } from '../components';
+import { Header } from '../components';
 import { SidebarToggleContainer } from './header/sidebar-toogle';
 import { ToggleThemeContainer } from './header/toggle-theme';
 import * as ROUTES from '../constants/routes';
 import { FirebaseContext } from '../context/firebase';
+import { useThemeModeValue } from '../context';
 import logo from '../logo-black.svg';
+import logoWhite from '../logo-white.svg';
 import { useAuthListener } from '../hooks';
 
 export function HeaderContainer({ children, route }) {
   const [searchTerm, setSearchTerm] = useState('');
   const { firebase } = useContext(FirebaseContext);
   const { user } = useAuthListener();
+
+  const { theme } = useThemeModeValue();
+  console.log(typeof theme);
 
   let ctaText;
   if (window.location.pathname === '/signin') {
@@ -24,8 +29,13 @@ export function HeaderContainer({ children, route }) {
   return !user ? (
     <Header>
       <Header.Frame>
-        <Header.Logo to={ROUTES.HOME} src={logo} alt="WhatWas" />
+        <Header.Logo
+          to={ROUTES.HOME}
+          src={theme === 'light' ? logo : logoWhite}
+          alt="WhatWas"
+        />
         <Header.Group>
+          <ToggleThemeContainer />
           <Header.Text>{ctaText}</Header.Text>
           <Header.ButtonLink
             to={route === 'sign-in' ? ROUTES.SIGN_IN : ROUTES.SIGN_UP}
@@ -45,7 +55,7 @@ export function HeaderContainer({ children, route }) {
             width="172"
             height="62"
             to={ROUTES.DASHBOARD}
-            src={logo}
+            src={theme === 'light' ? logo : logoWhite}
             alt="WhatWas"
           />
         </Header.LeftGroup>

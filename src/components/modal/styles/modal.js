@@ -9,13 +9,13 @@ export const Inner = styled.div`
   flex-direction: column;
   position: absolute;
   z-index: 1;
-  width: ${(props) => (props.modalType === 'add-item' ? '185px' : '150px')};
+  width: ${(props) => (props.modalType === 'add-item' ? '185px' : '130px')};
   padding: 10px;
   top: ${(props) => (props.addCollection ? '-6px' : '10px')};
   right: 0;
-  background-color: white;
+  background-color: ${({ theme }) => theme.background};
   border-radius: 10px;
-  box-shadow: 0px 10px 15px -5px rgba(220, 187, 160, 0.4);
+  box-shadow: 0px 10px 15px -5px ${({ theme }) => theme.smallBoxShadow};
 `;
 
 export const ButtonsContainer = styled.div`
@@ -38,7 +38,7 @@ export const InnerButton = styled.div`
   align-items: center;
   margin: 5px 0;
   cursor: pointer;
-  color: #555;
+  color: ${({ theme }) => theme.title};
   font-size: 16px;
   font-weight: 400;
   svg {
@@ -46,12 +46,12 @@ export const InnerButton = styled.div`
   }
 
   &:hover {
-    color: #232323;
+    color: ${({ theme }) => theme.text};
   }
 `;
 
 export const ConfirmButton = styled.button`
-  background-color: #ff6470;
+  background-color: ${({ theme }) => theme.accent};
   color: #fff;
   border: 1px solid transparent;
   border-radius: 5px;
@@ -67,13 +67,13 @@ export const ConfirmButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: #f45d48;
+    background-color: ${({ theme }) => theme.accentHover};
   }
 `;
 
 export const Cancel = styled.span`
   font-weight: normal;
-  color: #555;
+  color: ${({ theme }) => theme.text};
   cursor: pointer;
   font-size: 14px;
   margin: 2px 5px;
@@ -86,5 +86,13 @@ export const Cancel = styled.span`
 export const Input = styled.input`
   font-size: 14px;
   line-height: 22px;
-  padding: 0 5px;
+  padding: 5px;
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.background};
+  outline: 0;
+  border: 1px solid ${({ theme }) => theme.border};
+
+  &::placeholder {
+    color: grey;
+  }
 `;

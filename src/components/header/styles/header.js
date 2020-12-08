@@ -6,7 +6,9 @@ export const Container = styled.header`
   position: sticky;
   top: 0;
   background-color: ${(props) =>
-    props.className === 'signed-in' ? 'transparent' : '#f8f5f2'};
+    props.className === 'signed-in'
+      ? 'transparent'
+      : ({ theme }) => theme.body};
   height: 50px;
   margin: ${(props) => (props.className === 'signed-in' ? '0 28px' : '0')};
   padding: ${(props) =>
