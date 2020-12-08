@@ -3,7 +3,9 @@ import { ColorFilter } from '../../components';
 import { BiCheck } from 'react-icons/bi';
 
 export const AddColorContainer = (props) => {
-  const [selectedColor, setSelectedColor] = useState('default');
+  const [selectedColor, setSelectedColor] = useState(
+    props.noteColor !== 'undefined' ? props.noteColor : 'default'
+  );
   const colorList = [
     'default',
     'yellow',
@@ -14,6 +16,7 @@ export const AddColorContainer = (props) => {
     'grey',
   ];
 
+  console.log(props.noteColor);
   const show = props.hasOpen ? true : false;
   const handleSelectedColor = (color) => {
     setSelectedColor(color);

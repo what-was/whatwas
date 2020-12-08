@@ -121,7 +121,7 @@ export const ColorButton = styled.input`
       cursor: pointer;
       border-radius: 50%;
       border: 0;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+      ${'' /* box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33); */}
       background-repeat: no-repeat;
       background-position: center;
       justify-content: center;

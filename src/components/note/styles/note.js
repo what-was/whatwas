@@ -36,6 +36,18 @@ export const Container = styled.div`
     height: calc(100vh - 122px);
   }
 `;
+export const UpperContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 45rem;
+  width: 100%;
+  margin: 0 auto 1.5rem;
+
+  > div {
+    margin: 0;
+  }
+`;
 
 export const InnerContainer = styled.div`
   display: flex;
@@ -106,11 +118,10 @@ export const Title = styled.div`
     ${(props) => backgroundColor(props.color)} 5%
   );
   line-height: 48px;
-  margin: 0 auto;
-  padding: 0 2rem;
+  ${'' /* margin: 0 auto; */}
+  padding: 0;
   justify-content: flex-start;
   border: 0;
-  width: 100%;
   height: 100%;
   white-space: pre-wrap;
   word-break: break-word;
@@ -124,7 +135,10 @@ export const Title = styled.div`
   }
 `;
 
-export const NoteUpdatedDate = styled.p``;
+export const NoteUpdatedDate = styled.p`
+  margin: 0;
+  font-size: 14px;
+`;
 
 export const Text = styled.p`
   width: 100%;

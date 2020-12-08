@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Container,
+  UpperContainer,
   InnerContainer,
   TitleContainer,
   Title,
@@ -12,6 +13,10 @@ import {
 export default function Note({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
+
+Note.UpperContainer = function NoteUpperContainer({ children, ...restProps }) {
+  return <UpperContainer {...restProps}>{children}</UpperContainer>;
+};
 
 Note.InnerContainer = function NoteInnerContainer({ children, ...restProps }) {
   return <InnerContainer {...restProps}>{children}</InnerContainer>;
