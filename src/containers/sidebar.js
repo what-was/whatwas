@@ -74,7 +74,6 @@ export const SidebarContainer = ({}) => {
     };
   }, []);
 
-  console.log();
   return (
     sidebar && (
       <Sidebar openStatus={sidebar}>

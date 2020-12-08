@@ -12,3 +12,4 @@ export { default as AddItem } from './add-item';
 export { default as Note } from './note';
 export { default as Modal } from './modal';
 export { default as ColorFilter } from './color-filter';
+export { default as ToggleTheme } from './toggle-theme';

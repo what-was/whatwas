@@ -16,7 +16,6 @@ export const AddColorContainer = (props) => {
     'grey',
   ];
 
-  console.log(props.noteColor);
   const show = props.hasOpen ? true : false;
   const handleSelectedColor = (color) => {
     setSelectedColor(color);

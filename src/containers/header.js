@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Header, Sidebar } from '../components';
+import { SidebarToggleContainer } from './header/sidebar-toogle';
+import { ToggleThemeContainer } from './header/toggle-theme';
 import * as ROUTES from '../constants/routes';
 import { FirebaseContext } from '../context/firebase';
 import logo from '../logo-black.svg';
 import { useAuthListener } from '../hooks';
-import { SidebarToggleContainer } from './header/sidebar-toogle';
 
 export function HeaderContainer({ children, route }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -55,6 +56,7 @@ export function HeaderContainer({ children, route }) {
           />
         </Header.CenterGroup>
         <Header.RightGroup>
+          {/* <ToggleThemeContainer /> */}
           <Header.Profile>
             <Header.Picture
               aria-label={`Picture of ${user.displayName}`}
