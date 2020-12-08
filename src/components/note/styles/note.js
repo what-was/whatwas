@@ -176,3 +176,14 @@ export const SaveButton = styled.button`
     outline: 0;
   }
 `;
+
+export const Loader = styled.div`
+  display: flex;
+  justify-content: center;
+
+  *::after {
+    margin: 0 !important;
+    border-width: 16px !important;
+    border-color: ${({ theme }) => theme.text} transparent !important;
+  }
+`;

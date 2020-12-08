@@ -8,6 +8,7 @@ import {
   Text,
   NoteUpdatedDate,
   SaveButton,
+  Loader,
 } from './styles/note';
 
 export default function Note({ children, ...restProps }) {
@@ -41,6 +42,10 @@ Note.SaveButton = function NoteSaveButton({ children, ...restProps }) {
   return <SaveButton {...restProps}>{children}</SaveButton>;
 };
 
-Note.TitleContainer = function NoteSaveButton({ children, ...restProps }) {
+Note.TitleContainer = function NoteTitleContainer({ children, ...restProps }) {
   return <TitleContainer {...restProps}>{children}</TitleContainer>;
+};
+
+Note.Loader = function NoteLoader({ children, ...restProps }) {
+  return <Loader {...restProps}>{children}</Loader>;
 };

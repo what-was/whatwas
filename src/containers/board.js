@@ -4,8 +4,10 @@ import { Link, useParams } from 'react-router-dom';
 import { Board } from '../components';
 import { AddNoteContainer } from './add-note';
 import { ColorFilterContainer } from './board/color-filter';
-
+import { Note } from '../components';
 import { ReadOnlyNote } from './board/readonly-note';
+import { HourGlass } from 'react-awesome-spinners';
+
 // Hooks
 import { useSidebarValue } from '../context';
 import { getNotes, getTitle } from '../hooks';
@@ -158,5 +160,11 @@ export const BoardContainer = () => {
       </Board>
     );
   }
-  return <p>loading</p>;
+  return (
+    <Note>
+      <Note.Loader>
+        <HourGlass size={16} />
+      </Note.Loader>
+    </Note>
+  );
 };
