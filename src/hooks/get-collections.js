@@ -13,6 +13,7 @@ export default function getCollections() {
       .collection('collection')
       .where('uid', '==', user.uid)
       .where('archived', '==', false)
+      .orderBy('updatedAt', 'desc')
       .get()
       .then((snapshot) => {
         const allContent = snapshot.docs.map((content) => ({

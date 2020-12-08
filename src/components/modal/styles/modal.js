@@ -11,7 +11,7 @@ export const Inner = styled.div`
   z-index: 1;
   width: ${(props) => (props.modalType === 'add-item' ? '185px' : '150px')};
   padding: 10px;
-  top: 10px;
+  top: ${(props) => (props.addCollection ? '-6px' : '10px')};
   right: 0;
   background-color: white;
   border-radius: 10px;
@@ -86,4 +86,5 @@ export const Cancel = styled.span`
 export const Input = styled.input`
   font-size: 14px;
   line-height: 22px;
+  padding: 0 5px;
 `;

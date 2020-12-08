@@ -45,7 +45,7 @@ export const MoreButtonContainer = (props) => {
 
   // Delete board
   let history = useHistory();
-  const handleBoardDelete = (docId, boardId) => {
+  const handleBoardDelete = (docId) => {
     firebase
       .firestore()
       .collection('boards')
@@ -62,7 +62,9 @@ export const MoreButtonContainer = (props) => {
   return (
     <>
       <Sidebar.MoreButton hover={listItemModal ? true : false} id="more-btn">
-        <BiDotsVerticalRounded onClick={() => handleMoreButton()} />
+        <BiDotsVerticalRounded
+          onClick={() => setListItemModal(!listItemModal)}
+        />
       </Sidebar.MoreButton>
       {listItemModal && (
         <Modal>

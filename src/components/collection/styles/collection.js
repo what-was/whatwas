@@ -61,6 +61,8 @@ export const Title = styled.h5`
   }
 `;
 
+export const AddCollectionContainer = styled.div``;
+
 export const AddCollection = styled.div`
   display: flex;
   font-weight: 500;

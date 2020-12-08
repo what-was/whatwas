@@ -7,20 +7,31 @@ import {
 } from '../context';
 import { AddBoardContainer } from './add-board';
 import { BoardItemContainer } from './sidebar/board-item';
+import { AddCollectionContainer } from './sidebar/add-collection';
 import { AddCollectionBoardContainer } from './sidebar/add-collection-board';
 import { AiFillCaretDown, AiFillCaretRight } from 'react-icons/ai';
 
 export const SidebarContainer = ({}) => {
+  // Contexts
   const { boards } = useBoardsValue();
   const { collection } = useCollectionsValue();
   const { sidebar } = useSidebarValue();
+
+  // Add Board Modal
   const [addBoardOpen, setAddBoardOpen] = useState(false);
+
+  // Add collection
+  const [addCollection, setAddCollection] = useState(false);
+
+  // Add board to collection
   const [addCollectionBoard, setAddCollectionBoard] = useState(false);
   const [addCollectionBoardId, setAddCollectionBoardId] = useState('');
+
+  // Collection -> Boards list open
   const [collectionOpen, setCollectionOpen] = useState([]);
+
+  // Set Active
   const [active, setActive] = useState('');
-  const [listItemModal, setListItemModal] = useState(false);
-  const [shouldRender, setShouldRender] = useState(false);
 
   let container = useRef(null);
 
@@ -49,10 +60,6 @@ export const SidebarContainer = ({}) => {
         );
   };
 
-  const handleMoreButton = (e) => {
-    setListItemModal(!listItemModal);
-  };
-
   const handleAddCollectionBoard = (collectionId) => {
     setAddCollectionBoard(!addCollectionBoard);
     addCollectionBoardId === ''
@@ -67,15 +74,28 @@ export const SidebarContainer = ({}) => {
     };
   }, []);
 
+  console.log();
   return (
     sidebar && (
       <Sidebar openStatus={sidebar}>
         <Sidebar.List>
           {collection && (
             <Collection.List>
-              <Collection.AddCollection>
-                Add Collection
-              </Collection.AddCollection>
+              <Collection.AddCollectionContainer>
+                <Collection.AddCollection
+                  onClick={() => setAddCollection(!addCollection)}
+                >
+                  Add Collection
+                </Collection.AddCollection>
+                {addCollection && (
+                  <AddCollectionContainer
+                    action={() => {
+                      setAddCollection(!addCollection);
+                    }}
+                  />
+                )}
+              </Collection.AddCollectionContainer>
+
               {collection.map((collection) => (
                 <Collection key={collection.collectionId}>
                   <Collection.ButtonContainer>
@@ -102,7 +122,7 @@ export const SidebarContainer = ({}) => {
                     />
                     {addCollectionBoardId === collection.collectionId && (
                       <AddCollectionBoardContainer
-                        collectionId={collection.collectionId}
+                        collectionId={collection}
                         action={() => {
                           handleAddCollectionBoard(collection.collectionId);
                         }}

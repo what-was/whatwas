@@ -6,6 +6,7 @@ import {
   Title,
   BoardList,
   List,
+  AddCollectionContainer,
   AddCollection,
   AddBoard,
   Modal,
@@ -46,6 +47,15 @@ Collection.BoardList = function CollectionBoardList({
 
 Collection.Title = function CollectionTitle({ children, ...restProps }) {
   return <Title {...restProps}>{children}</Title>;
+};
+
+Collection.AddCollectionContainer = function CollectionAddCollectionContainer({
+  children,
+  ...restProps
+}) {
+  return (
+    <AddCollectionContainer {...restProps}>{children}</AddCollectionContainer>
+  );
 };
 
 Collection.AddCollection = function CollectionAddCollection({

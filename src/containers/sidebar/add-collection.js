@@ -4,16 +4,15 @@ import { Modal } from '../../components';
 import { FirebaseContext } from '../../context/firebase';
 import { generatePushId } from '../../helpers';
 
-export const AddCollectionBoardContainer = (props) => {
+export const AddCollectionContainer = (props) => {
   const [listItemModal, setListItemModal] = useState(false);
-  const [addBoardTitle, setAddBoardTitle] = useState('');
-  const collection = props.collectionId;
+  const [collectionTitle, setCollectionTitle] = useState('');
 
   // Firebase context
   const { firebase } = useContext(FirebaseContext);
 
   // Ref for modal container
-  let addboardref = useRef(null);
+  let addCollectionRef = useRef(null);
 
   // Modal open
   const handleMoreButton = () => {
@@ -22,7 +21,10 @@ export const AddCollectionBoardContainer = (props) => {
 
   // Click outside function
   const handleClickOutside = (event) => {
-    if (addboardref.current && !addboardref.current.contains(event.target)) {
+    if (
+      addCollectionRef.current &&
+      !addCollectionRef.current.contains(event.target)
+    ) {
       setListItemModal(false);
       props.action();
     }
@@ -40,56 +42,45 @@ export const AddCollectionBoardContainer = (props) => {
   const user = JSON.parse(localStorage.getItem('authUser')).uid;
 
   // Generate board id
-  const boardId = generatePushId();
+  const collectionId = generatePushId();
 
   // Add board to collection
   let history = useHistory();
-  const handleAddBoard = () => {
-    const boardTitle = addBoardTitle !== '' ? addBoardTitle : 'untitled';
+  const handleAddCollection = () => {
+    const collectionTitleCurr =
+      collectionTitle !== '' ? collectionTitle : 'untitled collection';
 
     firebase
       .firestore()
-      .collection('boards')
+      .collection('collection')
       .add({
-        boardId: boardId,
-        name: boardTitle,
+        collectionId: collectionId,
+        collectionName: collectionTitleCurr,
         uid: user,
-        hasDeleted: false,
-        visibility: '',
-        collectionId: collection.collectionId,
+        archived: false,
         updatedAt: Date.now(),
       })
       .then(() => {
-        firebase
-          .firestore()
-          .collection('collection')
-          .doc(collection.docId)
-          .update({
-            boardIds: [...collection.boardIds, boardId],
-          })
-          .catch((error) => console.error(error));
-        setAddBoardTitle('');
+        setCollectionTitle('');
         props.action();
-        history.push(`/dashboard/${boardId}`);
       })
       .catch((error) => console.error(error));
   };
 
   return (
-    <Modal>
-      <aside ref={addboardref}>
-        <Modal.Inner modalType="add-item">
+    <aside ref={addCollectionRef}>
+      <Modal>
+        <Modal.Inner modalType="add-item" addCollection={true}>
           <Modal.Input
-            type=""
-            placeholder="Board Title"
-            value={addBoardTitle}
-            onChange={(e) => setAddBoardTitle(e.target.value)}
+            placeholder="Collection Title"
+            value={collectionTitle}
+            onChange={(e) => setCollectionTitle(e.target.value)}
           />
           <Modal.ButtonsContainer>
             <Modal.ConfirmButton
               type="button"
               onClick={() => {
-                handleAddBoard();
+                handleAddCollection();
               }}
             >
               Confirm
@@ -97,7 +88,7 @@ export const AddCollectionBoardContainer = (props) => {
             <Modal.Cancel onClick={props.action}>Cancel</Modal.Cancel>
           </Modal.ButtonsContainer>
         </Modal.Inner>
-      </aside>
-    </Modal>
+      </Modal>
+    </aside>
   );
 };
