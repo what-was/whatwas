@@ -34,7 +34,7 @@ export const getNotes = (boardId) => {
         .where('boardId', '==', boardId)
         .where('archived', '==', false)
         .orderBy('updatedAt', 'desc')
-        .limit(60)
+        .limit(40)
         .onSnapshot((snapshot) => {
           const allNotes = snapshot.docs.map((note) => ({
             id: note.id,

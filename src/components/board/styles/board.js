@@ -46,13 +46,13 @@ export const Title = styled.h1`
 export const AddNoteButton = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 0 0 2rem;
+  background-color: ${({ theme }) => theme.body};
+  color: ${({ theme }) => theme.title};
   font-size: 16px;
   font-weight: 500;
-  color: ${({ theme }) => theme.title};
+  margin: 0 0 0 2rem;
   padding: 0.5rem 1rem;
   border-radius: 50px;
-  background-color: ${({ theme }) => theme.body};
   cursor: pointer;
   transition: 100ms all ease;
 
@@ -61,9 +61,9 @@ export const AddNoteButton = styled.div`
   }
   svg {
     height: 16px;
-    font-weight: 600;
     width: auto;
     margin-right: 0.25rem;
+    font-weight: 600;
   }
 
   &:hover {
@@ -72,12 +72,12 @@ export const AddNoteButton = styled.div`
 
   @media (max-width: 720px) {
     position: absolute;
-    margin: 0;
-    padding: 10px;
-    margin-left: auto;
-    z-index: 99;
     bottom: 20px;
     right: 20px;
+    margin: 0;
+    margin-left: auto;
+    padding: 10px;
+    z-index: 99;
     background-color: ${({ theme }) => theme.accent};
     svg {
       height: 36px;

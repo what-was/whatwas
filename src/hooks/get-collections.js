@@ -14,6 +14,7 @@ export default function getCollections() {
       .where('uid', '==', user.uid)
       .where('archived', '==', false)
       .orderBy('updatedAt', 'desc')
+      .limit(15)
       .get()
       .then((snapshot) => {
         const allContent = snapshot.docs.map((content) => ({
