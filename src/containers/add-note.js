@@ -63,6 +63,7 @@ export const AddNoteContainer = (props) => {
         addNote={true}
         onChange={(event) => setAddNoteTitle(event.target.value)}
         type="text"
+        autoFocus={true}
       />
       <AddColorContainer
         hasOpen={true}

@@ -165,6 +165,11 @@ export const NoteTitle = styled.input`
   &:focus::placeholder {
     color: transparent;
   }
+  @media (max-width: 720px) {
+    &:focus::placeholder {
+      color: #424242;
+    }
+  }
 `;
 
 export const Input = styled.textarea`

@@ -52,7 +52,7 @@ export const AddNoteButton = styled.div`
   color: ${({ theme }) => theme.title};
   padding: 0.5rem 1rem;
   border-radius: 50px;
-  background-color: rgba(227, 222, 218, 0.6);
+  background-color: ${({ theme }) => theme.body};
   cursor: pointer;
   transition: 100ms all ease;
 
@@ -67,14 +67,20 @@ export const AddNoteButton = styled.div`
   }
 
   &:hover {
-    background-color: rgba(227, 222, 218, 0.8);
+    background-color: ${({ theme }) => theme.backgroundHover};
   }
 
   @media (max-width: 720px) {
+    position: absolute;
     margin: 0;
     padding: 10px;
     margin-left: auto;
+    z-index: 99;
+    bottom: 20px;
+    right: 20px;
+    background-color: ${({ theme }) => theme.accent};
     svg {
+      height: 36px;
       margin: 0;
     }
 

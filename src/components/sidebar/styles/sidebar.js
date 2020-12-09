@@ -15,6 +15,7 @@ export const Container = styled.nav`
   }
 
   @media (max-width: 600px) {
+    height: calc(100vh - 175px);
     position: absolute;
     background-color: ${({ theme }) => theme.body};
     box-shadow: 15px 15px 30px -15px rgba(0, 0, 0, 0.4);
