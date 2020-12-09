@@ -74,16 +74,18 @@ export const Description = styled.input`
 // Submit icon
 export const Submit = styled.button`
   margin: auto 0 0 auto;
-  background-color: #fffffe;
   padding: 15px 25px;
-  border-radius: 50px;
   border: 0;
+  border-radius: 50px;
   outline: 0;
   cursor: pointer;
   transition: 200ms all ease;
   font-weight: 600;
+  background-color: ${({ theme }) => theme.accent};
+  color: ${({ theme }) => theme.buttonText};
+
   &:hover {
-    background-color: #dbdbdb;
+    background-color: ${({ theme }) => theme.accentHover};
   }
 `;
 
