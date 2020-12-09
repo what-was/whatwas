@@ -147,6 +147,7 @@ export const Title = styled.div`
 export const NoteUpdatedDate = styled.p`
   margin: 0;
   font-size: 14px;
+  color: ${({ theme }) => theme.shadowedText};
   @media (max-width: 860px) {
     margin-bottom: 15px;
   }

@@ -23,15 +23,13 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  flex-wrap: wrap;
 `;
 
 export const UpperContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0 12px 1rem 5px;
-  flex-wrap: wrap;
+  margin: 0 12px 1rem;
   @media (max-width: 720px) {
     margin: 0 5px 10px;
   }
@@ -73,7 +71,7 @@ export const AddNoteButton = styled.div`
     background-color: ${({ theme }) => theme.backgroundHover};
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 770px) {
     position: absolute;
     bottom: 25px;
     right: 30px;
@@ -202,4 +200,5 @@ export const Favorite = styled.div`
 export const NoteUpdatedDate = styled.div`
   font-size: 12px;
   margin-top: 5px;
+  color: ${({ theme }) => theme.shadowedText};
 `;
