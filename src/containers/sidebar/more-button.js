@@ -45,7 +45,7 @@ export const MoreButtonContainer = (props) => {
   // Delete board
   let history = useHistory();
   const handleBoardDelete = async (docId) => {
-    return await firebase
+    await firebase
       .firestore()
       .collection(collection !== undefined ? 'collection' : 'boards')
       .doc(docId)

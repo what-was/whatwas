@@ -18,7 +18,7 @@ export const Container = styled.div`
   }
 
   @media (max-width: 780px) {
-    height: calc(100vh - 210px);
+    height: calc(100vh - 180px);
   }
 
   @media (max-width: 600px) {

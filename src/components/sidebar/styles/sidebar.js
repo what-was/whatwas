@@ -14,7 +14,7 @@ export const Container = styled.nav`
     color: black !important;
   }
   @media (max-width: 780px) {
-    height: calc(100vh - 145px);
+    height: calc(100vh - 101px);
   }
 
   @media (max-width: 600px) {
