@@ -10,7 +10,7 @@ import logoWhite from '../logo-white.svg';
 import { useAuthListener } from '../hooks';
 
 export function HeaderContainer({ children, route }) {
-  const [searchTerm, setSearchTerm] = useState('');
+  // const [searchTerm, setSearchTerm] = useState('');
   const { firebase } = useContext(FirebaseContext);
   const { user } = useAuthListener();
 
@@ -58,12 +58,12 @@ export function HeaderContainer({ children, route }) {
             alt="WhatWas"
           />
         </Header.LeftGroup>
-        <Header.CenterGroup>
+        {/* <Header.CenterGroup>
           <Header.Search
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
           />
-        </Header.CenterGroup>
+        </Header.CenterGroup> */}
         <Header.RightGroup>
           <ToggleThemeContainer />
           <Header.Profile>

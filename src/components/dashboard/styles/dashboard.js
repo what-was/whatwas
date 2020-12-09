@@ -18,8 +18,8 @@ export const Container = styled.div`
   }
   @media (max-width: 600px) {
     height: calc(100vh - 220px);
-    margin: 0 15px 0 15px;
-    padding: 16px 24px;
+    margin: 0 15px;
+    padding: 16px 18px;
   }
 `;
 

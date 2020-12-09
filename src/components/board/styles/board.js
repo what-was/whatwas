@@ -32,6 +32,9 @@ export const UpperContainer = styled.div`
   align-items: center;
   margin: 0 12px 1rem 5px;
   flex-wrap: wrap;
+  @media (max-width: 720px) {
+    margin: 0 5px 10px;
+  }
 `;
 
 export const Title = styled.h1`
@@ -72,15 +75,17 @@ export const AddNoteButton = styled.div`
 
   @media (max-width: 720px) {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 25px;
+    right: 30px;
     margin: 0;
     margin-left: auto;
     padding: 10px;
     z-index: 99;
+    box-shadow: 0 5px 20px -7px ${({ theme }) => theme.boxShadow};
     background-color: ${({ theme }) => theme.accent};
     svg {
-      height: 36px;
+      color: #fffffe;
+      height: 30px;
       margin: 0;
     }
 
@@ -126,6 +131,7 @@ export const NotesList = styled.div`
 
   @media (max-width: 600px) {
     flex: 0 1 430px;
+    padding: 1rem 16px;
   }
 `;
 

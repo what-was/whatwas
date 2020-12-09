@@ -72,7 +72,7 @@ export const Search = styled.div`
 
 export const SearchInput = styled.input`
   background-color: ${({ theme }) => theme.background};
-  color: #222525;
+  color: ${({ theme }) => theme.text};
   border: 1px solid white;
   transition: width 0.5s;
   height: 2rem;

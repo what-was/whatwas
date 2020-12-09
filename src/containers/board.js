@@ -54,8 +54,6 @@ export const BoardContainer = () => {
     };
   }, []);
 
-
-  
   // Handling color filter
   const handleFilter = (color) => {
     if (color !== '' && color !== 'default') {
@@ -165,11 +163,9 @@ export const BoardContainer = () => {
   return (
     <Board>
       <Board.Title>{title}</Board.Title>
-      <Note>
-        <Note.Loader>
-          <HourGlass size={16} />
-        </Note.Loader>
-      </Note>
+      <Note.Loader>
+        <HourGlass size={16} />
+      </Note.Loader>
     </Board>
   );
 };

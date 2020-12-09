@@ -148,7 +148,7 @@ export const NoteUpdatedDate = styled.p`
   margin: 0;
   font-size: 14px;
   @media (max-width: 860px) {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
 `;
 
