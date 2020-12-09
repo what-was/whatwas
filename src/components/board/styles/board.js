@@ -124,6 +124,11 @@ export const NotesList = styled.div`
   &:hover {
     box-shadow: 0 10px 45px -20px ${({ theme }) => theme.smallBoxShadow};
   }
+
+  @media (max-width: 1300px) {
+    flex: ${(props) => (props.sidebarOpen ? '0 1 257px' : '0 1 240px')};
+  }
+
   @media (max-width: 1000px) {
     flex: ${(props) => (props.sidebarOpen ? '0 1 275px' : '0 1 280px')};
   }
