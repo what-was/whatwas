@@ -26,6 +26,18 @@ export const Editor = (props) => {
     editorRef.current.focus();
   }, []);
 
+  useEffect(() => {
+    if (
+      currentNote !== value ||
+      currentTitle !== title ||
+      currentColor !== color
+    ) {
+      setButtonText('Save');
+    } else {
+      setButtonText('Saved');
+    }
+  }, [value]);
+
   const handleSave = () => {
     if (
       currentNote !== value ||
@@ -48,7 +60,7 @@ export const Editor = (props) => {
           setCurrentTitle(title);
           setCurrentColor(color);
           setTimeout(() => {
-            setButtonText('Save');
+            setButtonText('Saved');
           }, 1000);
         })
         .catch((error) => console.error(error));
