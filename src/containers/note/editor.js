@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+  useCallback,
+} from 'react';
 import ReactQuill from 'react-quill';
 import { Note } from '../../components';
 import { AddColorContainer } from '../board/add-color';
@@ -44,7 +50,7 @@ export const Editor = (props) => {
       currentTitle !== title ||
       currentColor !== color
     ) {
-      firebase
+      return firebase
         .firestore()
         .collection('notes')
         .doc(notes.docId)

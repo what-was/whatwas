@@ -44,10 +44,10 @@ export const AddCollectionBoardContainer = (props) => {
 
   // Add board to collection
   let history = useHistory();
-  const handleAddBoard = () => {
+  const handleAddBoard = async () => {
     const boardTitle = addBoardTitle !== '' ? addBoardTitle : 'untitled';
 
-    firebase
+    await firebase
       .firestore()
       .collection('boards')
       .add({
@@ -60,16 +60,17 @@ export const AddCollectionBoardContainer = (props) => {
         updatedAt: Date.now(),
       })
       .then(() => {
+        let currBoards = [...collection.boardIds, boardId];
         firebase
           .firestore()
           .collection('collection')
           .doc(collection.docId)
           .update({
-            boardIds: [...collection.boardIds, boardId],
+            boardIds: currBoards,
           })
           .catch((error) => console.error(error));
-        setAddBoardTitle('');
         props.action();
+        setAddBoardTitle('');
         history.push(`/dashboard/${boardId}`);
       })
       .catch((error) => console.error(error));

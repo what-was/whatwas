@@ -10,8 +10,7 @@ export const MoreButtonContainer = (props) => {
   const [listItemModal, setListItemModal] = useState(false);
   const [warnModal, setWarnModal] = useState(false);
   const board = props.board;
-
-  let { boardId } = useParams();
+  const collection = props.collection;
 
   // Firebase context
   const { firebase } = useContext(FirebaseContext);
@@ -45,8 +44,8 @@ export const MoreButtonContainer = (props) => {
 
   // Delete board
   let history = useHistory();
-  const handleBoardDelete = (docId) => {
-    firebase
+  const handleBoardDelete = async (docId) => {
+    await firebase
       .firestore()
       .collection('boards')
       .doc(docId)

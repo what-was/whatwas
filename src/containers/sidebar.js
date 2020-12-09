@@ -7,6 +7,7 @@ import {
 } from '../context';
 import { AddBoardContainer } from './add-board';
 import { BoardItemContainer } from './sidebar/board-item';
+import { MoreButtonContainer } from './sidebar/more-button';
 import { AddCollectionContainer } from './sidebar/add-collection';
 import { AddCollectionBoardContainer } from './sidebar/add-collection-board';
 import { AiFillCaretDown, AiFillCaretRight } from 'react-icons/ai';
@@ -46,7 +47,7 @@ export const SidebarContainer = ({}) => {
     }
     if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
       if (clientWidth < 770) {
-        setSidebar(false);
+        setSidebar(!sidebar);
       }
     }
   };
@@ -143,6 +144,7 @@ export const SidebarContainer = ({}) => {
                           }}
                         />
                       )}
+                      <MoreButtonContainer />
                     </Collection.ButtonContainer>
                     {collectionOpen.includes(collection.collectionId) && (
                       <Collection.BoardList>

@@ -29,8 +29,8 @@ export const BoardItemContainer = React.memo((props) => {
   };
 
   const handleBoardNameChange = (newName) => {};
-  const handleBoardDelete = (board) => {
-    firebase
+  const handleBoardDelete = async (board) => {
+    await firebase
       .firestore()
       .collection('boards')
       .doc(board)

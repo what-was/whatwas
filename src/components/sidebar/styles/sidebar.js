@@ -75,9 +75,6 @@ export const ListItem = styled.li`
     svg {
       stroke: ${({ theme }) => theme.text};
     }
-    #more-btn {
-      display: flex;
-    }
   }
   &:focus {
     outline: 0;
@@ -122,7 +119,7 @@ export const AddBoard = styled.button`
 `;
 
 export const MoreButton = styled.div`
-  display: ${(props) => (props.hover ? 'flex' : 'none')};
+  display: flex;
   align-items: center;
   font-size: 1.2rem;
   margin-left: auto;

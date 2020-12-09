@@ -19,13 +19,13 @@ export const AddNoteContainer = (props) => {
     setColorPick(color);
   };
 
-  const addNote = () => {
+  const addNote = async () => {
     const boardId = props.boardId === '' ? '' : props.boardId;
 
     return (
       addNoteTitle &&
       noteInput &&
-      firebase
+      (await firebase
         .firestore()
         .collection('notes')
         .add({
@@ -48,7 +48,7 @@ export const AddNoteContainer = (props) => {
         .catch((error) => {
           console.error(error);
           props.action(false);
-        })
+        }))
     );
   };
 

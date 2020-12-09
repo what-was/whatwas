@@ -42,11 +42,11 @@ export const AddBoardContainer = (props) => {
   let history = useHistory();
 
   // Adding board to firebase
-  const addBoard = () => {
+  const addBoard = async () => {
     const boardTitle =
       addBoardTitle !== 'Board Title' ? addBoardTitle : 'untitled';
 
-    firebase
+    await firebase
       .firestore()
       .collection('boards')
       .add({
@@ -73,8 +73,8 @@ export const AddBoardContainer = (props) => {
   };
 
   // Adding note to firebase
-  const addNote = () => {
-    firebase
+  const addNote = async () => {
+    await firebase
       .firestore()
       .collection('notes')
       .add({

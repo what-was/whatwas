@@ -46,11 +46,11 @@ export const AddCollectionContainer = (props) => {
 
   // Add board to collection
   let history = useHistory();
-  const handleAddCollection = () => {
+  const handleAddCollection = async () => {
     const collectionTitleCurr =
       collectionTitle !== '' ? collectionTitle : 'untitled collection';
 
-    firebase
+    await firebase
       .firestore()
       .collection('collection')
       .add({
