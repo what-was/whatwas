@@ -103,7 +103,9 @@ export const BoardContainer = () => {
         <Board.NoteContainer>
           {notes && colorFilter.length > 1
             ? notes
-                .filter((note) => note.noteColor === colorFilter)
+                .filter(
+                  (note) => note.noteColor === colorFilter && !note.archived
+                )
                 .map((note) => (
                   <Board.NotesList key={note.id} color={note.noteColor}>
                     <Link to={`/note/` + note.noteId}>
@@ -131,37 +133,39 @@ export const BoardContainer = () => {
                     </Board.LowerContainer>
                   </Board.NotesList>
                 ))
-            : notes.map((note) => (
-                <Board.NotesList
-                  key={note.id}
-                  sidebarOpen={sidebar}
-                  color={note.noteColor}
-                >
-                  <Link to={`/note/` + note.noteId}>
-                    <Board.NoteTitle color={note.noteColor}>
-                      {note.noteTitle}
-                    </Board.NoteTitle>
+            : notes
+                .filter((note) => !note.archived)
+                .map((note) => (
+                  <Board.NotesList
+                    key={note.id}
+                    sidebarOpen={sidebar}
+                    color={note.noteColor}
+                  >
+                    <Link to={`/note/` + note.noteId}>
+                      <Board.NoteTitle color={note.noteColor}>
+                        {note.noteTitle}
+                      </Board.NoteTitle>
 
-                    <Board.NoteSummary>
-                      {note.note.length > 200 ? (
-                        <ReadOnlyNote note={note.note.substring(0, 200)} />
-                      ) : (
-                        <ReadOnlyNote note={note.note} />
-                      )}
-                    </Board.NoteSummary>
-                    {/* <Board.Favorite
+                      <Board.NoteSummary>
+                        {note.note.length > 200 ? (
+                          <ReadOnlyNote note={note.note.substring(0, 200)} />
+                        ) : (
+                          <ReadOnlyNote note={note.note} />
+                        )}
+                      </Board.NoteSummary>
+                      {/* <Board.Favorite
                   starred={starred}
                   onClick={() => handleFavorite()}
                 /> */}
-                  </Link>
-                  <Board.LowerContainer>
-                    <Board.NoteUpdatedDate>
-                      Last update: {formatDate(note.updatedAt)}
-                    </Board.NoteUpdatedDate>
-                    <NoteMoreButtonContainer note={note} />
-                  </Board.LowerContainer>
-                </Board.NotesList>
-              ))}
+                    </Link>
+                    <Board.LowerContainer>
+                      <Board.NoteUpdatedDate>
+                        Last update: {formatDate(note.updatedAt)}
+                      </Board.NoteUpdatedDate>
+                      <NoteMoreButtonContainer note={note} />
+                    </Board.LowerContainer>
+                  </Board.NotesList>
+                ))}
           <aside ref={container}>
             {addNoteOpen && (
               <AddNoteContainer
