@@ -13,6 +13,7 @@ export default function useContent(target) {
       .collection(target)
       .where('uid', '==', user.uid)
       .where('hasDeleted', '==', false)
+      .where('archived', '==', false)
       .orderBy('updatedAt', 'desc')
       .onSnapshot((snapshot) => {
         const allContent = snapshot.docs.map((content) => ({

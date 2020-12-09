@@ -47,9 +47,10 @@ export const MoreButtonContainer = (props) => {
   const handleBoardDelete = async (docId) => {
     await firebase
       .firestore()
-      .collection('boards')
+      .collection(collection ? 'collection' : 'boards')
       .doc(docId)
       .update({
+        archived: true,
         hasDeleted: true,
       })
       .then(() => {

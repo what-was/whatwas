@@ -144,7 +144,7 @@ export const SidebarContainer = ({}) => {
                           }}
                         />
                       )}
-                      <MoreButtonContainer />
+                      <MoreButtonContainer collection={collection} />
                     </Collection.ButtonContainer>
                     {collectionOpen.includes(collection.collectionId) && (
                       <Collection.BoardList>
