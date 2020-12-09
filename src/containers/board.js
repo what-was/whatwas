@@ -70,6 +70,17 @@ export const BoardContainer = () => {
     document.title = `${boardTitle} - WhatWas`;
   }
 
+  const [loading, setLoading] = useState(true);
+  const [timer, setTimer] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, [loading]);
+
   // Todo: favorite note
   // const handleFavorite = () => {
   //   setStarred(!starred);
@@ -163,12 +174,43 @@ export const BoardContainer = () => {
       </Board>
     );
   }
+
   return (
     <Board>
-      <Board.Title>{title}</Board.Title>
-      <Note.Loader>
-        <HourGlass size={16} />
-      </Note.Loader>
+      <Board.UpperContainer>
+        <Board.Title>{title}</Board.Title>
+        {boardId !== undefined && (
+          <Board.AddNoteButton onClick={handleAddNote}>
+            Add Note
+          </Board.AddNoteButton>
+        )}
+      </Board.UpperContainer>
+      <Board.NoteContainer>
+        {loading && (
+          <Note.Loader>
+            <HourGlass size={16} />
+          </Note.Loader>
+        )}
+        {loading === false && (
+          <Board.EmptyContainer>
+            <Board.EmptyWarn>Please add note</Board.EmptyWarn>
+            <Board.EmptyImage
+              src="/images/misc/empty-icon.png"
+              alt="Empty board"
+              loading="lazy"
+              height="350"
+            />
+          </Board.EmptyContainer>
+        )}
+        <aside ref={container}>
+          {addNoteOpen && (
+            <AddNoteContainer
+              boardId={boardId}
+              action={(update) => handleAddNote(update)}
+            />
+          )}
+        </aside>
+      </Board.NoteContainer>
     </Board>
   );
 };

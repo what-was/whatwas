@@ -208,3 +208,25 @@ export const NoteUpdatedDate = styled.div`
   margin-top: 5px;
   color: ${({ theme }) => theme.shadowedText};
 `;
+
+export const EmptyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: ${({ theme }) => theme.title};
+`;
+
+export const EmptyWarn = styled.div`
+  font-size: 2rem;
+  margin-top: 40px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.title};
+`;
+
+export const EmptyImage = styled.img`
+  margin-top: 20px;
+  width: auto;
+  height: ${(props) => props.height};
+`;

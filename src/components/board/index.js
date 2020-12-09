@@ -11,6 +11,9 @@ import {
   LowerContainer,
   Favorite,
   NoteUpdatedDate,
+  EmptyContainer,
+  EmptyWarn,
+  EmptyImage,
 } from './styles/board';
 
 import { RiStarSLine, RiStarFill } from 'react-icons/ri';
@@ -77,4 +80,19 @@ Board.LowerContainer = function BoardLowerContainer({
   ...restProps
 }) {
   return <LowerContainer {...restProps}>{children}</LowerContainer>;
+};
+
+Board.EmptyContainer = function BoardEmptyContainer({
+  children,
+  ...restProps
+}) {
+  return <EmptyContainer {...restProps}>{children}</EmptyContainer>;
+};
+
+Board.EmptyWarn = function BoardEmptyWarn({ children, ...restProps }) {
+  return <EmptyWarn {...restProps}>{children}</EmptyWarn>;
+};
+
+Board.EmptyImage = function BoardEmptyImage({ children, ...restProps }) {
+  return <EmptyImage {...restProps}>{children}</EmptyImage>;
 };
