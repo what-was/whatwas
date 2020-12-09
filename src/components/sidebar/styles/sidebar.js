@@ -13,9 +13,12 @@ export const Container = styled.nav`
     background-color: transparent !important;
     color: black !important;
   }
+  @media (max-width: 780px) {
+    height: calc(100vh - 145px);
+  }
 
   @media (max-width: 600px) {
-    height: calc(100vh - 175px);
+    height: calc(100vh - 177px);
     position: absolute;
     background-color: ${({ theme }) => theme.body};
     box-shadow: 15px 15px 30px -15px rgba(0, 0, 0, 0.4);

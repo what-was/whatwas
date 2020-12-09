@@ -5,7 +5,6 @@ import { FirebaseContext } from '../../context/firebase';
 import { generatePushId } from '../../helpers';
 
 export const AddCollectionContainer = (props) => {
-  const [listItemModal, setListItemModal] = useState(false);
   const [collectionTitle, setCollectionTitle] = useState('');
 
   // Firebase context
@@ -14,18 +13,12 @@ export const AddCollectionContainer = (props) => {
   // Ref for modal container
   let addCollectionRef = useRef(null);
 
-  // Modal open
-  const handleMoreButton = () => {
-    setListItemModal(!listItemModal);
-  };
-
   // Click outside function
   const handleClickOutside = (event) => {
     if (
       addCollectionRef.current &&
       !addCollectionRef.current.contains(event.target)
     ) {
-      setListItemModal(false);
       props.action();
     }
   };
@@ -58,6 +51,7 @@ export const AddCollectionContainer = (props) => {
         collectionName: collectionTitleCurr,
         uid: user,
         archived: false,
+        hasDeleted: false,
         updatedAt: Date.now(),
       })
       .then(() => {

@@ -15,14 +15,15 @@ import { AiFillCaretDown, AiFillCaretRight } from 'react-icons/ai';
 export const SidebarContainer = ({}) => {
   // Contexts
   const { boards } = useBoardsValue();
-  const { collection } = useCollectionsValue();
   const { sidebar, setSidebar } = useSidebarValue();
 
   // Add Board Modal
   const [addBoardOpen, setAddBoardOpen] = useState(false);
+  const { collection } = useCollectionsValue();
 
-  // Add collection
+  // Add collection modal
   const [addCollection, setAddCollection] = useState(false);
+
 
   // Add board to collection
   const [addCollectionBoard, setAddCollectionBoard] = useState(false);
@@ -39,7 +40,6 @@ export const SidebarContainer = ({}) => {
 
   const clientWidth = window.innerWidth;
 
-  useEffect(() => {}, []);
 
   const handleClickOutside = (event) => {
     if (container.current && !container.current.contains(event.target)) {
@@ -95,23 +95,22 @@ export const SidebarContainer = ({}) => {
       <aside ref={sidebarRef}>
         <Sidebar openStatus={sidebar}>
           <Sidebar.List>
+            <Collection.AddCollectionContainer>
+              <Collection.AddCollection
+                onClick={() => setAddCollection(!addCollection)}
+              >
+                Add Collection
+              </Collection.AddCollection>
+              {addCollection && (
+                <AddCollectionContainer
+                  action={() => {
+                    setAddCollection(!addCollection);
+                  }}
+                />
+              )}
+            </Collection.AddCollectionContainer>
             {collection && (
               <Collection.List>
-                <Collection.AddCollectionContainer>
-                  <Collection.AddCollection
-                    onClick={() => setAddCollection(!addCollection)}
-                  >
-                    Add Collection
-                  </Collection.AddCollection>
-                  {addCollection && (
-                    <AddCollectionContainer
-                      action={() => {
-                        setAddCollection(!addCollection);
-                      }}
-                    />
-                  )}
-                </Collection.AddCollectionContainer>
-
                 {collection.map((collection) => (
                   <Collection key={collection.collectionId}>
                     <Collection.ButtonContainer>

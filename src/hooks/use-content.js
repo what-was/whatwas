@@ -12,7 +12,6 @@ export default function useContent(target) {
       .firestore()
       .collection(target)
       .where('uid', '==', user.uid)
-      .where('hasDeleted', '==', false)
       .where('archived', '==', false)
       .orderBy('updatedAt', 'desc')
       .onSnapshot((snapshot) => {

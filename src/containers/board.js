@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Board } from '../components';
 import { AddNoteContainer } from './add-note';
 import { ColorFilterContainer } from './board/color-filter';
+import { NoteMoreButtonContainer } from './note/delete';
 import { Note } from '../components';
 import { ReadOnlyNote } from './board/readonly-note';
 import { HourGlass } from 'react-awesome-spinners';
@@ -110,12 +111,13 @@ export const BoardContainer = () => {
                   starred={starred}
                   onClick={() => handleFavorite()}
                 /> */}
-                      <Board.LowerContainer>
-                        <Board.NoteUpdatedDate>
-                          Last update: {formatDate(note.updatedAt)}
-                        </Board.NoteUpdatedDate>
-                      </Board.LowerContainer>
                     </Link>
+                    <Board.LowerContainer>
+                      <Board.NoteUpdatedDate>
+                        Last update: {formatDate(note.updatedAt)}
+                      </Board.NoteUpdatedDate>
+                      <NoteMoreButtonContainer />
+                    </Board.LowerContainer>
                   </Board.NotesList>
                 ))
             : notes.map((note) => (
@@ -140,12 +142,13 @@ export const BoardContainer = () => {
                   starred={starred}
                   onClick={() => handleFavorite()}
                 /> */}
-                    <Board.LowerContainer>
-                      <Board.NoteUpdatedDate>
-                        Last update: {formatDate(note.updatedAt)}
-                      </Board.NoteUpdatedDate>
-                    </Board.LowerContainer>
                   </Link>
+                  <Board.LowerContainer>
+                    <Board.NoteUpdatedDate>
+                      Last update: {formatDate(note.updatedAt)}
+                    </Board.NoteUpdatedDate>
+                    <NoteMoreButtonContainer note={note} />
+                  </Board.LowerContainer>
                 </Board.NotesList>
               ))}
           <aside ref={container}>

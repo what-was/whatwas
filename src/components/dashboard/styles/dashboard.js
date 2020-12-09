@@ -16,8 +16,13 @@ export const Container = styled.div`
   @media (max-width: 1000px) {
     margin: 0 30px 0 15px;
   }
+
+  @media (max-width: 780px) {
+    height: calc(100vh - 210px);
+  }
+
   @media (max-width: 600px) {
-    height: calc(100vh - 220px);
+    height: calc(100vh - 225px);
     margin: 0 15px;
     padding: 16px 18px;
   }

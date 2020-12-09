@@ -53,7 +53,7 @@ export const AddBoardContainer = (props) => {
         boardId: boardId,
         name: boardTitle,
         uid: user,
-        hasDeleted: false,
+        archived: false,
         visibility: '',
         collectionId: '',
         description: boardDescription,

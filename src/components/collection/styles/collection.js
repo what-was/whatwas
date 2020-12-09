@@ -19,7 +19,8 @@ export const ButtonContainer = styled.div`
   cursor: pointer;
   color: ${({ theme }) => theme.text};
   svg {
-    font-size: 0.75rem;
+    font-size: 18px;
+    height: 18px;
     margin-right: 6px;
   }
 `;

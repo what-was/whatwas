@@ -3,14 +3,13 @@ import { useHistory } from 'react-router-dom';
 import { Sidebar, Modal } from '../../components';
 import { FirebaseContext } from '../../context/firebase';
 
-import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { AiOutlineDelete } from 'react-icons/ai';
 
-export const MoreButtonContainer = (props) => {
+export const NoteMoreButtonContainer = (props) => {
   const [listItemModal, setListItemModal] = useState(false);
   const [warnModal, setWarnModal] = useState(false);
-  const board = props.board;
-  const collection = props.collection;
+  const note = props.note;
 
   // Firebase context
   const { firebase } = useContext(FirebaseContext);
@@ -43,18 +42,18 @@ export const MoreButtonContainer = (props) => {
   const handleBoardNameChange = (newName) => {};
 
   // Delete board
-  let history = useHistory();
-  const handleBoardDelete = async (docId) => {
+  //   let history = useHistory();
+  const handleNoteDelete = async (docId) => {
     return await firebase
       .firestore()
-      .collection(collection !== undefined ? 'collection' : 'boards')
+      .collection('notes')
       .doc(docId)
       .update({
         archived: true,
       })
       .then(() => {
         setListItemModal(!listItemModal);
-        history.push('/dashboard');
+        // history.push('/dashboard');
       })
       .catch((error) => console.error(error));
   };
@@ -62,7 +61,7 @@ export const MoreButtonContainer = (props) => {
   return (
     <>
       <Sidebar.MoreButton hover={listItemModal ? true : false} id="more-btn">
-        <BiDotsVerticalRounded
+        <BiDotsHorizontalRounded
           onClick={() => setListItemModal(!listItemModal)}
         />
       </Sidebar.MoreButton>
@@ -81,11 +80,7 @@ export const MoreButtonContainer = (props) => {
                     <Modal.ConfirmButton
                       type="button"
                       onClick={() => {
-                        handleBoardDelete(
-                          collection !== undefined
-                            ? collection.docId
-                            : board.docId
-                        );
+                        handleNoteDelete(note.id);
                       }}
                     >
                       Confirm

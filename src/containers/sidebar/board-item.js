@@ -24,24 +24,8 @@ export const BoardItemContainer = React.memo((props) => {
     }
   };
 
-  const handleMoreButton = (e) => {
-    setListItemModal(!listItemModal);
-  };
-
   const handleBoardNameChange = (newName) => {};
-  const handleBoardDelete = async (board) => {
-    await firebase
-      .firestore()
-      .collection('boards')
-      .doc(board)
-      .update({
-        hasDeleted: true,
-      })
-      .then(() => {
-        setListItemModal(!listItemModal);
-      })
-      .catch((error) => console.error(error));
-  };
+  
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);

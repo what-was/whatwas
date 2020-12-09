@@ -170,7 +170,7 @@ export const SaveButton = styled.button`
   color: ${({ theme }) => theme.buttonText};
   cursor: pointer;
   transition: background-color 200ms ease;
-  margin: 0 0 0 auto;
+  margin: 0 0 40px auto;
   &:hover {
     background-color: ${({ theme }) => theme.accentHover};
   }

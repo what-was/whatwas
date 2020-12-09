@@ -28,8 +28,9 @@ export const Container = styled.div`
 export const UpperContainer = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
-  margin: 0 12px 1rem;
+  margin: 0 5px 1rem;
   @media (max-width: 720px) {
     margin: 0 5px 10px;
   }

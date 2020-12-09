@@ -54,21 +54,12 @@ export const AddCollectionBoardContainer = (props) => {
         boardId: boardId,
         name: boardTitle,
         uid: user,
-        hasDeleted: false,
+        archived: false,
         visibility: '',
         collectionId: collection.collectionId,
         updatedAt: Date.now(),
       })
       .then(() => {
-        let currBoards = [...collection.boardIds, boardId];
-        firebase
-          .firestore()
-          .collection('collection')
-          .doc(collection.docId)
-          .update({
-            boardIds: currBoards,
-          })
-          .catch((error) => console.error(error));
         props.action();
         setAddBoardTitle('');
         history.push(`/dashboard/${boardId}`);
