@@ -187,9 +187,11 @@ export const BoardContainer = () => {
       </Board.UpperContainer>
       <Board.NoteContainer>
         {loading && (
-          <Note.Loader>
-            <HourGlass size={16} />
-          </Note.Loader>
+          <Board.EmptyContainer>
+            <Note.Loader>
+              <HourGlass size={16} />
+            </Note.Loader>
+          </Board.EmptyContainer>
         )}
         {loading === false && (
           <Board.EmptyContainer>

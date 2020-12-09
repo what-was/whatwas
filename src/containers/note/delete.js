@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Sidebar, Modal } from '../../components';
 import { FirebaseContext } from '../../context/firebase';
 
@@ -10,6 +10,10 @@ export const NoteMoreButtonContainer = (props) => {
   const [listItemModal, setListItemModal] = useState(false);
   const [warnModal, setWarnModal] = useState(false);
   const note = props.note;
+
+  const uri = useParams();
+  // History
+  let history = useHistory();
 
   // Firebase context
   const { firebase } = useContext(FirebaseContext);
@@ -53,14 +57,19 @@ export const NoteMoreButtonContainer = (props) => {
       })
       .then(() => {
         setListItemModal(!listItemModal);
-        // history.push('/dashboard');
+        if (uri.noteId) {
+          history.push('/dashboard');
+        }
       })
       .catch((error) => console.error(error));
   };
 
   return (
     <>
-      <Sidebar.MoreButton hover={listItemModal ? true : false} id="more-btn">
+      <Sidebar.MoreButton
+        hover={listItemModal ? true : false}
+        id="noteMoreButton"
+      >
         <BiDotsHorizontalRounded
           onClick={() => setListItemModal(!listItemModal)}
         />
@@ -80,7 +89,9 @@ export const NoteMoreButtonContainer = (props) => {
                     <Modal.ConfirmButton
                       type="button"
                       onClick={() => {
-                        handleNoteDelete(note.id);
+                        handleNoteDelete(
+                          note.id !== undefined ? note.id : note.docId
+                        );
                       }}
                     >
                       Confirm

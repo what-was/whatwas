@@ -19,27 +19,6 @@ const backgroundColor = (color) => {
   }
 };
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  margin: 0 28px 28px;
-  padding: 2rem 3rem;
-  background-color: ${({ theme }) => theme.background};
-  border-radius: 20px;
-  height: calc(100vh - 162px);
-  box-shadow: 0px 15px 40px -15px ${({ theme }) => theme.boxShadow};
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  @media (max-width: 600px) {
-    padding: 1rem 1.5rem;
-    margin: 0 15px;
-    height: calc(100vh - 220px);
-
-    max-width: 80%;
-  }
-`;
 export const UpperContainer = styled.div`
   display: flex;
   align-items: center;
@@ -53,8 +32,38 @@ export const UpperContainer = styled.div`
   }
   @media (max-width: 860px) {
     margin-bottom: 20px;
-    flex-direction: column;
-    align-items: flex-start;
+  }
+`;
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: 0 28px 28px;
+  padding: 2rem 3rem;
+  background-color: ${({ theme }) => theme.background};
+  border-radius: 20px;
+  height: calc(100vh - 162px);
+  box-shadow: 0px 15px 40px -15px ${({ theme }) => theme.boxShadow};
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  ${UpperContainer}:first-of-type {
+    margin-bottom: 10px;
+  }
+  #noteMoreButton {
+    svg {
+      width: 30px;
+      height: auto;
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: 1rem 1.5rem;
+    margin: 0 15px;
+    height: calc(100vh - 220px);
+
+    max-width: 80%;
   }
 `;
 
@@ -108,7 +117,7 @@ export const TitleContainer = styled.div`
   align-items: center;
   padding: 0 2rem;
   max-width: 45rem;
-  margin: 0 auto;
+  margin: 20px auto 0;
   justify-content: center;
 
   @media (max-width: 1000px) {
@@ -126,7 +135,7 @@ export const Title = styled.div`
     transparent 95%,
     ${(props) => backgroundColor(props.color)} 5%
   );
-  line-height: 48px;
+  line-height: 38px;
   ${'' /* margin: 0 auto; */}
   padding: 0;
   justify-content: flex-start;
@@ -149,7 +158,7 @@ export const NoteUpdatedDate = styled.p`
   font-size: 14px;
   color: ${({ theme }) => theme.shadowedText};
   @media (max-width: 860px) {
-    margin-bottom: 15px;
+    ${'' /* margin-bottom: 15px; */}
   }
 `;
 

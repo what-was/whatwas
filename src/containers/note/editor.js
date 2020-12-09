@@ -1,12 +1,7 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  useRef,
-  useCallback,
-} from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import { Note } from '../../components';
+import { NoteMoreButtonContainer } from './delete';
 import { AddColorContainer } from '../board/add-color';
 import { formatDate } from '../../helpers';
 import { FirebaseContext } from '../../context/firebase';
@@ -80,6 +75,9 @@ export const Editor = (props) => {
           <Note.NoteUpdatedDate>
             Updated at: {formatDate(notes.updatedAt)}
           </Note.NoteUpdatedDate>
+          <NoteMoreButtonContainer note={notes} />
+        </Note.UpperContainer>
+        <Note.UpperContainer>
           <AddColorContainer
             hasOpen={true}
             noteColor={notes.noteColor}
