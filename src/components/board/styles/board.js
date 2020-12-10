@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 const backgroundColor = (color) => {
   switch (color) {
@@ -102,23 +102,23 @@ export const NoteContainer = styled.div`
 
 export const NotesList = styled.div`
   display: flex;
+  flex: ${(props) => (props.sidebarOpen ? '0 1 262px' : '0 1 310px')};
   flex-direction: column;
   margin: 5px 5px;
-  border-radius: 10px;
-  flex: ${(props) => (props.sidebarOpen ? '0 1 262px' : '0 1 310px')};
   padding: 1rem 1.25rem;
-  cursor: pointer;
+  border-radius: 10px;
   text-decoration: none;
   transition: box-shadow 350ms ease;
   background-color: ${(props) => backgroundColor(props.color)};
+  cursor: pointer;
 
   a {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     text-decoration: none;
     color: ${({ theme }) => theme.text};
-    display: flex;
-    flex-direction: column;
   }
 
   &:hover {
@@ -141,27 +141,16 @@ export const NotesList = styled.div`
 
 export const NoteTitle = styled.h2`
   display: flex;
+  align-items: flex-start;
+  width: auto;
   margin: 0;
+  padding: 0 0 5px 0;
+  color: ${({ theme }) => theme.title};
   font-size: 16px;
   line-height: 1.2;
   font-weight: 600;
-  color: ${({ theme }) => theme.title};
   cursor: pointer;
-  padding: 0 0 5px 0;
-  width: auto;
-  align-items: flex-start;
   word-wrap: normal;
-  ${
-    '' /* &::before {
-    content: '';
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: ${(props) => backgroundColor(props.color)};
-    margin: 5px 10px auto 0;
-    display: table;
-  } */
-  }
 `;
 
 export const ProfileContainer = styled.div`
@@ -176,8 +165,8 @@ export const LowerContainer = styled.div`
 `;
 
 export const NoteSummary = styled.div`
-  font-size: 14px;
   margin: 0;
+  font-size: 14px;
   line-height: 1.5;
   overflow: hidden;
 
@@ -190,22 +179,22 @@ export const NoteSummary = styled.div`
 `;
 
 export const Favorite = styled.div`
-  position: relative;
-  padding: 5px;
-  height: auto;
-  align-items: flex-end;
   display: flex;
+  position: relative;
+  align-items: flex-end;
+  height: auto;
+  padding: 5px;
   cursor: pointer;
 
   svg {
-    height: 1.5rem;
     width: auto;
+    height: 1.5rem;
   }
 `;
 
 export const NoteUpdatedDate = styled.div`
-  font-size: 12px;
   margin-top: 5px;
+  font-size: 12px;
   color: ${({ theme }) => theme.shadowedText};
 `;
 
@@ -219,14 +208,14 @@ export const EmptyContainer = styled.div`
 `;
 
 export const EmptyWarn = styled.div`
-  font-size: 2rem;
   margin-top: 40px;
+  font-size: 2rem;
   font-weight: 700;
   color: ${({ theme }) => theme.title};
 `;
 
 export const EmptyImage = styled.img`
-  margin-top: 20px;
   width: auto;
   height: ${(props) => props.height};
+  margin-top: 20px;
 `;
