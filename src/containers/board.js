@@ -115,9 +115,9 @@ export const BoardContainer = () => {
 
                       <Board.NoteSummary>
                         {note.note.length > 200 ? (
-                          <ReadOnlyNote note={note.note.substring(0, 200)} />
+                          <ReadOnlyNote note={note.noteSummary} />
                         ) : (
-                          <ReadOnlyNote note={note.note} />
+                          <ReadOnlyNote note={note.noteSummary} />
                         )}
                       </Board.NoteSummary>
                       {/* <Board.Favorite
@@ -148,9 +148,9 @@ export const BoardContainer = () => {
 
                       <Board.NoteSummary>
                         {note.note.length > 200 ? (
-                          <ReadOnlyNote note={note.note.substring(0, 200)} />
+                          <ReadOnlyNote note={note.noteSummary} />
                         ) : (
-                          <ReadOnlyNote note={note.note} />
+                          <ReadOnlyNote note={note.noteSummary} />
                         )}
                       </Board.NoteSummary>
                       {/* <Board.Favorite

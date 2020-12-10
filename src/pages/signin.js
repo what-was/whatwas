@@ -37,7 +37,7 @@ export default function Signin() {
           localStorage.setItem('remember', true);
         }
         // Push to home page
-        history.push(ROUTES.HOME);
+        history.push(ROUTES.DASHBOARD);
       })
       .catch((error) => {
         setEmailAddress('');

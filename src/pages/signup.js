@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { FirebaseContext } from '../context/firebase';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
@@ -7,7 +7,6 @@ import { Form } from '../components';
 import * as ROUTES from '../constants/routes';
 
 export default function Signup() {
-  const history = useHistory();
   const { firebase } = useContext(FirebaseContext);
 
   const [firstName, setFirstName] = useState('');
@@ -34,21 +33,20 @@ export default function Signup() {
       .auth()
       .createUserWithEmailAndPassword(emailAddress, password)
       .then((result) =>
-        result.user
-          .updateProfile({
-            displayName: firstName,
-            photoURL: Math.floor(Math.random() * 8) + 1,
-          })
-          .then(() => {
-            history.push(ROUTES.DASHBOARD);
-          })
+        result.user.updateProfile({
+          displayName: firstName,
+          photoURL: Math.floor(Math.random() * 8) + 1,
+        })
       )
+      .then(() => {})
       .catch((error) => {
         setEmailAddress('');
         setFirstName('');
         setPassword('');
         setError(error.message);
       });
+
+    return <Redirect to={ROUTES.DASHBOARD} />;
   };
 
   document.title = 'Sign up - WhatWas';

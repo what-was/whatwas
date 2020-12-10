@@ -52,9 +52,7 @@ export const NoteMoreButtonContainer = (props) => {
       .firestore()
       .collection('notes')
       .doc(docId)
-      .update({
-        archived: true,
-      })
+      .delete()
       .then(() => {
         setListItemModal(!listItemModal);
         if (uri.noteId) {

@@ -96,7 +96,7 @@ export const AddNoteButton = styled.div`
 
 export const NoteContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   width: 100%;
 `;
 

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Header } from '../components';
 import { SidebarToggleContainer } from './header/sidebar-toogle';
 import { ToggleThemeContainer } from './header/toggle-theme';

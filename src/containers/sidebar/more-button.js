@@ -49,11 +49,8 @@ export const MoreButtonContainer = (props) => {
       .firestore()
       .collection(collection !== undefined ? 'collection' : 'boards')
       .doc(docId)
-      .update({
-        archived: true,
-      })
+      .delete()
       .then(() => {
-        setListItemModal(!listItemModal);
         history.push('/dashboard');
       })
       .catch((error) => console.error(error));

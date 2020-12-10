@@ -7,8 +7,8 @@ export default function useContent(target) {
   const { firebase } = useContext(FirebaseContext);
   const user = useAuthListener().user;
 
-  useEffect(() => {
-    firebase
+  useEffect(async () => {
+    await firebase
       .firestore()
       .collection(target)
       .where('uid', '==', user.uid)

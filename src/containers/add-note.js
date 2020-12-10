@@ -33,6 +33,7 @@ export const AddNoteContainer = (props) => {
           boardId: boardId,
           hierarchy: 10000,
           note: noteInput,
+          noteSummary: noteInput.substring(0, 200),
           noteColor: colorPick,
           noteId: noteId,
           noteTitle: addNoteTitle,

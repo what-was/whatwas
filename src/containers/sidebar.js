@@ -24,7 +24,6 @@ export const SidebarContainer = ({}) => {
   // Add collection modal
   const [addCollection, setAddCollection] = useState(false);
 
-
   // Add board to collection
   const [addCollectionBoard, setAddCollectionBoard] = useState(false);
   const [addCollectionBoardId, setAddCollectionBoardId] = useState('');
@@ -39,7 +38,6 @@ export const SidebarContainer = ({}) => {
   const sidebarRef = useRef();
 
   const clientWidth = window.innerWidth;
-
 
   const handleClickOutside = (event) => {
     if (container.current && !container.current.contains(event.target)) {
@@ -90,6 +88,7 @@ export const SidebarContainer = ({}) => {
     };
   }, []);
 
+  console.log(collection);
   return (
     sidebar && (
       <aside ref={sidebarRef}>
@@ -109,7 +108,7 @@ export const SidebarContainer = ({}) => {
                 />
               )}
             </Collection.AddCollectionContainer>
-            {collection && (
+            {collection.lenght > 0 && (
               <Collection.List>
                 {collection.map((collection) => (
                   <Collection key={collection.collectionId}>

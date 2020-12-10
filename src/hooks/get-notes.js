@@ -6,49 +6,38 @@ export const getNotes = (boardId) => {
   const { firebase } = useContext(FirebaseContext);
 
   const user = JSON.parse(localStorage.getItem('authUser'));
-
-  useEffect(() => {
+  useEffect(async () => {
+    let notesQuery;
     if (boardId === '') {
-      firebase
+      notesQuery = await firebase
         .firestore()
         .collection('notes')
         .where('uid', '==', user.uid)
         .where('archived', '==', false)
         .orderBy('updatedAt', 'desc')
-        .limit(40)
-        .onSnapshot((snapshot) => {
-          const allNotes = snapshot.docs.map((note) => ({
-            id: note.id,
-            ...note.data(),
-          }));
-
-          // To aviod infinite loop on contents, we are simply checking if the content has changed.
-          if (JSON.stringify(allNotes) !== JSON.stringify(notes)) {
-            setNotes(allNotes);
-          }
-        });
+        .limit(40);
     } else {
-      firebase
+      notesQuery = await firebase
         .firestore()
         .collection('notes')
         .where('boardId', '==', boardId)
         .where('archived', '==', false)
         .orderBy('updatedAt', 'desc')
-        .limit(40)
-        .onSnapshot((snapshot) => {
-          const allNotes = snapshot.docs.map((note) => ({
-            id: note.id,
-            ...note.data(),
-          }));
-
-          // To aviod infinite loop on contents, we are simply checking if the content has changed.
-          if (JSON.stringify(allNotes) !== JSON.stringify(notes)) {
-            setNotes(allNotes);
-          }
-        });
+        .limit(40);
     }
-  }, [boardId]);
 
+    notesQuery.onSnapshot((snapshot) => {
+      const allNotes = snapshot.docs.map((note) => ({
+        id: note.id,
+        ...note.data(),
+      }));
+
+      // To aviod infinite loop on contents, we are simply checking if the content has changed.
+      if (JSON.stringify(allNotes) !== JSON.stringify(notes)) {
+        setNotes(allNotes);
+      }
+    });
+  }, [boardId]);
   return { notes };
 };
 
@@ -87,9 +76,9 @@ export const getSingleNote = (noteId) => {
   const [note, setNote] = useState({});
   const { firebase } = useContext(FirebaseContext);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (noteId !== '') {
-      firebase
+      await firebase
         .firestore()
         .collection('notes')
         .where('noteId', '==', noteId)

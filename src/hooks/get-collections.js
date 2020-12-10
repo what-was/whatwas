@@ -7,8 +7,8 @@ export default function getCollections() {
   const { firebase } = useContext(FirebaseContext);
   const user = useAuthListener().user;
 
-  useEffect(() => {
-    const unsubscribe = firebase
+  useEffect(async () => {
+    const unsubscribe = await firebase
       .firestore()
       .collection('collection')
       .where('uid', '==', user.uid)
