@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 export const Container = styled.footer`
   display: flex;
-  padding: 50px 56px;
-  margin: auto;
-  max-width: 1000px;
   flex-direction: column;
+  max-width: 1000px;
+  margin: auto;
   margin-top: 50px;
+  padding: 50px 56px;
   @media (max-width: 1000px) {
     padding: 50px 30px;
   }
@@ -38,8 +38,8 @@ export const Row = styled.div`
 `;
 
 export const Link = styled.a`
-  color: #222525;
   margin-bottom: 20px;
+  color: ${({ theme }) => theme.text};
   font-size: 13px;
   text-decoration: none;
 
@@ -49,16 +49,16 @@ export const Link = styled.a`
 `;
 
 export const Title = styled.p`
-  font-size: 16px;
-  color: #222525;
   margin-top: 0;
   margin-bottom: 40px;
+  color: ${({ theme }) => theme.title};
+  font-size: 16px;
 `;
 
 export const Text = styled.p`
-  font-size: 13px;
-  color: #222525;
   margin-bottom: 40px;
+  color: ${({ theme }) => theme.shadowedText};
+  font-size: 13px;
 `;
 
 export const Break = styled.div`
