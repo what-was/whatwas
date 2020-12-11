@@ -27,9 +27,10 @@ export const TextSmall = styled.label`
   line-height: normal;
   font-size: 14px;
   font-weight: 500;
-  transform: translateY(2px);
+  transform: translateY(0px);
   transform-origin: 0%;
   transition: transform 400ms;
+  pointer-events: none;
 `;
 
 export const Input = styled.input`
@@ -202,8 +203,9 @@ export const StrengthBar = styled.span`
 
 export const ShowPassword = styled.span`
   position: absolute;
-  right: 5px;
-  bottom: 10px;
+  right: 0;
+  bottom: 5px;
+  padding: 5px;
   font-size: 14px;
   cursor: help;
 `;
