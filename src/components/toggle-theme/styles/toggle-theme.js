@@ -8,14 +8,14 @@ export const Button = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
-  cursor: pointer;
   border-radius: 50px;
+  cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.background};
   }
   svg {
-    color: ${({ theme }) => theme.text};
-    height: 24px;
     width: auto;
+    height: 24px;
+    color: ${({ theme }) => theme.text};
   }
 `;

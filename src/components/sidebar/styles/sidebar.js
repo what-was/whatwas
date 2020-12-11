@@ -18,8 +18,8 @@ export const Container = styled.nav`
   }
 
   @media (max-width: 600px) {
-    height: calc(100vh - 177px);
     position: absolute;
+    height: calc(100vh - 177px);
     background-color: ${({ theme }) => theme.body};
     box-shadow: 15px 15px 30px -15px rgba(0, 0, 0, 0.4);
     z-index: 999;
@@ -33,44 +33,44 @@ export const BoardContainer = styled.aside`
 
 export const List = styled.ul`
   list-style-type: none;
-  padding: 0;
   max-height: calc(100vh - 100px);
-  overflow: hidden auto;
-  margin-top: 0;
   height: 100%;
+  margin-top: 0;
+  padding: 0;
+  overflow: hidden auto;
   a {
     text-decoration: none;
   }
 `;
 
 export const ListItem = styled.li`
+  list-style-type: none;
   display: flex;
   align-items: center;
-  list-style-type: none;
   padding: 0 24px 0 24px;
   max-width: 100%;
-  cursor: pointer;
+  color: ${({ theme }) => theme.text};
+  font-size: 16px;
   font-weight: ${(props) => (props.status === 'active' ? '600' : '400')};
   background-color: ${(props) =>
     props.status === 'active'
       ? ({ theme }) => theme.backgroundHover
       : 'transparent'};
-  color: ${({ theme }) => theme.text};
-  font-size: 16px;
+  cursor: pointer;
 
   svg {
     width: 18px;
     height: 18px;
-    stroke: ${({ theme }) => theme.text};
     margin-right: 10px;
+    stroke: ${({ theme }) => theme.text};
   }
 
   a {
     display: flex;
     align-items: center;
-    color: ${({ theme }) => theme.text};
-    padding: 9px 0;
     width: 100%;
+    padding: 9px 0;
+    color: ${({ theme }) => theme.text};
   }
 
   &:hover {
@@ -85,10 +85,10 @@ export const ListItem = styled.li`
 `;
 
 export const BoardName = styled.p`
-  font-size: 14px;
   width: 100%;
-  line-break: anywhere;
   margin: 0;
+  font-size: 14px;
+  line-break: anywhere;
   &::selection {
     background-color: transparent !important;
     color: black !important;
@@ -97,19 +97,19 @@ export const BoardName = styled.p`
 
 export const AddBoard = styled.button`
   display: flex;
-  font-weight: 500;
+  align-items: center;
+  margin: auto 0 0;
+  padding: 15px 24px;
   font-size: 1rem;
+  font-weight: 500;
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.body};
   border: 0;
   border-top: 1px solid ${({ theme }) => theme.border};
-  padding: 15px 24px;
   cursor: pointer;
-  margin: auto 0 0;
-  align-items: center;
   svg {
-    height: 18px;
     width: auto;
+    height: 18px;
     margin-right: 12px;
   }
 
@@ -124,26 +124,25 @@ export const AddBoard = styled.button`
 export const MoreButton = styled.div`
   display: flex;
   align-items: center;
-  font-size: 1.2rem;
   margin-left: auto;
+  font-size: 1.2rem;
   svg {
     margin: 0;
   }
 `;
 
 export const CloseButton = styled.button`
-  border: 0;
-  background-color: transparent;
   display: flex;
-  align-items: flex-end;
-  ${'' /* margin: auto 5px 0 0; */}
-  margin-right: 10px;
-  padding: 5px;
-  font-size: 1.3rem;
   align-self: flex-end;
+  align-items: flex-end;
+  margin-right: 10px;
   margin-bottom: 10px;
-  cursor: pointer;
+  padding: 5px;
+  background-color: transparent;
   color: ${({ theme }) => theme.text};
+  font-size: 1.3rem;
+  border: 0;
+  cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.background};
     border-radius: 5px;
@@ -155,7 +154,7 @@ export const CloseButton = styled.button`
   }
 
   @media (max-width: 1000px) {
-    font-size: 1rem;
     margin-bottom: 10px;
+    font-size: 1rem;
   }
 `;

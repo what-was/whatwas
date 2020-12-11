@@ -39,11 +39,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  height: calc(100vh - 162px);
   margin: 0 28px 28px;
   padding: 2rem 3rem;
   background-color: ${({ theme }) => theme.background};
   border-radius: 20px;
-  height: calc(100vh - 162px);
   box-shadow: 0px 15px 40px -15px ${({ theme }) => theme.boxShadow};
   overflow-y: auto;
   overflow-x: hidden;
@@ -59,11 +59,10 @@ export const Container = styled.div`
   }
 
   @media (max-width: 600px) {
-    padding: 1rem 1.5rem;
-    margin: 0 15px;
-    height: calc(100vh - 220px);
-
     max-width: 80%;
+    height: calc(100vh - 220px);
+    margin: 0 15px;
+    padding: 1rem 1.5rem;
   }
 `;
 
@@ -82,8 +81,8 @@ export const InnerContainer = styled.div`
 
   .ql-editor {
     padding: 3rem 2rem;
-    font-family: 'Georgia', 'Cambria', 'Times New Roman', serif;
     font-size: 16px;
+    font-family: 'Georgia', 'Cambria', 'Times New Roman', serif;
     line-height: 1.6;
     letter-spacing: -0.003em;
     clear: both;
@@ -113,12 +112,12 @@ export const InnerContainer = styled.div`
 
 export const TitleContainer = styled.div`
   display: flex;
-  width: 100%;
   align-items: center;
-  padding: 0 2rem;
-  max-width: 45rem;
-  margin: 20px auto 0;
   justify-content: center;
+  max-width: 45rem;
+  width: 100%;
+  margin: 20px auto 0;
+  padding: 0 2rem;
 
   @media (max-width: 1000px) {
     padding: 0;
@@ -127,25 +126,25 @@ export const TitleContainer = styled.div`
 
 export const Title = styled.div`
   display: flex;
-  font-size: 40px;
-  letter-spacing: -0.015em;
-  font-weight: 700;
+  justify-content: flex-start;
+  height: 100%;
+  padding: 0;
   color: ${({ theme }) => theme.title};
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 38px;
+  letter-spacing: -0.015em;
+  white-space: pre-wrap;
+  word-break: break-word;
   background: linear-gradient(
     transparent 95%,
     ${(props) => backgroundColor(props.color)} 5%
   );
-  line-height: 38px;
   ${'' /* margin: 0 auto; */}
-  padding: 0;
-  justify-content: flex-start;
   border: 0;
-  height: 100%;
-  white-space: pre-wrap;
-  word-break: break-word;
   &:focus {
-    outline: 0;
     border: 0;
+    outline: 0;
   }
 
   @media (max-width: 600px) {
@@ -155,8 +154,8 @@ export const Title = styled.div`
 
 export const NoteUpdatedDate = styled.p`
   margin: 0;
-  font-size: 14px;
   color: ${({ theme }) => theme.shadowedText};
+  font-size: 14px;
   @media (max-width: 860px) {
     ${'' /* margin-bottom: 15px; */}
   }
@@ -171,15 +170,15 @@ export const Text = styled.p`
 export const SaveButton = styled.button`
   display: flex;
   align-items: center;
-  font-size: 16px;
+  margin: 0 0 40px auto;
   padding: 0.75rem 1rem;
-  background-color: ${({ theme }) => theme.accent};
-  border-radius: 20px;
-  border: 0;
   color: ${({ theme }) => theme.buttonText};
+  font-size: 16px;
+  background-color: ${({ theme }) => theme.accent};
+  border: 0;
+  border-radius: 20px;
   cursor: pointer;
   transition: background-color 200ms ease;
-  margin: 0 0 40px auto;
   &:hover {
     background-color: ${({ theme }) => theme.accentHover};
   }

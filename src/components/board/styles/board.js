@@ -38,22 +38,22 @@ export const UpperContainer = styled.div`
 
 export const Title = styled.h1`
   display: flex;
+  margin: 0;
+  color: ${({ theme }) => theme.title};
   font-size: 24px;
   font-weight: 700;
-  color: ${({ theme }) => theme.title};
-  margin: 0;
   cursor: default;
 `;
 
 export const AddNoteButton = styled.div`
   display: flex;
   align-items: center;
-  background-color: ${({ theme }) => theme.body};
+  margin: 0 0 0 2rem;
+  padding: 0.5rem 1rem;
   color: ${({ theme }) => theme.title};
   font-size: 16px;
   font-weight: 500;
-  margin: 0 0 0 2rem;
-  padding: 0.5rem 1rem;
+  background-color: ${({ theme }) => theme.body};
   border-radius: 50px;
   cursor: pointer;
   transition: 100ms all ease;
@@ -62,8 +62,8 @@ export const AddNoteButton = styled.div`
     margin: 0;
   }
   svg {
-    height: 16px;
     width: auto;
+    height: 16px;
     margin-right: 0.25rem;
     font-weight: 600;
   }
@@ -74,18 +74,18 @@ export const AddNoteButton = styled.div`
 
   @media (max-width: 770px) {
     position: absolute;
-    bottom: 25px;
     right: 30px;
+    bottom: 25px;
     margin: 0;
     margin-left: auto;
     padding: 10px;
-    z-index: 99;
-    box-shadow: 0 5px 20px -7px ${({ theme }) => theme.boxShadow};
     background-color: ${({ theme }) => theme.accent};
+    box-shadow: 0 5px 20px -7px ${({ theme }) => theme.boxShadow};
+    z-index: 99;
     svg {
-      color: #fffffe;
       height: 30px;
       margin: 0;
+      color: #fffffe;
     }
 
     > :not(svg) {
@@ -108,9 +108,9 @@ export const NotesList = styled.div`
   padding: 1rem 1.25rem;
   border-radius: 10px;
   text-decoration: none;
-  transition: box-shadow 350ms ease;
   background-color: ${(props) => backgroundColor(props.color)};
   cursor: pointer;
+  transition: box-shadow 350ms ease;
 
   a {
     display: flex;

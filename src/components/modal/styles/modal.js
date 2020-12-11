@@ -5,17 +5,17 @@ export const Container = styled.div`
 `;
 
 export const Inner = styled.div`
+  position: absolute;
   display: flex;
   flex-direction: column;
-  position: absolute;
-  z-index: 1;
   width: ${(props) => (props.modalType === 'add-item' ? '185px' : '130px')};
   padding: 10px;
   top: ${(props) => (props.addCollection ? '-6px' : '10px')};
   right: 0;
   background-color: ${({ theme }) => theme.background};
-  border-radius: 10px;
   box-shadow: 0px 10px 15px -5px ${({ theme }) => theme.smallBoxShadow};
+  border-radius: 10px;
+  z-index: 1;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -28,19 +28,19 @@ export const ButtonsContainer = styled.div`
 export const WarningText = styled.p`
   margin-top: 5px;
   margin-bottom: 5px;
+  font-size: 15px;
   line-height: normal;
   font-weight: normal;
-  font-size: 15px;
 `;
 
 export const InnerButton = styled.div`
   display: flex;
   align-items: center;
   margin: 5px 0;
-  cursor: pointer;
   color: ${({ theme }) => theme.title};
   font-size: 16px;
   font-weight: 400;
+  cursor: pointer;
   svg {
     margin-right: 5px;
   }
@@ -52,19 +52,19 @@ export const InnerButton = styled.div`
 `;
 
 export const ConfirmButton = styled.button`
-  background-color: ${({ theme }) => theme.accent};
-  color: #fff;
-  border: 1px solid transparent;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 17px;
-  padding: 6px 12px 7px 12px;
   position: relative;
   display: inline-block;
-  white-space: nowrap;
-  text-decoration: none;
+  padding: 6px 12px 7px 12px;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 17px;
   text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: ${({ theme }) => theme.accent};
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: #fff;
   cursor: pointer;
 
   &:hover {
@@ -73,11 +73,11 @@ export const ConfirmButton = styled.button`
 `;
 
 export const Cancel = styled.span`
-  font-weight: normal;
-  color: ${({ theme }) => theme.text};
-  cursor: pointer;
-  font-size: 14px;
   margin: 2px 5px;
+  color: ${({ theme }) => theme.text};
+  font-size: 14px;
+  font-weight: normal;
+  cursor: pointer;
 
   &:hover {
     text-decoration: underline;
@@ -85,13 +85,13 @@ export const Cancel = styled.span`
 `;
 
 export const Input = styled.input`
-  font-size: 14px;
-  line-height: 22px;
   padding: 5px;
   color: ${({ theme }) => theme.text};
+  font-size: 14px;
+  line-height: 22px;
   background-color: ${({ theme }) => theme.background};
-  outline: 0;
   border: 1px solid ${({ theme }) => theme.border};
+  outline: 0;
 
   &::placeholder {
     color: grey;
