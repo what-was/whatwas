@@ -8,7 +8,7 @@ export const Container = styled.section`
   max-width: 450px;
   width: 100%;
   min-height: 550px;
-  padding: 42px 68px;
+  padding: 3rem 3.5rem;
   margin: auto;
   margin-bottom: 0;
   border-radius: 10px;
@@ -17,6 +17,15 @@ export const Container = styled.section`
   @media (max-width: 720px) {
     max-width: 350px;
     padding: 2rem 2.5rem;
+  }
+  @media (max-width: 325px) {
+    max-width: 290px;
+    padding: 1rem 1.2rem;
+  }
+  @media (max-width: 285px) {
+    max-width: 270px;
+    min-height: auto;
+    padding: 0.5rem 0.8rem;
   }
 `;
 
@@ -91,6 +100,9 @@ export const Text = styled.p`
   color: ${({ theme }) => theme.shadowedText};
   font-size: 12px;
   font-weight: 400;
+  @media (max-width: 285px) {
+    margin: 30px 0 0;
+  }
 `;
 
 export const Error = styled.div`

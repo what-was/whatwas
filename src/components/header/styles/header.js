@@ -33,6 +33,11 @@ export const Container = styled.header`
   @media (max-width: 600px) {
     margin: ${(props) => (props.className === 'signed-in' ? '0 15px' : '0')};
   }
+  @media (max-width: 285px) {
+    margin: 5px;
+    padding: 0 5px;
+  }
+
   z-index: 9999;
 `;
 
@@ -148,7 +153,7 @@ export const Text = styled.p`
   line-height: normal;
   margin: 0 10px 0 0;
 
-  @media (max-width: 600px) {
+  @media (max-width: 720px) {
     display: none;
   }
 `;
@@ -170,6 +175,14 @@ export const Logo = styled.img`
   @media (max-width: 1000px) {
     height: 26px;
     width: auto;
+  }
+
+  @media (max-width: 325px) {
+    margin-right: 10px;
+  }
+
+  @media (max-width: 285px) {
+    margin-right: 0;
   }
 `;
 
