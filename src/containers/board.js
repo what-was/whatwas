@@ -31,7 +31,7 @@ export const BoardContainer = () => {
   const getBoardId = boardId === undefined ? '' : boardId;
 
   // Hooks
-  const { notes } = getNotes(getBoardId);
+  const { notes } = getNotes(boardId);
   const boardTitle = getTitle(getBoardId);
 
   // Handling color filter

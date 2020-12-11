@@ -107,7 +107,7 @@ export const SidebarContainer = ({}) => {
                 />
               )}
             </Collection.AddCollectionContainer>
-            {collection.lenght > 0 && (
+            {collection && (
               <Collection.List>
                 {collection.map((collection) => (
                   <Collection key={collection.collectionId}>

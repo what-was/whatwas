@@ -2,15 +2,15 @@ import { useEffect, useState, useContext } from 'react';
 import { FirebaseContext } from '../context/firebase';
 import { useAuthListener } from '.';
 
-export default function useContent(target) {
+export default function getBoards(target) {
   const [content, setContent] = useState([]);
   const { firebase } = useContext(FirebaseContext);
   const user = useAuthListener().user;
+  const db = firebase.firestore();
+  const boards = db.collection('boards');
 
-  useEffect(async () => {
-    await firebase
-      .firestore()
-      .collection(target)
+  useEffect(() => {
+    const unsubscribe = boards
       .where('uid', '==', user.uid)
       .where('archived', '==', false)
       .orderBy('updatedAt', 'desc')
@@ -24,6 +24,7 @@ export default function useContent(target) {
           setContent(allContent);
         }
       });
+    return () => unsubscribe();
   }, [target]);
 
   return { [target]: content };

@@ -6,17 +6,16 @@ export default function getCollections() {
   const [collections, setCollections] = useState([]);
   const { firebase } = useContext(FirebaseContext);
   const user = useAuthListener().user;
+  const db = firebase.firestore();
+  const collection = db.collection('collection');
 
-  useEffect(async () => {
-    const unsubscribe = await firebase
-      .firestore()
-      .collection('collection')
+  useEffect(() => {
+    const unsubscribe = collection
       .where('uid', '==', user.uid)
       .where('archived', '==', false)
       .orderBy('updatedAt', 'desc')
       .limit(15)
-      .get()
-      .then((snapshot) => {
+      .onSnapshot((snapshot) => {
         const allContent = snapshot.docs.map((content) => ({
           ...content.data(),
           docId: content.id,
@@ -25,10 +24,9 @@ export default function getCollections() {
         if (JSON.stringify(allContent) !== JSON.stringify(collections)) {
           setCollections(allContent);
         }
-      })
-      .catch((error) => {
-        console.error(error.message);
       });
+
+    return () => unsubscribe();
   }, []);
   return { ['collection']: collections };
 }

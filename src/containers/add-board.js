@@ -41,15 +41,16 @@ export const AddBoardContainer = (props) => {
   // History
   let history = useHistory();
 
+  const db = firebase.firestore();
+  const board = db.collection('boards');
   // Adding board to firebase
-  const addBoard = async () => {
+  const addBoard = () => {
     const boardTitle =
       addBoardTitle !== 'Board Title' ? addBoardTitle : 'untitled';
 
-    await firebase
-      .firestore()
-      .collection('boards')
-      .add({
+    board
+      .doc(boardId)
+      .set({
         boardId: boardId,
         name: boardTitle,
         uid: user,
@@ -63,25 +64,26 @@ export const AddBoardContainer = (props) => {
         setTitleInput('');
         setNoteInput('');
         setColorPick('');
+        if (titleInput.length > 2 && noteInput.length) {
+          addNote();
+        }
         props.action();
         history.push(`/dashboard/${boardId}`);
-      });
-
-    if (titleInput.length > 2 && noteInput.length) {
-      addNote();
-    }
+      })
+      .catch((error) => console.error(error));
   };
 
   // Adding note to firebase
-  const addNote = async () => {
-    await firebase
-      .firestore()
+  const addNote = () => {
+    board
+      .doc(boardId)
       .collection('notes')
-      .add({
+      .doc(noteId)
+      .set({
         archived: false,
         boardId: boardId,
-        hierarchy: 10000,
         note: noteInput,
+        noteSummary: noteInput.substring(0, 200),
         noteColor: colorPick,
         noteId: noteId,
         noteTitle: titleInput,
@@ -92,7 +94,8 @@ export const AddBoardContainer = (props) => {
         setTitleInput('');
         setNoteInput('');
         setColorPick('');
-      });
+      })
+      .catch((error) => console.error(error));
   };
 
   return (

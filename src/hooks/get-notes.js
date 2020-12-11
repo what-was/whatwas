@@ -4,30 +4,27 @@ import { FirebaseContext } from '../context/firebase';
 export const getNotes = (boardId) => {
   const [notes, setNotes] = useState([]);
   const { firebase } = useContext(FirebaseContext);
-
   const user = JSON.parse(localStorage.getItem('authUser'));
-  useEffect(async () => {
-    let notesQuery;
-    if (boardId === '') {
-      notesQuery = await firebase
-        .firestore()
-        .collection('notes')
-        .where('uid', '==', user.uid)
-        .where('archived', '==', false)
-        .orderBy('updatedAt', 'desc')
-        .limit(40);
-    } else {
-      notesQuery = await firebase
-        .firestore()
-        .collection('notes')
-        .where('boardId', '==', boardId)
-        .where('archived', '==', false)
-        .orderBy('updatedAt', 'desc')
-        .limit(40);
-    }
 
-    notesQuery.onSnapshot((snapshot) => {
-      const allNotes = snapshot.docs.map((note) => ({
+  const db = firebase.firestore();
+  const board = db.collection('boards');
+  const note =
+    boardId !== ''
+      ? board
+          .doc(boardId)
+          .collection('notes')
+          .orderBy('updatedAt', 'desc')
+          .limit(40)
+      : db
+          .collection('boards')
+          .where('boardId', '==', 'undefined')
+          .where('uid', '==', user.uid)
+          .orderBy('updatedAt', 'desc')
+          .limit(40);
+
+  useEffect(() => {
+    const unsubscribe = note.onSnapshot((querySnapshot) => {
+      const allNotes = querySnapshot.docs.map((note) => ({
         id: note.id,
         ...note.data(),
       }));
@@ -37,6 +34,8 @@ export const getNotes = (boardId) => {
         setNotes(allNotes);
       }
     });
+
+    return () => unsubscribe();
   }, [boardId]);
   return { notes };
 };

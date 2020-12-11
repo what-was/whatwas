@@ -25,7 +25,6 @@ export const BoardItemContainer = React.memo((props) => {
   };
 
   const handleBoardNameChange = (newName) => {};
-  
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
@@ -47,7 +46,7 @@ export const BoardItemContainer = React.memo((props) => {
       >
         <Link
           key={board.boardId}
-          to={'/dashboard/' + board.boardId}
+          to={'/dashboard/' + board.docId}
           onClick={() => {
             props.clickAction();
             setSelectedBoard(board.boardId);
