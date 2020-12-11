@@ -209,9 +209,9 @@ export const EmptyContainer = styled.div`
 
 export const EmptyWarn = styled.div`
   margin-top: 40px;
-  font-size: 2rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.title};
+  font-size: 24px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.warnText};
 `;
 
 export const EmptyImage = styled.img`

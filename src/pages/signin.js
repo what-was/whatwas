@@ -13,6 +13,7 @@ export default function Signin() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [checkboxChecked, setCheckboxChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   // Todo: validation
   const isInvalid =
@@ -55,23 +56,36 @@ export default function Signin() {
         {error && <Form.Error>{error}</Form.Error>}
 
         <Form.Base onSubmit={handleSignin} method="POST">
-          <Form.TextSmall>Email Adress</Form.TextSmall>
-          <Form.Input
-            placeholder="Enter your email address"
-            value={emailAddress}
-            type="email"
-            onChange={({ target }) => setEmailAddress(target.value)}
-            aria-label="Enter your email address"
-          />
-          <Form.TextSmall>Password</Form.TextSmall>
-          <Form.Input
-            type="password"
-            autoComplete="off"
-            placeholder="Enter your password"
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
-            aria-label="Enter your password"
-          />
+          <Form.Field>
+            <Form.Input
+              type="email"
+              name="email"
+              className="input"
+              aria-label="Enter your email address"
+              placeholder="Email address"
+              value={emailAddress}
+              onChange={({ target }) => setEmailAddress(target.value)}
+            />
+            <Form.TextSmall htmlFor="email">Email adress</Form.TextSmall>
+          </Form.Field>
+          <Form.Field>
+            <Form.Input
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              className="input"
+              autoComplete="off"
+              aria-label="Enter your password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e)}
+            />
+            <Form.TextSmall htmlFor="password">Password</Form.TextSmall>
+            <Form.ShowPassword
+              onMouseEnter={() => setShowPassword(true)}
+              onMouseLeave={() => setShowPassword(false)}
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </Form.ShowPassword>
+          </Form.Field>
           <Form.CheckboxContainer onClick={() => handleCheckboxChange()}>
             <Form.Checkbox
               checked={checkboxChecked}

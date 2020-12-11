@@ -2,7 +2,7 @@ export const lightTheme = {
   body: '#f8f5f2',
   text: '#222525',
   buttonText: '#f5f3f4',
-  shadowedText: '#525252',
+  shadowedText: '#7a7a7a',
   title: '#232323',
   accent: '#a81d1d',
   accentHover: '#ef233c',
@@ -22,12 +22,14 @@ export const lightTheme = {
   green: '#ccff90',
   grey: '#e8eaed',
   default: '#f8f9fa',
+  strengthBox: '#1f1f1f',
 };
 export const darkTheme = {
   body: '#202124',
   text: '#f5f3f4',
   buttonText: '#f5f3f4',
-  shadowedText: '#f5f3f4',
+  shadowedText: '#7a7a7a',
+  warnText: '#9aa0a6',
   title: '#fffffe',
   accent: '#a81d1d',
   accentHover: '#ef233c',
@@ -47,4 +49,5 @@ export const darkTheme = {
   green: '#345920',
   grey: '#3c3f43',
   default: '#202124',
+  strengthBox: '#b8aea5',
 };

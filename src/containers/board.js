@@ -199,13 +199,13 @@ export const BoardContainer = () => {
         )}
         {loading === false && (
           <Board.EmptyContainer>
-            <Board.EmptyWarn>Please add note</Board.EmptyWarn>
             <Board.EmptyImage
               src="/images/misc/empty-icon.png"
               alt="Empty board"
               loading="lazy"
-              height="350"
+              height="300"
             />
+            <Board.EmptyWarn>Please add board or note</Board.EmptyWarn>
           </Board.EmptyContainer>
         )}
         <aside ref={container}>
