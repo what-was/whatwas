@@ -76,7 +76,7 @@ export default function Signin() {
               autoComplete="off"
               aria-label="Enter your password"
               placeholder="Password"
-              onChange={(e) => setPassword(e)}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Form.TextSmall htmlFor="password">Password</Form.TextSmall>
             <Form.ShowPassword

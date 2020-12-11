@@ -1,39 +1,47 @@
 import React, { useState, useRef, useEffect, Suspense } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
 // Components
 import { Board } from '../components';
+import { NoteListItem } from './board/note-listitem';
 import { AddNoteContainer } from './add-note';
 import { ColorFilterContainer } from './board/color-filter';
-import { NoteMoreButtonContainer } from './note/delete';
 import { Note } from '../components';
-import { ReadOnlyNote } from './board/readonly-note';
 import { HourGlass } from 'react-awesome-spinners';
 
 // Hooks
 import { useSidebarValue } from '../context';
 import { getNotes, getTitle } from '../hooks';
 
-// Helpers
-import { formatDate } from '../helpers';
-
 export const BoardContainer = () => {
+  // States
   const [title, setTitle] = useState('Dashboard');
   const [addNoteOpen, setAddNoteOpen] = useState(false);
-  // const { selectedBoard } = useSelectedBoardValue();
-
-  const { sidebar, setSidebar } = useSidebarValue();
+  const [colorFilter, setColorFilter] = useState('');
+  const [loading, setLoading] = useState(true);
 
   let { boardId } = useParams();
 
-  const getBoardId = boardId === undefined ? '' : boardId;
-
-  const { notes } = getNotes(getBoardId);
-  const boardTitle = getTitle(getBoardId);
-  const [starred, setStarred] = useState(false);
-  const [colorFilter, setColorFilter] = useState('');
-
   // Add note modal ref
   let container = useRef(null);
+
+  // Contexts
+  const { sidebar, setSidebar } = useSidebarValue();
+
+  const getBoardId = boardId === undefined ? '' : boardId;
+
+  // Hooks
+  const { notes } = getNotes(getBoardId);
+  const boardTitle = getTitle(getBoardId);
+
+  // Handling color filter
+  const handleFilter = (color) => {
+    if (color !== '' && color !== 'default') {
+      setColorFilter(color);
+    } else if (color === 'default') {
+      setColorFilter('');
+    }
+  };
 
   // Open/close add note modal
   const handleAddNote = (update) => {
@@ -55,23 +63,11 @@ export const BoardContainer = () => {
     };
   }, []);
 
-  // Handling color filter
-  const handleFilter = (color) => {
-    if (color !== '' && color !== 'default') {
-      setColorFilter(color);
-    } else if (color === 'default') {
-      setColorFilter('');
-    }
-  };
-
   // Setting window title
   if (boardId !== '' && boardTitle !== title) {
     setTitle(boardTitle);
     document.title = `${boardTitle} - WhatWas`;
   }
-
-  const [loading, setLoading] = useState(true);
-  const [timer, setTimer] = useState(true);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -80,13 +76,6 @@ export const BoardContainer = () => {
 
     return () => clearTimeout(timeout);
   }, [loading]);
-
-  // Todo: favorite note
-  // const handleFavorite = () => {
-  //   setStarred(!starred);
-  // };
-
-  // let options = { year: 'numeric', month: 'long', day: 'numeric', timezone: 'short' };
 
   if (notes.length > 0) {
     return (
@@ -107,64 +96,20 @@ export const BoardContainer = () => {
                   (note) => note.noteColor === colorFilter && !note.archived
                 )
                 .map((note) => (
-                  <Board.NotesList key={note.id} color={note.noteColor}>
-                    <Link to={`/note/` + note.noteId}>
-                      <Board.NoteTitle color={note.noteColor}>
-                        {note.noteTitle}
-                      </Board.NoteTitle>
-
-                      <Board.NoteSummary>
-                        {note.note.length > 200 ? (
-                          <ReadOnlyNote note={note.noteSummary} />
-                        ) : (
-                          <ReadOnlyNote note={note.noteSummary} />
-                        )}
-                      </Board.NoteSummary>
-                      {/* <Board.Favorite
-                  starred={starred}
-                  onClick={() => handleFavorite()}
-                /> */}
-                    </Link>
-                    <Board.LowerContainer>
-                      <Board.NoteUpdatedDate>
-                        Last update: {formatDate(note.updatedAt)}
-                      </Board.NoteUpdatedDate>
-                      <NoteMoreButtonContainer />
-                    </Board.LowerContainer>
-                  </Board.NotesList>
+                  <NoteListItem
+                    key={note.noteId}
+                    note={note}
+                    sidebar={sidebar}
+                  />
                 ))
             : notes
                 .filter((note) => !note.archived)
                 .map((note) => (
-                  <Board.NotesList
-                    key={note.id}
-                    sidebarOpen={sidebar}
-                    color={note.noteColor}
-                  >
-                    <Link to={`/note/` + note.noteId}>
-                      <Board.NoteTitle color={note.noteColor}>
-                        {note.noteTitle}
-                      </Board.NoteTitle>
-
-                      <Board.NoteSummary>
-                        {note.note.length > 200 ? (
-                          <ReadOnlyNote note={note.noteSummary} />
-                        ) : (
-                          <ReadOnlyNote note={note.noteSummary} />
-                        )}
-                      </Board.NoteSummary>
-                      {/* <Board.Favorite
-                  starred={starred}
-                  onClick={() => handleFavorite()}
-                /> */}
-                    </Link>
-                    <Board.LowerContainer>
-                      <Board.NoteUpdatedDate>
-                        Last update: {formatDate(note.updatedAt)}
-                      </Board.NoteUpdatedDate>
-                      <NoteMoreButtonContainer note={note} />
-                    </Board.LowerContainer>
-                  </Board.NotesList>
+                  <NoteListItem
+                    key={note.noteId}
+                    note={note}
+                    sidebar={sidebar}
+                  />
                 ))}
           <aside ref={container}>
             {addNoteOpen && (
@@ -180,43 +125,45 @@ export const BoardContainer = () => {
   }
 
   return (
-    <Board>
-      <Board.UpperContainer>
-        <Board.Title>{title}</Board.Title>
-        {boardId !== undefined && (
-          <Board.AddNoteButton onClick={handleAddNote}>
-            Add Note
-          </Board.AddNoteButton>
-        )}
-      </Board.UpperContainer>
-      <Board.NoteContainer>
-        {loading && (
-          <Board.EmptyContainer>
-            <Note.Loader>
-              <HourGlass size={16} />
-            </Note.Loader>
-          </Board.EmptyContainer>
-        )}
-        {loading === false && (
-          <Board.EmptyContainer>
-            <Board.EmptyImage
-              src="/images/misc/empty-icon.png"
-              alt="Empty board"
-              loading="lazy"
-              height="300"
-            />
-            <Board.EmptyWarn>Please add board or note</Board.EmptyWarn>
-          </Board.EmptyContainer>
-        )}
-        <aside ref={container}>
-          {addNoteOpen && (
-            <AddNoteContainer
-              boardId={boardId}
-              action={(update) => handleAddNote(update)}
-            />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Board>
+        <Board.UpperContainer>
+          <Board.Title>{title}</Board.Title>
+          {boardId !== undefined && (
+            <Board.AddNoteButton onClick={handleAddNote}>
+              Add Note
+            </Board.AddNoteButton>
           )}
-        </aside>
-      </Board.NoteContainer>
-    </Board>
+        </Board.UpperContainer>
+        <Board.NoteContainer>
+          {loading && (
+            <Board.EmptyContainer>
+              <Note.Loader>
+                <HourGlass size={16} />
+              </Note.Loader>
+            </Board.EmptyContainer>
+          )}
+          {loading === false && (
+            <Board.EmptyContainer>
+              <Board.EmptyImage
+                src="/images/misc/empty-icon.png"
+                alt="Empty board"
+                loading="lazy"
+                height="300"
+              />
+              <Board.EmptyWarn>Please add board or note</Board.EmptyWarn>
+            </Board.EmptyContainer>
+          )}
+          <aside ref={container}>
+            {addNoteOpen && (
+              <AddNoteContainer
+                boardId={boardId}
+                action={(update) => handleAddNote(update)}
+              />
+            )}
+          </aside>
+        </Board.NoteContainer>
+      </Board>
+    </Suspense>
   );
 };
