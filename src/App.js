@@ -64,17 +64,19 @@ export const App = () => {
             <ProtectedRoute user={user} path={ROUTES.NOTE} exact>
               <Redirect to={ROUTES.DASHBOARD} />
             </ProtectedRoute>
+            {/* 404 */}
+            <Redirect to={ROUTES.DASHBOARD} />
           </ContextContainer>
         ) : (
           <>
+            <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
+              <Dashboard />
+            </ProtectedRoute>
             <ProtectedRoute
               user={user}
               path={ROUTES.DASHBOARD + `/:boardId`}
               exact
             >
-              <Dashboard />
-            </ProtectedRoute>
-            <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
               <Dashboard />
             </ProtectedRoute>
             <ProtectedRoute user={user} path={ROUTES.NOTE + `/:noteId`} exact>
@@ -83,18 +85,9 @@ export const App = () => {
             <ProtectedRoute user={user} path={ROUTES.NOTE} exact>
               <Redirect to={ROUTES.DASHBOARD} />
             </ProtectedRoute>
-          </>
-        )}
-
-        {/* 404 */}
-        {user ? (
-          <Route path="*">
-            <Redirect to={ROUTES.DASHBOARD} />
-          </Route>
-        ) : (
-          <Route path="*">
+            {/* 404 */}
             <Redirect to={ROUTES.HOME} />
-          </Route>
+          </>
         )}
       </Switch>
     </Router>
