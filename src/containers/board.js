@@ -22,19 +22,13 @@ export const BoardContainer = () => {
 
   const { boards } = useBoardsValue();
 
-  let recentBoard =
-    boards &&
-    boards.reduce((acc, curr) => {
-      return acc.updatedAt > curr.updatedAt ? acc : curr;
-    }, '').boardId;
-
   let { boardId } = useParams();
 
   // Add note modal ref
   let container = useRef(null);
 
   // Contexts
-  const { sidebar, setSidebar } = useSidebarValue();
+  const { sidebar } = useSidebarValue();
 
   // Hooks
   const { notes } = getNotes(boardId);
@@ -87,7 +81,16 @@ export const BoardContainer = () => {
     return () => clearTimeout(timeout);
   }, [loading]);
 
-  if (boardId === undefined && recentBoard !== undefined) {
+  let recentBoard =
+    boards &&
+    boards.reduce((acc, curr) => {
+      return acc.updatedAt > curr.updatedAt ? acc : curr;
+    }, '').boardId;
+
+  if (
+    (boardId === undefined && recentBoard !== undefined) ||
+    !boards.some((board) => board.boardId === boardId)
+  ) {
     return <Redirect to={`/dashboard/${recentBoard}`} />;
   }
 

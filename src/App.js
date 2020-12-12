@@ -88,9 +88,13 @@ export const App = () => {
 
         {/* 404 */}
         {user ? (
-          <Redirect to={ROUTES.DASHBOARD} />
+          <Route path="*">
+            <Redirect to={ROUTES.DASHBOARD} />
+          </Route>
         ) : (
-          <Redirect to={ROUTES.HOME} />
+          <Route path="*">
+            <Redirect to={ROUTES.HOME} />
+          </Route>
         )}
       </Switch>
     </Router>

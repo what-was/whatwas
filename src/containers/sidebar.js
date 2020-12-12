@@ -56,7 +56,7 @@ export const SidebarContainer = ({}) => {
     if (clientWidth < 600) {
       setSidebar(false);
     }
-    setSelectedBoard(id);
+    // setSelectedBoard(id);
   };
 
   const handleAction = () => {
