@@ -74,11 +74,15 @@ export const BoardContainer = () => {
   }
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    if (boards.length > 0) {
       setLoading(false);
-    }, 2000);
+    }
 
-    return () => clearTimeout(timeout);
+    const timer = setTimeout(() => {
+      loading && setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
   }, [loading]);
 
   let recentBoard =
@@ -87,10 +91,10 @@ export const BoardContainer = () => {
       return acc.updatedAt > curr.updatedAt ? acc : curr;
     }, '').boardId;
 
-  if (
-    (boardId === undefined && recentBoard !== undefined) ||
-    !boards.some((board) => board.boardId === boardId)
-  ) {
+  if (boards.length > 0 && !boards.some((board) => board.boardId === boardId)) {
+    return <Redirect to={`/dashboard/${recentBoard}`} />;
+  }
+  if (boardId === undefined && recentBoard !== undefined) {
     return <Redirect to={`/dashboard/${recentBoard}`} />;
   }
 

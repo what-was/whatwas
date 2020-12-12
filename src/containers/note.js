@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
 // import { getSingleNote } from '../hooks';
 import { HourGlass } from 'react-awesome-spinners';
 import { Note } from '../components';
@@ -11,6 +11,7 @@ import { useSelectedNoteValue } from '../context';
 import { getSingleNote } from '../hooks';
 
 export const NoteContainer = () => {
+  const [loading, setLoading] = useState(true);
   let { boardId, noteId } = useParams();
 
   // History
@@ -31,7 +32,16 @@ export const NoteContainer = () => {
     document.title = notes.noteTitle;
   }
 
-  if (notes.note === undefined) {
+  useEffect(() => {
+    if (notes.note !== undefined) setLoading(false);
+    const timer = setTimeout(() => {
+      loading && setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [notes]);
+
+  if (loading) {
     return (
       <Note>
         <Note.Loader>
@@ -41,13 +51,13 @@ export const NoteContainer = () => {
     );
   }
 
-  if (notes.archived) {
-    history.push('/dashboard');
+  if (notes.note === undefined && !loading) {
+    return <Redirect to="/dashboard" />;
+  } else {
+    return (
+      <Note>
+        <Editor note={notes} />
+      </Note>
+    );
   }
-
-  return (
-    <Note>
-      <Editor note={notes} />
-    </Note>
-  );
 };
