@@ -10,9 +10,8 @@ import { Note } from '../components';
 import { HourGlass } from 'react-awesome-spinners';
 
 // Hooks
-import { useSidebarValue } from '../context';
-import { getNotes, getTitle } from '../hooks';
-import { getMostRecentBoard } from '../hooks';
+import { useSidebarValue, useBoardsValue } from '../context';
+import { getNotes } from '../hooks';
 
 export const BoardContainer = () => {
   // States
@@ -20,6 +19,14 @@ export const BoardContainer = () => {
   const [addNoteOpen, setAddNoteOpen] = useState(false);
   const [colorFilter, setColorFilter] = useState('');
   const [loading, setLoading] = useState(true);
+
+  const { boards } = useBoardsValue();
+
+  let recentBoard =
+    boards &&
+    boards.reduce((acc, curr) => {
+      return acc.updatedAt > curr.updatedAt ? acc : curr;
+    }, '').boardId;
 
   let { boardId } = useParams();
 
@@ -31,7 +38,11 @@ export const BoardContainer = () => {
 
   // Hooks
   const { notes } = getNotes(boardId);
-  const boardTitle = getTitle(boardId);
+  const currentBoard =
+    boards !== undefined && boards.find((board) => board.boardId === boardId);
+
+  const boardTitle =
+    currentBoard !== undefined ? currentBoard.name : 'Loading...';
 
   // Handling color filter
   const handleFilter = (color) => {
@@ -76,13 +87,8 @@ export const BoardContainer = () => {
     return () => clearTimeout(timeout);
   }, [loading]);
 
-  if (boardId === undefined) {
-    const recentBoard = getMostRecentBoard();
-
-    if (recentBoard[0] !== undefined) {
-      const returnBoard = recentBoard[0].docId;
-      return <Redirect to={`/dashboard/${returnBoard}`} />;
-    }
+  if (boardId === undefined && recentBoard !== undefined) {
+    return <Redirect to={`/dashboard/${recentBoard}`} />;
   }
 
   if (notes.length > 0) {

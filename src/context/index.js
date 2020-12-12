@@ -10,6 +10,11 @@ import {
   useSelectedBoardValue,
 } from './selected-boards-context';
 import {
+  SelectedNoteContext,
+  SelectedNoteProvider,
+  useSelectedNoteValue,
+} from './selected-note-context';
+import {
   CollectionsContext,
   CollectionsProvider,
   useCollectionsValue,
@@ -41,4 +46,7 @@ export {
   ThemeModeContext,
   ThemeModeProvider,
   useThemeModeValue,
+  SelectedNoteContext,
+  SelectedNoteProvider,
+  useSelectedNoteValue,
 };

@@ -41,21 +41,23 @@ export const AddBoardContainer = (props) => {
   // History
   let history = useHistory();
 
+  // db locations
   const db = firebase.firestore();
   const board = db.collection('boards');
+  const note = db.collection('notes');
+
   // Adding board to firebase
-  const addBoard = () => {
+  const addBoard = async () => {
     const boardTitle =
       addBoardTitle !== 'Board Title' ? addBoardTitle : 'untitled';
 
-    board
+    await board
       .doc(boardId)
       .set({
         boardId: boardId,
         name: boardTitle,
         uid: user,
         archived: false,
-        visibility: '',
         collectionId: '',
         description: boardDescription,
         updatedAt: Date.now(),
@@ -74,19 +76,18 @@ export const AddBoardContainer = (props) => {
   };
 
   // Adding note to firebase
-  const addNote = () => {
-    board
+  const addNote = async () => {
+    await board
       .doc(boardId)
       .collection('notes')
       .doc(noteId)
       .set({
-        archived: false,
         boardId: boardId,
-        note: noteInput,
-        noteSummary: noteInput.substring(0, 200),
-        noteColor: colorPick,
-        noteId: noteId,
         noteTitle: titleInput,
+        noteId: noteId,
+        noteSummary: noteInput.substring(0, 200),
+        note: noteInput,
+        noteColor: colorPick,
         uid: user,
         updatedAt: Date.now(),
       })

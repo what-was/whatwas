@@ -9,13 +9,24 @@ import { ReadOnlyNote } from './readonly-note';
 // Helpers
 import { formatDate } from '../../helpers';
 
+// Hooks
+import { useSelectedNoteValue } from '../../context';
+
 export const NoteListItem = (props) => {
   const note = props.note;
   const sidebar = props.sidebar;
 
+  // Context
+  const { selectedNote, setSelectedNote } = useSelectedNoteValue();
+
   return (
     <Board.NotesList sidebarOpen={sidebar} color={note.noteColor}>
-      <Link to={`/note/` + note.noteId}>
+      <Link
+        to={`/note/${note.boardId}/${note.noteId}`}
+        onClick={() => {
+          setSelectedNote(note);
+        }}
+      >
         <Board.NoteTitle color={note.noteColor}>
           {note.noteTitle}
         </Board.NoteTitle>

@@ -16,7 +16,6 @@ export const SidebarContainer = ({}) => {
   // Contexts
   const { boards } = useBoardsValue();
   const { sidebar, setSidebar } = useSidebarValue();
-
   // Add Board Modal
   const [addBoardOpen, setAddBoardOpen] = useState(false);
   const { collection } = useCollectionsValue();
@@ -57,7 +56,7 @@ export const SidebarContainer = ({}) => {
     if (clientWidth < 600) {
       setSidebar(false);
     }
-    // setSelectedBoard(id);
+    setSelectedBoard(id);
   };
 
   const handleAction = () => {

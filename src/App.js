@@ -54,7 +54,11 @@ export const App = () => {
             <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
               <Dashboard />
             </ProtectedRoute>
-            <ProtectedRoute user={user} path={ROUTES.NOTE + `/:noteId`} exact>
+            <ProtectedRoute
+              user={user}
+              path={ROUTES.NOTE + `/:boardId` + `/:noteId`}
+              exact
+            >
               <Note />
             </ProtectedRoute>
             <ProtectedRoute user={user} path={ROUTES.NOTE} exact>

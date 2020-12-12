@@ -20,31 +20,37 @@ export const AddNoteContainer = (props) => {
   };
 
   const addNote = async () => {
-    const boardId = props.boardId === '' ? '' : props.boardId;
-
+    const boardId = props.boardId;
+    const db = firebase.firestore();
+    const board = db.collection('boards').doc(boardId);
+    const note = board.collection('notes');
     return (
       addNoteTitle &&
       noteInput &&
-      (await firebase
-        .firestore()
-        .collection('notes')
-        .add({
-          archived: false,
+      (await note
+        .doc(noteId)
+        .set({
           boardId: boardId,
-          hierarchy: 10000,
-          note: noteInput,
-          noteSummary: noteInput.substring(0, 200),
-          noteColor: colorPick,
-          noteId: noteId,
           noteTitle: addNoteTitle,
+          noteId: noteId,
+          noteSummary: noteInput.substring(0, 200),
+          note: noteInput,
+          noteColor: colorPick,
           uid: user,
           updatedAt: Date.now(),
         })
         .then(() => {
-          setAddNoteTitle('');
-          setNoteInput('');
-          setColorPick('');
-          props.action(true);
+          board
+            .update({
+              updatedAt: Date.now(),
+            })
+            .then(() => {
+              setAddNoteTitle('');
+              setNoteInput('');
+              setColorPick('');
+              props.action(true);
+            })
+            .catch((error) => console.error(error));
         })
         .catch((error) => {
           console.error(error);

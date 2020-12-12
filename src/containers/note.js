@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { getSingleNote } from '../hooks';
+// import { getSingleNote } from '../hooks';
 import { HourGlass } from 'react-awesome-spinners';
 import { Note } from '../components';
 
 import { Editor } from './note/editor';
 
+// Hooks
+import { useSelectedNoteValue } from '../context';
+import { getSingleNote } from '../hooks';
+
 export const NoteContainer = () => {
-  let { noteId } = useParams();
+  let { boardId, noteId } = useParams();
 
   // History
   let history = useHistory();
 
+  // Context
+  const { selectedNote } = useSelectedNoteValue();
+
   const [title, setTitle] = useState('');
-  let notes = getSingleNote(noteId);
+
+  let notes =
+    selectedNote.noteTitle !== undefined
+      ? selectedNote
+      : getSingleNote(boardId, noteId);
 
   if (notes.noteTitle !== title && notes.noteTitle !== undefined) {
     setTitle(notes.noteTitle);

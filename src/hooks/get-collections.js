@@ -5,13 +5,13 @@ import { useAuthListener } from '.';
 export default function getCollections() {
   const [collections, setCollections] = useState([]);
   const { firebase } = useContext(FirebaseContext);
-  const user = useAuthListener().user;
+  const user = JSON.parse(localStorage.getItem('authUser')).uid;
   const db = firebase.firestore();
-  const collection = db.collection('collection');
+  const collection = db.collection('collections');
 
   useEffect(() => {
-    const unsubscribe = collection
-      .where('uid', '==', user.uid)
+    collection
+      .where('uid', '==', user)
       .where('archived', '==', false)
       .orderBy('updatedAt', 'desc')
       .limit(15)
@@ -27,8 +27,6 @@ export default function getCollections() {
         }
       })
       .catch((error) => console.error(error));
-
-    return () => unsubscribe();
   }, []);
   return { ['collection']: collections };
 }

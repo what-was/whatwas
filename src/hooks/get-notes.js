@@ -32,78 +32,36 @@ export const getNotes = (boardId) => {
 
       return () => unsubscribe();
     } else {
-      const unsubscribe = note.onSnapshot((querySnapshot) => {
-        const allNotes = querySnapshot.docs.map((note) => ({
-          id: note.id,
-          ...note.data(),
-        }));
-
-        // To aviod infinite loop on contents, we are simply checking if the content has changed.
-        if (JSON.stringify(allNotes) !== JSON.stringify(notes)) {
-          setNotes(allNotes);
-        }
-        return () => unsubscribe();
-      });
+      setNotes({});
     }
   }, [boardId]);
 
   return { notes };
 };
 
-export const getTitle = (boardId) => {
-  const [title, setTitle] = useState('');
-  const { firebase } = useContext(FirebaseContext);
-
-  useEffect(() => {
-    if (boardId !== undefined) {
-      firebase
-        .firestore()
-        .collection('boards')
-        .where('boardId', '==', boardId)
-        .limit(1)
-        .get()
-        .then((snapshot) => {
-          const selectedTitle = snapshot.docs.map((content) => ({
-            ...content.data(),
-            docId: content.id,
-          }));
-          if (JSON.stringify(selectedTitle) !== JSON.stringify(title)) {
-            setTitle(selectedTitle[0].name);
-          }
-        })
-        .catch((error) => {
-          console.error(error.message);
-        });
-    } else {
-      setTitle('Dashboard');
-    }
-  }, [boardId]);
-
-  return title;
-};
-
-export const getSingleNote = (noteId) => {
+export const getSingleNote = (boardId, noteId) => {
   const [note, setNote] = useState({});
   const { firebase } = useContext(FirebaseContext);
 
-  useEffect(async () => {
-    if (noteId !== '') {
-      await firebase
-        .firestore()
-        .collection('notes')
-        .where('noteId', '==', noteId)
-        .get()
-        .then((snapshot) => {
-          const currNote = snapshot.docs.map((content) => ({
-            ...content.data(),
-            docId: content.id,
-          }));
-          if (JSON.stringify(currNote) !== JSON.stringify(note)) {
-            setNote(currNote[0]);
+  const db = firebase.firestore();
+  const board = db.collection('boards');
+
+  useEffect(() => {
+    board
+      .doc(boardId)
+      .collection('notes')
+      .doc(noteId)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const singleNote = doc.data();
+          if (JSON.stringify(singleNote) !== JSON.stringify(note)) {
+            setNote(singleNote);
           }
-        });
-    }
-  }, [noteId]);
+        }
+      })
+      .catch((err) => console.error(err));
+  }, [boardId, noteId]);
 
   return note;
 };
