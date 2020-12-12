@@ -47,7 +47,7 @@ export const ListItem = styled.li`
   list-style-type: none;
   display: flex;
   align-items: center;
-  padding: 0 24px 0 24px;
+  padding: 0 12px 0 24px;
   max-width: 100%;
   color: ${({ theme }) => theme.text};
   font-size: 16px;
@@ -126,7 +126,9 @@ export const MoreButton = styled.div`
   align-items: center;
   margin-left: auto;
   font-size: 1.2rem;
+  cursor: pointer;
   svg {
+    color: ${({ theme }) => theme.greyText};
     margin: 0;
   }
 `;

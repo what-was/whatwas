@@ -91,8 +91,6 @@ export const SidebarContainer = ({}) => {
     };
   }, []);
 
-  console.log(collection);
-
   return (
     sidebar && (
       <aside ref={sidebarRef}>

@@ -59,11 +59,15 @@ export const App = () => {
             >
               <Note path={ROUTES.NOTE + '/:boardId' + '/:noteId'} />
             </ProtectedRoute>
-
             <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
               <Dashboard />
             </ProtectedRoute>
-
+            <ProtectedRoute
+              user={user}
+              path={ROUTES.NOTE + '/:boardId' + '/:noteId' + '/*'}
+            >
+              <Redirect to={ROUTES.DASHBOARD} />
+            </ProtectedRoute>
             <ProtectedRoute user={user} path={ROUTES.NOTE + '/:boardId'} exact>
               <Redirect to={ROUTES.DASHBOARD} />
             </ProtectedRoute>
@@ -93,15 +97,7 @@ export const App = () => {
             >
               <Note />
             </ProtectedRoute>
-            <Route path="*">
-              <Redirect to={ROUTES.HOME} />
-            </Route>
           </>
-        )}
-        {user !== null ? (
-          <Redirect to={ROUTES.DASHBOARD} />
-        ) : (
-          <Redirect to={ROUTES.HOME} />
         )}
       </Switch>
     </Router>

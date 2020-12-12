@@ -11,7 +11,7 @@ export const Inner = styled.div`
   width: ${(props) => (props.modalType === 'add-item' ? '185px' : '130px')};
   padding: 10px;
   top: ${(props) => (props.addCollection ? '-6px' : '10px')};
-  right: 0;
+  right: ${(props) => (props.addCollection ? '0' : '-16px')};
   background-color: ${({ theme }) => theme.background};
   box-shadow: 0px 10px 15px -5px ${({ theme }) => theme.smallBoxShadow};
   border-radius: 10px;

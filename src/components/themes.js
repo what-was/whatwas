@@ -29,7 +29,7 @@ export const darkTheme = {
   body: '#202124',
   text: '#f5f3f4',
   buttonText: '#f5f3f4',
-  shadowedText: '#f7f7f7',
+  shadowedText: '#a6a6a6',
   greyText: '#7a7a7a',
   warnText: '#9aa0a6',
   title: '#fffffe',

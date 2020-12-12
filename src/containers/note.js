@@ -13,6 +13,7 @@ import { getSingleNote } from '../hooks';
 export const NoteContainer = (props) => {
   const [loading, setLoading] = useState(true);
   let { boardId, noteId } = useParams();
+
   // History
   let history = useHistory();
 
