@@ -46,12 +46,12 @@ export const AddCollectionContainer = (props) => {
     await firebase
       .firestore()
       .collection('collection')
-      .add({
+      .doc(collectionId)
+      .set({
         collectionId: collectionId,
         collectionName: collectionTitleCurr,
         uid: user,
         archived: false,
-        hasDeleted: false,
         updatedAt: Date.now(),
       })
       .then(() => {

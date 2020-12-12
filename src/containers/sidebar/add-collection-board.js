@@ -50,18 +50,18 @@ export const AddCollectionBoardContainer = (props) => {
     await firebase
       .firestore()
       .collection('boards')
-      .add({
+      .doc(boardId)
+      .set({
         boardId: boardId,
         name: boardTitle,
         uid: user,
         archived: false,
-        visibility: '',
         collectionId: collection.collectionId,
         updatedAt: Date.now(),
       })
       .then(() => {
-        props.action();
         setAddBoardTitle('');
+        props.action();
         history.push(`/dashboard/${boardId}`);
       })
       .catch((error) => console.error(error));
