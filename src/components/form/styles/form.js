@@ -97,7 +97,7 @@ export const Field = styled.div`
 
 export const Text = styled.p`
   margin: auto 0 0;
-  color: ${({ theme }) => theme.shadowedText};
+  color: ${({ theme }) => theme.greyText};
   font-size: 12px;
   font-weight: 400;
   @media (max-width: 285px) {
@@ -229,5 +229,5 @@ export const ValidationList = styled.ul`
 `;
 
 export const ValidationItem = styled.li`
-  color: ${({ theme }) => theme.shadowedText};
+  color: ${({ theme }) => theme.greyText};
 `;

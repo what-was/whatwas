@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
+  StaticRouter,
   Switch,
 } from 'react-router-dom';
 import { Home, Dashboard, Signin, Signup, Note } from './pages';
@@ -46,26 +47,29 @@ export const App = () => {
           <ContextContainer>
             <ProtectedRoute
               user={user}
-              path={ROUTES.DASHBOARD + `/:boardId`}
+              path={`${ROUTES.DASHBOARD}/:boardId`}
               exact
+              sensitive={true}
             >
-              <Dashboard />
-            </ProtectedRoute>
-            <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
               <Dashboard />
             </ProtectedRoute>
             <ProtectedRoute
               user={user}
-              path={ROUTES.NOTE + `/:boardId` + `/:noteId`}
-              exact
+              path={ROUTES.NOTE + '/:boardId' + '/:noteId'}
             >
-              <Note />
+              <Note path={ROUTES.NOTE + '/:boardId' + '/:noteId'} />
+            </ProtectedRoute>
+
+            <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact>
+              <Dashboard />
+            </ProtectedRoute>
+
+            <ProtectedRoute user={user} path={ROUTES.NOTE + '/:boardId'} exact>
+              <Redirect to={ROUTES.DASHBOARD} />
             </ProtectedRoute>
             <ProtectedRoute user={user} path={ROUTES.NOTE} exact>
               <Redirect to={ROUTES.DASHBOARD} />
             </ProtectedRoute>
-            {/* 404 */}
-            <Redirect to={ROUTES.DASHBOARD} />
           </ContextContainer>
         ) : (
           <>
@@ -79,15 +83,25 @@ export const App = () => {
             >
               <Dashboard />
             </ProtectedRoute>
-            <ProtectedRoute user={user} path={ROUTES.NOTE + `/:noteId`} exact>
-              <Note />
-            </ProtectedRoute>
             <ProtectedRoute user={user} path={ROUTES.NOTE} exact>
               <Redirect to={ROUTES.DASHBOARD} />
             </ProtectedRoute>
-            {/* 404 */}
-            <Redirect to={ROUTES.HOME} />
+            <ProtectedRoute
+              user={user}
+              path={`${ROUTES.NOTE}/:boardId/:noteId`}
+              exact
+            >
+              <Note />
+            </ProtectedRoute>
+            <Route path="*">
+              <Redirect to={ROUTES.HOME} />
+            </Route>
           </>
+        )}
+        {user !== null ? (
+          <Redirect to={ROUTES.DASHBOARD} />
+        ) : (
+          <Redirect to={ROUTES.HOME} />
         )}
       </Switch>
     </Router>

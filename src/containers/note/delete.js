@@ -47,14 +47,24 @@ export const NoteMoreButtonContainer = (props) => {
 
   // Delete board
   //   let history = useHistory();
-  const handleNoteDelete = async (docId) => {
-    return await firebase
-      .firestore()
-      .collection('notes')
-      .doc(docId)
+
+  const handleNoteDelete = () => {
+    const db = firebase.firestore();
+    const board = db.collection('boards').doc(note.boardId);
+    console.warn(note);
+    const noteDb = board.collection('Dbs');
+    noteDb
+      .doc(note.id)
       .delete()
       .then(() => {
-        setListItemModal(!listItemModal);
+        board
+          .update({
+            updatedAt: Date.now(),
+          })
+          .then(() => {
+            setListItemModal(!listItemModal);
+          })
+          .catch((error) => console.error(error));
         if (uri.noteId) {
           history.push('/dashboard');
         }

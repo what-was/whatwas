@@ -39,13 +39,13 @@ export const AddCollectionContainer = (props) => {
 
   // Add board to collection
   let history = useHistory();
-  const handleAddCollection = async () => {
+  const handleAddCollection = () => {
     const collectionTitleCurr =
       collectionTitle !== '' ? collectionTitle : 'untitled collection';
 
-    await firebase
+    firebase
       .firestore()
-      .collection('collection')
+      .collection('collections')
       .doc(collectionId)
       .set({
         collectionId: collectionId,

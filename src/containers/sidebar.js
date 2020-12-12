@@ -16,9 +16,9 @@ export const SidebarContainer = ({}) => {
   // Contexts
   const { boards } = useBoardsValue();
   const { sidebar, setSidebar } = useSidebarValue();
+  const { collection } = useCollectionsValue();
   // Add Board Modal
   const [addBoardOpen, setAddBoardOpen] = useState(false);
-  const { collection } = useCollectionsValue();
 
   // Add collection modal
   const [addCollection, setAddCollection] = useState(false);
@@ -73,6 +73,10 @@ export const SidebarContainer = ({}) => {
         );
   };
 
+  const handleAddCollection = () => {
+    setAddCollection(!addCollection);
+  };
+
   const handleAddCollectionBoard = (collectionId) => {
     setAddCollectionBoard(!addCollectionBoard);
     addCollectionBoardId === ''
@@ -86,6 +90,8 @@ export const SidebarContainer = ({}) => {
       document.removeEventListener('click', handleClickOutside, true);
     };
   }, []);
+
+  console.log(collection);
 
   return (
     sidebar && (
@@ -101,7 +107,7 @@ export const SidebarContainer = ({}) => {
               {addCollection && (
                 <AddCollectionContainer
                   action={() => {
-                    setAddCollection(!addCollection);
+                    handleAddCollection();
                   }}
                 />
               )}

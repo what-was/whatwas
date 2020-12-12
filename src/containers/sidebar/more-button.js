@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Sidebar, Modal } from '../../components';
 import { FirebaseContext } from '../../context/firebase';
-
+import { useCollectionsValue } from '../../context';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { AiOutlineDelete } from 'react-icons/ai';
 
@@ -10,7 +10,9 @@ export const MoreButtonContainer = (props) => {
   const [listItemModal, setListItemModal] = useState(false);
   const [warnModal, setWarnModal] = useState(false);
   const board = props.board;
-  const collection = props.collection;
+  const propCollection = props.collection;
+
+  const { collection } = useCollectionsValue();
 
   // Firebase context
   const { firebase } = useContext(FirebaseContext);
@@ -44,14 +46,20 @@ export const MoreButtonContainer = (props) => {
 
   // Delete board
   let history = useHistory();
-  const handleBoardDelete = async (docId) => {
-    await firebase
+  const handleBoardDelete = (docId) => {
+    const currCollection = collection.indexOf(propCollection);
+    firebase
       .firestore()
-      .collection(collection !== undefined ? 'collection' : 'boards')
+      .collection(propCollection !== undefined ? 'collections' : 'boards')
       .doc(docId)
       .delete()
       .then(() => {
-        history.push('/dashboard');
+        if (currCollection > -1) {
+          collection.splice(currCollection, 1);
+        }
+        if (propCollection === undefined) {
+          history.push('/dashboard');
+        }
       })
       .catch((error) => console.error(error));
   };
@@ -79,8 +87,8 @@ export const MoreButtonContainer = (props) => {
                       type="button"
                       onClick={() => {
                         handleBoardDelete(
-                          collection !== undefined
-                            ? collection.docId
+                          propCollection !== undefined
+                            ? propCollection.docId
                             : board.docId
                         );
                       }}

@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { FirebaseContext } from '../context/firebase';
 
-export default function getCollections() {
+export default function getCollections(target) {
   const [collections, setCollections] = useState([]);
   const { firebase } = useContext(FirebaseContext);
   const user = JSON.parse(localStorage.getItem('authUser')).uid;
@@ -9,13 +9,12 @@ export default function getCollections() {
   const collection = db.collection('collections');
 
   useEffect(() => {
-    collection
+    const unsubscribe = collection
       .where('uid', '==', user)
       .where('archived', '==', false)
       .orderBy('updatedAt', 'desc')
       .limit(15)
-      .get()
-      .then((snapshot) => {
+      .onSnapshot((snapshot) => {
         const allContent = snapshot.docs.map((content) => ({
           ...content.data(),
           docId: content.id,
@@ -24,8 +23,8 @@ export default function getCollections() {
         if (JSON.stringify(allContent) !== JSON.stringify(collections)) {
           setCollections(allContent);
         }
-      })
-      .catch((error) => console.error(error));
-  }, []);
+      });
+    return () => unsubscribe();
+  }, [target]);
   return { ['collection']: collections };
 }

@@ -10,10 +10,9 @@ import { Editor } from './note/editor';
 import { useSelectedNoteValue } from '../context';
 import { getSingleNote } from '../hooks';
 
-export const NoteContainer = () => {
+export const NoteContainer = (props) => {
   const [loading, setLoading] = useState(true);
   let { boardId, noteId } = useParams();
-
   // History
   let history = useHistory();
 

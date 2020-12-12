@@ -19,7 +19,7 @@ export const AddNoteContainer = (props) => {
     setColorPick(color);
   };
 
-  const addNote = async () => {
+  const addNote = () => {
     const boardId = props.boardId;
     const db = firebase.firestore();
     const board = db.collection('boards').doc(boardId);
@@ -27,7 +27,7 @@ export const AddNoteContainer = (props) => {
     return (
       addNoteTitle &&
       noteInput &&
-      (await note
+      note
         .doc(noteId)
         .set({
           boardId: boardId,
@@ -55,7 +55,7 @@ export const AddNoteContainer = (props) => {
         .catch((error) => {
           console.error(error);
           props.action(false);
-        }))
+        })
     );
   };
 

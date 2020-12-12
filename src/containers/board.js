@@ -48,7 +48,7 @@ export const BoardContainer = () => {
   };
 
   // Open/close add note modal
-  const handleAddNote = (update) => {
+  const handleAddNote = () => {
     setAddNoteOpen(!addNoteOpen);
   };
 
@@ -128,7 +128,7 @@ export const BoardContainer = () => {
             {addNoteOpen && (
               <AddNoteContainer
                 boardId={boardId}
-                action={(update) => handleAddNote(update)}
+                action={() => handleAddNote()}
               />
             )}
           </aside>
