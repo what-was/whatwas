@@ -61,12 +61,12 @@ export const AddBoardContainer = (props) => {
         updatedAt: Date.now(),
       })
       .then(() => {
-        setTitleInput('');
-        setNoteInput('');
-        setColorPick('');
         if (titleInput.length > 2 && noteInput.length) {
           addNote();
         }
+        setTitleInput('');
+        setNoteInput('');
+        setColorPick('');
         props.action();
         history.push(`/dashboard/${boardId}`);
       })

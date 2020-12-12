@@ -14,7 +14,7 @@ export const NoteListItem = (props) => {
   const sidebar = props.sidebar;
 
   return (
-    <Board.NotesList key={note.id} sidebarOpen={sidebar} color={note.noteColor}>
+    <Board.NotesList sidebarOpen={sidebar} color={note.noteColor}>
       <Link to={`/note/` + note.noteId}>
         <Board.NoteTitle color={note.noteColor}>
           {note.noteTitle}

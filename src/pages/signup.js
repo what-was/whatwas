@@ -55,12 +55,12 @@ export default function Signup() {
     firebase
       .auth()
       .createUserWithEmailAndPassword(emailAddress, password)
-      .then((result) =>
+      .then((result) => {
         result.user.updateProfile({
           displayName: firstName,
           photoURL: Math.floor(Math.random() * 8) + 1,
-        })
-      )
+        });
+      })
       .then(() => {})
       .catch((error) => {
         setEmailAddress('');

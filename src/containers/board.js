@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect, Suspense } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { Redirect, useParams } from 'react-router-dom';
 
 // Components
 import { Board } from '../components';
@@ -12,6 +12,7 @@ import { HourGlass } from 'react-awesome-spinners';
 // Hooks
 import { useSidebarValue } from '../context';
 import { getNotes, getTitle } from '../hooks';
+import { getMostRecentBoard } from '../hooks';
 
 export const BoardContainer = () => {
   // States
@@ -28,11 +29,9 @@ export const BoardContainer = () => {
   // Contexts
   const { sidebar, setSidebar } = useSidebarValue();
 
-  const getBoardId = boardId === undefined ? '' : boardId;
-
   // Hooks
   const { notes } = getNotes(boardId);
-  const boardTitle = getTitle(getBoardId);
+  const boardTitle = getTitle(boardId);
 
   // Handling color filter
   const handleFilter = (color) => {
@@ -77,6 +76,15 @@ export const BoardContainer = () => {
     return () => clearTimeout(timeout);
   }, [loading]);
 
+  if (boardId === undefined) {
+    const recentBoard = getMostRecentBoard();
+
+    if (recentBoard[0] !== undefined) {
+      const returnBoard = recentBoard[0].docId;
+      return <Redirect to={`/dashboard/${returnBoard}`} />;
+    }
+  }
+
   if (notes.length > 0) {
     return (
       <Board>
@@ -96,20 +104,12 @@ export const BoardContainer = () => {
                   (note) => note.noteColor === colorFilter && !note.archived
                 )
                 .map((note) => (
-                  <NoteListItem
-                    key={note.noteId}
-                    note={note}
-                    sidebar={sidebar}
-                  />
+                  <NoteListItem key={note.id} note={note} sidebar={sidebar} />
                 ))
             : notes
                 .filter((note) => !note.archived)
                 .map((note) => (
-                  <NoteListItem
-                    key={note.noteId}
-                    note={note}
-                    sidebar={sidebar}
-                  />
+                  <NoteListItem key={note.id} note={note} sidebar={sidebar} />
                 ))}
           <aside ref={container}>
             {addNoteOpen && (
@@ -125,45 +125,43 @@ export const BoardContainer = () => {
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Board>
-        <Board.UpperContainer>
-          <Board.Title>{title}</Board.Title>
-          {boardId !== undefined && (
-            <Board.AddNoteButton onClick={handleAddNote}>
-              Add Note
-            </Board.AddNoteButton>
+    <Board>
+      <Board.UpperContainer>
+        <Board.Title>{title}</Board.Title>
+        {boardId !== undefined && (
+          <Board.AddNoteButton onClick={handleAddNote}>
+            Add Note
+          </Board.AddNoteButton>
+        )}
+      </Board.UpperContainer>
+      <Board.NoteContainer>
+        {loading && (
+          <Board.EmptyContainer>
+            <Note.Loader>
+              <HourGlass size={16} />
+            </Note.Loader>
+          </Board.EmptyContainer>
+        )}
+        {loading === false && (
+          <Board.EmptyContainer>
+            <Board.EmptyImage
+              src="/images/misc/empty-icon.png"
+              alt="Empty board"
+              loading="lazy"
+              height="300"
+            />
+            <Board.EmptyWarn>Please add board or note</Board.EmptyWarn>
+          </Board.EmptyContainer>
+        )}
+        <aside ref={container}>
+          {addNoteOpen && (
+            <AddNoteContainer
+              boardId={boardId}
+              action={(update) => handleAddNote(update)}
+            />
           )}
-        </Board.UpperContainer>
-        <Board.NoteContainer>
-          {loading && (
-            <Board.EmptyContainer>
-              <Note.Loader>
-                <HourGlass size={16} />
-              </Note.Loader>
-            </Board.EmptyContainer>
-          )}
-          {loading === false && (
-            <Board.EmptyContainer>
-              <Board.EmptyImage
-                src="/images/misc/empty-icon.png"
-                alt="Empty board"
-                loading="lazy"
-                height="300"
-              />
-              <Board.EmptyWarn>Please add board or note</Board.EmptyWarn>
-            </Board.EmptyContainer>
-          )}
-          <aside ref={container}>
-            {addNoteOpen && (
-              <AddNoteContainer
-                boardId={boardId}
-                action={(update) => handleAddNote(update)}
-              />
-            )}
-          </aside>
-        </Board.NoteContainer>
-      </Board>
-    </Suspense>
+        </aside>
+      </Board.NoteContainer>
+    </Board>
   );
 };

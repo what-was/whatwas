@@ -15,7 +15,8 @@ export default function getCollections() {
       .where('archived', '==', false)
       .orderBy('updatedAt', 'desc')
       .limit(15)
-      .onSnapshot((snapshot) => {
+      .get()
+      .then((snapshot) => {
         const allContent = snapshot.docs.map((content) => ({
           ...content.data(),
           docId: content.id,
@@ -24,7 +25,8 @@ export default function getCollections() {
         if (JSON.stringify(allContent) !== JSON.stringify(collections)) {
           setCollections(allContent);
         }
-      });
+      })
+      .catch((error) => console.error(error));
 
     return () => unsubscribe();
   }, []);

@@ -4,39 +4,49 @@ import { FirebaseContext } from '../context/firebase';
 export const getNotes = (boardId) => {
   const [notes, setNotes] = useState([]);
   const { firebase } = useContext(FirebaseContext);
-  const user = JSON.parse(localStorage.getItem('authUser'));
+  const user = JSON.parse(localStorage.getItem('authUser')).uid;
 
   const db = firebase.firestore();
   const board = db.collection('boards');
-  const note =
-    boardId !== ''
-      ? board
-          .doc(boardId)
-          .collection('notes')
-          .orderBy('updatedAt', 'desc')
-          .limit(40)
-      : db
-          .collection('boards')
-          .where('boardId', '==', 'undefined')
-          .where('uid', '==', user.uid)
-          .orderBy('updatedAt', 'desc')
-          .limit(40);
+  const note = boardId
+    ? board
+        .doc(boardId)
+        .collection('notes')
+        .orderBy('updatedAt', 'desc')
+        .limit(40)
+    : board.where('uid', '==', user).orderBy('updatedAt', 'desc').limit(1);
 
   useEffect(() => {
-    const unsubscribe = note.onSnapshot((querySnapshot) => {
-      const allNotes = querySnapshot.docs.map((note) => ({
-        id: note.id,
-        ...note.data(),
-      }));
+    if (boardId !== undefined) {
+      const unsubscribe = note.onSnapshot((querySnapshot) => {
+        const allNotes = querySnapshot.docs.map((note) => ({
+          id: note.id,
+          ...note.data(),
+        }));
 
-      // To aviod infinite loop on contents, we are simply checking if the content has changed.
-      if (JSON.stringify(allNotes) !== JSON.stringify(notes)) {
-        setNotes(allNotes);
-      }
-    });
+        // To aviod infinite loop on contents, we are simply checking if the content has changed.
+        if (JSON.stringify(allNotes) !== JSON.stringify(notes)) {
+          setNotes(allNotes);
+        }
+      });
 
-    return () => unsubscribe();
+      return () => unsubscribe();
+    } else {
+      const unsubscribe = note.onSnapshot((querySnapshot) => {
+        const allNotes = querySnapshot.docs.map((note) => ({
+          id: note.id,
+          ...note.data(),
+        }));
+
+        // To aviod infinite loop on contents, we are simply checking if the content has changed.
+        if (JSON.stringify(allNotes) !== JSON.stringify(notes)) {
+          setNotes(allNotes);
+        }
+        return () => unsubscribe();
+      });
+    }
   }, [boardId]);
+
   return { notes };
 };
 
@@ -45,7 +55,7 @@ export const getTitle = (boardId) => {
   const { firebase } = useContext(FirebaseContext);
 
   useEffect(() => {
-    if (boardId !== '') {
+    if (boardId !== undefined) {
       firebase
         .firestore()
         .collection('boards')
@@ -68,6 +78,7 @@ export const getTitle = (boardId) => {
       setTitle('Dashboard');
     }
   }, [boardId]);
+
   return title;
 };
 
