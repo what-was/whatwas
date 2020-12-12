@@ -21,7 +21,6 @@ export const ButtonContainer = styled.div`
   svg {
     font-size: 18px;
     height: 18px;
-    margin-right: 6px;
   }
 `;
 
@@ -80,7 +79,7 @@ export const AddCollection = styled.div`
   svg {
     width: 18px;
     height: 18px;
-    stroke: ${({ theme }) => theme.text};
+    stroke: ${({ theme }) => theme.shadowedText};
     margin-right: 10px;
   }
 
@@ -106,7 +105,7 @@ export const AddBoard = styled.div`
   svg {
     width: 18px;
     height: 18px;
-    stroke: ${({ theme }) => theme.text};
+    stroke: ${({ theme }) => theme.shadowedText};
     margin-right: 0;
   }
 

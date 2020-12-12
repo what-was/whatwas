@@ -20,6 +20,7 @@ export const AddNoteContainer = (props) => {
   };
 
   const addNote = () => {
+    const date = Date.now();
     const boardId = props.boardId;
     const db = firebase.firestore();
     const board = db.collection('boards').doc(boardId);
@@ -37,12 +38,12 @@ export const AddNoteContainer = (props) => {
           note: noteInput,
           noteColor: colorPick,
           uid: user,
-          updatedAt: Date.now(),
+          updatedAt: date,
         })
         .then(() => {
           board
             .update({
-              updatedAt: Date.now(),
+              updatedAt: date,
             })
             .then(() => {
               setAddNoteTitle('');

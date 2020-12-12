@@ -19,6 +19,7 @@ export const NoteListItem = (props) => {
   // Context
   const { selectedNote, setSelectedNote } = useSelectedNoteValue();
 
+  const noteDate = note.updatedAt;
   return (
     <Board.NotesList sidebarOpen={sidebar} color={note.noteColor}>
       <Link
@@ -41,7 +42,7 @@ export const NoteListItem = (props) => {
       </Link>
       <Board.LowerContainer>
         <Board.NoteUpdatedDate>
-          Last update: {formatDate(note.updatedAt)}
+          Last update: {formatDate(noteDate)}
         </Board.NoteUpdatedDate>
         <NoteMoreButtonContainer note={note} />
       </Board.LowerContainer>

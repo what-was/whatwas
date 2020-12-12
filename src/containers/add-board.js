@@ -51,6 +51,8 @@ export const AddBoardContainer = (props) => {
     const boardTitle =
       addBoardTitle !== 'Board Title' ? addBoardTitle : 'untitled';
 
+    const date = new Date();
+
     await board
       .doc(boardId)
       .set({
@@ -60,7 +62,7 @@ export const AddBoardContainer = (props) => {
         archived: false,
         collectionId: '',
         description: boardDescription,
-        updatedAt: Date.now(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then(() => {
         if (titleInput.length > 2 && noteInput.length) {
@@ -89,7 +91,7 @@ export const AddBoardContainer = (props) => {
         note: noteInput,
         noteColor: colorPick,
         uid: user,
-        updatedAt: Date.now(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then(() => {
         setTitleInput('');

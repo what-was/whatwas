@@ -51,10 +51,9 @@ export const NoteMoreButtonContainer = (props) => {
   const handleNoteDelete = () => {
     const db = firebase.firestore();
     const board = db.collection('boards').doc(note.boardId);
-    console.warn(note);
-    const noteDb = board.collection('Dbs');
+    const noteDb = board.collection('notes');
     noteDb
-      .doc(note.id)
+      .doc(note.noteId)
       .delete()
       .then(() => {
         board
@@ -62,12 +61,11 @@ export const NoteMoreButtonContainer = (props) => {
             updatedAt: Date.now(),
           })
           .then(() => {
-            setListItemModal(!listItemModal);
+            if (uri.noteId) {
+              history.push('/dashboard');
+            }
           })
           .catch((error) => console.error(error));
-        if (uri.noteId) {
-          history.push('/dashboard');
-        }
       })
       .catch((error) => console.error(error));
   };

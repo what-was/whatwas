@@ -49,9 +49,12 @@ export const ListItem = styled.li`
   align-items: center;
   padding: 0 12px 0 24px;
   max-width: 100%;
-  color: ${({ theme }) => theme.text};
+  color: ${(props) =>
+    props.status !== 'active'
+      ? ({ theme }) => theme.shadowedText
+      : ({ theme }) => theme.text} !important;
   font-size: 16px;
-  font-weight: ${(props) => (props.status === 'active' ? '600' : '400')};
+  font-weight: ${(props) => (props.status === 'active' ? '600' : '500')};
   background-color: ${(props) =>
     props.status === 'active'
       ? ({ theme }) => theme.backgroundHover
@@ -62,7 +65,6 @@ export const ListItem = styled.li`
     width: 18px;
     height: 18px;
     margin-right: 10px;
-    stroke: ${({ theme }) => theme.text};
   }
 
   a {
@@ -70,14 +72,11 @@ export const ListItem = styled.li`
     align-items: center;
     width: 100%;
     padding: 9px 0;
-    color: ${({ theme }) => theme.text};
+    color: inherit;
   }
 
   &:hover {
     background-color: ${({ theme }) => theme.backgroundHover};
-    svg {
-      stroke: ${({ theme }) => theme.text};
-    }
   }
   &:focus {
     outline: 0;
@@ -88,7 +87,7 @@ export const BoardName = styled.p`
   width: 100%;
   margin: 0;
   font-size: 14px;
-  line-break: anywhere;
+  line-break: auto;
   &::selection {
     background-color: transparent !important;
     color: black !important;

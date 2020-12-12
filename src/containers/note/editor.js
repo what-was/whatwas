@@ -8,7 +8,7 @@ import { FirebaseContext } from '../../context/firebase';
 import 'react-quill/dist/quill.bubble.css';
 
 export const Editor = (props) => {
-  let notes = props.note;
+  const notes = props.note;
   const [currentNote, setCurrentNote] = useState(notes.note);
   const [currentTitle, setCurrentTitle] = useState(notes.noteTitle);
   const [currentColor, setCurrentColor] = useState(notes.noteColor);
@@ -47,11 +47,14 @@ export const Editor = (props) => {
     ) {
       return firebase
         .firestore()
+        .collection('boards')
+        .doc(notes.boardId)
         .collection('notes')
-        .doc(notes.docId)
+        .doc(notes.noteId)
         .update({
           noteTitle: title,
           note: value,
+          noteSummary: value.substring(0, 200),
           noteColor: color,
           updatedAt: Date.now(),
         })
