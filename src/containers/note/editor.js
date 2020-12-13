@@ -91,6 +91,7 @@ export const Editor = (props) => {
             hasOpen={true}
             noteColor={notes.noteColor}
             onChange={(color) => setColor(color)}
+            id="noteColorFilter"
           />
         </Note.UpperContainer>
         <Note.TitleContainer>

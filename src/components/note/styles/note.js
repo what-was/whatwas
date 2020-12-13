@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 const backgroundColor = (color) => {
   switch (color) {
@@ -27,11 +27,20 @@ export const UpperContainer = styled.div`
   width: 100%;
   margin: 0 auto 1.5rem;
 
-  > div {
+  #noteColorFilter {
     margin: 0;
   }
+
   @media (max-width: 860px) {
     margin-bottom: 20px;
+  }
+
+  @media (max-width: 360px) {
+    #noteColorFilter {
+      p {
+        margin-right: 5px;
+      }
+    }
   }
 `;
 
@@ -51,6 +60,7 @@ export const Container = styled.div`
   ${UpperContainer}:first-of-type {
     margin-bottom: 10px;
   }
+
   #noteMoreButton {
     svg {
       width: 30px;
@@ -59,7 +69,7 @@ export const Container = styled.div`
   }
 
   @media (max-width: 600px) {
-    max-width: 80%;
+    max-width: 550px;
     height: calc(100vh - 220px);
     margin: 0 15px;
     padding: 1rem 1.5rem;
