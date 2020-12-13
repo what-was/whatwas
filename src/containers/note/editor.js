@@ -9,7 +9,7 @@ import 'react-quill/dist/quill.bubble.css';
 
 export const Editor = (props) => {
   const notes = props.note;
-  const [currentNote, setCurrentNote] = useState(notes.note);
+  const [currentNote, setCurrentNote] = useState(JSON.parse(notes.note));
   const [currentTitle, setCurrentTitle] = useState(notes.noteTitle);
   const [currentColor, setCurrentColor] = useState(notes.noteColor);
   const [value, setValue] = useState(currentNote);
@@ -28,8 +28,9 @@ export const Editor = (props) => {
   }, []);
 
   useEffect(() => {
+    const note = JSON.stringify(editorRef.current.getEditor().getContents());
     if (
-      currentNote !== value ||
+      notes.note !== note ||
       currentTitle !== title ||
       currentColor !== color
     ) {
@@ -40,8 +41,13 @@ export const Editor = (props) => {
   }, [value]);
 
   const handleSave = () => {
+    const note = JSON.stringify(editorRef.current.getEditor().getContents());
+    const summary = JSON.stringify(
+      editorRef.current.getEditor().getContents(0, 200)
+    );
+
     if (
-      currentNote !== value ||
+      notes.note !== note ||
       currentTitle !== title ||
       currentColor !== color
     ) {
@@ -53,8 +59,8 @@ export const Editor = (props) => {
         .doc(notes.noteId)
         .update({
           noteTitle: title,
-          note: value,
-          noteSummary: value.substring(0, 200),
+          note: note,
+          noteSummary: summary,
           noteColor: color,
           updatedAt: Date.now(),
         })
@@ -105,8 +111,7 @@ export const Editor = (props) => {
           <ReactQuill
             placeholder={'Input'}
             theme="bubble"
-            getContent={setValue}
-            value={value}
+            defaultValue={value}
             onChange={setValue}
             ref={editorRef}
             preserveWhitespace={true}

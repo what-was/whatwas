@@ -130,6 +130,12 @@ export const MoreButton = styled.div`
     color: ${({ theme }) => theme.greyText};
     margin: 0;
   }
+
+  &:hover {
+    svg {
+      color: ${({ theme }) => theme.text};
+    }
+  }
 `;
 
 export const CloseButton = styled.button`

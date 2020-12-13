@@ -3,7 +3,8 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 
 export const ReadOnlyNote = (props) => {
-  const [value, setValue] = useState(props.note);
+  const note = JSON.parse(props.note);
+  const [value, setValue] = useState(note);
 
-  return <ReactQuill theme="bubble" value={value} readOnly={true} />;
+  return <ReactQuill theme="bubble" defaultValue={value} readOnly={true} />;
 };

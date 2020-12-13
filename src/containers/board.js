@@ -19,6 +19,7 @@ export const BoardContainer = () => {
   const [addNoteOpen, setAddNoteOpen] = useState(false);
   const [colorFilter, setColorFilter] = useState('');
   const [loading, setLoading] = useState(true);
+  const [boardTitle, setBoardTitle] = useState('');
 
   const { boards } = useBoardsValue();
 
@@ -34,9 +35,6 @@ export const BoardContainer = () => {
   const { notes } = getNotes(boardId);
   const currentBoard =
     boards !== undefined && boards.find((board) => board.boardId === boardId);
-
-  const boardTitle =
-    currentBoard !== undefined ? currentBoard.name : 'Loading...';
 
   // Handling color filter
   const handleFilter = (color) => {
@@ -74,8 +72,17 @@ export const BoardContainer = () => {
   }
 
   useEffect(() => {
+    setBoardTitle(currentBoard !== undefined ? currentBoard.name : 'Dashboard');
+    return currentBoard;
+  }, [currentBoard]);
+
+  useEffect(() => {
+    setBoardTitle('Loading...');
     if (boards.length > 0) {
       setLoading(false);
+      if (currentBoard !== undefined) {
+        setBoardTitle(currentBoard.name);
+      }
     }
 
     const timer = setTimeout(() => {

@@ -47,13 +47,13 @@ export const AddBoardContainer = (props) => {
   const note = db.collection('notes');
 
   // Adding board to firebase
-  const addBoard = async () => {
+  const addBoard = () => {
     const boardTitle =
       addBoardTitle !== 'Board Title' ? addBoardTitle : 'untitled';
 
-    const date = new Date();
+    const date = Date.now();
 
-    await board
+    board
       .doc(boardId)
       .set({
         boardId: boardId,
@@ -62,7 +62,7 @@ export const AddBoardContainer = (props) => {
         archived: false,
         collectionId: '',
         description: boardDescription,
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedAt: date,
       })
       .then(() => {
         if (titleInput.length > 2 && noteInput.length) {
@@ -91,7 +91,7 @@ export const AddBoardContainer = (props) => {
         note: noteInput,
         noteColor: colorPick,
         uid: user,
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedAt: date,
       })
       .then(() => {
         setTitleInput('');
