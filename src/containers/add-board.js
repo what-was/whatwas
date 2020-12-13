@@ -1,9 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AddItem } from '../components';
 import { AddColorContainer } from './board/add-color';
 import { generatePushId } from '../helpers';
 import { FirebaseContext } from '../context/firebase';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
 import { RiCloseLine } from 'react-icons/ri';
 import { BiPlus } from 'react-icons/bi';
 
@@ -17,6 +19,9 @@ export const AddBoardContainer = (props) => {
   const [titleInput, setTitleInput] = useState('');
   const [noteInput, setNoteInput] = useState('');
   const [colorPick, setColorPick] = useState('');
+
+  // Editor Ref
+  const editorRef = useRef(null);
 
   // Firebase context
   const { firebase } = useContext(FirebaseContext);
@@ -78,8 +83,15 @@ export const AddBoardContainer = (props) => {
   };
 
   // Adding note to firebase
-  const addNote = async () => {
-    await board
+  const addNote = () => {
+    const noteValue = JSON.stringify(
+      editorRef.current.getEditor().getContents()
+    );
+    const summary = JSON.stringify(
+      editorRef.current.getEditor().getContents(0, 200)
+    );
+    const date = Date.now();
+    board
       .doc(boardId)
       .collection('notes')
       .doc(noteId)
@@ -87,8 +99,8 @@ export const AddBoardContainer = (props) => {
         boardId: boardId,
         noteTitle: titleInput,
         noteId: noteId,
-        noteSummary: noteInput.substring(0, 200),
-        note: noteInput,
+        noteSummary: summary,
+        note: noteValue,
         noteColor: colorPick,
         uid: user,
         updatedAt: date,
@@ -125,7 +137,6 @@ export const AddBoardContainer = (props) => {
           <BiPlus />
           <AddItem.CTAText>Add Note</AddItem.CTAText>
         </AddItem.CTAButton>
-
         <AddItem.NoteClose
           hasOpen={addNoteClicked}
           onClick={() => handleAddNoteButton()}
@@ -144,16 +155,15 @@ export const AddBoardContainer = (props) => {
           hasOpen={addNoteClicked}
           onChange={(color) => handleColorPick(color)}
         />
-        <AddItem.Input
-          rows="3"
-          data-min-rows="3"
+        <ReactQuill
           placeholder="Type your note"
-          value={noteInput}
-          onChange={(e) => {
-            setNoteInput(e.target.value);
-          }}
-          autoFocus
-          hasOpen={addNoteClicked}
+          theme="bubble"
+          defaultValue={noteInput}
+          onChange={setNoteInput}
+          ref={editorRef}
+          preserveWhitespace={true}
+          id="editor"
+          className={addNoteClicked ? 'open' : 'close'}
         />
       </AddItem.NoteContainer>
       <AddItem.Submit onClick={() => addBoard()}>Save</AddItem.Submit>

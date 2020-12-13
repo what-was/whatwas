@@ -16,11 +16,19 @@ export const Container = styled.aside`
   border-radius: 15px;
   z-index: 99999;
 
+  .open {
+    display: block;
+  }
+
+  .close {
+    display: none;
+  }
+
   #editor {
     margin: 0 0 1rem 0;
     color: #fffffe;
     overflow-x: auto;
-    height: 100%;
+    height: auto;
     > * {
       font-size: 16px;
     }

@@ -1,6 +1,5 @@
 import React, { useState, useContext, useRef } from 'react';
 import { AddItem } from '../components';
-import { Note } from '../components';
 import { RiCloseLine } from 'react-icons/ri';
 import { AddColorContainer } from './board/add-color';
 import { generatePushId } from '../helpers';
@@ -82,7 +81,6 @@ export const AddNoteContainer = (props) => {
         addNote={true}
         onChange={(event) => setAddNoteTitle(event.target.value)}
         type="text"
-        autoFocus={true}
       />
       <AddColorContainer
         hasOpen={true}
@@ -97,6 +95,7 @@ export const AddNoteContainer = (props) => {
         ref={editorRef}
         preserveWhitespace={true}
         id="editor"
+        hasOpen={true}
       />
 
       <AddItem.Submit onClick={() => addNote()}>Add</AddItem.Submit>
