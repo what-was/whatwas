@@ -172,6 +172,22 @@ export const NoteSummary = styled.div`
 
   .ql-editor {
     padding: 0;
+
+    &::spelling-error {
+      text-decoration: none;
+    }
+
+    a {
+      color: ${({ theme }) => theme.accent};
+    }
+
+    h1 {
+      font-size: 18px;
+    }
+    h2 {
+      font-size: 16px;
+      font-weight: 500;
+    }
     p {
       cursor: pointer;
     }

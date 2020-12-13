@@ -1,9 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import { AddItem } from '../components';
+import { Note } from '../components';
 import { RiCloseLine } from 'react-icons/ri';
 import { AddColorContainer } from './board/add-color';
 import { generatePushId } from '../helpers';
 import { FirebaseContext } from '../context/firebase';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
 
 export const AddNoteContainer = (props) => {
   const [addNoteTitle, setAddNoteTitle] = useState('Note Title');
@@ -14,6 +17,7 @@ export const AddNoteContainer = (props) => {
   const noteId = generatePushId();
 
   const user = JSON.parse(localStorage.getItem('authUser')).uid;
+  const editorRef = useRef(null);
 
   const handleColorPick = (color) => {
     setColorPick(color);
@@ -25,6 +29,13 @@ export const AddNoteContainer = (props) => {
     const db = firebase.firestore();
     const board = db.collection('boards').doc(boardId);
     const note = board.collection('notes');
+
+    const noteValue = JSON.stringify(
+      editorRef.current.getEditor().getContents()
+    );
+    const summary = JSON.stringify(
+      editorRef.current.getEditor().getContents(0, 200)
+    );
     return (
       addNoteTitle &&
       noteInput &&
@@ -34,8 +45,8 @@ export const AddNoteContainer = (props) => {
           boardId: boardId,
           noteTitle: addNoteTitle,
           noteId: noteId,
-          noteSummary: noteInput.substring(0, 200),
-          note: noteInput,
+          noteSummary: summary,
+          note: noteValue,
           noteColor: colorPick,
           uid: user,
           updatedAt: date,
@@ -78,16 +89,14 @@ export const AddNoteContainer = (props) => {
         onChange={(color) => handleColorPick(color)}
       />
 
-      <AddItem.Input
-        rows="3"
-        data-min-rows="3"
+      <ReactQuill
         placeholder="Type your note"
-        value={noteInput}
-        hasOpen={true}
-        addNote={true}
-        onChange={(e) => {
-          setNoteInput(e.target.value);
-        }}
+        theme="bubble"
+        defaultValue={noteInput}
+        onChange={setNoteInput}
+        ref={editorRef}
+        preserveWhitespace={true}
+        id="editor"
       />
 
       <AddItem.Submit onClick={() => addNote()}>Add</AddItem.Submit>

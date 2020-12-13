@@ -46,6 +46,7 @@ export const Editor = (props) => {
       editorRef.current.getEditor().getContents(0, 200)
     );
 
+    const date = Date.now();
     if (
       notes.note !== note ||
       currentTitle !== title ||
@@ -62,16 +63,26 @@ export const Editor = (props) => {
           note: note,
           noteSummary: summary,
           noteColor: color,
-          updatedAt: Date.now(),
+          updatedAt: date,
         })
         .then(() => {
-          setButtonText('...');
-          setCurrentNote(value);
-          setCurrentTitle(title);
-          setCurrentColor(color);
-          setTimeout(() => {
-            setButtonText('Saved');
-          }, 1000);
+          firebase
+            .firestore()
+            .collection('boards')
+            .doc(notes.boardId)
+            .update({
+              updatedAt: date,
+            })
+            .then(() => {
+              setButtonText('...');
+              setCurrentNote(value);
+              setCurrentTitle(title);
+              setCurrentColor(color);
+              setTimeout(() => {
+                setButtonText('Saved');
+              }, 1000);
+            })
+            .catch((error) => console.error(error));
         })
         .catch((error) => console.error(error));
     }

@@ -19,6 +19,7 @@ export const Container = styled.header`
   a {
     display: flex;
   }
+
   @media (max-width: 1000px) {
     margin: ${(props) => (props.className === 'signed-in' ? '0 30px' : '0')};
     padding: ${(props) =>
@@ -47,6 +48,14 @@ export const Link = styled.p`
   margin-right: 30px;
   font-weight: ${({ active }) => (active === 'true' ? '700' : 'normal')};
   cursor: pointer;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+
   &:hover {
     font-weight: bold;
   }
@@ -172,6 +181,14 @@ export const Logo = styled.img`
   width: auto;
   margin-right: 40px;
   padding: 15px 10px 15px 0;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+
   @media (max-width: 1000px) {
     height: 26px;
     width: auto;

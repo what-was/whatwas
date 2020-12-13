@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 export const Container = styled.aside`
   position: absolute;
@@ -15,6 +15,32 @@ export const Container = styled.aside`
   background-color: #232323;
   border-radius: 15px;
   z-index: 99999;
+
+  #editor {
+    margin: 0 0 1rem 0;
+    color: #fffffe;
+    overflow-x: auto;
+    height: 100%;
+    > * {
+      font-size: 16px;
+    }
+
+    &::spelling-error {
+      text-decoration: none;
+    }
+
+    a {
+      color: ${({ theme }) => theme.accent};
+    }
+
+    .ql-blank::before {
+      color: #757575;
+    }
+
+    &::placeholder {
+      color: ${({ theme }) => theme.text} !important;
+    }
+  }
 
   @media (max-width: 600px) {
     position: fixed;
