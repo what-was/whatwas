@@ -98,8 +98,12 @@ export const InnerContainer = styled.div`
     clear: both;
     a {
       display: inline-block;
-      color: ${({ theme }) => theme.accent};
+      color: ${({ theme }) => theme.accentText};
       cursor: pointer;
+
+      &:hover {
+        color: ${({ theme }) => theme.accentTextHover};
+      }
 
       &:visited {
         color: ${({ theme }) => theme.accent};

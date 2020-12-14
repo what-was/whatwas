@@ -178,10 +178,10 @@ export const NoteSummary = styled.div`
     }
 
     a {
-      color: ${({ theme }) => theme.accent};
+      color: ${({ theme }) => theme.accentText};
 
       &:hover {
-        color: ${({ theme }) => theme.accentHover};
+        color: ${({ theme }) => theme.accentTextHover};
       }
     }
 
