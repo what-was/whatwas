@@ -9,11 +9,11 @@
     "rewrites": [
       {
         "source": "/dashboard/**",
-        "dynamicLinks": true
+        "destination": "/dashboard/:boardId"
       },
       {
-        "source": "/notes/**",
-        "dynamicLinks": true
+        "source": "/note/**/**",
+        "destination": "/note/:boardId/:noteId"
       }
     ],
     "headers": [
