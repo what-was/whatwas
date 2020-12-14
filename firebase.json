@@ -5,6 +5,39 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ]
+    ],
+    "rewrites": [
+      {
+        "source": "/dashboard/**",
+        "dynamicLinks": true
+      },
+      {
+        "source": "/notes/**",
+        "dynamicLinks": true
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          },
+          {
+            "source": "**/*.@(jpg|jpeg|gif|png)",
+            "headers": [
+              {
+                "key": "Cache-Control",
+                "value": "max-age=7200"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "appAssociation": "AUTO"
   }
 }
