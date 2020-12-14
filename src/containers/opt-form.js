@@ -19,9 +19,9 @@ export const OptFormContainer = () => {
 
   return (
     <OptForm onSubmit={handleSubmit}>
-      <OptForm.Title>Social whiteboard experience</OptForm.Title>
+      <OptForm.Title>What was on your mind?</OptForm.Title>
       <OptForm.SubTitle>
-        Build your own working experience. Take note, share, get organized.
+        Keep your ideas, works, notes and much more in one place.
       </OptForm.SubTitle>
       <OptForm.Input
         placeholder="Email address"
@@ -33,7 +33,7 @@ export const OptFormContainer = () => {
       />
       <OptForm.Button type="submit">Sign up</OptForm.Button>
       <OptForm.Break />
-      <OptForm.Text>For teams & individuals</OptForm.Text>
+      {/* <OptForm.Text>For teams & individuals</OptForm.Text> */}
     </OptForm>
   );
 };

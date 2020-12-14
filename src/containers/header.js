@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Header } from '../components';
 import { SidebarToggleContainer } from './header/sidebar-toogle';
 import { ToggleThemeContainer } from './header/toggle-theme';
@@ -15,6 +15,25 @@ export function HeaderContainer({ children, route }) {
   const { user } = useAuthListener();
 
   const { theme } = useThemeModeValue();
+
+  useEffect(() => {
+    const listener = () => {
+      const currentScroll = window.pageYOffset;
+      const width = window.innerWidth;
+
+      if (currentScroll < 450) {
+        document.getElementById('header').style.height = '50px';
+        return;
+      } else {
+        document.getElementById('header').style.height =
+          width < 800 ? '35px' : '25px';
+      }
+    };
+    if (!user) {
+      window.addEventListener('scroll', listener);
+      return () => window.removeEventListener('scroll', listener);
+    }
+  }, []);
 
   let ctaText;
   if (window.location.pathname === '/signin') {

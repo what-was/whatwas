@@ -4,7 +4,7 @@ import { Footer } from '../components';
 export const FooterContainer = () => {
   return (
     <Footer>
-      <Footer.Title>Questions? Contact us.</Footer.Title>
+      {/* <Footer.Title>Questions? Contact us.</Footer.Title>
       <Footer.Break />
       <Footer.Row>
         <Footer.Column>
@@ -35,7 +35,7 @@ export const FooterContainer = () => {
           <Footer.Link href="#">Legal Notices</Footer.Link>
         </Footer.Column>
       </Footer.Row>
-      <Footer.Break />
+      <Footer.Break /> */}
       <Footer.Text>© 2020 - WhatWas</Footer.Text>
     </Footer>
   );

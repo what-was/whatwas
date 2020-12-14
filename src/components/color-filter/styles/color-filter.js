@@ -85,7 +85,7 @@ export const Tag = styled.p`
   font-size: 14px;
   margin: 0 15px 0 0;
   cursor: default;
-  color: ${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.greyText};
 `;
 
 export const AddColorContainer = styled.div`

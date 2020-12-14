@@ -5,10 +5,10 @@ export const Container = styled.footer`
   flex-direction: column;
   max-width: 1000px;
   margin: auto;
-  margin-top: 50px;
-  padding: 50px 56px;
+  ${'' /* margin-top: 50px; */}
+  ${'' /* padding: 50px 56px; */}
   @media (max-width: 1000px) {
-    padding: 50px 30px;
+    padding: 20px 30px;
   }
 `;
 
@@ -56,7 +56,7 @@ export const Title = styled.p`
 `;
 
 export const Text = styled.p`
-  margin-bottom: 40px;
+  margin: 40px 0;
   color: ${({ theme }) => theme.shadowedText};
   font-size: 13px;
 `;

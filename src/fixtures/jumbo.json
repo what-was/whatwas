@@ -3,24 +3,23 @@
         "id": 1,
         "title": "Increase your productivity",
         "subTitle": "Write your notes, colorize them and simply drag and drop to organize.",
-        "image": "/images/misc/take-notes.svg",
-        "alt": "productivity",
-        "direction": "row"
+        "light": {
+            "desktop": "/images/misc/whatwas-demo.png",
+            "phone": "/images/misc/whatwas-demo-phone.png"
+        },
+        "dark": {
+            "desktop": "/images/misc/whatwas-darkdemo.png",
+            "phone": "/images/misc/whatwas-darkdemo-phone.png"
+        },
+        "alt": "WhatWas Demo",
+        "direction": "column"
     },
     {
         "id": 2,
-        "title": "Collaborate with your team",
-        "subTitle": "Share your boards with your team in real-time and voilà! No more missed tasks.",
+        "title": "Save and sync your documents anywhere you want",
+        "subTitle": "Write your notes, style and organize them however you want and voilà! No more missed ideas.",
         "image": "/images/misc/sharing.svg",
-        "alt": "sharing",
+        "alt": "notes",
         "direction": "row-reverse"
-    },
-    {
-        "id": 3,
-        "title": "Discuss about it",
-        "subTitle": "Real-time messages to ensure no misunderstanding.",
-        "image": "/images/misc/message.svg",
-        "alt": "Money Heist on Netflix",
-        "direction": "row"
     }
 ]

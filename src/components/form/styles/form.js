@@ -9,14 +9,14 @@ export const Container = styled.section`
   width: 100%;
   min-height: 550px;
   padding: 3rem 3.5rem;
-  margin: auto;
-  margin-bottom: 0;
+  margin: 20px auto 0;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.1);
 
   @media (max-width: 720px) {
     max-width: 350px;
     padding: 2rem 2.5rem;
+    margin-top: 10px;
   }
   @media (max-width: 325px) {
     max-width: 290px;

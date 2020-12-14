@@ -146,7 +146,7 @@ export const NoteTitle = styled.h2`
   margin: 0;
   padding: 0 0 5px 0;
   color: ${({ theme }) => theme.title};
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.2;
   font-weight: 600;
   cursor: pointer;
@@ -179,6 +179,10 @@ export const NoteSummary = styled.div`
 
     a {
       color: ${({ theme }) => theme.accent};
+
+      &:hover {
+        color: ${({ theme }) => theme.accentHover};
+      }
     }
 
     h1 {
@@ -186,7 +190,6 @@ export const NoteSummary = styled.div`
     }
     h2 {
       font-size: 16px;
-      font-weight: 500;
     }
     p {
       cursor: pointer;

@@ -16,6 +16,7 @@ export const Container = styled.header`
   justify-content: ${(props) =>
     props.className === 'signed-in' ? '' : 'space-between'};
   align-items: center;
+  transition: height 200ms ease-in-out;
   a {
     display: flex;
   }
@@ -25,14 +26,20 @@ export const Container = styled.header`
     padding: ${(props) =>
       props.className === 'signed-in' ? '10px 0px' : '10px 15px'};
   }
-  @media (max-width: 780px) {
-    position: relative;
+  @media (max-width: 800px) {
+    position: ${(props) =>
+      props.className === 'signed-in' ? 'relative' : 'sticky'};
 
     margin: ${(props) =>
       props.className === 'signed-in' ? '0 30px 0 15px' : '0'};
+
+    padding: ${(props) =>
+      props.className === 'signed-in' ? '10px 0px' : '25px 20px'};
   }
   @media (max-width: 600px) {
     margin: ${(props) => (props.className === 'signed-in' ? '0 15px' : '0')};
+    padding: ${(props) =>
+      props.className === 'signed-in' ? '10px 0px' : '15px 10px'};
   }
   @media (max-width: 285px) {
     margin: 5px;
@@ -130,19 +137,27 @@ export const SearchIcon = styled.button`
 
 export const ButtonLink = styled(ReachRouterLink)`
   display: block;
-  background-color: #a81d1d;
-  padding: 10px 15px;
+  background-color: ${({ theme }) => theme.accent};
+  padding: 10px 20px;
   color: ${({ theme }) => theme.buttonText};
   border: 0;
   font-size: 1rem;
-  border-radius: 5px;
+  border-radius: 50px;
   cursor: pointer;
   text-decoration: none;
   box-sizing: border-box;
   justify-content: flex-start;
   transition: 100ms all ease;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+
   &:hover {
-    background: #f94144;
+    background-color: ${({ theme }) => theme.accentHover};
   }
 `;
 

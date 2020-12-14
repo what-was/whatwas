@@ -79,7 +79,7 @@ export const Title = styled.h1`
   }
 `;
 export const SubTitle = styled.h2`
-  margin: 1.5rem 0 3rem;
+  margin: 1.5rem 0 2.5rem;
   color: ${({ theme }) => theme.text};
   font-size: 1.2rem;
   font-weight: 400;

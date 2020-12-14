@@ -25,7 +25,11 @@ export default function Header({ children }) {
 }
 
 Header.Frame = function HeaderFrame({ children, ...restProps }) {
-  return <Container {...restProps}>{children}</Container>;
+  return (
+    <Container id="header" {...restProps}>
+      {children}
+    </Container>
+  );
 };
 
 Header.Group = function HeaderGroup({ children, ...restProps }) {
