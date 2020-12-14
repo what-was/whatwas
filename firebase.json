@@ -8,12 +8,8 @@
     ],
     "rewrites": [
       {
-        "source": "/dashboard/**",
-        "destination": "/dashboard/:boardId"
-      },
-      {
-        "source": "/note/**/**",
-        "destination": "/note/:boardId/:noteId"
+        "source": "**",
+        "destination": "/index.html"
       }
     ],
     "headers": [
