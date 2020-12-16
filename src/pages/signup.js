@@ -25,13 +25,13 @@ export default function Signup() {
       e.target.value.length >= 8,
       e.target.value.search(/[A-Z]/) > -1,
       e.target.value.search(/[0-9]/) > -1,
-      e.target.value.search(/[$&+,:;=?@#]/) > -1,
+      e.target.value.search(/[$&+,:;=?@#|'<>.^*()%!-]/) > -1,
     ];
     setValidate([
       e.target.value.length >= 8,
       e.target.value.search(/[A-Z]/) > -1,
       e.target.value.search(/[0-9]/) > -1,
-      e.target.value.search(/[$&+,:;=?@#]/) > -1,
+      e.target.value.search(/[$&+,:;=?@#|'<>.^*()%!-]/) > -1,
     ]);
     setStrength(validations.reduce((acc, curr) => acc + curr, 0));
     setPassword(e.target.value);
@@ -52,6 +52,11 @@ export default function Signup() {
   const handleSignup = (event) => {
     event.preventDefault();
 
+    const actionCodeSettings = {
+      url:
+        'https://www.whatwas.app/?email=' + firebase.auth().currentUser.email,
+    };
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(emailAddress, password)
@@ -60,6 +65,11 @@ export default function Signup() {
           displayName: firstName,
           photoURL: Math.floor(Math.random() * 8) + 1,
         });
+        firebase
+          .auth()
+          .currentUser.sendEmailVerification(actionCodeSettings)
+          .then(() => {})
+          .catch((error) => console.error(error));
       })
       .then(() => {})
       .catch((error) => {
@@ -127,34 +137,41 @@ export default function Signup() {
               {showPassword ? '🙈' : '👁️'}
             </Form.ShowPassword>
           </Form.Field>
-          <Form.StrengthContainer>
-            <Form.StrengthBar
-              className={`bar-1 ${strength > 0 ? '__show' : ''}`}
-            />
-            <Form.StrengthBar
-              className={`bar-2 ${strength > 1 ? '__show' : ''}`}
-            />
-            <Form.StrengthBar
-              className={`bar-3 ${strength > 2 ? '__show' : ''}`}
-            />
-            <Form.StrengthBar
-              className={`bar-4 ${strength > 3 ? '__show' : ''}`}
-            />
-          </Form.StrengthContainer>
-          <Form.ValidationList>
-            <Form.ValidationItem>
-              {validate[0] ? '✔️' : '❌'} must be at least 8 characters
-            </Form.ValidationItem>
-            <Form.ValidationItem>
-              {validate[1] ? '✔️' : '❌'} must contain a capital letter
-            </Form.ValidationItem>
-            <Form.ValidationItem>
-              {validate[2] ? '✔️' : '❌'} must contain a letter
-            </Form.ValidationItem>
-            <Form.ValidationItem>
-              {validate[3] ? '✔️' : '❌'} must contain one of $&+,:;=?@#
-            </Form.ValidationItem>
-          </Form.ValidationList>
+          {password.length > 1 && (
+            <>
+              <Form.StrengthContainer>
+                <Form.StrengthBar
+                  className={`bar-1 ${strength > 0 ? '__show' : ''}`}
+                />
+                <Form.StrengthBar
+                  className={`bar-2 ${strength > 1 ? '__show' : ''}`}
+                />
+                <Form.StrengthBar
+                  className={`bar-3 ${strength > 2 ? '__show' : ''}`}
+                />
+                <Form.StrengthBar
+                  className={`bar-4 ${strength > 3 ? '__show' : ''}`}
+                />
+              </Form.StrengthContainer>
+              <Form.ValidationList>
+                <Form.ValidationItem>
+                  {validate[0] ? '✔️' : '❌'} must be at least 8 characters
+                </Form.ValidationItem>
+                <Form.ValidationItem>
+                  {validate[1] ? '✔️' : '❌'} must contain a capital letter
+                </Form.ValidationItem>
+                <Form.ValidationItem>
+                  {validate[2] ? '✔️' : '❌'} must contain a number
+                </Form.ValidationItem>
+                <Form.ValidationItem>
+                  {validate[3] ? '✔️' : '❌'}{' '}
+                  {
+                    "must contain at least one special character (ex: [$&+,:;=?@#|'<>.^*()%!-])"
+                  }
+                </Form.ValidationItem>
+              </Form.ValidationList>
+            </>
+          )}
           <Form.Submit disabled={isInvalid} type="submit">
             Sign up
           </Form.Submit>

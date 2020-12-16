@@ -63,7 +63,7 @@ export const Title = styled.h5`
 
 export const AddCollectionContainer = styled.div``;
 
-export const AddCollection = styled.div`
+export const AddCollection = styled.li`
   display: flex;
   font-weight: 500;
   font-size: 14px;

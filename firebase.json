@@ -19,15 +19,15 @@
           {
             "key": "Access-Control-Allow-Origin",
             "value": "*"
-          },
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png)",
+        "headers": [
           {
-            "source": "**/*.@(jpg|jpeg|gif|png)",
-            "headers": [
-              {
-                "key": "Cache-Control",
-                "value": "max-age=7200"
-              }
-            ]
+            "key": "Cache-Control",
+            "value": "max-age=86400"
           }
         ]
       }

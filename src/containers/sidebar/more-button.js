@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Sidebar, Modal } from '../../components';
 import { FirebaseContext } from '../../context/firebase';
-import { useCollectionsValue } from '../../context';
+import { useBoardsValue, useCollectionsValue } from '../../context';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { AiOutlineDelete } from 'react-icons/ai';
 
@@ -13,6 +13,7 @@ export const MoreButtonContainer = (props) => {
   const propCollection = props.collection;
 
   const { collection } = useCollectionsValue();
+  const { boards } = useBoardsValue();
 
   // Firebase context
   const { firebase } = useContext(FirebaseContext);
@@ -48,20 +49,52 @@ export const MoreButtonContainer = (props) => {
   let history = useHistory();
   const handleBoardDelete = (docId) => {
     const currCollection = collection.indexOf(propCollection);
-    firebase
-      .firestore()
-      .collection(propCollection !== undefined ? 'collections' : 'boards')
-      .doc(docId)
-      .delete()
-      .then(() => {
-        if (currCollection > -1) {
-          collection.splice(currCollection, 1);
-        }
-        if (propCollection === undefined) {
-          history.push('/dashboard');
-        }
-      })
-      .catch((error) => console.error(error));
+
+    if (propCollection !== undefined) {
+      firebase
+        .firestore()
+        .collection('collections')
+        .doc(docId)
+        .delete()
+        .then(() => {
+          if (boards.some((board) => board.collectionId === docId)) {
+            boards
+              .filter((board) => board.collectionId === docId)
+              .forEach((board) =>
+                firebase
+                  .firestore()
+                  .collection('boards')
+                  .doc(board.boardId)
+                  .delete()
+                  .then(() => {})
+                  .catch((error) => console.error(error))
+              );
+          }
+
+          if (currCollection > -1) {
+            collection.splice(currCollection, 1);
+          }
+          if (propCollection === undefined) {
+            history.push('/dashboard');
+          }
+        })
+        .catch((error) => console.error(error));
+    } else {
+      firebase
+        .firestore()
+        .collection('boards')
+        .doc(docId)
+        .delete()
+        .then(() => {
+          if (currCollection > -1) {
+            collection.splice(currCollection, 1);
+          }
+          if (propCollection === undefined) {
+            history.push('/dashboard');
+          }
+        })
+        .catch((error) => console.error(error));
+    }
   };
 
   return (

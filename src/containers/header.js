@@ -11,6 +11,7 @@ import { useAuthListener } from '../hooks';
 
 export function HeaderContainer({ children, route }) {
   // const [searchTerm, setSearchTerm] = useState('');
+  const [profilePicture, setProfilePicture] = useState('');
   const { firebase } = useContext(FirebaseContext);
   const { user } = useAuthListener();
 
@@ -35,6 +36,13 @@ export function HeaderContainer({ children, route }) {
     }
   }, []);
 
+  useEffect(() => {
+    if (user !== null) {
+      setProfilePicture(user.photoURL);
+    }
+    return () => {};
+  }, [user]);
+
   let ctaText;
   if (window.location.pathname === '/signin') {
     ctaText = "Don't have an account?";
@@ -44,7 +52,7 @@ export function HeaderContainer({ children, route }) {
     ctaText = null;
   }
 
-  return !user ? (
+  return user === null ? (
     <Header>
       <Header.Frame>
         <Header.Logo

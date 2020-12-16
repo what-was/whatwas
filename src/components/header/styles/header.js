@@ -185,7 +185,14 @@ export const TextLink = styled.p`
   color: ${({ theme }) => theme.text};
   font-size: 1rem !important;
   line-height: normal;
-  cursor: pointer;
+  cursor: default;
+
+  &:first-of-type {
+    cursor: default;
+    &:hover {
+      text-decoration: none;
+    }
+  }
   &:hover {
     text-decoration: underline;
   }
@@ -259,6 +266,9 @@ export const Dropdown = styled.div`
   }
   button {
     margin-right: 10px;
+    &:focus {
+      outline: 0;
+    }
   }
   p {
     font-size: 12px;

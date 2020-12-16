@@ -45,7 +45,7 @@ export const CenterPane = styled.div`
   }
 
   @media (max-width: 600px) {
-    top: -11.4rem;
+    top: -6rem;
   }
 `;
 
@@ -96,7 +96,6 @@ export const CenterImage = styled.img`
   @media (max-width: 600px) {
     width: 300px;
     box-shadow: none;
-    top: -20rem;
   }
 `;
 
@@ -111,7 +110,7 @@ export const Item = styled.article`
     padding: 2.5rem 3rem;
   }
   @media (max-width: 600px) {
-    top: -11.4rem;
+    top: -6rem;
   }
 `;
 

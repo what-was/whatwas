@@ -86,12 +86,16 @@ export const Tag = styled.p`
   margin: 0 15px 0 0;
   cursor: default;
   color: ${({ theme }) => theme.shadowedText};
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const AddColorContainer = styled.div`
   display: ${(props) => (props.hasOpen ? 'flex' : 'none')};
   align-items: center;
-  margin: 0rem 0 1rem 20px;
+  margin: 0rem 0 1rem 30px;
 `;
 
 export const ColorPicker = styled.div`
@@ -110,7 +114,9 @@ export const ColorButton = styled.input`
   background-color: ${(props) => backgroundColor(props.color)};
   + label {
     color: ${(props) =>
-      props.color === 'default' ? '#fffffe' : ({ theme }) => theme.title};
+      props.color === 'default'
+        ? ({ theme }) => theme.text
+        : ({ theme }) => theme.title};
     font-size: 1.1rem;
 
     span {

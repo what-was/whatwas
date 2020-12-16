@@ -8,11 +8,14 @@ export const Container = styled.aside`
   height: calc(100% - 15rem);
   margin-left: auto;
   margin-right: auto;
-  padding: 3rem 3rem;
   top: 60px;
   right: 60px;
   left: 60px;
-  background-color: #232323;
+  box-shadow: 0px 10px 40px -5px ${({ theme }) => theme.boxShadow};
+  background-color: ${({ theme }) => theme.addItemBackground};
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 15px;
   z-index: 99999;
 
@@ -24,11 +27,14 @@ export const Container = styled.aside`
     display: none;
   }
 
-  #editor {
+  #editor,
+  .ql-editor {
     margin: 0 0 1rem 0;
-    color: #fffffe;
+    color: ${({ theme }) => theme.text};
     overflow-x: auto;
-    height: auto;
+    height: 100%;
+    padding: 0 3rem 3rem;
+    overflow-y: auto;
     > * {
       font-size: 16px;
     }
@@ -42,11 +48,16 @@ export const Container = styled.aside`
     }
 
     .ql-blank::before {
-      color: #757575;
+      color: ${({ theme }) => theme.greyText};
+      left: 3rem;
     }
 
     &::placeholder {
       color: ${({ theme }) => theme.text} !important;
+    }
+
+    @media (max-width: 600px) {
+      padding: 0 1rem;
     }
   }
 
@@ -68,8 +79,9 @@ export const InnerContainer = styled.div`
 // Title Input
 export const Title = styled.input`
   margin: 1rem 0 0;
+  padding: 1.5rem 3rem;
+  color: ${({ theme }) => theme.title};
   font-size: 3rem;
-  color: #fffffe;
   font-weight: 800;
   background: transparent;
   border: 0;
@@ -87,9 +99,10 @@ export const Title = styled.input`
 
 // Board Description
 export const Description = styled.input`
-  margin: 1.5rem 0;
+  margin: 0 0 1.5rem;
+  padding: 0 3rem;
   font-size: 15px;
-  color: #fffffe;
+  color: ${({ theme }) => theme.text};
   font-weight: 400;
   background: transparent;
   outline: 0;
@@ -107,7 +120,7 @@ export const Description = styled.input`
 
 // Submit icon
 export const Submit = styled.button`
-  margin: auto 0 0 auto;
+  margin: auto 3rem 3rem auto;
   padding: 15px 25px;
   cursor: pointer;
   color: ${({ theme }) => theme.buttonText};
@@ -134,14 +147,13 @@ export const Close = styled.div`
   border-radius: 20px;
   cursor: pointer;
   transition: 200ms all ease;
-
+  color: ${({ theme }) => theme.shadowedText};
   svg {
     width: 1.5rem;
     height: 1.5rem;
-    color: white;
   }
   &:hover {
-    background-color: #3c3d3d;
+    background-color: ${({ theme }) => theme.backgroundHover};
   }
 `;
 
@@ -149,47 +161,47 @@ export const Close = styled.div`
 export const NoteContainer = styled.section`
   justify-content: ${(props) => (props.hasOpen ? 'flex-start' : 'center')};
   max-width: ${(props) => (props.hasOpen ? '940px' : '8.1rem')};
-  width: 100%;
   height: ${(props) => (props.hasOpen ? '100%' : '2.75rem')};
-  margin: 0 0 2rem;
-  padding: ${(props) => (props.hasOpen ? '0 10px' : '0')};
-  background-color: #181818;
+  margin: 0 3rem 2rem;
+  padding: 0;
+  background-color: ${({ theme }) => theme.body};
   border-radius: ${(props) => (props.hasOpen ? '15px' : '50px')};
   transition: 0.3s all ease-in-out;
+
+  @media (max-width: 600px) {
+    margin: 0 0 1rem;
+  }
 `;
 
 export const CTAButton = styled.div`
   display: ${(props) => (props.hasOpen ? 'none' : 'flex')};
   align-items: center;
   padding: 10px 15px;
-  color: #fffffe;
-  background-color: #181818;
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.body};
   border-radius: 40px;
   cursor: pointer;
   &:hover {
-    background-color: #1c1b1b;
+    background-color: ${({ theme }) => theme.backgroundHover};
   }
   svg {
-    width: 1.4rem;
-    height: 1.4rem;
-    color: white;
+    font-size: 20px;
     font-weight: 600;
   }
 `;
 
 export const CTAText = styled.span`
   margin: 0 0 0 5px;
-  color: white;
   font-weight: 500;
   white-space: pre;
 `;
 
 export const NoteTitle = styled.input`
-  display: ${(props) => (props.hasOpen ? 'block' : 'none')};
+  display: ${(props) => (props.hasOpen ? 'flex' : 'none')};
+  width: 86%;
   margin: ${(props) =>
-    props.addNote ? '1rem 0 1rem 20px' : '0rem 0 1rem 20px'};
-  padding: 0;
-  color: #fffffe;
+    props.addNote ? '1rem 15px 1rem 15px' : '0 15px 1rem 15px'};
+  color: ${({ theme }) => theme.title};
   font-size: ${(props) => (props.addNote ? '2.5rem' : '2rem')};
   font-weight: 800;
   background-color: transparent;
@@ -203,8 +215,10 @@ export const NoteTitle = styled.input`
   }
   @media (max-width: 720px) {
     &:focus::placeholder {
-      color: #424242;
+      color: ${({ theme }) => theme.greyText};
     }
+  }
+  @media (max-width: 600px) {
   }
 `;
 
@@ -216,11 +230,11 @@ export const Input = styled.textarea`
   height: 100%;
   margin: 0 20px 10px;
   padding: 0;
-  color: #fffffe;
+  color: ${({ theme }) => theme.text};
   line-height: 1.5;
   font-weight: normal;
   background: transparent;
-  caret-color: #fffffe;
+  caret-color: ${({ theme }) => theme.text};
   border: 0;
   outline: 0;
   opacity: ${(props) => (props.hasOpen ? '1' : '0')};
@@ -236,16 +250,16 @@ export const NoteClose = styled.div`
   display: ${(props) => (props.hasOpen ? 'block' : 'none')};
   width: 1.5rem;
   height: 1.5rem;
-  margin: 10px 0px auto auto;
-  color: white;
+  margin: 10px 10px auto auto;
+  padding: 5px;
+  color: ${({ theme }) => theme.text};
   cursor: pointer;
-
+  border-radius: 20px;
   svg {
     width: 1.5rem;
     height: 1.5rem;
-    color: white;
   }
-  &:hover svg {
-    color: grey;
+  &:hover {
+    background-color: ${({ theme }) => theme.backgroundHover};
   }
 `;

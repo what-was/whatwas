@@ -9,9 +9,9 @@ export const Inner = styled.div`
   display: flex;
   flex-direction: column;
   width: ${(props) => (props.modalType === 'add-item' ? '185px' : '130px')};
-  padding: 10px;
+  padding: 5px 10px;
   top: ${(props) => (props.addCollection ? '-6px' : '10px')};
-  right: ${(props) => (props.addCollection ? '0' : '-16px')};
+  right: 0;
   background-color: ${({ theme }) => theme.background};
   box-shadow: 0px 10px 15px -5px ${({ theme }) => theme.smallBoxShadow};
   border-radius: 10px;
@@ -37,9 +37,11 @@ export const InnerButton = styled.div`
   display: flex;
   align-items: center;
   margin: 5px 0;
+  padding: 5px 10px;
   color: ${({ theme }) => theme.title};
   font-size: 16px;
   font-weight: 400;
+  border-radius: 5px;
   cursor: pointer;
   svg {
     margin-right: 5px;
