@@ -55,7 +55,6 @@ export const AddCollectionContainer = (props) => {
         updatedAt: Date.now(),
       })
       .then(() => {
-        setCollectionTitle('');
         props.action();
       })
       .catch((error) => console.error(error));

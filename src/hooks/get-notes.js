@@ -4,7 +4,6 @@ import { FirebaseContext } from '../context/firebase';
 export const getNotes = (boardId) => {
   const [notes, setNotes] = useState([]);
   const { firebase } = useContext(FirebaseContext);
-  const user = JSON.parse(localStorage.getItem('authUser')).uid;
 
   const db = firebase.firestore();
   const board = db.collection('boards');
@@ -14,10 +13,10 @@ export const getNotes = (boardId) => {
         .collection('notes')
         .orderBy('updatedAt', 'desc')
         .limit(40)
-    : board.where('uid', '==', user).orderBy('updatedAt', 'desc').limit(1);
+    : null;
 
   useEffect(() => {
-    if (boardId !== undefined) {
+    if (boardId !== undefined && note !== null) {
       const unsubscribe = note.onSnapshot((querySnapshot) => {
         const allNotes = querySnapshot.docs.map((note) => ({
           id: note.id,

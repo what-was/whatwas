@@ -65,7 +65,6 @@ export default function Signup() {
           displayName: firstName,
           photoURL: Math.floor(Math.random() * 8) + 1,
         });
-        console.log(firebase.auth().currentUser);
         firebase
           .auth()
           .currentUser.sendEmailVerification(actionCodeSettings)

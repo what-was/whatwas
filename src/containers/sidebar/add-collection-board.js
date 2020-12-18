@@ -60,7 +60,6 @@ export const AddCollectionBoardContainer = (props) => {
         updatedAt: Date.now(),
       })
       .then(() => {
-        setAddBoardTitle('');
         props.action();
         history.push(`/dashboard/${boardId}`);
       })

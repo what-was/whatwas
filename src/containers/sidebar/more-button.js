@@ -86,12 +86,7 @@ export const MoreButtonContainer = (props) => {
         .doc(docId)
         .delete()
         .then(() => {
-          if (currCollection > -1) {
-            collection.splice(currCollection, 1);
-          }
-          if (propCollection === undefined) {
-            history.push('/dashboard');
-          }
+          history.push('/dashboard');
         })
         .catch((error) => console.error(error));
     }

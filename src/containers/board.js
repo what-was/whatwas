@@ -67,7 +67,6 @@ export const BoardContainer = () => {
   // Setting window && board title
   useEffect(() => {
     if (currentBoard !== undefined && loading) {
-      console.log(currentBoard);
       document.title = `${currentBoard.name} - WhatWas`;
       setBoardTitle(currentBoard.name);
       setLoading(false);
@@ -75,7 +74,7 @@ export const BoardContainer = () => {
 
     const timer = setTimeout(() => {
       if (currentBoard === undefined && loading) {
-        document.title = `${currentBoard.title} - WhatWas`;
+        document.title = `Please add board - WhatWas`;
         setBoardTitle('Please add board');
         setLoading(false);
       }
