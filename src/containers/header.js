@@ -40,7 +40,6 @@ export function HeaderContainer({ children, route }) {
     if (user !== null) {
       setProfilePicture(user.photoURL);
     }
-    return () => {};
   }, [user]);
 
   let ctaText;

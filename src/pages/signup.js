@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { FirebaseContext } from '../context/firebase';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
@@ -52,6 +52,8 @@ export default function Signup() {
 
   const handleSignup = (event) => {
     event.preventDefault();
+    // History
+    let history = useHistory();
 
     const actionCodeSettings = {
       url: 'https://www.whatwas.app/?email=' + emailAddress,
@@ -78,7 +80,7 @@ export default function Signup() {
         setError(error.message);
       });
 
-    return <Redirect to={ROUTES.DASHBOARD} />;
+    return history.push('/dashboard');
   };
 
   document.title = 'Sign up - WhatWas';
