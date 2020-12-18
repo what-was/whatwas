@@ -50,10 +50,11 @@ export default function Signup() {
     setEmailAddress(localStorage.getItem('signupEmail'));
   }
 
+  // History
+  let history = useHistory();
+
   const handleSignup = (event) => {
     event.preventDefault();
-    // History
-    let history = useHistory();
 
     const actionCodeSettings = {
       url: 'https://www.whatwas.app/?email=' + emailAddress,
@@ -70,7 +71,9 @@ export default function Signup() {
         firebase
           .auth()
           .currentUser.sendEmailVerification(actionCodeSettings)
-          .then(() => {})
+          .then(() => {
+            history.push('/dashboard');
+          })
           .catch((error) => console.error(error));
       })
       .catch((error) => {
@@ -79,8 +82,6 @@ export default function Signup() {
         setPassword('');
         setError(error.message);
       });
-
-    return history.push('/dashboard');
   };
 
   document.title = 'Sign up - WhatWas';
@@ -127,7 +128,7 @@ export default function Signup() {
               autoComplete="off"
               aria-label="Enter your password"
               placeholder="Password"
-              // value={password}
+              value={password}
               onChange={(e) => handlePasswordChange(e)}
             />
             <Form.TextSmall htmlFor="password">Password</Form.TextSmall>

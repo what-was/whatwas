@@ -2,11 +2,10 @@ import Firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/analytics';
 import 'firebase/auth';
-// require('dotenv').config();
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: 'whatwas-1bc76.firebaseapp.com',
+  authDomain: 'whatwas.app',
   databaseURL: 'https://whatwas-1bc76.firebaseio.com',
   projectId: 'whatwas-1bc76',
   storageBucket: 'whatwas-1bc76.appspot.com',
