@@ -1,5 +1,24 @@
 import styled from 'styled-components/macro';
 
+const backgroundColor = (color) => {
+  switch (color) {
+    case 'yellow':
+      return ({ theme }) => theme.yellow + '7f';
+    case 'blue':
+      return ({ theme }) => theme.blue + '7f';
+    case 'pink':
+      return ({ theme }) => theme.pink + '7f';
+    case 'orange':
+      return ({ theme }) => theme.orange + '7f';
+    case 'green':
+      return ({ theme }) => theme.green + '7f';
+    case 'grey':
+      return ({ theme }) => theme.grey + '7f';
+    default:
+      return ({ theme }) => theme.default + '7f';
+  }
+};
+
 export const Container = styled.aside`
   position: absolute;
   display: flex;
@@ -12,10 +31,8 @@ export const Container = styled.aside`
   right: 60px;
   left: 60px;
   box-shadow: 0px 10px 40px -5px ${({ theme }) => theme.boxShadow};
-  background-color: ${({ theme }) => theme.addItemBackground};
-
+  background: ${(props) => backgroundColor(props.color)};
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border-radius: 15px;
   z-index: 99999;
 
@@ -27,7 +44,6 @@ export const Container = styled.aside`
     display: none;
   }
 
-  #editor,
   .ql-editor {
     margin: 0 0 1rem 0;
     color: ${({ theme }) => theme.text};
@@ -66,6 +82,9 @@ export const Container = styled.aside`
     padding: 1.5rem;
     left: 15px;
     right: 15px;
+    .ql-editor.ql-blank::before {
+      left: 16px !important;
+    }
   }
 `;
 
@@ -94,6 +113,8 @@ export const Title = styled.input`
 
   @media (max-width: 600px) {
     font-size: 1.5rem;
+    margin-bottom: 16px;
+    padding: 0rem;
   }
 `;
 
@@ -115,6 +136,7 @@ export const Description = styled.input`
 
   @media (max-width: 600px) {
     line-break: anywhere;
+    padding: 0;
   }
 `;
 
@@ -133,6 +155,9 @@ export const Submit = styled.button`
 
   &:hover {
     background-color: ${({ theme }) => theme.accentHover};
+  }
+  @media (max-width: 600px) {
+    margin: auto 0.5rem 0.5rem auto;
   }
 `;
 
@@ -164,6 +189,7 @@ export const NoteContainer = styled.section`
   height: ${(props) => (props.hasOpen ? '100%' : '2.75rem')};
   margin: 0 3rem 2rem;
   padding: 0;
+  box-shadow: 0px 10px 40px -10px ${({ theme }) => theme.smallBoxShadow};
   background-color: ${({ theme }) => theme.body};
   border-radius: ${(props) => (props.hasOpen ? '15px' : '50px')};
   transition: 0.3s all ease-in-out;
@@ -179,6 +205,7 @@ export const CTAButton = styled.div`
   padding: 10px 15px;
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.body};
+  box-shadow: 0px 10px 20px 0px ${({ theme }) => theme.smallBoxShadow};
   border-radius: 40px;
   cursor: pointer;
   &:hover {

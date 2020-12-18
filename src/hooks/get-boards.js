@@ -23,6 +23,8 @@ export default function getBoards(target) {
           setContent(allContent);
         }
       });
+
+    return () => unsubscribe();
   }, [target]);
 
   return { [target]: content };

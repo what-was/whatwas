@@ -95,7 +95,20 @@ export const Tag = styled.p`
 export const AddColorContainer = styled.div`
   display: ${(props) => (props.hasOpen ? 'flex' : 'none')};
   align-items: center;
-  margin: 0rem 0 1rem 30px;
+  margin: 0 0 1rem 30px;
+
+  > * {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+  }
+
+  @media (max-width: 600px) {
+    margin: 0 15px 15px;
+  }
 `;
 
 export const ColorPicker = styled.div`

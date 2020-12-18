@@ -29,10 +29,7 @@ export const getNotes = (boardId) => {
           setNotes(allNotes);
         }
       });
-
       return () => unsubscribe();
-    } else {
-      setNotes({});
     }
   }, [boardId]);
 

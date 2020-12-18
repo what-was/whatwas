@@ -71,7 +71,7 @@ export const AddNoteContainer = (props) => {
   };
 
   return (
-    <AddItem>
+    <AddItem color={colorPick}>
       <AddItem.Close onClick={props.action}>
         <RiCloseLine />
       </AddItem.Close>

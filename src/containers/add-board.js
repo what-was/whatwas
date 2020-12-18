@@ -13,7 +13,7 @@ export const AddBoardContainer = (props) => {
   // Board states
   const [addBoardTitle, setAddBoardTitle] = useState('Board Title');
   const [addNoteClicked, setAddNoteClicked] = useState(false);
-  const [boardDescription, setBoardDescription] = useState('');
+  // const [boardDescription, setBoardDescription] = useState('');
 
   // Note states
   const [titleInput, setTitleInput] = useState('');
@@ -66,7 +66,7 @@ export const AddBoardContainer = (props) => {
         uid: user,
         archived: false,
         collectionId: '',
-        description: boardDescription,
+        // description: boardDescription,
         updatedAt: date,
       })
       .then(() => {
@@ -123,12 +123,12 @@ export const AddBoardContainer = (props) => {
         onChange={(event) => setAddBoardTitle(event.target.value)}
         type="text"
       />
-      <AddItem.Description
+      {/* <AddItem.Description
         type="texarea"
         rows={3}
         placeholder="Type description to your board, or continue with adding notes."
         onChange={(event) => setBoardDescription(event.target.value)}
-      />
+      /> */}
       <AddItem.NoteContainer hasOpen={addNoteClicked}>
         <AddItem.CTAButton
           hasOpen={addNoteClicked}

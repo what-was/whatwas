@@ -17,7 +17,7 @@ export const NoteListItem = (props) => {
   const sidebar = props.sidebar;
 
   // Context
-  const { selectedNote, setSelectedNote } = useSelectedNoteValue();
+  const { setSelectedNote } = useSelectedNoteValue();
 
   const noteDate = note.updatedAt;
   return (

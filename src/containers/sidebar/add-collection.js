@@ -69,6 +69,11 @@ export const AddCollectionContainer = (props) => {
             placeholder="Collection Title"
             value={collectionTitle}
             onChange={(e) => setCollectionTitle(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleAddCollection();
+              }
+            }}
           />
           <Modal.ButtonsContainer>
             <Modal.ConfirmButton

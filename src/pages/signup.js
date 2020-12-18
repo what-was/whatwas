@@ -41,7 +41,8 @@ export default function Signup() {
   const isInvalid =
     firstName === '' ||
     (firstName.length < 3 && password === '') ||
-    (password.length <= 6 && emailAddress === '') ||
+    password.length < 8 ||
+    emailAddress === '' ||
     !emailAddress.includes('@');
 
   // Recall email address from home page (probably there is better formula for this job but for now, that's the way. )
@@ -53,8 +54,7 @@ export default function Signup() {
     event.preventDefault();
 
     const actionCodeSettings = {
-      url:
-        'https://www.whatwas.app/?email=' + firebase.auth().currentUser.email,
+      url: 'https://www.whatwas.app/?email=' + emailAddress,
     };
 
     firebase
@@ -65,13 +65,13 @@ export default function Signup() {
           displayName: firstName,
           photoURL: Math.floor(Math.random() * 8) + 1,
         });
+        console.log(firebase.auth().currentUser);
         firebase
           .auth()
           .currentUser.sendEmailVerification(actionCodeSettings)
           .then(() => {})
           .catch((error) => console.error(error));
       })
-      .then(() => {})
       .catch((error) => {
         setEmailAddress('');
         setFirstName('');
@@ -154,6 +154,9 @@ export default function Signup() {
                 />
               </Form.StrengthContainer>
               <Form.ValidationList>
+                <Form.ValidationItem>
+                  Your password is not safe enough:
+                </Form.ValidationItem>
                 <Form.ValidationItem>
                   {validate[0] ? '✔️' : '❌'} must be at least 8 characters
                 </Form.ValidationItem>

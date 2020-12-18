@@ -47,11 +47,11 @@ export const MoreButtonContainer = (props) => {
 
   // Delete board
   let history = useHistory();
-  const handleBoardDelete = (docId) => {
+  const handleBoardDelete = async (docId) => {
     const currCollection = collection.indexOf(propCollection);
 
     if (propCollection !== undefined) {
-      firebase
+      await firebase
         .firestore()
         .collection('collections')
         .doc(docId)
@@ -80,7 +80,7 @@ export const MoreButtonContainer = (props) => {
         })
         .catch((error) => console.error(error));
     } else {
-      firebase
+      await firebase
         .firestore()
         .collection('boards')
         .doc(docId)

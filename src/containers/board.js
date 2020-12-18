@@ -15,11 +15,10 @@ import { getNotes } from '../hooks';
 
 export const BoardContainer = () => {
   // States
-  const [title, setTitle] = useState('Dashboard');
+  const [boardTitle, setBoardTitle] = useState('Loading...');
   const [addNoteOpen, setAddNoteOpen] = useState(false);
   const [colorFilter, setColorFilter] = useState('');
   const [loading, setLoading] = useState(true);
-  const [boardTitle, setBoardTitle] = useState('');
 
   const { boards } = useBoardsValue();
 
@@ -65,32 +64,25 @@ export const BoardContainer = () => {
     };
   }, []);
 
-  // Setting window title
-  if (boardId !== '' && boardTitle !== title) {
-    setTitle(boardTitle);
-    document.title = `${boardTitle} - WhatWas`;
-  }
-
+  // Setting window && board title
   useEffect(() => {
-    setBoardTitle(currentBoard !== undefined ? currentBoard.name : 'Dashboard');
-    return currentBoard;
-  }, [currentBoard]);
-
-  useEffect(() => {
-    setBoardTitle('Loading...');
-    if (boards.length > 0) {
+    if (currentBoard !== undefined && loading) {
+      console.log(currentBoard);
+      document.title = `${currentBoard.name} - WhatWas`;
+      setBoardTitle(currentBoard.name);
       setLoading(false);
-      if (currentBoard !== undefined) {
-        setBoardTitle(currentBoard.name);
-      }
     }
 
     const timer = setTimeout(() => {
-      loading && setLoading(false);
+      if (currentBoard === undefined && loading) {
+        document.title = `${currentBoard.title} - WhatWas`;
+        setBoardTitle('Please add board');
+        setLoading(false);
+      }
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [loading]);
+  }, [boards]);
 
   let recentBoard =
     boards &&
@@ -109,7 +101,7 @@ export const BoardContainer = () => {
     return (
       <Board>
         <Board.UpperContainer>
-          <Board.Title>{title}</Board.Title>
+          <Board.Title>{boardTitle}</Board.Title>
           {boardId !== undefined && (
             <Board.AddNoteButton onClick={handleAddNote}>
               Add Note
@@ -147,7 +139,7 @@ export const BoardContainer = () => {
   return (
     <Board>
       <Board.UpperContainer>
-        <Board.Title>{title}</Board.Title>
+        <Board.Title>{boardTitle}</Board.Title>
         {boardId !== undefined && (
           <Board.AddNoteButton onClick={handleAddNote}>
             Add Note
@@ -162,7 +154,7 @@ export const BoardContainer = () => {
             </Note.Loader>
           </Board.EmptyContainer>
         )}
-        {loading === false && (
+        {!loading && (
           <Board.EmptyContainer>
             <Board.EmptyImage
               src="/images/misc/empty-icon.png"

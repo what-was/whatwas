@@ -76,6 +76,11 @@ export const AddCollectionBoardContainer = (props) => {
             placeholder="Board Title"
             value={addBoardTitle}
             onChange={(e) => setAddBoardTitle(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleAddBoard();
+              }
+            }}
           />
           <Modal.ButtonsContainer>
             <Modal.ConfirmButton
