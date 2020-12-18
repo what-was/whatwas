@@ -63,9 +63,10 @@ export const Container = styled.aside`
       color: ${({ theme }) => theme.accent};
     }
 
-    .ql-blank::before {
+    &.ql-blank::before {
       color: ${({ theme }) => theme.greyText};
       left: 3rem;
+      font-size: 14px;
     }
 
     &::placeholder {
