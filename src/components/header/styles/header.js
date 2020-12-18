@@ -186,14 +186,16 @@ export const TextLink = styled.p`
   font-size: 1rem !important;
   line-height: normal;
   cursor: default;
+`;
 
-  &:first-of-type {
-    cursor: default;
-    &:hover {
-      text-decoration: none;
-    }
-  }
+export const SignoutLink = styled.p`
+  color: ${({ theme }) => theme.text};
+  font-size: 1rem !important;
+  line-height: normal;
+  cursor: pointer;
+
   &:hover {
+    color: ${({ theme }) => theme.accentHover};
     text-decoration: underline;
   }
 `;

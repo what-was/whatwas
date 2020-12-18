@@ -129,7 +129,7 @@ export const AddBoardContainer = (props) => {
         placeholder="Type description to your board, or continue with adding notes."
         onChange={(event) => setBoardDescription(event.target.value)}
       /> */}
-      <AddItem.NoteContainer hasOpen={addNoteClicked}>
+      <AddItem.NoteContainer hasOpen={addNoteClicked} color={colorPick}>
         <AddItem.CTAButton
           hasOpen={addNoteClicked}
           onClick={() => handleAddNoteButton()}

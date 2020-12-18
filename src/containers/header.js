@@ -104,12 +104,14 @@ export function HeaderContainer({ children, route }) {
                 <Header.Picture
                   aria-label={`Profile of ${user.displayName}`}
                   size="30"
+                  width="30"
+                  height="30"
                   src={user.photoURL}
                 ></Header.Picture>
                 <Header.TextLink>{user.displayName}</Header.TextLink>
               </Header.LeftGroup>
               <Header.Group>
-                <Header.TextLink
+                <Header.SignoutLink
                   onClick={() =>
                     firebase
                       .auth()
@@ -118,7 +120,7 @@ export function HeaderContainer({ children, route }) {
                   }
                 >
                   Sign out
-                </Header.TextLink>
+                </Header.SignoutLink>
               </Header.Group>
             </Header.Dropdown>
           </Header.Profile>

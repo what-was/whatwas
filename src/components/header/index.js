@@ -12,6 +12,7 @@ import {
   SearchInput,
   ButtonLink,
   TextLink,
+  SignoutLink,
   Text,
   Logo,
   LeftGroup,
@@ -79,6 +80,10 @@ Header.Dropdown = function HeaderDropdown({ children, ...restProps }) {
 
 Header.TextLink = function HeaderTextLink({ children, ...restProps }) {
   return <TextLink {...restProps}>{children}</TextLink>;
+};
+
+Header.SignoutLink = function HeaderSignoutLink({ children, ...restProps }) {
+  return <SignoutLink {...restProps}>{children}</SignoutLink>;
 };
 
 Header.Text = function HeaderText({ children, ...restProps }) {

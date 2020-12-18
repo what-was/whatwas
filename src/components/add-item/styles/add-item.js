@@ -19,6 +19,25 @@ const backgroundColor = (color) => {
   }
 };
 
+const addBoardNoteBackground = (color) => {
+  switch (color) {
+    case 'yellow':
+      return ({ theme }) => theme.yellow;
+    case 'blue':
+      return ({ theme }) => theme.blue;
+    case 'pink':
+      return ({ theme }) => theme.pink;
+    case 'orange':
+      return ({ theme }) => theme.orange;
+    case 'green':
+      return ({ theme }) => theme.green;
+    case 'grey':
+      return ({ theme }) => theme.grey;
+    default:
+      return ({ theme }) => theme.default;
+  }
+};
+
 export const Container = styled.aside`
   position: absolute;
   display: flex;
@@ -191,7 +210,7 @@ export const NoteContainer = styled.section`
   margin: 0 3rem 2rem;
   padding: 0;
   box-shadow: 0px 10px 40px -10px ${({ theme }) => theme.smallBoxShadow};
-  background-color: ${({ theme }) => theme.body};
+  background-color: ${(props) => addBoardNoteBackground(props.color)};
   border-radius: ${(props) => (props.hasOpen ? '15px' : '50px')};
   transition: 0.3s all ease-in-out;
 
@@ -228,7 +247,8 @@ export const NoteTitle = styled.input`
   display: ${(props) => (props.hasOpen ? 'flex' : 'none')};
   width: 86%;
   margin: ${(props) =>
-    props.addNote ? '1rem 15px 1rem 15px' : '0 15px 1rem 15px'};
+    props.addNote ? '1rem 15px 1rem 15px' : '0 30px 1rem 30px'};
+  padding: 0;
   color: ${({ theme }) => theme.title};
   font-size: ${(props) => (props.addNote ? '2.5rem' : '2rem')};
   font-weight: 800;

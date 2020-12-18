@@ -75,7 +75,7 @@ export const AddNoteContainer = (props) => {
       <AddItem.Close onClick={props.action}>
         <RiCloseLine />
       </AddItem.Close>
-      <AddItem.NoteTitle
+      <AddItem.Title
         placeholder="Note Title"
         hasOpen={true}
         addNote={true}
@@ -85,6 +85,7 @@ export const AddNoteContainer = (props) => {
       <AddColorContainer
         hasOpen={true}
         onChange={(color) => handleColorPick(color)}
+        currentContainer="addNote"
       />
 
       <ReactQuill

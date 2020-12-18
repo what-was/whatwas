@@ -95,7 +95,8 @@ export const Tag = styled.p`
 export const AddColorContainer = styled.div`
   display: ${(props) => (props.hasOpen ? 'flex' : 'none')};
   align-items: center;
-  margin: 0 0 1rem 30px;
+  margin: ${(props) =>
+    props.currentContainer === 'addNote' ? '0 3rem 30px' : '0 0 1rem 30px'};
 
   > * {
     -webkit-touch-callout: none; /* iOS Safari */
@@ -145,8 +146,8 @@ export const ColorButton = styled.input`
       background-position: center;
       justify-content: center;
       align-items: center;
-      border: ${(props) =>
-        props.color === 'default' ? '1px solid #9b98a6' : '0'};
+      border: 1px solid ${({ theme }) => theme.border};
+
       background-color: ${(props) =>
         props.color === 'default'
           ? 'transparent'

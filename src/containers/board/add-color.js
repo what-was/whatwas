@@ -22,7 +22,11 @@ export const AddColorContainer = (props) => {
   };
 
   return (
-    <ColorFilter.AddColorContainer hasOpen={show} id={props.id}>
+    <ColorFilter.AddColorContainer
+      hasOpen={show}
+      id={props.id}
+      currentContainer={props.currentContainer}
+    >
       <ColorFilter.Tag darkmode="true">Color</ColorFilter.Tag>
       <ColorFilter.ColorPicker>
         {colorList.map((color) => (
