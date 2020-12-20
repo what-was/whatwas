@@ -5,7 +5,7 @@
 
 ## What is WhatWas?
 
-[WhatWas](https://whatwas.app) is note taking app that allows users to save and organize their content on every devices.
+[WhatWas](https://whatwas.app) is note taking app that allows users to save and organize their content on every device.
 
 ## Core Features:
 
