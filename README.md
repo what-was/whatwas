@@ -2,7 +2,7 @@
   <br>
   <a href="https://whatwas.app" aria-label="whatwas"><img src="https://i.ibb.co/w6wDWt2/whatwas-github.jpg" alt="whatwas-github"></a>
 </div>
-<br>
+
 ## What is WhatWas?
 
 [WhatWas](https://whatwas.app) is note taking app that allows users to save and organize their content on every devices.
