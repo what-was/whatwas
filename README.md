@@ -1,6 +1,6 @@
 <div align="center">
   <br>
-  <a href="https://whatwas.app" aria-label="whatwas"><img src="https://i.ibb.co/w6wDWt2/whatwas-github.jpg" alt="whatwas-github"></a>
+  <a href="https://whatwas.app" target="_blank" rel="noopener noreferrer" aria-label="whatwas"><img src="https://i.ibb.co/w6wDWt2/whatwas-github.jpg" alt="whatwas-github"></a>
 </div>
 
 ## What is WhatWas?
