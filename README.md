@@ -15,4 +15,4 @@
 - WYSIWYG editor has built with [react-quill](https://github.com/zenoamaro/react-quill).
 - User authentication with Firebase Auth.
 - Database has built using Firestore.
-- Average database reads per user have reduced 300% by using Context API (at first demo, average reads were: 25k reads/day; latest release: average reads are 3k reads/day).
+- Average database reads per user have reduced 800% by using Context API (at first demo, average reads were: 25k reads/day; latest release: average reads are 3k reads/day).
