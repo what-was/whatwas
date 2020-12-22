@@ -37,8 +37,9 @@ export function HeaderContainer({ children, route }) {
   }, []);
 
   useEffect(() => {
-    if (user !== null) {
-      setProfilePicture(user.photoURL);
+    if (user !== null && user.photoURL !== null) {
+      console.log(user.photoURL);
+      return () => setProfilePicture(user.photoURL);
     }
   }, [user]);
 
@@ -96,7 +97,7 @@ export function HeaderContainer({ children, route }) {
             <Header.Picture
               aria-label={`Picture of ${user.displayName}`}
               size="40"
-              src={user.photoURL}
+              src={user !== null && user.photoURL}
             />
             <Header.Dropdown>
               <Header.LeftGroup>

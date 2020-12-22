@@ -68,13 +68,11 @@ export default function Signup() {
           displayName: firstName,
           photoURL: Math.floor(Math.random() * 8) + 1,
         });
-        firebase
-          .auth()
-          .currentUser.sendEmailVerification(actionCodeSettings)
-          .then(() => {
-            history.push('/dashboard');
-          })
-          .catch((error) => console.error(error));
+        // firebase
+        //   .auth()
+        //   .currentUser.sendEmailVerification(actionCodeSettings)
+
+        history.push('/dashboard');
       })
       .catch((error) => {
         setEmailAddress('');
