@@ -38,7 +38,6 @@ export function HeaderContainer({ children, route }) {
 
   useEffect(() => {
     if (user !== null && user.photoURL !== null) {
-      console.log(user.photoURL);
       return () => setProfilePicture(user.photoURL);
     }
   }, [user]);
