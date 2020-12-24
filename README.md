@@ -9,16 +9,6 @@
 
 ## Core Features:
 
-• Built and deployed website using React.
-• Achieved 85% performance rating on Google Pagespeed Insights.
-• Organised page navigations and error pages with React Router.
-• Designed React components in styled-components.
-• Created a WYSIWYG editor via react-quill.
-• To simplify user authentication, integrated Firebase Auth.
-• Creation of back-end with Firebase and Firestore.
-• Reduced average database reads per user 800% using Context API (from 25k
-reads/day, to 3k reads/day).
-
 - Built and deployed website using React.
 - Achieved 85% performance rating on Google Pagespeed Insights.
 - Organised page navigations and error pages with React Router.
