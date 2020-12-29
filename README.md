@@ -9,11 +9,11 @@
 
 ## Core Features:
 
-- Composed and deployed website using React, achieving 85+ performance rating on Google Pagespeed.
-- Organized page navigation and error pages with React Router.
+- Built and deployed website using React.
+- Achieved 85+ performance rating on Google Pagespeed Insights.
+- Organised page navigation and error pages with React Router.
 - Designed React Components in styled-components.
-- Generated a WYSIWYG editor via [react-quill](https://github.com/zenoamaro/react-quill).
-- Simplification of user authentication by 25%, integrated Firebase Auth
-- Developed back-end with Firebase and Firestore.
+- Created a WYSIWYG editor via [react-quill](https://github.com/zenoamaro/react-quill).
+- To simplify user authentication, integrated Firebase Auth.
+- Creation of back-end with Firebase and Firestore.
 - Reduced average database reads per user 800% using Context API (from 25k reads/day to 3k reads/day).
-- Conceptualized UI / UX designs including storyboarding.
