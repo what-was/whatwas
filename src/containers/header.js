@@ -100,13 +100,15 @@ export function HeaderContainer({ children, route }) {
             />
             <Header.Dropdown>
               <Header.LeftGroup>
-                <Header.Picture
-                  aria-label={`Profile of ${user.displayName}`}
-                  size="30"
-                  width="30"
-                  height="30"
-                  src={user.photoURL}
-                ></Header.Picture>
+                {user.photoURL && (
+                  <Header.Picture
+                    aria-label={`Profile of ${user.displayName}`}
+                    size="30"
+                    width="30"
+                    height="30"
+                    src={user.photoURL}
+                  />
+                )}
                 <Header.TextLink>{user.displayName}</Header.TextLink>
               </Header.LeftGroup>
               <Header.Group>
