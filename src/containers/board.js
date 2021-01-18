@@ -81,7 +81,7 @@ export const BoardContainer = () => {
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [boards]);
+  }, [boards, boardTitle]);
 
   let recentBoard =
     boards &&
@@ -156,10 +156,10 @@ export const BoardContainer = () => {
         {!loading && (
           <Board.EmptyContainer>
             <Board.EmptyImage
-              src="/images/misc/empty-icon.png"
-              alt="Empty board"
-              loading="lazy"
-              height="300"
+              src='/images/misc/empty-icon.png'
+              alt='Empty board'
+              loading='lazy'
+              height='300'
             />
             <Board.EmptyWarn>Please add board or note</Board.EmptyWarn>
           </Board.EmptyContainer>
