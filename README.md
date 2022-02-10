@@ -1,19 +1,53 @@
-<div align="center">
-  <br>
-  <a href="https://whatwas.app" target="_blank" rel="noopener noreferrer" aria-label="whatwas"><img src="https://i.ibb.co/w6wDWt2/whatwas-github.jpg" alt="whatwas-github"></a>
-</div>
+# Welcome to Remix!
 
-## What is WhatWas?
+- [Remix Docs](https://remix.run/docs)
 
-[WhatWas](https://whatwas.app) is note taking app that allows users to save and organize their content on every device.
+## Development
 
-## Core Features:
+From your terminal:
 
-- Built and deployed website using React.
-- Achieved 85+ performance rating on Google Pagespeed Insights.
-- Organised page navigation and error pages with React Router.
-- Designed React Components in styled-components.
-- Created a WYSIWYG editor via [react-quill](https://github.com/zenoamaro/react-quill).
-- To simplify user authentication, integrated Firebase Auth.
-- Creation of back-end with Firebase and Firestore.
-- Reduced average database reads per user 800% using Context API (from 25k reads/day to 3k reads/day).
+```sh
+npm run dev
+```
+
+This starts your app in development mode, rebuilding assets on file changes.
+
+## Deployment
+
+First, build your app for production:
+
+```sh
+npm run build
+```
+
+Then run the app in production mode:
+
+```sh
+npm start
+```
+
+Now you'll need to pick a host to deploy it to.
+
+### DIY
+
+If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
+
+Make sure to deploy the output of `remix build`
+
+- `build/`
+- `public/build/`
+
+### Using a Template
+
+When you ran `npx create-remix@latest` there were a few choices for hosting. You can run that again to create a new project, then copy over your `app/` folder to the new project that's pre-configured for your target server.
+
+```sh
+cd ..
+# create a new project, and pick a pre-configured host
+npx create-remix@latest
+cd my-new-remix-app
+# remove the new project's app (not the old one!)
+rm -rf app
+# copy your app over
+cp -R ../my-old-remix-app/app app
+```
