@@ -8,8 +8,7 @@
     "dev": "remix dev",
     "postinstall": "remix setup node",
     "start": "remix-serve build",
-    "lint": "eslint . --ext ts --ext tsx --ext js",
-    "format": "prettier --write \"**/*.*(js|jsx|ts|tsx|json)\"",
+    "lint": "eslint . --cache",
     "prepare": "husky install"
   },
   "husky": {
@@ -25,12 +24,6 @@
   "lint-staged": {
     "*.{ts,tsx,js}": [
       "eslint --cache --fix"
-    ],
-    "./app/*.{js,jsx,ts,tsx,json}": [
-      "prettier --write"
-    ],
-    "*.{ts,tsx,js,css}": [
-      "git add"
     ]
   },
   "dependencies": {
@@ -50,7 +43,11 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base-typescript-prettier": "^4.1.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-config-remix": "^0.0.2",
+    "eslint-import-resolver-custom-alias": "^1.3.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-import-name": "^1.2.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prefer-arrow-functions": "^3.1.4",
     "eslint-plugin-react": "^7.28.0",

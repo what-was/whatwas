@@ -1,51 +1,75 @@
 module.exports = {
-	env: {
-		browser: true,
-		es2021: true,
-		node: true,
-	},
-	extends: ['plugin:react/recommended', 'airbnb-base-typescript-prettier', 'prettier'],
-	parser: '@typescript-eslint/parser',
-	parserOptions: {
-		ecmaFeatures: {
-			jsx: true,
-		},
-		ecmaVersion: 'latest',
-		sourceType: 'module',
-		project: './tsconfig.json',
-		extraFileExtensions: ['.json'],
-	},
-	plugins: ['react', '@typescript-eslint', 'prefer-arrow-functions'],
-	settings: {
-		react: {
-			pragma: 'React',
-			version: 'detect',
-		},
-		'import/resolver': {
-			node: {
-				extensions: ['.js', '.jsx', '.ts', '.tsx'],
-				moduleDirectory: ['node_modules', '.'],
-			},
-		},
-	},
-	rules: {
-		'no-console': ['error', { allow: ['warn', 'error'] }],
-		'import/extensions': [
-			'error',
-			'always',
-			{
-				js: 'never',
-				jsx: 'never',
-				ts: 'never',
-				tsx: 'never',
-			},
-		],
-		'react/react-in-jsx-scope': 'off',
-		'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
-		'react/function-component-definition': [
-			2,
-			{ namedComponents: 'arrow-function', unnamedComponents: 'arrow-function' },
-		],
-		semi: ['error', 'always'],
-	},
+  env: {
+    es2021: true,
+    browser: true,
+    node: true,
+  },
+  extends: [
+    'remix',
+    'airbnb-base',
+    'prettier',
+    'plugin:prettier/recommended',
+    'plugin:react/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'plugin:import-name/recommended',
+  ],
+  plugins: ['react', '@typescript-eslint', 'prefer-arrow-functions'],
+  ignorePatterns: ['node_modules/'],
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: './tsconfig.json',
+  },
+  rules: {
+    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'react/display-name': 0,
+    'import/no-unresolved': [2, { commonjs: true, amd: true }],
+    'object-curly-spacing': ['error', 'always'],
+    'react/react-in-jsx-scope': 'off',
+    'react/function-component-definition': [
+      2,
+      { namedComponents: 'arrow-function', unnamedComponents: 'arrow-function' },
+    ],
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always-and-inside-groups',
+        groups: [
+          ['builtin', 'external'],
+          ['internal', 'index', 'sibling', 'parent', 'object'],
+        ],
+      },
+    ],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+    'react/jsx-filename-extension': 'off',
+    '@typescript-eslint/no-namespace': 'off',
+
+    // I can't figure these out:
+    '@typescript-eslint/no-unsafe-call': 'off',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
+    '@typescript-eslint/no-unsafe-member-access': 'off',
+
+    '@typescript-eslint/no-throw-literal': 'off',
+  },
+  settings: {
+    react: {
+      pragma: 'React',
+      version: 'detect',
+    },
+    sourceType: 'module',
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
 };
