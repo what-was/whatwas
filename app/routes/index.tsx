@@ -1,14 +1,21 @@
-import { Outlet } from 'remix';
+import { LoaderFunction, json, redirect } from 'remix';
 
-import Layout from '../containers/App/Layout';
+import { authenticated } from '~/utils/authenticated';
 
-const Index = () => {
-  return (
-    <Layout>
-      test
-      <Outlet />
-    </Layout>
-  );
+export const loader: LoaderFunction = async ({ request }) => {
+  return authenticated(request, ({ user }) => {
+    try {
+      if (user) {
+        return redirect('/dashboard');
+      }
+
+      throw new Error('User not authenticated');
+    } catch (error) {
+      return json({ error });
+    }
+  });
 };
 
-export default Index;
+export default function Index() {
+  return <div>Landing</div>;
+}

@@ -1,23 +1,40 @@
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from 'remix';
-import type { MetaFunction } from 'remix';
+import { LoaderFunction, Outlet, useLoaderData } from 'remix';
+import type { LinksFunction } from 'remix';
 
-export const meta: MetaFunction = () => ({ title: 'WhatWas' });
+import tailwindStyles from '~/styles/tailwind.css';
+import { UserContextProvider } from './hooks/useUser';
+import { Layout, Document, EnvironmentSetter } from './components';
 
-const Root = () => (
-  <html lang='en'>
-    <head>
-      <meta charSet='utf-8' />
-      <meta name='viewport' content='width=device-width,initial-scale=1' />
-      <Meta />
-      <Links />
-    </head>
-    <body>
-      <Outlet />
-      <ScrollRestoration />
-      <Scripts />
-      {process.env.NODE_ENV === 'development' && <LiveReload />}
-    </body>
-  </html>
-);
+export const links: LinksFunction = () => [{ rel: 'stylesheet', href: tailwindStyles }];
 
-export default Root;
+interface RootLoader {
+  ENV: { [key: string]: string };
+}
+
+export const loader: LoaderFunction = () => {
+  const ENV = {
+    SUPABASE_URL: process.env.SUPABASE_URL,
+    SUPABASE_KEY: process.env.SUPABASE_KEY,
+  };
+
+  return { ENV };
+};
+
+/**
+ * The root module's default export is a component that renders the current
+ * route via the `<Outlet />` component. Think of this as the global layout
+ * component for your app.
+ */
+export default function App() {
+  const { ENV } = useLoaderData<RootLoader>();
+  return (
+    <Document>
+      <UserContextProvider>
+        <Layout>
+          <Outlet />
+        </Layout>
+      </UserContextProvider>
+      <EnvironmentSetter env={ENV} />
+    </Document>
+  );
+}

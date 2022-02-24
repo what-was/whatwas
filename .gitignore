@@ -5,5 +5,10 @@ node_modules
 /public/build
 .env
 .eslintcache
+.output
 
 yarn-error.log
+yarn.lock
+tests/state.json
+
+serviceAccount.json
