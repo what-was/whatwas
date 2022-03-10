@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import { LoaderFunction, Outlet, useLoaderData } from 'remix';
-import type { LinksFunction } from 'remix';
+import { ColorSchemeProvider, MantineProvider, ColorScheme } from '@mantine/core';
+import { useColorScheme } from '@mantine/hooks';
 
-import tailwindStyles from '~/styles/tailwind.css';
 import { UserContextProvider } from './hooks/useUser';
-import { Layout, Document, EnvironmentSetter } from './components';
+import { EnvironmentSetter } from './components';
+import { CUSTOM_COLORS } from './shared/appConstants';
 
-export const links: LinksFunction = () => [{ rel: 'stylesheet', href: tailwindStyles }];
+import { Layout, Document } from './containers/Layout';
 
 interface RootLoader {
   ENV: { [key: string]: string };
@@ -27,12 +29,34 @@ export const loader: LoaderFunction = () => {
  */
 export default function App() {
   const { ENV } = useLoaderData<RootLoader>();
+
+  const preferredColorScheme = useColorScheme();
+  const [colorScheme, setColorScheme] = useState<ColorScheme>(preferredColorScheme);
+
+  const toggleColorScheme = (value?: ColorScheme) => {
+    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  };
+
   return (
     <Document>
       <UserContextProvider>
-        <Layout>
-          <Outlet />
-        </Layout>
+        <MantineProvider
+          theme={{
+            primaryColor: 'brand',
+            colors: {
+              ...CUSTOM_COLORS,
+            },
+            colorScheme,
+          }}
+          withNormalizeCSS
+          withGlobalStyles
+        >
+          <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+            <Layout>
+              <Outlet />
+            </Layout>
+          </ColorSchemeProvider>
+        </MantineProvider>
       </UserContextProvider>
       <EnvironmentSetter env={ENV} />
     </Document>

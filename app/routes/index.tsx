@@ -6,7 +6,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return authenticated(request, ({ user }) => {
     try {
       if (user) {
-        return redirect('/dashboard');
+        return redirect('notes');
       }
 
       throw new Error('User not authenticated');
