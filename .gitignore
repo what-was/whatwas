@@ -9,6 +9,7 @@ node_modules
 
 yarn-error.log
 yarn.lock
+package-lock.json
 tests/state.json
 
 serviceAccount.json

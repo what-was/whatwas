@@ -15,7 +15,7 @@
     "build": "npm run build:css && npm run build:remix",
     "dev:css": "tailwindcss -i ./app/styles/tailwind.css -o ./app/styles/app.css --watch",
     "dev:remix": "node -r dotenv/config node_modules/.bin/remix dev",
-    "dev": "concurrently --names \"REMIX,TAILWIND\" -c \"#3f37c9.bold,#e85d04.bold\" \"npm:dev:remix\" \"npm:dev:css\"",
+    "dev": "concurrently \"npm:dev:*\"",
     "postinstall": "remix setup node",
     "prepare": "husky install",
     "start": "remix-serve build",

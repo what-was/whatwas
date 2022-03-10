@@ -7,7 +7,7 @@ import { supabase } from '~/utils/supabase';
 export const loader: LoaderFunction = async ({ request }) => {
   const { user } = await getLoggedInUser(request);
   if (user) {
-    return redirect('notes');
+    return redirect('/dashboard');
   }
 
   return null;
