@@ -12,3 +12,7 @@ function createSupabase() {
 }
 
 export const supabase = createSupabase();
+
+export async function signout() {
+  await supabase.auth.signOut();
+}

@@ -9,7 +9,7 @@ type UserContextType = {
   session: Session | null;
 };
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+export const UserContext = createContext<UserContextType>({ user: null, session: null });
 
 /**
  * This context provides user/session details.

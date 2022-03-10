@@ -1,3 +1,4 @@
+import { Button } from '@mantine/core';
 import { LoaderFunction, redirect } from 'remix';
 
 import { getLoggedInUser } from '~/utils/sessions.server';
@@ -6,7 +7,7 @@ import { supabase } from '~/utils/supabase';
 export const loader: LoaderFunction = async ({ request }) => {
   const { user } = await getLoggedInUser(request);
   if (user) {
-    return redirect('/dashboard');
+    return redirect('notes');
   }
 
   return null;
@@ -20,7 +21,7 @@ export default function Login() {
   return (
     <div>
       <p>Log in to your app</p>
-      <button onClick={handleClickGoogleSignup}>Log in with Google</button>
+      <Button onClick={handleClickGoogleSignup}>Log in with Google</Button>
     </div>
   );
 }

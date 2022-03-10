@@ -47,7 +47,7 @@ export function getUserSession(request: Request) {
 
 export async function getUserAccessToken(request: Request) {
   const session = await getUserSession(request);
-  return session.get('accessToken');
+  return session.get(SESSION_KEYS.accessToken);
 }
 
 /**
@@ -58,7 +58,7 @@ export async function getUserAccessToken(request: Request) {
 export async function getLoggedInUser(request: Request): Promise<LoggedInUserResponse> {
   const session = await getUserSession(request);
 
-  const accessToken = session.get('accessToken');
+  const accessToken = session.get(SESSION_KEYS.accessToken);
   if (!accessToken || typeof accessToken !== 'string') return { user: null, token: null };
   const { user } = await supabase.auth.api.getUser(accessToken);
   return { user, token: accessToken };

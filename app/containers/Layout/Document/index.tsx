@@ -1,6 +1,6 @@
 import { Links, LiveReload, Meta, Scripts, ScrollRestoration } from 'remix';
 
-import { RouteChangeAnnouncement } from './RouteChangeAnnouncement';
+import { RouteChangeAnnouncement } from '~/components/RouteChangeAnnouncement';
 
 export function Document({ children, title }: { children: React.ReactNode; title?: string }) {
   return (

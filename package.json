@@ -15,7 +15,7 @@
     "build": "npm run build:css && npm run build:remix",
     "dev:css": "tailwindcss -i ./app/styles/tailwind.css -o ./app/styles/app.css --watch",
     "dev:remix": "node -r dotenv/config node_modules/.bin/remix dev",
-    "dev": "concurrently \"npm:dev:*\"",
+    "dev": "concurrently --names \"REMIX,TAILWIND\" -c \"#3f37c9.bold,#e85d04.bold\" \"npm:dev:remix\" \"npm:dev:css\"",
     "postinstall": "remix setup node",
     "prepare": "husky install",
     "start": "remix-serve build",
@@ -37,10 +37,14 @@
     ]
   },
   "dependencies": {
+    "@mantine/core": "3.6.14",
+    "@mantine/hooks": "3.6.14",
+    "@mantine/ssr": "3.6.14",
+    "@radix-ui/react-icons": "^1.1.0",
     "@radix-ui/react-popover": "0.1.4",
     "@remix-run/react": "^1.1.3",
     "@remix-run/serve": "^1.1.3",
-    "@stitches/react": "^1.2.6",
+    "@stitches/react": "^1.2.7",
     "@supabase/supabase-js": "^1.30.4",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/line-clamp": "^0.3.1",
@@ -50,7 +54,7 @@
     "react-dom": "^17.0.2",
     "react-hot-toast": "^2.2.0",
     "react-icons": "^4.3.1",
-    "remix": "1.2.0",
+    "remix": "^1.2.3",
     "remix-seo": "^0.1.0",
     "tailwindcss": "^3.0.23"
   },
