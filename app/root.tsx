@@ -1,17 +1,24 @@
 import { useState } from 'react';
-import { LoaderFunction, Outlet, useLoaderData } from 'remix';
+import { LinksFunction, LoaderFunction, MetaFunction, Outlet, useLoaderData } from 'remix';
 import { ColorSchemeProvider, MantineProvider, ColorScheme } from '@mantine/core';
 import { useColorScheme } from '@mantine/hooks';
 
 import { UserContextProvider } from './hooks/useUser';
+import { Layout, Document } from './containers/Layout';
 import { EnvironmentSetter } from './components';
 import { CUSTOM_COLORS } from './shared/appConstants';
-
-import { Layout, Document } from './containers/Layout';
+import { getSeo } from './utils/seo';
 
 interface RootLoader {
   ENV: { [key: string]: string };
 }
+
+const [seoMeta, seoLinks] = getSeo({
+  title: 'Hello 👋',
+});
+
+export const meta: MetaFunction = () => ({ ...seoMeta });
+export const links: LinksFunction = () => [...seoLinks];
 
 export const loader: LoaderFunction = () => {
   const ENV = {
@@ -22,11 +29,6 @@ export const loader: LoaderFunction = () => {
   return { ENV };
 };
 
-/**
- * The root module's default export is a component that renders the current
- * route via the `<Outlet />` component. Think of this as the global layout
- * component for your app.
- */
 export default function App() {
   const { ENV } = useLoaderData<RootLoader>();
 

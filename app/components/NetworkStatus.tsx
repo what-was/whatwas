@@ -31,6 +31,9 @@ export const NetworkPresence = ({ showLabel = false }: { showLabel?: boolean }) 
           },
         }}
         sx={{
+          position: 'absolute',
+          top: '8px',
+          right: '8px',
           padding: '0 6px',
           transition: 'all 100ms ease-in-out',
 
@@ -39,7 +42,6 @@ export const NetworkPresence = ({ showLabel = false }: { showLabel?: boolean }) 
 
             '& .mantine-Badge-inner': {
               opacity: 1,
-              cursor: 'pointer',
               width: '100%',
             },
           },

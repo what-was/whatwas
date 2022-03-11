@@ -1,28 +1,12 @@
-import { LoaderFunction, json, useLoaderData } from 'remix';
+import { LoaderFunction, useLoaderData } from 'remix';
 import { Button, Text, Title } from '@mantine/core';
 
 import { authenticated } from '~/utils/authenticated';
-
-type UserMeta = {
-  id: string;
-  email: string;
-  meta: {
-    [key: string]: string;
-  };
-};
+import { signout } from '~/utils/supabase';
+import type { UserMeta } from '~/types';
 
 export const loader: LoaderFunction = async ({ request }) => {
-  return authenticated(request, ({ user }) => {
-    try {
-      return json({
-        id: user.id,
-        email: user.email,
-        meta: user.user_metadata,
-      });
-    } catch (error) {
-      return json({ error });
-    }
-  });
+  return authenticated(request);
 };
 
 export default function Index() {
@@ -31,9 +15,9 @@ export default function Index() {
   return (
     <div>
       <Title order={2}>Notes</Title>
-      <Text>Hello {serverUser.meta.name}</Text>
+      <Text>Hello {serverUser?.meta?.name ?? 'sa'}</Text>
       {serverUser && <p>Your serverUser id from client is: {serverUser.id}</p>}
-      {serverUser && <Button>logout</Button>}
+      {serverUser && <Button onClick={signout}>logout</Button>}
     </div>
   );
 }

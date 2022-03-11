@@ -7,8 +7,8 @@ import { commitSession, getLoggedInUser, getUserSession } from '~/utils/sessions
 
 export type Policy<PolicyResult> = (
   request: Request,
-  callback?: (input: PolicyResult) => Promise<ThrownResponse> | Response | null,
-) => Promise<ThrownResponse | Response | null>;
+  callback?: (input: PolicyResult) => Promise<ThrownResponse> | Response | { user: User; token: string },
+) => Promise<ThrownResponse | Response | { user: User; token: string }>;
 
 export const authenticated: Policy<{ user: User; token: string }> = async (request, callback) => {
   const session = await getUserSession(request);
@@ -24,7 +24,7 @@ export const authenticated: Policy<{ user: User; token: string }> = async (reque
       return await callback({ user, token });
     }
 
-    return null;
+    return { user, token };
   } catch {
     // any error in the policy should consider the user is not authenticated
     // so in this case we don't need to handle specific errors, the callback

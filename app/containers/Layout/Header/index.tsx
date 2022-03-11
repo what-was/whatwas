@@ -1,7 +1,5 @@
 import { Container } from '@mantine/core';
 
-import { NetworkPresence } from '~/components/NetworkStatus';
-
 type Header = {
   children?: React.ReactNode;
   leftContent?: React.ReactNode;
@@ -14,6 +12,7 @@ export default function Header({ children, leftContent, rightContent }: Header) 
       padding={0}
       fluid
       sx={{
+        position: 'sticky',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -21,10 +20,7 @@ export default function Header({ children, leftContent, rightContent }: Header) 
     >
       <div>{leftContent}</div>
       {children}
-      <div>
-        {process.env.NODE_ENV === 'development' && <NetworkPresence />}
-        {rightContent}
-      </div>
+      <div>{rightContent}</div>
     </Container>
   );
 }

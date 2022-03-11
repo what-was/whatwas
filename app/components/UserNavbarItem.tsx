@@ -1,15 +1,12 @@
-import { useMatches, useLocation } from 'remix';
 import { Avatar, Box, Menu, Text } from '@mantine/core';
-import { ChevronRightIcon } from '@radix-ui/react-icons';
+import { ChevronRightIcon, SymbolIcon } from '@radix-ui/react-icons';
 
 import { signout } from '~/utils/supabase';
+import { useUser } from '~/hooks/useUser';
+import { getInitials } from '~/utils/helper';
 
-export function UserNavbarItem() {
-  const location = useLocation();
-  const matches = useMatches();
-  const currentRouteData = matches.find(route => route.pathname === location.pathname);
-
-  const user = currentRouteData?.data;
+export function UserNavbarItem({ shouldRenderMeta }: { shouldRenderMeta?: boolean }) {
+  const { user } = useUser();
 
   return (
     <Menu
@@ -20,40 +17,52 @@ export function UserNavbarItem() {
         width: '100%',
       }}
       control={
-        <Box
-          sx={theme => ({
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: '100%',
-            padding: '.75rem 1rem',
-            borderRadius: 8,
-            '&:hover, &:focus-within': {
-              cursor: 'pointer',
-              backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
-            },
-          })}
-        >
+        user === null ? (
+          <SymbolIcon />
+        ) : (
           <Box
-            sx={{
-              padding: 0,
+            sx={theme => ({
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
-            }}
+              justifyContent: 'space-between',
+              width: '100%',
+              padding: shouldRenderMeta ? '.75rem 1rem' : '.5rem',
+              borderRadius: 8,
+              '&:hover, &:focus-within': {
+                cursor: 'pointer',
+                backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
+              },
+            })}
           >
-            <Avatar radius="xl" src={user?.meta?.picture ?? user?.meta?.avatar_url} />
             <Box
-              hidden={false} // TODO: find a way to hide on "sm" breakpoint
+              sx={{
+                padding: 0,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
             >
-              <Text size="sm" weight="bold">
-                {user?.meta?.name}
-              </Text>
-              <Text size="xs">{user?.email}</Text>
+              <Avatar
+                radius="xl"
+                src={user?.user_metadata?.picture ?? user?.user_metadata?.avatar_url}
+                alt={user?.user_metadata?.name ?? user?.email}
+              >
+                {getInitials(user?.user_metadata?.name)}
+              </Avatar>
+              <Box
+                hidden={!shouldRenderMeta} // TODO: find a way to hide on "sm" breakpoint
+              >
+                <Text size="sm" weight="bold">
+                  {user?.user_metadata?.name}
+                </Text>
+                <Text size="xs">{user?.email}</Text>
+              </Box>
+            </Box>
+            <Box hidden={!shouldRenderMeta}>
+              <ChevronRightIcon />
             </Box>
           </Box>
-          <ChevronRightIcon />
-        </Box>
+        )
       }
       trigger="hover"
       delay={400}

@@ -1,5 +1,5 @@
 import { User } from '@supabase/supabase-js';
-import { createCookieSessionStorage, json } from 'remix';
+import { createCookieSessionStorage, json, redirect } from 'remix';
 
 import { supabase } from './supabase';
 import { SESSION_KEYS } from './contants';
@@ -34,8 +34,8 @@ export async function createUserSession(accessToken: string) {
   // Set the accessToken property in the cookie
   session.set(SESSION_KEYS.accessToken, accessToken);
 
-  // Return the response that sets the cookie in the client
-  return json(null, { headers: { 'Set-Cookie': await commitSession(session) } });
+  // Redirect user to notes page and set the cookie in the client
+  return redirect('/notes', { headers: { 'Set-Cookie': await commitSession(session) } });
 }
 
 /**
@@ -67,7 +67,7 @@ export async function getLoggedInUser(request: Request): Promise<LoggedInUserRes
 /** Destroy the session cookie  */
 export async function clearCookie(request: Request) {
   const session = await getSession(request.headers.get('Cookie'));
-  return json('/', { headers: { 'Set-Cookie': await destroySession(session) } });
+  return redirect('/', { headers: { 'Set-Cookie': await destroySession(session) } });
 }
 
 type LoggedInUserResponse = {
