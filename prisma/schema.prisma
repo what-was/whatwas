@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// model User {
+//   id    String @id @default(auto()) @map("_id") @db.ObjectId
+//   email String @unique
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   // notes   Note[]
+//   // Budget  Budget[]
+//   // Tag     Tag[]
+//   // Expense Expense[]
+//   // Income  Income[]
+//   // Product Product[]
+// }
+
+model Note {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  body  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // // user   User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String
+}
+
+model Budget {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  currency String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // // user    User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String
+  // Expense Expense[]
+
+  incomeIDs String[]  @map("incomes") @db.ObjectId
+  incomes   Income[]
+  expenses  Expense[]
+}
+
+model Income {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  amount   Int
+  currency String
+  dueDate  DateTime @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId   String
+  budgetId String @map("budgetId") @db.ObjectId
+  budget   Budget @relation(fields: [budgetId], references: [id])
+}
+
+model Expense {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  priority    Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  budget     Budget    @relation(fields: [budgetId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  budgetId   String    @db.ObjectId
+  products   Product[] @relation(fields: [productIDs], references: [id])
+  productIDs String[]  @db.ObjectId
+  userId     String
+}
+
+model Tag {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId     String
+  products   Product[] @relation(fields: [productIDs], references: [id])
+  productIDs String[]  @db.ObjectId
+}
+
+model Product {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  source      String  @unique
+  price       Int
+  currency    String
+  isPurchased Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId     String
+  expenses   Expense[] @relation(fields: [expenseIDs], references: [id])
+  expenseIDs String[]  @db.ObjectId
+  tags       Tag[]     @relation(fields: [tagIDs], references: [id])
+  tagIDs     String[]  @db.ObjectId
+}
