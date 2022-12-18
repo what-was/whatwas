@@ -1,46 +1,112 @@
 {
   "name": "whatwas",
-  "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "author": "https://github.com/what-was",
+  "sideEffects": false,
+  "scripts": {
+    "build": "run-s build:*",
+    "build:css": "npm run generate:css -- --minify",
+    "build:remix": "remix build",
+    "dev": "run-p dev:*",
+    "dev:css": "npm run generate:css -- --watch",
+    "dev:remix": "cross-env NODE_ENV=development binode -- @remix-run/dev:remix dev",
+    "generate:css": "tailwindcss -i ./app/styles/app.css -o ./app/styles/tailwind.css",
+    "setup": "run-s setup:db setup:seed",
+    "setup:db": "prisma generate && prisma migrate deploy",
+    "setup:seed": "prisma db seed",
+    "start": "remix-serve build",
+    "format": "prettier --write .",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
+    "test:e2e:dev": "playwright test",
+    "pretest:e2e:run": "npm run build",
+    "test:e2e:run": "cross-env CI=true playwright test",
+    "typecheck": "tsc -b",
+    "validate": "run-p lint typecheck test:e2e:run"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "jsxSingleQuote": false,
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ],
+    "printWidth": 80,
+    "proseWrap": "always",
+    "semi": true,
+    "singleAttributePerLine": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "all",
+    "useTabs": false
+  },
+  "eslintIgnore": [
+    "/node_modules",
+    "/build",
+    "/public/build"
+  ],
   "dependencies": {
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "dotenv": "^8.2.0",
-    "firebase": "^8.0.1",
-    "normalize.css": "^8.0.1",
-    "react": "^17.0.1",
-    "react-awesome-spinners": "^1.3.1",
-    "react-dom": "^17.0.1",
-    "react-icons": "^3.11.0",
-    "react-quill": "^1.3.5",
-    "react-router-dom": "^5.2.0",
-    "react-router-sitemap": "^1.2.0",
-    "react-scripts": "4.0.0",
-    "styled-components": "^5.2.1",
-    "web-vitals": "^0.2.4"
+    "@clerk/remix": "^1.4.6",
+    "@clerk/themes": "^1.2.36",
+    "@clerk/types": "^3.22.2",
+    "@conform-to/react": "^0.4.0",
+    "@conform-to/zod": "^0.4.0",
+    "@emotion/css": "^11.10.5",
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
+    "@mantine/core": "^5.9.4",
+    "@mantine/hooks": "^5.9.4",
+    "@mantine/notifications": "^5.9.4",
+    "@mantine/remix": "^5.9.4",
+    "@prisma/client": "^4.3.1",
+    "@remix-run/node": "^1.8.2",
+    "@remix-run/react": "^1.8.2",
+    "@remix-run/serve": "^1.8.2",
+    "@tabler/icons": "^1.117.0",
+    "bcryptjs": "^2.4.3",
+    "isbot": "^3.6.2",
+    "prismjs": "^1.29.0",
+    "react": "17",
+    "react-dom": "17",
+    "remix-auth": "^3.2.2",
+    "remix-auth-form": "^1.2.0",
+    "slate": "^0.87.0",
+    "slate-history": "^0.86.0",
+    "slate-react": "^0.87.1",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.5",
-    "@testing-library/react": "^11.1.1",
-    "@testing-library/user-event": "^12.2.0"
+    "@playwright/test": "^1.27.1",
+    "@remix-run/dev": "^1.8.2",
+    "@remix-run/eslint-config": "^1.8.2",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/eslint": "^8.4.10",
+    "@types/node": "^18.7.18",
+    "@types/prismjs": "^1.26.0",
+    "@types/react": "17",
+    "@types/react-dom": "17",
+    "autoprefixer": "^10.4.11",
+    "binode": "^1.0.5",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.5.2",
+    "eslint-plugin-import": "^2.26.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.16",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "prisma": "^4.3.1",
+    "tailwindcss": "^3.1.8",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "^4.8.3"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "engines": {
+    "node": ">=16"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "prisma": {
+    "seed": "ts-node --require tsconfig-paths/register prisma/seed.ts"
   }
 }
