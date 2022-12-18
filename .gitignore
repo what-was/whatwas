@@ -5,6 +5,9 @@ yarn.lock
 pnpm-lock.yaml
 pnpm-lock.yml
 
+# Errors
+*.log
+
 node_modules
 
 # Editor Configs.

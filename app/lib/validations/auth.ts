@@ -1,4 +1,3 @@
-import { getAuth } from '@clerk/remix/ssr.server';
 import { z } from 'zod';
 
 export const LoginFormSchema = z.object({
