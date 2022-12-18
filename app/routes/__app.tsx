@@ -39,7 +39,7 @@ export default function Layout() {
         size="lg"
         className={clsx('h-full', userId && 'flex justify-between gap-6')}
       >
-        <Navigation user={userId} />
+        <Navigation user={null} />
 
         <Box className="grow">
           {/* Outlet. */}

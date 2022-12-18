@@ -13,7 +13,7 @@ export const SHORTCUTS = {
   '#####': 'heading-five',
   '######': 'heading-six',
   '[]': 'check-list-item',
-};
+} as const;
 
 type Shortcut = keyof typeof SHORTCUTS;
 
