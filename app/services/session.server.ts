@@ -1,9 +1,4 @@
 import { createCookieSessionStorage } from '@remix-run/node';
-import type { User, Password } from '@prisma/client';
-
-export interface UserSession extends User {
-  password?: Password | null;
-}
 
 export const sessionStorage = createCookieSessionStorage({
   cookie: {

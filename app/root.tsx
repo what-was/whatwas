@@ -31,6 +31,7 @@ export const meta: MetaFunction = () => {
     title: 'WhatWas?',
     description: `TBD`,
     keywords: 'whatwas?',
+    robots: 'noindex, nofollow',
     'og:title': 'WhatWas?',
     'og:type': 'website',
     'og:url': 'https://whatwas.app',
@@ -97,6 +98,10 @@ function App() {
   );
 }
 
-export default ClerkApp(App);
+export default ClerkApp(App, {
+  appearance: {
+    baseTheme: dark,
+  },
+});
 
 export const CatchBoundary = ClerkCatchBoundary();

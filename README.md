@@ -1,17 +1,3 @@
-![GitHub-Mark-Light](https://raw.githubusercontent.com/dev-xo/dev-xo/main/whatwas/assets/images/Light.png#gh-light-mode-only)
-![GitHub-Mark-Dark ](https://raw.githubusercontent.com/dev-xo/dev-xo/main/whatwas/assets/images/Dark.png#gh-dark-mode-only)
-
-<p align="center">
-  <p align="center">
-    <a href="https://whatwas.fly.dev">Live Demo</a>
-    ·
-    <a href="https://twitter.com/DanielKanem">Twitter</a>
-    <br/>
-    <br/>
-    A starter focused Remix Stack that integrates User Authentication, Forms validation and Testing. Driven by Prisma ORM. Deploys to Fly.io
-  </p>
-</p>
-
 ## Features
 
 - [Fly app Deployment](https://fly.io) with
