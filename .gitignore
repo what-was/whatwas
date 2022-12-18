@@ -34,4 +34,4 @@ node_modules
 postgres-data
 
 # Tailwind CSS.
-/app/styles/tailwind.css
+# /app/styles/tailwind.css
