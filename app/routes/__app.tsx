@@ -12,7 +12,6 @@ interface LoaderData {
 
 export async function loader({ request }: DataFunctionArgs) {
   const { userId } = await getAuth(request);
-
   const url = new URL(request.url);
 
   // redirect to from query param
@@ -31,7 +30,7 @@ export async function loader({ request }: DataFunctionArgs) {
 }
 
 export default function Layout() {
-  const { userId } = useLoaderData() as LoaderData;
+  const { userId } = useLoaderData<typeof loader>();
 
   return (
     <Box className="h-screen">
@@ -39,7 +38,7 @@ export default function Layout() {
         size="lg"
         className={clsx('h-full', userId && 'flex justify-between gap-6')}
       >
-        <Navigation user={null} />
+        <Navigation userId={userId} />
 
         <Box className="grow">
           {/* Outlet. */}

@@ -18,8 +18,7 @@ import {
   IconPlus,
 } from '@tabler/icons';
 // import { UserButton } from './user-button';
-import { UserButton } from '@clerk/remix';
-import type { UserResource } from '@clerk/types';
+import { UserButton, useUser } from '@clerk/remix';
 import type { UserButtonProps } from './user-button';
 
 const useStyles = createStyles((theme) => ({
@@ -225,20 +224,22 @@ const AuthenticatedNavigation = (props: UserButtonProps) => {
   );
 };
 
-export function Navigation({ user }: { user?: UserResource | null }) {
-  if (!user) {
+export function Navigation({ userId }: { userId: string | null }) {
+  const { user } = useUser();
+
+  if (!userId) {
     return null;
   }
 
   return (
     <AuthenticatedNavigation
-      email={user.primaryEmailAddress?.emailAddress ?? ''}
+      email={user?.primaryEmailAddress?.emailAddress ?? ''}
       name={
-        (user.firstName
-          ? `${user.firstName} ${user.lastName}`
-          : user.username) ?? 'User'
+        (user?.firstName || user?.lastName
+          ? `${user.firstName} ${user.lastName}`.trim()
+          : user?.username) ?? 'User'
       }
-      image={user.profileImageUrl}
+      image={user?.profileImageUrl ?? ''}
     />
   );
 }
