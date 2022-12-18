@@ -10,7 +10,7 @@ module.exports = {
     'plugin:import/recommended',
   ],
   rules: {
-    'no-unused-vars': 'error',
+    '@typescript-eslint/no-unused-vars': 'error',
     'import/no-unresolved': 'error',
     'import/order': [
       'error',
