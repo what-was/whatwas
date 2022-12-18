@@ -6,7 +6,6 @@ declare global {
       // Base.
       NODE_ENV: 'development' | 'production' | 'test';
       SESSION_SECRET: string;
-      ENCRYPTION_SECRET: string;
 
       // Database.
       DATABASE_URL: string;

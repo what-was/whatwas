@@ -57,12 +57,8 @@ fly postgres attach template-name-staging-db
    variables and run the following command in your console.
 
 ```sh
-flyctl secrets set NODE_ENV=production ENCRYPTION_SECRET="" EMAIL_PROVIDER_API_KEY=
+flyctl secrets set NODE_ENV=production
 ```
-
-> **Note** Important❗️: `ENCRYPTION_SECRET=""` variable requires "" double
-> quotes for some reason, otherwhise throws an Error at deploy time. Development
-> variables has opted out from this command.
 
 8. Now that everything is set up you can **commit and push** your changes to
    your repo.
