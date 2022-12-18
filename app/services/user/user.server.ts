@@ -1,3 +1,5 @@
+import { clerkClient } from '@clerk/remix/api.server';
+import { getAuth } from '@clerk/remix/ssr.server';
 import { db } from '~/lib/db';
 import type { User } from '@prisma/client';
 
@@ -9,10 +11,9 @@ export function createUser(user: UserCreateInput): Promise<User> {
   });
 }
 
-export function getUser(userId: User['userId']): Promise<User | null> {
+export async function getUser(request: Request) {
+  const { userId } = await getAuth(request);
   if (!userId) throw new Error('userId is required');
 
-  return db.user.findUnique({
-    where: { userId },
-  });
+  return await clerkClient.users.getUser(userId);
 }

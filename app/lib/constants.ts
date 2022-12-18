@@ -27,6 +27,6 @@ export const MISC_KEYS = {
  * after a successful login or logout.
  */
 export const REDIRECT_ROUTES = {
-  AUTHENTICATED: '/today',
+  AUTHENTICATED: '/',
   GUEST: '/login',
 };
