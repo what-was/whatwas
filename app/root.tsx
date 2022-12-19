@@ -13,16 +13,16 @@ import { ClerkApp, ClerkCatchBoundary } from '@clerk/remix';
 import { dark } from '@clerk/themes';
 import { theme } from './lib/theme';
 import { getGlobalEnvs } from './lib/utils/envs';
-import TailwindCSS from './styles/tailwind.css';
+// import TailwindCSS from './styles/tailwind.css';
 import type {
-  LinksFunction,
+  // LinksFunction,
   MetaFunction,
   LoaderFunction,
 } from '@remix-run/node';
 
-export const links: LinksFunction = () => {
-  return [{ rel: 'stylesheet', href: TailwindCSS }];
-};
+// export const links: LinksFunction = () => {
+//   return [{ rel: 'stylesheet', href: TailwindCSS }];
+// };
 
 export const meta: MetaFunction = () => {
   return {
