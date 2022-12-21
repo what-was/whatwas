@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "UserMeta" ALTER COLUMN "userId" DROP NOT NULL,
+ALTER COLUMN "username" DROP NOT NULL;

@@ -1,4 +1,4 @@
-import { Navbar, TextInput, Code, Box } from '@mantine/core';
+import { Navbar, Text, TextInput, Code, Box } from '@mantine/core';
 import { IconUser, IconCheckbox, IconSearch, IconHome } from '@tabler/icons';
 // import { UserButton } from './user-button';
 import { UserButton } from '@clerk/remix';
@@ -49,10 +49,11 @@ const AuthenticatedNavigation = (props: UserButtonProps) => {
           cx(classes.mainLink, isActive ? classes.mainLinkActive : null)
         }
         to={link.to}
+        prefetch="intent"
       >
         <Box className={classes.mainLinkInner}>
           {Icon}
-          <span>{link.label}</span>
+          <Text>{link.label}</Text>
         </Box>
       </NavLink>
     );
@@ -71,7 +72,7 @@ const AuthenticatedNavigation = (props: UserButtonProps) => {
   // ));
 
   return (
-    <Navbar width={{ sm: 300 }} p="md" className="gap-6">
+    <Navbar width={{ sm: 300 }} p="md">
       <Navbar.Section className={classes.section} grow>
         <Logo to={REDIRECT_ROUTES.AUTHENTICATED} className={classes.logo} />
 
@@ -105,7 +106,7 @@ const AuthenticatedNavigation = (props: UserButtonProps) => {
       </Navbar.Section> */}
 
       <Navbar.Section className={classes.section}>
-        <UserButton afterSignOutUrl="/login" />
+        <UserButton afterSignOutUrl={REDIRECT_ROUTES.GUEST} />
       </Navbar.Section>
     </Navbar>
   );

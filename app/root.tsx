@@ -11,9 +11,14 @@ import {
 import { rootAuthLoader } from '@clerk/remix/ssr.server';
 import { ClerkApp, ClerkCatchBoundary } from '@clerk/remix';
 import { dark } from '@clerk/themes';
-import { theme } from './lib/theme';
+import { json } from '@remix-run/node';
+import { useMemo } from 'react';
+import { getThemeMode, theme } from './lib/theme';
 import { getGlobalEnvs } from './lib/utils/envs';
 // import TailwindCSS from './styles/tailwind.css';
+import { commitSession, getSession } from './services/session.server';
+import { getUserMeta, initializeUserMeta } from './services/user/user.server';
+import type { ThemePreference } from '@prisma/client';
 import type {
   // LinksFunction,
   MetaFunction,
@@ -36,13 +41,13 @@ export const meta: MetaFunction = () => {
     'og:type': 'website',
     'og:url': 'https://whatwas.app',
     'og:image':
-      'https://raw.githubusercontent.com/dev-xo/dev-xo/main/barebones-stack/assets/images/Thumbnail.png',
+      'https://raw.githubusercontent.com/what-was/whatwas/main/assets/images/Thumbnail.png',
     'og:card': 'summary_large_image',
     'og:creator': '@buraksaraloglu',
     'og:site': 'https://whatwas.app',
     'og:description': `TBD`,
     'twitter:image':
-      'https://raw.githubusercontent.com/dev-xo/dev-xo/main/barebones-stack/assets/images/Thumbnail.png',
+      'https://raw.githubusercontent.com/what-was/whatwas/main/assets/images/Thumbnail.png',
     'twitter:card': 'summary_large_image',
     'twitter:creator': '@buraksaraloglu',
     'twitter:title': 'WhatWas?',
@@ -50,29 +55,67 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export const loader: LoaderFunction = (args) => {
-  return rootAuthLoader(
+type LoaderData = {
+  ENV: Record<string, string>;
+  userMeta: {
+    id: string;
+    userId: string;
+    themePreference: ThemePreference;
+  } | null;
+};
+export const loader: LoaderFunction = async (args) => {
+  return await rootAuthLoader(
     args,
-    ({ request }) => {
-      const user = request.auth;
+    async ({ request }) => {
+      let returnData = {
+        ENV: getGlobalEnvs(),
+        userMeta: null,
+      };
+      const { userId } = request.auth;
+      if (!userId) return returnData;
 
-      return { ENV: getGlobalEnvs(), user };
+      const session = await getSession(request.headers.get('Cookie'));
+      if (!session) return returnData;
+
+      const userMetaInSession = session.get('userMeta');
+      if (userMetaInSession) {
+        return { ...returnData, userMeta: userMetaInSession };
+      }
+
+      const userMeta = await getUserMeta(userId);
+      if (!userMeta) {
+        const userMeta = await initializeUserMeta(userId);
+        if (!userMeta) return returnData;
+
+        session.set('userMeta', userMeta);
+
+        return json(
+          { ...returnData, userMeta },
+          { headers: { 'Set-Cookie': await commitSession(session) } },
+        );
+      }
+
+      return { ...returnData, userMeta };
     },
     { loadUser: true },
   );
 };
 
-const emotionCache = createEmotionCache({ key: 'mantine' });
+const emotionCache = createEmotionCache({ key: 'mantine', speedy: true });
 
 function App() {
-  const { ENV } = useLoaderData<typeof loader>();
+  const { ENV, userMeta } = useLoaderData<LoaderData>();
+
+  const colorScheme = useMemo(() => {
+    return getThemeMode(userMeta?.themePreference);
+  }, [userMeta?.themePreference]);
 
   return (
     <MantineProvider
-      theme={theme}
       emotionCache={emotionCache}
       withGlobalStyles
       withNormalizeCSS
+      theme={{ ...theme, colorScheme }}
     >
       <html lang="en">
         <head>

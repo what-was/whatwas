@@ -1,19 +1,18 @@
+-- CreateEnum
+CREATE TYPE "ThemePreference" AS ENUM ('LIGHT', 'DARK', 'AUTO');
+
 -- CreateTable
-CREATE TABLE "User" (
+CREATE TABLE "UserMeta" (
     "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
     "email" TEXT,
-    "name" TEXT,
-    "avatar" TEXT,
+    "themePreference" "ThemePreference" DEFAULT 'AUTO',
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
+    "deletedAt" TIMESTAMP(3),
 
-    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Password" (
-    "hash" TEXT NOT NULL,
-    "userId" TEXT NOT NULL
+    CONSTRAINT "UserMeta_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -23,6 +22,8 @@ CREATE TABLE "Tag" (
     "userId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
+    "userMetaId" TEXT,
+    "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "Tag_pkey" PRIMARY KEY ("id")
 );
@@ -34,6 +35,8 @@ CREATE TABLE "Note" (
     "userId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
+    "userMetaId" TEXT,
+    "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "Note_pkey" PRIMARY KEY ("id")
 );
@@ -45,10 +48,19 @@ CREATE TABLE "_NoteToTag" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+CREATE UNIQUE INDEX "UserMeta_userId_key" ON "UserMeta"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Password_userId_key" ON "Password"("userId");
+CREATE UNIQUE INDEX "UserMeta_username_key" ON "UserMeta"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "UserMeta_email_key" ON "UserMeta"("email");
+
+-- CreateIndex
+CREATE INDEX "Tag_userId_idx" ON "Tag"("userId");
+
+-- CreateIndex
+CREATE INDEX "Note_userId_idx" ON "Note"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_NoteToTag_AB_unique" ON "_NoteToTag"("A", "B");
@@ -57,13 +69,10 @@ CREATE UNIQUE INDEX "_NoteToTag_AB_unique" ON "_NoteToTag"("A", "B");
 CREATE INDEX "_NoteToTag_B_index" ON "_NoteToTag"("B");
 
 -- AddForeignKey
-ALTER TABLE "Password" ADD CONSTRAINT "Password_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Tag" ADD CONSTRAINT "Tag_userMetaId_fkey" FOREIGN KEY ("userMetaId") REFERENCES "UserMeta"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Tag" ADD CONSTRAINT "Tag_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Note" ADD CONSTRAINT "Note_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Note" ADD CONSTRAINT "Note_userMetaId_fkey" FOREIGN KEY ("userMetaId") REFERENCES "UserMeta"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_NoteToTag" ADD CONSTRAINT "_NoteToTag_A_fkey" FOREIGN KEY ("A") REFERENCES "Note"("id") ON DELETE CASCADE ON UPDATE CASCADE;
