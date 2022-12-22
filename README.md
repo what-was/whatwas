@@ -1,58 +1,4 @@
-## Features
-
-- [Fly app Deployment](https://fly.io) with
-  [Docker.](https://www.docker.com/products/docker-desktop/)
-- Database ORM with [Prisma.](https://www.prisma.io/)
-- Production Ready with [SQLite](https://sqlite.org/index.html) and
-  [PostgreSQL.](https://www.postgresql.org/)
-- [GitHub Actions](https://github.com/features/actions) for Deploy on merge to
-  Production and Staging environments.
-- Healthcheck Endpoint for
-  [Fly backups Region Fallbacks.](https://fly.io/docs/reference/configuration/#services-http_checks)
-- Styling with [Tailwind.css](https://tailwindcss.com/) +
-  [Tailwind Prettier-Plugin.](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
-- End-to-End testing with [Cypress.](https://www.cypress.io/how-it-works)
-- Linting with [ESLint.](https://eslint.org/)
-- Code formatting with [Prettier.](https://prettier.io/)
-- Static Types with [TypeScript.](https://www.typescriptlang.org/)
-
-### Implemented Features
-
-- Authentication Ready with
-  [Remix-Auth](https://www.npmjs.com/package/remix-auth) that includes:
-  [Form Strategy.](https://github.com/sergiodxa/remix-auth-form)
-- Flat Routes from
-  [Remix Flat Routes.](https://github.com/kiliman/remix-flat-routes)
-- Forms validation for Client and Server side with
-  [Conform.](https://conform.guide/)
-- Support for Javascript developers with continuous updates over time based on
-  `remix.init`.
-
-Learn more about [Remix Stacks](https://remix.run/stacks).
-
-## Quickstart
-
-Barebones Stack has support for multiple databases based on Prisma. The
-installer will prompt a selector allowing you to choose the database your
-project will run on. Deployment files will be updated matching the required
-criteria to successfully deploy to Fly.io
-
-To get started, run the following commands in your console:
-
-```sh
-# Initializes template in your workspace:
-npx create-remix@latest --template dev-xo/whatwas
-
-# Select the database your project will run on:
-# > SQLite or PostgreSQL
-
-# Starts dev server:
-npm run dev
-```
-
-> Important❗️: Cloning the repository instead of initializing it with the above
-> commands, will result in a inappropriate experience. This template uses
-> `remix.init` to configure itself and prepare your environment.
+# WhatWas?
 
 ## Development
 
@@ -113,6 +59,12 @@ install an editor plugin to get auto-formatting on save. There's also a
 `npm run format` script you can run to format all files in the project.
 
 Prettier settings are on `.package-json`.
+
+### Docs
+
+Prisma documentation is generated with
+[prisma-docs-generator](https://github.com/pantharshit00/prisma-docs-generator).
+To serve the docs locally, run `npm run docs:serve`.
 
 ## License
 
