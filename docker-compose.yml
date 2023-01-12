@@ -1,5 +1,12 @@
 version: '3.7'
 services:
+  cache:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - ./redis-data:/data
   postgres:
     image: postgres:latest
     restart: always

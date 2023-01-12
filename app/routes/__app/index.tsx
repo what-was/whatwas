@@ -1,4 +1,4 @@
-import { Title } from '@mantine/core';
+import { Text } from '@chakra-ui/react';
 import { getAuth } from '@clerk/remix/ssr.server';
 import { json } from '@remix-run/node';
 import type { LoaderFunction } from '@remix-run/node';
@@ -13,7 +13,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function AppIndex() {
   return (
     <>
-      <Title order={1}>Hi 👋</Title>
+      <Text as="h2" size="md">
+        Hi 👋
+      </Text>
     </>
   );
 }

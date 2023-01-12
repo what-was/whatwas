@@ -1,6 +1,6 @@
 import { json, redirect } from '@remix-run/node';
 import { getAuth } from '@clerk/remix/ssr.server';
-import { Box, Center } from '@mantine/core';
+import { Box, Center } from '@chakra-ui/react';
 import { SignUp } from '@clerk/remix';
 import { REDIRECT_ROUTES } from '~/lib/constants';
 import type { DataFunctionArgs } from '@remix-run/node';

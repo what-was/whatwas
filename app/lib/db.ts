@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import dayjs from 'dayjs';
 
 let db: PrismaClient;
 
@@ -21,15 +22,24 @@ db.$use(async (params, next) => {
       // Delete queries
       // Change action to an update
       params.action = 'update';
-      params.args['data'] = { deleted: true };
+      params.args['data'] = { deletedAt: dayjs().toISOString() };
     }
     case 'deleteMany': {
       // Delete many queries
       params.action = 'updateMany';
       if (params.args.data != undefined) {
-        params.args.data['deleted'] = true;
+        params.args.data['deletedAt'] = dayjs().toISOString();
       } else {
-        params.args['data'] = { deleted: true };
+        params.args['data'] = { deletedAt: dayjs().toISOString() };
+      }
+    }
+    case 'update': {
+      // Update queries
+      // Add updatedAt to the update data
+      if (params.args.data != undefined) {
+        params.args.data['updatedAt'] = dayjs().toISOString();
+      } else {
+        params.args['data'] = { updatedAt: dayjs().toISOString() };
       }
     }
     default: {

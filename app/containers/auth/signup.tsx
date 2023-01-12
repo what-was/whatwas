@@ -1,16 +1,17 @@
-import { useToggle, upperFirst } from '@mantine/hooks';
 import {
-  TextInput,
-  PasswordInput,
-  Text,
-  Paper,
-  Group,
   Button,
   Divider,
   Checkbox,
-  Anchor,
   Stack,
-} from '@mantine/core';
+  Heading,
+  Input,
+  Box,
+  Card,
+  CardHeader,
+} from '@chakra-ui/react';
+import { upperFirst } from 'lodash';
+import { PasswordInput } from '~/components/inputs/password';
+import { useToggle } from '~/lib/hooks/useToggle';
 import type { FetcherWithComponents } from '@remix-run/react';
 
 // import { GoogleButton, TwitterButton } from '../SocialButtons/SocialButtons';
@@ -25,44 +26,39 @@ export function AuthenticationForm({
 }: AuthenticationFormProps) {
   const [type, toggle] = useToggle(['login', 'register']);
 
-  console.log('transition', fetcher.submission);
-
   return (
-    <Paper radius="md" p="xl" withBorder>
-      <Text size="lg" weight={500}>
-        Welcome to Mantine, {type} with
-      </Text>
+    <Card>
+      <CardHeader>
+        <Heading as="h2">
+          {type === 'login' ? 'Login' : 'Create account'}
+        </Heading>
+      </CardHeader>
 
       {/* <Group grow mb="md" mt="md">
         <GoogleButton radius="xl">Google</GoogleButton>
         <TwitterButton radius="xl">Twitter</TwitterButton>
       </Group> */}
 
-      <Divider label="Or continue with email" labelPosition="center" my="lg" />
+      <Divider
+        // label="Or continue with email" labelPosition="center"
+        my="lg"
+      />
 
       <fetcher.Form>
         <Stack>
           {type === 'register' && (
-            <TextInput
-              label="Name"
-              name="name"
-              placeholder="Your name"
-              minLength={3}
-            />
+            <Input name="name" placeholder="Your name" minLength={3} />
           )}
 
-          <TextInput
-            required
-            label="Email"
+          <Input
             name="email"
             placeholder="hello@whatwas.app"
-            error={errors?.email && 'Invalid email'}
+            // error={errors?.email && 'Invalid email'}
+            required
           />
 
           <PasswordInput
-            required
-            label="Password"
-            placeholder="Your password"
+            name="password"
             error={
               errors?.password &&
               'Password should include at least 6 characters'
@@ -70,13 +66,12 @@ export function AuthenticationForm({
           />
 
           {type === 'register' && (
-            <Checkbox label="I accept terms and conditions" />
+            <Checkbox>I accept terms and conditions</Checkbox>
           )}
         </Stack>
 
-        <Group position="apart" mt="xl">
-          <Anchor
-            component="button"
+        <Box justifyContent="space-between" mt="xl">
+          <Button
             type="button"
             color="dimmed"
             onClick={() => toggle()}
@@ -85,10 +80,10 @@ export function AuthenticationForm({
             {type === 'register'
               ? 'Already have an account? Login'
               : "Don't have an account? Register"}
-          </Anchor>
+          </Button>
           <Button type="submit">{upperFirst(type)}</Button>
-        </Group>
+        </Box>
       </fetcher.Form>
-    </Paper>
+    </Card>
   );
 }

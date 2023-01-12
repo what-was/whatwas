@@ -5,13 +5,14 @@ import { Editable, ReactEditor, Slate, withReact } from 'slate-react';
 import { SHORTCUTS, withChecklists, withShortcuts } from './editor.middlewares';
 import { Element } from './editor.components';
 import { defaultValue } from './editor.mocks';
+import type { RenderElementProps } from 'slate-react';
 import type { EditorProps, RenderElement } from './editor.types';
 
 export const Editor = (props: EditorProps) => {
   const { initialValue = defaultValue } = props;
 
   const renderElement: RenderElement = useCallback(
-    (elementProps) => <Element {...elementProps} />,
+    (elementProps: RenderElementProps) => <Element {...elementProps} />,
     [],
   );
 

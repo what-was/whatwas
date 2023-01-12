@@ -1,18 +1,17 @@
-import { Box, Button, Grid, Select, Title } from '@mantine/core';
-import { getAuth } from '@clerk/remix/ssr.server';
+import { Box, Button, Grid, GridItem, Select, Text } from '@chakra-ui/react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import { REDIRECT_ROUTES } from '~/lib/constants';
 import {
   getUser,
   getUserMeta,
   updateUserMeta,
 } from '~/services/user/user.server';
+import { authenticatedRequest } from '~/lib/utils/request';
 import type { LoaderFunction, ActionFunction } from '@remix-run/node';
-import type { SelectItem } from '@mantine/core';
 import type { ThemePreference } from '@prisma/client';
 
-interface ThemePreferenceOptionProps extends SelectItem {
+interface ThemePreferenceOptionProps {
+  label: React.ReactNode;
   value: ThemePreference;
 }
 
@@ -22,9 +21,8 @@ const ThemePreferenceOptions: ThemePreferenceOptionProps[] = [
   { label: 'System', value: 'AUTO' },
 ];
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const { userId } = await getAuth(request);
-  if (!userId) return redirect(REDIRECT_ROUTES.GUEST, { status: 401 });
+export const loader: LoaderFunction = async (args) => {
+  const { userId } = await authenticatedRequest(args);
 
   const clerkUser = await getUser(userId);
   const userMeta = await getUserMeta(userId);
@@ -37,15 +35,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json({ user });
 };
 
-export const action: ActionFunction = async ({ request }) => {
-  const { userId } = await getAuth(request);
-  if (!userId) return redirect(REDIRECT_ROUTES.GUEST, { status: 401 });
+export const action: ActionFunction = async (args) => {
+  const { request } = args;
+  const { userId } = await authenticatedRequest(args);
 
   if (request.method === 'PATCH') {
     const formData = await request.formData();
     const themePreference = formData.get('themePreference');
 
-    // validate themePreference
     if (typeof themePreference === 'string') {
       const themePreferenceOption = ThemePreferenceOptions.find(
         (option) => option.value === themePreference,
@@ -67,28 +64,32 @@ export default function SettingsPage() {
   const { user } = useLoaderData<typeof loader>();
 
   return (
-    <Grid>
-      <Grid.Col span={4}>
-        <Title order={2}>Settings</Title>
+    <Grid templateColumns="repeat(2, 1fr)">
+      <Text as="h2" size="md">
+        Settings
+      </Text>
 
+      <GridItem colSpan={2}>
         <Form method="patch">
-          <Box
-            display="flex"
-            sx={(theme) => ({ flexDirection: 'column', gap: theme.spacing.md })}
-          >
+          <Box display="flex" flexDir="column" gap={4}>
             <Select
               name="themePreference"
-              label="Theme Mode"
+              placeholder="Theme Mode"
               defaultValue={user.themePreference}
-              data={ThemePreferenceOptions}
-            />
+            >
+              {ThemePreferenceOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </Select>
 
             <Button color="green" type="submit">
               Save
             </Button>
           </Box>
         </Form>
-      </Grid.Col>
+      </GridItem>
     </Grid>
   );
 }

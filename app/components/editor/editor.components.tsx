@@ -1,4 +1,4 @@
-import { Blockquote, Checkbox, List, Text, Title } from '@mantine/core';
+import { Checkbox, List, ListItem, Text } from '@chakra-ui/react';
 import { Transforms } from 'slate';
 import { ReactEditor, useReadOnly, useSlateStatic } from 'slate-react';
 import type { RenderElementProps } from 'slate-react';
@@ -8,43 +8,41 @@ import type { CheckListItemElementProps, ElementProps } from './editor.types';
 export const Element = (props: RenderElementProps) => {
   const { attributes, children, element } = props;
   switch (element.type) {
-    case 'block-quote':
-      return <Blockquote {...attributes}>{children}</Blockquote>;
     case 'heading-one':
       return (
-        <Title order={1} {...attributes}>
+        <Text as="h1" {...attributes}>
           {children}
-        </Title>
+        </Text>
       );
     case 'heading-two':
       return (
-        <Title order={2} {...attributes}>
+        <Text as="h2" {...attributes}>
           {children}
-        </Title>
+        </Text>
       );
     case 'heading-three':
       return (
-        <Title order={3} {...attributes}>
+        <Text as="h3" {...attributes}>
           {children}
-        </Title>
+        </Text>
       );
     case 'heading-four':
       return (
-        <Title order={4} {...attributes}>
+        <Text as="h4" {...attributes}>
           {children}
-        </Title>
+        </Text>
       );
     case 'heading-five':
       return (
-        <Title order={5} {...attributes}>
+        <Text as="h5" {...attributes}>
           {children}
-        </Title>
+        </Text>
       );
     case 'heading-six':
       return (
-        <Title order={6} {...attributes}>
+        <Text as="h6" {...attributes}>
           {children}
-        </Title>
+        </Text>
       );
     case 'bulleted-list':
       return (
@@ -53,7 +51,7 @@ export const Element = (props: RenderElementProps) => {
         </List>
       );
     case 'list-item':
-      return <List.Item {...attributes}>{children}</List.Item>;
+      return <ListItem {...attributes}>{children}</ListItem>;
 
     case 'check-list-item':
       return <CheckListItemElement {...props} />;
@@ -80,11 +78,11 @@ export const CheckListItemElement = (props: ElementProps) => {
         };
         Transforms.setNodes(editor, newProperties, { at: path });
       }}
-      label={
+      children={
         <Text
           contentEditable={!readOnly}
           suppressContentEditableWarning
-          td={checked ? 'line-through' : undefined}
+          textDecoration={checked ? 'line-through' : undefined}
         >
           {children}
         </Text>

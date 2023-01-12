@@ -1,8 +1,20 @@
-import { DEFAULT_THEME } from '@mantine/core';
+import { extendTheme } from '@chakra-ui/react';
+import { theme as baseTheme } from '@saas-ui/react';
 import type { ThemePreference } from '@prisma/client';
-import type { MantineTheme } from '@mantine/core';
 
-export const theme: MantineTheme = { ...DEFAULT_THEME };
+export const theme = extendTheme(
+  {
+    config: { initialColorMode: 'dark' },
+    styles: {
+      global: {
+        'html, body': {
+          height: '100%',
+        },
+      },
+    },
+  },
+  baseTheme,
+);
 
 export function getThemeMode(
   themePreference?: ThemePreference | null,

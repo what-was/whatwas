@@ -1,5 +1,5 @@
 import { getAuth } from '@clerk/remix/ssr.server';
-import { Box, Text } from '@mantine/core';
+import { Box, Text } from '@chakra-ui/react';
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { getNotesOfUser } from '~/services/notes/notes.service';

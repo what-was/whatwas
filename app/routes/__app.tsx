@@ -1,11 +1,14 @@
-import { redirect, json } from '@remix-run/node';
-import { useLoaderData, Outlet } from '@remix-run/react';
-import { Box, Container } from '@mantine/core';
+import { json } from '@remix-run/node';
+import { Box, useBreakpointValue } from '@chakra-ui/react';
+import { useLoaderData, NavLink, Outlet, useLocation } from '@remix-run/react';
 import { getAuth } from '@clerk/remix/ssr.server';
-import { Navigation } from '~/components/navigation';
-import { REDIRECT_ROUTES } from '~/lib/constants';
+import { AppShell, Button, useCollapse } from '@saas-ui/react';
+import { NavItem, Sidebar, SidebarSection } from '@saas-ui/sidebar';
 import { getUser, getUserMeta } from '~/services/user/user.server';
 import { getSession } from '~/services/session.server';
+import { Logo } from '~/components/logo';
+import { authenticatedRequest } from '~/lib/utils/request';
+import type { Location } from '@remix-run/react';
 import type { DataFunctionArgs } from '@remix-run/node';
 
 export async function updateUserMetaSession(request: Request) {
@@ -23,59 +26,110 @@ export async function updateUserMetaSession(request: Request) {
   return json({ user });
 }
 
-export async function loader({ request }: DataFunctionArgs) {
-  const { userId } = await getAuth(request);
-  const url = new URL(request.url);
-
-  const from = url.searchParams.get('from');
-
-  if (!userId) {
-    if (url.pathname !== '/') {
-      return redirect(`${REDIRECT_ROUTES.GUEST}${from ? `?from=${from}` : ''}`);
-    }
-
-    return json({ user: null });
-  }
-
+export async function loader(args: DataFunctionArgs) {
+  const { userId } = await authenticatedRequest(args);
   const user = await getUser(userId);
 
   return json({ user });
 }
 
+const isActiveRoute = (route: string, location: Location) => {
+  return location.pathname.startsWith(route);
+};
+
 export default function Layout() {
   const { user } = useLoaderData<typeof loader>();
+  const sidebarBreakingPoint = useBreakpointValue(
+    {
+      sm: false,
+      md: true,
+    },
+    {
+      // Breakpoint to use when mediaqueries cannot be used, such as in server-side rendering
+      // (Defaults to 'base')
+      fallback: 'sm',
+    },
+  );
+
+  const { onToggle, isOpen } = useCollapse({
+    defaultIsOpen: sidebarBreakingPoint,
+  });
+  const location = useLocation();
 
   return (
-    <Container
-      size="lg"
-      sx={(theme) => ({
-        display: 'flex',
-        gap: theme.spacing.lg,
-        height: '100%',
-      })}
-    >
-      {/* Navigation. */}
-      {user && (
-        <Navigation
-          name={
-            user?.firstName
-              ? `${user.firstName} ${user.lastName}`
-              : 'Anonymous User'
-          }
-          email={user?.emailAddresses[0].emailAddress ?? ''}
-          image={user?.profileImageUrl ?? ''}
-        />
-      )}
+    <AppShell
+      navbar={
+        <Box
+          as="header"
+          display="flex"
+          alignItems="center"
+          py="2"
+          px="4"
+          gap="2"
+        >
+          <Logo />
 
-      <Box
-        p="md"
-        sx={(theme) => ({
-          flex: 1,
-        })}
-      >
-        {/* Outlet. */}
+          <Button size="xs" onClick={onToggle}>
+            Collapse
+          </Button>
+        </Box>
+      }
+      sidebar={
+        isOpen ? (
+          <Sidebar
+            position="sticky"
+            top="40px"
+            border={0}
+            // display={{ sm: 'none', md: 'block' }}
+          >
+            <SidebarSection>
+              <NavItem
+                as={NavLink}
+                to="/"
+                // isActive={isActiveRoute('/', location)}
+              >
+                Home
+              </NavItem>
+              <NavItem
+                as={NavLink}
+                to={`/${user.username}/wallet`}
+                isActive={isActiveRoute(`/${user.username}/wallet`, location)}
+              >
+                Wallet
+              </NavItem>
+            </SidebarSection>
+          </Sidebar>
+        ) : null
+      }
+    >
+      <Box as="main" flex="1" py="2" px="4">
         <Outlet />
       </Box>
-    </Container>
+    </AppShell>
   );
 }
+
+// {/* <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+//   {/* Navigation. */}
+//   {user && (
+//     // <Navigation
+//     //   name={
+//     //     user?.firstName
+//     //       ? `${user.firstName} ${user.lastName}`
+//     //       : 'Anonymous User'
+//     //   }
+//     //   email={user?.emailAddresses[0].emailAddress ?? ''}
+//     //   image={user?.profileImageUrl ?? ''}
+//     // />
+//     <Sidebar />
+//   )}
+
+//   <Box
+//     ml={{ base: 0, md: 60 }}
+//     p="4"
+//     bgColor={useColorModeValue('gray.50', 'gray.800')}
+//   >
+//     {/* Outlet. */}
+//     <Outlet />
+//   </Box>
+// </Box>; */}

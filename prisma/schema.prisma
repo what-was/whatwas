@@ -71,3 +71,51 @@ model Note {
 
   @@index([userId])
 }
+
+model WalletRequisition {
+  id            String @id @default(cuid())
+  requisitionId String @unique
+  userId        String
+  agreementId   String
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model WalletAccount {
+  id            String @id @default(cuid())
+  userId        String @unique
+  accountId     String @unique
+  requisitionId String
+  balance       String
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  deletedAt DateTime?
+}
+
+model WalletTransaction {
+  id        String @id @default(cuid())
+  accountId String
+  userId    String
+  status    String
+
+  transactionId     String   @unique
+  bookingDate       String
+  valueDate         String
+  bookingDateTime   DateTime
+  valueDateTime     DateTime
+  transactionAmount String
+  currency          String
+
+  sourceCurrency String?
+  targetCurrency String?
+  exchangeRate   String?
+
+  proprietaryBankTransactionCode String?
+  creditorName                   String?
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  deletedAt DateTime?
+}

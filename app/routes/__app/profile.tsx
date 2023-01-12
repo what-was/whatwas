@@ -1,14 +1,12 @@
-import { json, redirect } from '@remix-run/node';
+import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
-import { Box, Text } from '@mantine/core';
-import { getAuth } from '@clerk/remix/ssr.server';
+import { Box, Text } from '@chakra-ui/react';
 import { getUser } from '~/services/user/user.server';
-import { REDIRECT_ROUTES } from '~/lib/constants';
+import { authenticatedRequest } from '~/lib/utils/request';
 import type { DataFunctionArgs } from '@remix-run/node';
 
-export async function loader({ request }: DataFunctionArgs) {
-  const { userId } = await getAuth(request);
-  if (!userId) return redirect(REDIRECT_ROUTES.GUEST);
+export async function loader(args: DataFunctionArgs) {
+  const { userId } = await authenticatedRequest(args);
 
   const user = await getUser(userId);
 

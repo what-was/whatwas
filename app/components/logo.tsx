@@ -1,4 +1,4 @@
-import { Box, Image } from '@mantine/core';
+import { Box, Image } from '@chakra-ui/react';
 import { Link } from '@remix-run/react';
 import WhiteLogo from '~/shared/assets/logo-white.png';
 
