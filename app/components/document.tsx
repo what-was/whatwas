@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { withEmotionCache } from '@emotion/react';
 import {
   Links,
@@ -7,7 +7,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
+import { ColorModeScript } from '@chakra-ui/react';
 import { ServerStyleContext, ClientStyleContext } from '~/lib/context';
+import { theme } from '~/lib/theme';
 
 interface DocumentProps {
   children: React.ReactNode;
@@ -30,6 +32,7 @@ export const Document = withEmotionCache(
       });
       // reset cache to reapply global styles
       clientStyleData?.reset();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -49,6 +52,7 @@ export const Document = withEmotionCache(
         </head>
         <body>
           {children}
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <ScrollRestoration />
           <Scripts />
           <LiveReload />
