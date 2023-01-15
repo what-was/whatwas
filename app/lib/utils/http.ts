@@ -13,3 +13,12 @@ export function getDomainPathname(request: Request) {
 
   return pathname;
 }
+
+type Fallback = string | undefined;
+export function getRedirectTo<FB extends Fallback>(
+  request: Request,
+  fallback?: FB,
+): FB {
+  const url = new URL(request.url);
+  return (url.searchParams.get('redirectTo') ?? fallback) as FB;
+}

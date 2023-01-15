@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 import { redirect } from '@remix-run/node';
-import { getUser } from '~/services/user/user.server';
-import { authenticatedRequest } from '~/lib/utils/request';
+import { getUser } from '~/lib/user.server';
+import { authenticatedRequest } from '~/lib/user.server';
 import { getNordigenClient } from '~/lib/nordigen.server';
 import { commitSession, getSession } from '~/services/session.server';
 import { createRequisition } from '~/lib/wallet/requisition.server';

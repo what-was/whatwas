@@ -1,4 +1,6 @@
 import { db } from '../db';
+import { time } from '../timing.server';
+import type { Timings } from '../timing.server';
 import type { WalletAccount, Prisma } from '@prisma/client';
 
 interface WalletAccountInput {
@@ -26,7 +28,7 @@ interface AccountDetails {
   cashAccountType: string;
 }
 
-type TransactionInput = Prisma.WalletTransactionCreateInput;
+// type TransactionInput = Prisma.WalletTransactionCreateInput;
 
 type Transaction = {
   transactionId: string;
@@ -74,13 +76,29 @@ export async function insertWalletAccount(input: WalletAccountInput) {
   return walletAccount;
 }
 
-export async function getWalletAccountListOfUser(userId: string) {
-  const walletAccounts = await db.walletAccount.findMany({
-    where: {
-      userId,
-    },
-  });
-  return walletAccounts;
+export async function getWalletAccountListOfUser(
+  userId: string,
+  opts?: {
+    timings?: Timings;
+  },
+) {
+  const handler = async () => {
+    const walletAccounts = await db.walletAccount.findMany({
+      where: {
+        userId,
+      },
+    });
+    return walletAccounts;
+  };
+
+  if (opts?.timings) {
+    return await time(handler, {
+      timings: opts.timings,
+      type: 'getWalletAccountListOfUser',
+    });
+  }
+
+  return await handler();
 }
 
 const sanitizeTransactions = (
@@ -88,10 +106,9 @@ const sanitizeTransactions = (
   userId: string,
   accountId: string,
   status: string,
-): TransactionInput[] => {
+): Prisma.WalletTransactionCreateManyInput[] => {
   return transactions.map((transaction) => ({
     userId,
-    accountId,
     status,
     transactionId: transaction.transactionId,
     bookingDate: transaction.bookingDate,
@@ -107,6 +124,12 @@ const sanitizeTransactions = (
       targetCurrency: transaction.currencyExchange.targetCurrency,
       exchangeRate: transaction.currencyExchange.exchangeRate,
     }),
+    // walletAccount: {
+    //   connect: {
+    //     accountId,
+    //   },
+    // },
+    walletAccountId: accountId,
   }));
 };
 

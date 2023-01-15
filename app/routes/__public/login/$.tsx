@@ -1,35 +1,41 @@
-import { json, redirect } from '@remix-run/node';
-import { getAuth } from '@clerk/remix/ssr.server';
-import { Center } from '@chakra-ui/react';
-import { SignIn } from '@clerk/remix';
+import { json } from '@remix-run/node';
+import { Box } from '@chakra-ui/react';
 import { useLoaderData } from '@remix-run/react';
-import { REDIRECT_ROUTES } from '~/lib/constants';
+import { SignIn } from '@clerk/remix';
+import { unauthenticatedRequest } from '~/lib/user.server';
+import { getRedirectTo } from '~/lib/utils/http';
 import type { DataFunctionArgs } from '@remix-run/node';
 
 export async function loader({ request }: DataFunctionArgs) {
-  const { userId } = await getAuth(request);
+  await unauthenticatedRequest(request);
 
-  const url = new URL(request.url);
-  const redirectTo = url.searchParams.get('redirectTo');
-  console.log('redirectTo', redirectTo);
-
-  if (userId) {
-    return redirect(redirectTo ?? REDIRECT_ROUTES.AUTHENTICATED);
-  }
-
-  return json({ redirectTo });
+  return json({
+    redirectTo: getRedirectTo(request),
+  });
 }
 
 export default function Login() {
   const { redirectTo } = useLoaderData<typeof loader>();
+
   return (
-    <Center sx={{ height: '100%' }}>
-      <SignIn
-        routing={'path'}
-        path={'/login'}
-        signUpUrl="/signup"
-        redirectUrl={redirectTo}
-      />
-    </Center>
+    <Box
+      h="full"
+      w="full"
+      display="flex"
+      flexDir="column"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <>
+        <Box display="grid" gap="4" gridTemplateColumns="1fr">
+          <SignIn
+            routing={'path'}
+            path={'/login'}
+            signUpUrl="/signup"
+            redirectUrl={redirectTo}
+          />
+        </Box>
+      </>
+    </Box>
   );
 }

@@ -1,28 +1,29 @@
-import { json, redirect } from '@remix-run/node';
-import { getAuth } from '@clerk/remix/ssr.server';
+import { json } from '@remix-run/node';
 import { Box, Center } from '@chakra-ui/react';
 import { SignUp } from '@clerk/remix';
-import { REDIRECT_ROUTES } from '~/lib/constants';
+import { useLoaderData } from '@remix-run/react';
+import { unauthenticatedRequest } from '~/lib/user.server';
+import { getRedirectTo } from '~/lib/utils/http';
 import type { DataFunctionArgs } from '@remix-run/node';
 
 export async function loader({ request }: DataFunctionArgs) {
-  const { userId } = await getAuth(request);
-  if (userId) {
-    return redirect(REDIRECT_ROUTES.AUTHENTICATED);
-  }
+  await unauthenticatedRequest(request);
 
-  return json({});
+  return json({
+    redirectTo: getRedirectTo(request),
+  });
 }
 
 export default function SignUpPage() {
+  const { redirectTo } = useLoaderData<typeof loader>();
   return (
     <Box className="h-screen">
       <Center className="h-full">
         <SignUp
           routing="path"
-          path={'/signup'}
+          path="/signup"
           signInUrl="/login"
-          afterSignUpUrl="/signup/success"
+          afterSignUpUrl={redirectTo}
         />
       </Center>
     </Box>

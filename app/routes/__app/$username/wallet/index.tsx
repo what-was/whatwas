@@ -1,33 +1,44 @@
 import { Box, Heading } from '@chakra-ui/react';
 import { useLoaderData, Link } from '@remix-run/react';
 import { Button } from '@saas-ui/react';
-import { redirect } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
 import { getRequisitionsOfUser } from '~/lib/wallet/requisition.server';
-import { authenticatedRequest } from '~/lib/utils/request';
+import { getUserFromRequest } from '~/lib/user.server';
 import { getWalletAccountListOfUser } from '~/lib/wallet/account.server';
 // import { Transactions } from '~/containers/wallet';
-import { getUser } from '~/services/user/user.server';
-import type { LoaderFunction } from '@remix-run/node';
+import { reuseUsefulLoaderHeaders } from '~/lib/utils/misc';
+import { getServerTimeHeader } from '~/lib/timing.server';
+import type { HeadersFunction, LoaderFunction } from '@remix-run/node';
 
-export const loader: LoaderFunction = async (args) => {
-  const token = '';
-  const { userId } = await authenticatedRequest(args);
-  const { username: requestUsername } = args.params;
-  const { username } = await getUser(userId);
+const defaultCountry = 'NL';
+
+export const loader: LoaderFunction = async ({ request, params }) => {
+  const timings = {};
+  const { username: requestUsername } = params;
+  const { id: userId, username } = await getUserFromRequest(request, {
+    timings,
+  });
   if (requestUsername !== username) {
     return redirect(`/${requestUsername}`);
   }
 
-  const requisitions = await getRequisitionsOfUser(userId);
-  const walletAccounts = await getWalletAccountListOfUser(userId);
-
-  return { token, walletAccounts, requisitions };
+  return json(
+    {
+      walletAccounts: await getRequisitionsOfUser(userId, { timings }),
+      requisitions: await getWalletAccountListOfUser(userId, { timings }),
+    },
+    {
+      headers: {
+        'Server-Timing': getServerTimeHeader(timings),
+      },
+    },
+  );
 };
 
-export default function WalletPage() {
-  const { requisitions } = useLoaderData<typeof loader>();
+export const headers: HeadersFunction = reuseUsefulLoaderHeaders;
 
-  console.log('requisitions', requisitions[requisitions.length - 1]);
+export default function WalletPage() {
+  const { walletAccounts } = useLoaderData<typeof loader>();
 
   return (
     <>
@@ -43,15 +54,16 @@ export default function WalletPage() {
         <Box>
           <Button
             as={Link}
-            to={'banks'}
+            to={`banks?country=${defaultCountry}`}
             colorScheme="green"
             variant="ghost"
             prefetch="intent"
+            rel="prefetch"
           >
             Add bank
           </Button>
 
-          <Button as={Link} to={'banks'} colorScheme="red" variant="solid">
+          <Button as={Link} to={`.`} colorScheme="red" variant="solid">
             Delete all transactions
           </Button>
         </Box>

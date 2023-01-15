@@ -1,14 +1,11 @@
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { Box, Text } from '@chakra-ui/react';
-import { getUser } from '~/services/user/user.server';
-import { authenticatedRequest } from '~/lib/utils/request';
+import { getUserFromRequest } from '~/lib/user.server';
 import type { DataFunctionArgs } from '@remix-run/node';
 
-export async function loader(args: DataFunctionArgs) {
-  const { userId } = await authenticatedRequest(args);
-
-  const user = await getUser(userId);
+export async function loader({ request }: DataFunctionArgs) {
+  const user = await getUserFromRequest(request);
 
   return json({ user });
 }

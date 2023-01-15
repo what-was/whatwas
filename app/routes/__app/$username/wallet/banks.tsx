@@ -1,5 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import { useCatch, useLoaderData } from '@remix-run/react';
+import { useCatch, useLoaderData, useParams } from '@remix-run/react';
 import {
   Alert,
   AlertDescription,
@@ -9,12 +9,11 @@ import {
   Grid,
   Heading,
 } from '@chakra-ui/react';
-import { isPrefetch } from 'remix-utils';
 import { getNordigenClient } from '~/lib/nordigen.server';
 import { commitSession } from '~/services/session.server';
-import { authenticatedRequest } from '~/lib/utils/request';
-import { getUser } from '~/services/user/user.server';
+import { authenticatedRequest } from '~/lib/user.server';
 import { BankListItem } from '~/containers/bank-list';
+import type { getUser } from '~/lib/user.server';
 import type { Bank } from '~/types/wallet';
 import type { LoaderFunction } from '@remix-run/node';
 
@@ -27,13 +26,12 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async (args) => {
   const { request } = args;
-  const { userId } = await authenticatedRequest(args);
-  const user = await getUser(userId);
+  await authenticatedRequest(request);
   const headers = new Headers(args.request.headers);
 
-  if (isPrefetch(request)) {
-    headers.set('Cache-Control', 'private, max-age=5, smax-age=0');
-  }
+  // if (isPrefetch(request)) {
+  headers.set('Cache-Control', 'private, max-age=5, smax-age=0');
+  // }
 
   const country = new URL(request.url).searchParams.get('country');
   if (!country) {
@@ -65,7 +63,6 @@ export const loader: LoaderFunction = async (args) => {
     return json(
       {
         availableBanks,
-        user,
       },
       {
         headers,
@@ -91,7 +88,9 @@ export const loader: LoaderFunction = async (args) => {
 };
 
 export default function Banks() {
-  const { availableBanks, user } = useLoaderData<LoaderData>();
+  const { availableBanks } = useLoaderData<LoaderData>();
+  const { username } = useParams();
+
   return (
     <Box>
       <Heading as="h2" size="md" mb="4">
@@ -103,7 +102,7 @@ export default function Banks() {
             // <GridItem key={bank.id} w="100%">
             <BankListItem
               key={bank.id}
-              to={`/${user.username}/wallet/agreements/${bank.id}`}
+              to={`/${username}/wallet/agreements/${bank.id}`}
               name={bank.name}
               logoSrc={bank.logo}
             />

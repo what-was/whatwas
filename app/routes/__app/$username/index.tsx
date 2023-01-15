@@ -3,7 +3,7 @@ import { Box, Text } from '@chakra-ui/react';
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { getNotesOfUser } from '~/services/notes/notes.service';
-import { getUserByUsername } from '~/services/user/user.server';
+import { getUserByUsername } from '~/lib/user.server';
 import { ErrorFullscreen } from '~/components/error';
 import type { Note } from '@prisma/client';
 import type { LoaderFunction } from '@remix-run/node';
