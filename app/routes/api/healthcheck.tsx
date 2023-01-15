@@ -22,7 +22,3 @@ export async function loader({ request }: DataFunctionArgs) {
     return new Response('Healthcheck Error.', { status: 500 });
   }
 }
-
-export default function HealthcheckResource() {
-  return <div>Whops! You should have been redirected.</div>;
-}
