@@ -1,4 +1,3 @@
-import { db } from '~/lib/db';
 import type { DataFunctionArgs } from '@remix-run/node';
 
 /**
@@ -12,7 +11,6 @@ export async function loader({ request }: DataFunctionArgs) {
   try {
     const url = new URL('/', `http://${host}`);
     await Promise.all([
-      db.userMeta.count(),
       fetch(url.toString(), { method: 'HEAD' }).then((res) => {
         if (!res.ok) return Promise.reject(res);
       }),
