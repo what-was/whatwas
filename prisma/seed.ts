@@ -16,6 +16,8 @@ const prisma = new PrismaClient();
 async function seed() {
   await db.userMeta.deleteMany({});
   await db.walletTransaction.deleteMany({});
+  await db.walletRequisition.deleteMany({});
+  await db.walletAccount.deleteMany({});
   console.log(`Database has been successfully seeded with fresh air. 🌱`);
 }
 

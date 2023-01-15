@@ -21,13 +21,15 @@ enum ThemePreference {
 }
 
 model UserMeta {
-  id      String  @id @default(cuid())
-  clerkId String? @unique
+  id      String @id @default(cuid())
+  clerkId String @unique
 
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
-  Note      Note[]
-  Tag       Tag[]
+  createdAt         DateTime?           @default(now())
+  updatedAt         DateTime?           @updatedAt
+  Note              Note[]
+  Tag               Tag[]
+  WalletRequisition WalletRequisition[]
+  WalletAccount     WalletAccount[]
 
   deletedAt DateTime?
 }
@@ -42,8 +44,8 @@ model Tag {
   updatedAt DateTime? @updatedAt
   deletedAt DateTime?
 
-  user   UserMeta @relation(fields: [userId], references: [id])
-  userId String
+  userMeta   UserMeta @relation(fields: [userMetaId], references: [id])
+  userMetaId String
 }
 
 model Note {
@@ -52,22 +54,17 @@ model Note {
 
   tags Tag[]
 
-  userId String
-
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
   deletedAt DateTime?
 
-  UserMeta   UserMeta? @relation(fields: [userMetaId], references: [id])
-  userMetaId String?
-
-  @@index([userId])
+  UserMeta   UserMeta @relation(fields: [userMetaId], references: [id])
+  userMetaId String
 }
 
 model WalletRequisition {
   id            String @id @default(cuid())
   requisitionId String @unique
-  userId        String
   agreementId   String
 
   createdAt DateTime? @default(now())
@@ -75,11 +72,12 @@ model WalletRequisition {
   deletedAt DateTime?
 
   WalletAccount WalletAccount[]
+  UserMeta      UserMeta        @relation(fields: [userMetaId], references: [id])
+  userMetaId    String
 }
 
 model WalletAccount {
   id            String            @id @default(cuid())
-  userId        String            @unique
   accountId     String            @unique
   requisition   WalletRequisition @relation(fields: [requisitionId], references: [id])
   requisitionId String
@@ -90,6 +88,8 @@ model WalletAccount {
   deletedAt DateTime?
 
   WalletTransaction WalletTransaction[]
+  UserMeta          UserMeta            @relation(fields: [userMetaId], references: [id])
+  userMetaId        String
 }
 
 model WalletAccountResource {
@@ -110,7 +110,6 @@ model WalletAccountResource {
 model WalletTransaction {
   id            String @id @default(cuid())
   transactionId String @unique
-  userId        String
   status        String
 
   bookingDate       String

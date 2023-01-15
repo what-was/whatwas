@@ -10,11 +10,7 @@ let client = new Redis(REDIS_URL, {
 
 export async function getRedisClient() {
   if (!client || client.status === 'end') {
-    client = new Redis(REDIS_URL, {
-      lazyConnect: true,
-      timeout: 5000,
-      disconnectTimeout: 10000,
-    });
+    client = new Redis(REDIS_URL);
   }
 
   return client;
@@ -28,10 +24,11 @@ client.on('error', (err) => {
   console.log(`Something went wrong ${err}`);
 });
 
-client.on('disconnect', () => {
+client.on('', () => {
   console.log('Redis client disconnected');
 });
 
 process.on('SIGINT', () => {
-  client?.disconnect();
+  console.log('Redis client disconnected due to application termination');
+  client?.quit();
 });

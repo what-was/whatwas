@@ -1,5 +1,5 @@
 import { json } from '@remix-run/node';
-import { Box, Center } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { SignUp } from '@clerk/remix';
 import { useLoaderData } from '@remix-run/react';
 import { unauthenticatedRequest } from '~/lib/user.server';
@@ -17,15 +17,22 @@ export async function loader({ request }: DataFunctionArgs) {
 export default function SignUpPage() {
   const { redirectTo } = useLoaderData<typeof loader>();
   return (
-    <Box className="h-screen">
-      <Center className="h-full">
+    <Box
+      h="full"
+      w="full"
+      display="flex"
+      flexDir="column"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Box display="grid" gap="4" gridTemplateColumns="1fr">
         <SignUp
           routing="path"
           path="/signup"
           signInUrl="/login"
           afterSignUpUrl={redirectTo}
         />
-      </Center>
+      </Box>
     </Box>
   );
 }

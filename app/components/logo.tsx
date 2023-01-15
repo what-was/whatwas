@@ -18,7 +18,7 @@ type LogoProps = {
 
 export function Logo(props: LogoProps) {
   const { size, to, className } = props;
-  const width = LOGO_WIDTHS[size || 'sm'];
+  const width = LOGO_WIDTHS[size || 'md'];
   const LogoImage = () => (
     <Box className={className}>
       <Image width={width} src={WhiteLogo} alt="Logo" />

@@ -26,16 +26,14 @@ export default function Login() {
       alignItems="center"
       justifyContent="center"
     >
-      <>
-        <Box display="grid" gap="4" gridTemplateColumns="1fr">
-          <SignIn
-            routing={'path'}
-            path={'/login'}
-            signUpUrl="/signup"
-            redirectUrl={redirectTo}
-          />
-        </Box>
-      </>
+      <Box display="grid" gap="4" gridTemplateColumns="1fr">
+        <SignIn
+          routing={'path'}
+          path={'/login'}
+          signUpUrl="/signup"
+          redirectUrl={redirectTo}
+        />
+      </Box>
     </Box>
   );
 }

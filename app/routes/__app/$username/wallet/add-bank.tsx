@@ -94,7 +94,7 @@ export default function Banks() {
   return (
     <Box>
       <Heading as="h2" size="md" mb="4">
-        Banks
+        Add a bank
       </Heading>
       <Box display="flex" flexDir="column">
         <Grid templateColumns={{ sm: '1fr', md: 'repeat(4, 1fr)' }} gap={6}>

@@ -4,7 +4,7 @@ import type { Timings } from '../timing.server';
 import type { WalletAccount, Prisma } from '@prisma/client';
 
 interface WalletAccountInput {
-  userId: WalletAccount['userId'];
+  userMetaId: WalletAccount['userMetaId'];
   requisitionId: WalletAccount['requisitionId'];
   accountId: WalletAccount['accountId'];
   balance: WalletAccount['balance'];
@@ -54,7 +54,7 @@ interface Transactions {
 }
 
 interface AccountDataInput {
-  userId: WalletAccount['userId'];
+  userMetaId: WalletAccount['userMetaId'];
   accountData: {
     metadata: WalletAccountData;
     balances: { balances: AccountBalance[] };
@@ -72,12 +72,11 @@ export async function insertWalletAccount(input: WalletAccountInput) {
     },
   });
 
-  console.log('walletAccount', walletAccount);
   return walletAccount;
 }
 
 export async function getWalletAccountListOfUser(
-  userId: string,
+  userMetaId: string,
   opts?: {
     timings?: Timings;
   },
@@ -85,7 +84,7 @@ export async function getWalletAccountListOfUser(
   const handler = async () => {
     const walletAccounts = await db.walletAccount.findMany({
       where: {
-        userId,
+        userMetaId,
       },
     });
     return walletAccounts;
@@ -135,18 +134,18 @@ const sanitizeTransactions = (
 
 export async function insertAccountData({
   accountData,
-  userId,
+  userMetaId,
 }: AccountDataInput) {
   const data = [
     ...sanitizeTransactions(
       accountData.transactions.transactions.booked,
-      userId,
+      userMetaId,
       accountData.metadata.id,
       'booked',
     ),
     ...sanitizeTransactions(
       accountData.transactions.transactions.pending,
-      userId,
+      userMetaId,
       accountData.metadata.id,
       'pending',
     ),
@@ -155,19 +154,27 @@ export async function insertAccountData({
   return await db.walletTransaction.createMany({ data });
 }
 
-export async function getAllWalletTransactionsOfUser(userId: string) {
+export async function getAllWalletTransactionsOfUser(clerkId: string) {
   const transactions = await db.walletTransaction.findMany({
     where: {
-      userId,
+      walletAccount: {
+        UserMeta: {
+          clerkId,
+        },
+      },
     },
   });
   return transactions;
 }
 
-export async function deleteAllWalletTransactionsOfUser(userId: string) {
+export async function deleteAllWalletTransactionsOfUser(clerkId: string) {
   const transactions = await db.walletTransaction.deleteMany({
     where: {
-      userId,
+      walletAccount: {
+        UserMeta: {
+          clerkId,
+        },
+      },
     },
   });
   return transactions;

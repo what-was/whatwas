@@ -1,7 +1,9 @@
 import { Box, Heading } from '@chakra-ui/react';
 import { useLoaderData, Link } from '@remix-run/react';
-import { Button } from '@saas-ui/react';
+import { Button, EmptyState } from '@saas-ui/react';
 import { json, redirect } from '@remix-run/node';
+import { RxPlus } from 'react-icons/rx';
+import { BsWallet2 } from 'react-icons/bs';
 import { getRequisitionsOfUser } from '~/lib/wallet/requisition.server';
 import { getUserFromRequest } from '~/lib/user.server';
 import { getWalletAccountListOfUser } from '~/lib/wallet/account.server';
@@ -37,6 +39,19 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 export const headers: HeadersFunction = reuseUsefulLoaderHeaders;
 
+const AddBankButton = () => (
+  <Button
+    rightIcon={<RxPlus />}
+    as={Link}
+    to={`add-bank?country=${defaultCountry}`}
+    colorScheme="green"
+    variant="ghost"
+    prefetch="intent"
+    rel="prefetch"
+    label="Add bank"
+  />
+);
+
 export default function WalletPage() {
   const { walletAccounts } = useLoaderData<typeof loader>();
 
@@ -48,26 +63,31 @@ export default function WalletPage() {
         alignItems="center"
         mb="6"
       >
-        <Heading as="h2" size="lg">
-          Wallet Page
+        <Heading as="h2" size="md">
+          My Wallet
         </Heading>
         <Box>
-          <Button
-            as={Link}
-            to={`banks?country=${defaultCountry}`}
-            colorScheme="green"
-            variant="ghost"
-            prefetch="intent"
-            rel="prefetch"
-          >
-            Add bank
-          </Button>
+          {walletAccounts.length ? <AddBankButton /> : null}
 
-          <Button as={Link} to={`.`} colorScheme="red" variant="solid">
+          <Button as={Link} to={`.`} colorScheme="red" variant="outline">
             Delete all transactions
           </Button>
         </Box>
       </Box>
+
+      {walletAccounts.length === 0 && (
+        <EmptyState
+          colorScheme="gray"
+          icon={BsWallet2}
+          title="No connected banks"
+          description="You haven't connected any bank accounts yet. Connect a bank account to start tracking your transactions."
+          actions={
+            <>
+              <AddBankButton />
+            </>
+          }
+        />
+      )}
 
       {/* <Box>
         <ul>

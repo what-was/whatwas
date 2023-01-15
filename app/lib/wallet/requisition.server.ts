@@ -1,14 +1,9 @@
 import { db } from '../db';
 import { time } from '../timing.server';
 import type { Timings } from '../timing.server';
-import type { WalletRequisition } from '@prisma/client';
+import type { Prisma } from '@prisma/client';
 
-interface RequisitionInput {
-  userId: WalletRequisition['userId'];
-  requisitionId: WalletRequisition['requisitionId'];
-  agreementId: WalletRequisition['agreementId'];
-}
-
+type RequisitionInput = Prisma.WalletRequisitionCreateInput;
 export const createRequisition = async (input: RequisitionInput) => {
   const requisition = await db.walletRequisition.create({
     data: input,
@@ -17,7 +12,7 @@ export const createRequisition = async (input: RequisitionInput) => {
 };
 
 export const getRequisitionsOfUser = async (
-  userId: RequisitionInput['userId'],
+  userMetaId: string,
   opts?: {
     timings?: Timings;
   },
@@ -25,7 +20,7 @@ export const getRequisitionsOfUser = async (
   const handler = async () => {
     const requisitions = await db.walletRequisition.findMany({
       where: {
-        userId,
+        userMetaId,
       },
     });
     return requisitions;
@@ -40,9 +35,7 @@ export const getRequisitionsOfUser = async (
   return await handler();
 };
 
-export const getRequisition = async (
-  requisitionId: RequisitionInput['requisitionId'],
-) => {
+export const getRequisition = async (requisitionId: string) => {
   const requisition = await db.walletRequisition.findUnique({
     where: {
       requisitionId,

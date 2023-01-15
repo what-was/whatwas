@@ -1,5 +1,5 @@
 import { json } from '@remix-run/node';
-import { Box, useBreakpointValue } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { NavLink, Outlet, useLocation, Link } from '@remix-run/react';
 import { AppShell, Button, useCollapse } from '@saas-ui/react';
 import { NavItem, Sidebar, SidebarSection } from '@saas-ui/sidebar';
@@ -22,19 +22,11 @@ const isActiveRoute = (route: string, location: Location) => {
 
 export default function Layout() {
   const { user } = useUser();
-  const sidebarBreakingPoint = useBreakpointValue(
-    {
-      sm: false,
-      md: true,
-    },
-    {
-      fallback: 'sm',
-    },
-  );
 
   const { onToggle, isOpen } = useCollapse({
-    defaultIsOpen: sidebarBreakingPoint,
+    defaultIsOpen: true,
   });
+
   const location = useLocation();
 
   return (
@@ -44,28 +36,29 @@ export default function Layout() {
           as="header"
           display="flex"
           alignItems="center"
+          justifyContent="space-between"
           py="2"
           px="4"
-          gap="2"
+          gap="4"
+          borderBlockEnd="1px solid"
+          borderColor={'chakra-border-color'}
         >
-          <Link to={REDIRECT_ROUTES.AUTHENTICATED}>
-            <Logo />
-          </Link>
+          <Box display="flex" alignItems="center" gap="4">
+            <Link to={REDIRECT_ROUTES.AUTHENTICATED}>
+              <Logo />
+            </Link>
 
-          <Button size="xs" onClick={onToggle}>
-            Collapse
-          </Button>
+            <Button size="xs" onClick={onToggle}>
+              Collapse
+            </Button>
+          </Box>
+
           <UserButton afterSignOutUrl={REDIRECT_ROUTES.GUEST} />
         </Box>
       }
       sidebar={
         isOpen ? (
-          <Sidebar
-            position="sticky"
-            top="40px"
-            border={0}
-            // display={{ sm: 'none', md: 'block' }}
-          >
+          <Sidebar position="sticky" top="40px">
             <SidebarSection>
               <NavItem
                 as={NavLink}

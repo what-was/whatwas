@@ -1,7 +1,6 @@
 import { randomUUID } from 'crypto';
 import { redirect } from '@remix-run/node';
-import { getUser } from '~/lib/user.server';
-import { authenticatedRequest } from '~/lib/user.server';
+import { getUser, authenticatedRequest } from '~/lib/user.server';
 import { getNordigenClient } from '~/lib/nordigen.server';
 import { commitSession, getSession } from '~/services/session.server';
 import { createRequisition } from '~/lib/wallet/requisition.server';
@@ -10,17 +9,17 @@ import type { LoaderFunction } from '@remix-run/node';
 const REDIRECT_URI = `http://localhost:3000/api/wallet/data/`;
 
 export const loader: LoaderFunction = async (args) => {
-  const { params } = args;
+  const { request, params } = args;
   const institutionId = params.id;
 
-  const { userId } = await authenticatedRequest(args);
+  const { userId } = await authenticatedRequest(request);
   const user = await getUser(userId);
 
   if (!institutionId) {
     throw redirect(`${user.username}/wallet`);
   }
 
-  const cookie = args.request.headers.get('Cookie');
+  const cookie = request.headers.get('Cookie');
   const session = await getSession(cookie);
   const { client: nordigenClient } = await getNordigenClient(args);
 
@@ -36,7 +35,11 @@ export const loader: LoaderFunction = async (args) => {
   });
 
   await createRequisition({
-    userId,
+    UserMeta: {
+      connect: {
+        clerkId: userId,
+      },
+    },
     requisitionId: requisition.id,
     agreementId: requisition.agreement,
   });

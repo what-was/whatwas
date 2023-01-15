@@ -14,9 +14,9 @@ export const serializeInput: SerializeInput<WalletTransactionInput> = (
 };
 
 export async function createOrUpdateTransactions(
-  transactions: WalletTransactionInput[],
+  transactions: Prisma.WalletTransactionCreateManyInput,
 ) {
   await db.walletTransaction.createMany({
-    data: transactions.map(serializeInput),
+    data: transactions,
   });
 }

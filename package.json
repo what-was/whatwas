@@ -92,6 +92,7 @@
     "react-window": "^1.8.8",
     "remix-auth": "^3.2.2",
     "remix-auth-form": "^1.2.0",
+    "remix-seo": "^0.1.0",
     "remix-utils": "^5.2.1",
     "slate": "^0.87.0",
     "slate-history": "^0.86.0",

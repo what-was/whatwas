@@ -7,14 +7,15 @@ import { getRequisition } from '~/lib/wallet/requisition.server';
 import type { LoaderFunction } from '@remix-run/node';
 
 export const loader: LoaderFunction = async (args) => {
-  const { id: userId, username } = await getUserFromRequest(args);
+  const { request } = args;
+  const { id: userId, username } = await getUserFromRequest(request);
 
-  const cookie = args.request.headers.get('Cookie');
+  const cookie = request.headers.get('Cookie');
   const session = await getSession(cookie);
 
   const requisitionId =
     session.get('requisitionId') ??
-    new URL(args.request.url).searchParams.get('requisitionId');
+    new URL(request.url).searchParams.get('requisitionId');
   if (!requisitionId) {
     return redirect(`/${username}/wallet`);
   }
