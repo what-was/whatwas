@@ -3,8 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "allowJs": true,
-    "target": "ES2019",
-    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "target": "ES2022",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "baseUrl": ".",
     "jsx": "react-jsx",
     "module": "CommonJS",

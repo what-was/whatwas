@@ -43,12 +43,12 @@ export const fetchAccountProcess = async (job: Job<AccountQueueData>) => {
   try {
     return await Promise.all([
       insertWalletAccount({
-        userId,
+        userMetaId: userId,
         requisitionId,
         accountId,
         balance: balances.balances[0].balanceAmount.amount,
       }),
-      insertAccountData({ accountData, userId }),
+      insertAccountData({ accountData, userMetaId: userId }),
     ]);
   } catch (error: any) {
     console.log('failed queue', error);

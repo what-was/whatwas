@@ -1,28 +1,22 @@
 import { Box, Button, Grid, GridItem, Select, Text } from '@chakra-ui/react';
 import { json, redirect } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
-import {
-  getUser,
-  getUserMeta,
-  updateUserMeta,
-} from '~/services/user/user.server';
-import { authenticatedRequest } from '~/lib/utils/request';
+import { getUser, getUserMeta, authenticatedRequest } from '~/lib/user.server';
 import type { LoaderFunction, ActionFunction } from '@remix-run/node';
-import type { ThemePreference } from '@prisma/client';
 
 interface ThemePreferenceOptionProps {
   label: React.ReactNode;
-  value: ThemePreference;
+  value: 'dark' | 'light' | 'auto';
 }
 
 const ThemePreferenceOptions: ThemePreferenceOptionProps[] = [
-  { label: 'Light', value: 'LIGHT' },
-  { label: 'Dark', value: 'DARK' },
-  { label: 'System', value: 'AUTO' },
+  { label: 'Light', value: 'light' },
+  { label: 'Dark', value: 'dark' },
+  { label: 'System', value: 'auto' },
 ];
 
-export const loader: LoaderFunction = async (args) => {
-  const { userId } = await authenticatedRequest(args);
+export const loader: LoaderFunction = async ({ request }) => {
+  const { userId } = await authenticatedRequest(request);
 
   const clerkUser = await getUser(userId);
   const userMeta = await getUserMeta(userId);
@@ -35,9 +29,8 @@ export const loader: LoaderFunction = async (args) => {
   return json({ user });
 };
 
-export const action: ActionFunction = async (args) => {
-  const { request } = args;
-  const { userId } = await authenticatedRequest(args);
+export const action: ActionFunction = async ({ request }) => {
+  // const {  } = await authenticatedRequest(request);
 
   if (request.method === 'PATCH') {
     const formData = await request.formData();
@@ -49,9 +42,9 @@ export const action: ActionFunction = async (args) => {
       );
 
       if (themePreferenceOption) {
-        await updateUserMeta(userId, {
-          themePreference: themePreferenceOption.value,
-        });
+        // await updateUserMeta(userId, {
+        //   themePreference: themePreferenceOption.value,
+        // });
         return redirect(`/settings`);
       }
     }

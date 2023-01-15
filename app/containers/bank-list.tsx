@@ -16,10 +16,10 @@ export const BankListItem = ({ logoSrc, name, to }: BankListItemProps) => {
       display="flex"
       alignItems="center"
       width="100%"
-      p={4}
+      p="2"
       gap={1}
       isHoverable
-      borderRadius="xl"
+      borderRadius="md"
     >
       <Img src={logoSrc} width="12" me="2" loading="lazy" borderRadius="md" />
       <CardTitle>{name}</CardTitle>

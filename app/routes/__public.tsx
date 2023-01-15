@@ -8,8 +8,7 @@ export async function loader({ request }: DataFunctionArgs) {
 
 export default function Layout() {
   return (
-    <Container size="lg">
-      {/* Outlet. */}
+    <Container size="lg" height="100vh">
       <Outlet />
     </Container>
   );

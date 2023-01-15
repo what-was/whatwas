@@ -1,8 +1,10 @@
 import { db } from '../db';
+import { time } from '../timing.server';
+import type { Timings } from '../timing.server';
 import type { WalletAccount, Prisma } from '@prisma/client';
 
 interface WalletAccountInput {
-  userId: WalletAccount['userId'];
+  userMetaId: WalletAccount['userMetaId'];
   requisitionId: WalletAccount['requisitionId'];
   accountId: WalletAccount['accountId'];
   balance: WalletAccount['balance'];
@@ -26,7 +28,7 @@ interface AccountDetails {
   cashAccountType: string;
 }
 
-type TransactionInput = Prisma.WalletTransactionCreateInput;
+// type TransactionInput = Prisma.WalletTransactionCreateInput;
 
 type Transaction = {
   transactionId: string;
@@ -52,7 +54,7 @@ interface Transactions {
 }
 
 interface AccountDataInput {
-  userId: WalletAccount['userId'];
+  userMetaId: WalletAccount['userMetaId'];
   accountData: {
     metadata: WalletAccountData;
     balances: { balances: AccountBalance[] };
@@ -70,17 +72,32 @@ export async function insertWalletAccount(input: WalletAccountInput) {
     },
   });
 
-  console.log('walletAccount', walletAccount);
   return walletAccount;
 }
 
-export async function getWalletAccountListOfUser(userId: string) {
-  const walletAccounts = await db.walletAccount.findMany({
-    where: {
-      userId,
-    },
-  });
-  return walletAccounts;
+export async function getWalletAccountListOfUser(
+  userMetaId: string,
+  opts?: {
+    timings?: Timings;
+  },
+) {
+  const handler = async () => {
+    const walletAccounts = await db.walletAccount.findMany({
+      where: {
+        userMetaId,
+      },
+    });
+    return walletAccounts;
+  };
+
+  if (opts?.timings) {
+    return await time(handler, {
+      timings: opts.timings,
+      type: 'getWalletAccountListOfUser',
+    });
+  }
+
+  return await handler();
 }
 
 const sanitizeTransactions = (
@@ -88,10 +105,9 @@ const sanitizeTransactions = (
   userId: string,
   accountId: string,
   status: string,
-): TransactionInput[] => {
+): Prisma.WalletTransactionCreateManyInput[] => {
   return transactions.map((transaction) => ({
     userId,
-    accountId,
     status,
     transactionId: transaction.transactionId,
     bookingDate: transaction.bookingDate,
@@ -107,23 +123,29 @@ const sanitizeTransactions = (
       targetCurrency: transaction.currencyExchange.targetCurrency,
       exchangeRate: transaction.currencyExchange.exchangeRate,
     }),
+    // walletAccount: {
+    //   connect: {
+    //     accountId,
+    //   },
+    // },
+    walletAccountId: accountId,
   }));
 };
 
 export async function insertAccountData({
   accountData,
-  userId,
+  userMetaId,
 }: AccountDataInput) {
   const data = [
     ...sanitizeTransactions(
       accountData.transactions.transactions.booked,
-      userId,
+      userMetaId,
       accountData.metadata.id,
       'booked',
     ),
     ...sanitizeTransactions(
       accountData.transactions.transactions.pending,
-      userId,
+      userMetaId,
       accountData.metadata.id,
       'pending',
     ),
@@ -132,19 +154,27 @@ export async function insertAccountData({
   return await db.walletTransaction.createMany({ data });
 }
 
-export async function getAllWalletTransactionsOfUser(userId: string) {
+export async function getAllWalletTransactionsOfUser(clerkId: string) {
   const transactions = await db.walletTransaction.findMany({
     where: {
-      userId,
+      walletAccount: {
+        UserMeta: {
+          clerkId,
+        },
+      },
     },
   });
   return transactions;
 }
 
-export async function deleteAllWalletTransactionsOfUser(userId: string) {
+export async function deleteAllWalletTransactionsOfUser(clerkId: string) {
   const transactions = await db.walletTransaction.deleteMany({
     where: {
-      userId,
+      walletAccount: {
+        UserMeta: {
+          clerkId,
+        },
+      },
     },
   });
   return transactions;

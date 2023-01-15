@@ -1,36 +1,19 @@
 import { json } from '@remix-run/node';
-import { Box, useBreakpointValue } from '@chakra-ui/react';
-import { useLoaderData, NavLink, Outlet, useLocation } from '@remix-run/react';
-import { getAuth } from '@clerk/remix/ssr.server';
+import { Box } from '@chakra-ui/react';
+import { NavLink, Outlet, useLocation, Link } from '@remix-run/react';
 import { AppShell, Button, useCollapse } from '@saas-ui/react';
 import { NavItem, Sidebar, SidebarSection } from '@saas-ui/sidebar';
-import { getUser, getUserMeta } from '~/services/user/user.server';
-import { getSession } from '~/services/session.server';
+import { UserButton, useUser } from '@clerk/remix';
+import { authenticatedRequest } from '~/lib/user.server';
 import { Logo } from '~/components/logo';
-import { authenticatedRequest } from '~/lib/utils/request';
+import { REDIRECT_ROUTES } from '~/lib/constants';
 import type { Location } from '@remix-run/react';
 import type { DataFunctionArgs } from '@remix-run/node';
 
-export async function updateUserMetaSession(request: Request) {
-  const { userId } = await getAuth(request);
-  if (!userId) return;
+export async function loader({ request }: DataFunctionArgs) {
+  const { userId } = await authenticatedRequest(request);
 
-  const session = await getSession(request.headers.get('Cookie'));
-  const userMetaInSession = session.get('userMeta');
-  if (userMetaInSession) {
-    return userMetaInSession;
-  }
-
-  const user = await getUserMeta(userId);
-
-  return json({ user });
-}
-
-export async function loader(args: DataFunctionArgs) {
-  const { userId } = await authenticatedRequest(args);
-  const user = await getUser(userId);
-
-  return json({ user });
+  return json({ userId });
 }
 
 const isActiveRoute = (route: string, location: Location) => {
@@ -38,22 +21,12 @@ const isActiveRoute = (route: string, location: Location) => {
 };
 
 export default function Layout() {
-  const { user } = useLoaderData<typeof loader>();
-  const sidebarBreakingPoint = useBreakpointValue(
-    {
-      sm: false,
-      md: true,
-    },
-    {
-      // Breakpoint to use when mediaqueries cannot be used, such as in server-side rendering
-      // (Defaults to 'base')
-      fallback: 'sm',
-    },
-  );
+  const { user } = useUser();
 
   const { onToggle, isOpen } = useCollapse({
-    defaultIsOpen: sidebarBreakingPoint,
+    defaultIsOpen: true,
   });
+
   const location = useLocation();
 
   return (
@@ -63,25 +36,29 @@ export default function Layout() {
           as="header"
           display="flex"
           alignItems="center"
+          justifyContent="space-between"
           py="2"
           px="4"
-          gap="2"
+          gap="4"
+          borderBlockEnd="1px solid"
+          borderColor={'chakra-border-color'}
         >
-          <Logo />
+          <Box display="flex" alignItems="center" gap="4">
+            <Link to={REDIRECT_ROUTES.AUTHENTICATED}>
+              <Logo />
+            </Link>
 
-          <Button size="xs" onClick={onToggle}>
-            Collapse
-          </Button>
+            <Button size="xs" onClick={onToggle}>
+              Collapse
+            </Button>
+          </Box>
+
+          <UserButton afterSignOutUrl={REDIRECT_ROUTES.GUEST} />
         </Box>
       }
       sidebar={
         isOpen ? (
-          <Sidebar
-            position="sticky"
-            top="40px"
-            border={0}
-            // display={{ sm: 'none', md: 'block' }}
-          >
+          <Sidebar position="sticky" top="40px">
             <SidebarSection>
               <NavItem
                 as={NavLink}
@@ -92,8 +69,8 @@ export default function Layout() {
               </NavItem>
               <NavItem
                 as={NavLink}
-                to={`/${user.username}/wallet`}
-                isActive={isActiveRoute(`/${user.username}/wallet`, location)}
+                to={`/${user?.username}/wallet`}
+                isActive={isActiveRoute(`/${user?.username}/wallet`, location)}
               >
                 Wallet
               </NavItem>

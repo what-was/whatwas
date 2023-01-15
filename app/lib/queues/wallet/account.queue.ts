@@ -1,10 +1,8 @@
 import Bull from 'bull';
-import invariant from 'tiny-invariant';
+import { getRequiredServerEnvVar } from '~/lib/utils/misc';
 import { fetchAccountProcess } from './account.process';
 
-const redisUrl = process.env.REDIS_URL;
-invariant(redisUrl, 'REDIS_URL is not defined');
-
+const redisUrl = getRequiredServerEnvVar('REDIS_URL');
 const queue = new Bull('walletAccount', {
   redis: redisUrl,
 });
@@ -18,8 +16,6 @@ export const initializeMultipleAccountsQueue = async (input: {
   userId: string;
 }) => {
   const { accounts, ...rest } = input;
-  console.log('await queue.isReady()', await queue.isReady());
-  console.log('queue.getActive()', await queue.getActive());
 
   accounts.forEach(async (acc) => {
     const data = { ...rest, accountId: acc };

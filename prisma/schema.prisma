@@ -21,17 +21,15 @@ enum ThemePreference {
 }
 
 model UserMeta {
-  id       String  @id @default(cuid())
-  userId   String? @unique
-  username String? @unique
-  email    String? @unique
+  id      String @id @default(cuid())
+  clerkId String @unique
 
-  themePreference ThemePreference? @default(AUTO)
-
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
-  Note      Note[]
-  Tag       Tag[]
+  createdAt         DateTime?           @default(now())
+  updatedAt         DateTime?           @updatedAt
+  Note              Note[]
+  Tag               Tag[]
+  WalletRequisition WalletRequisition[]
+  WalletAccount     WalletAccount[]
 
   deletedAt DateTime?
 }
@@ -42,16 +40,12 @@ model Tag {
 
   notes Note[]
 
-  userId String
-
-  createdAt  DateTime? @default(now())
-  updatedAt  DateTime? @updatedAt
-  UserMeta   UserMeta? @relation(fields: [userMetaId], references: [id])
-  userMetaId String?
-
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
   deletedAt DateTime?
 
-  @@index([userId])
+  userMeta   UserMeta @relation(fields: [userMetaId], references: [id])
+  userMetaId String
 }
 
 model Note {
@@ -60,47 +54,64 @@ model Note {
 
   tags Tag[]
 
-  userId String
-
-  createdAt  DateTime? @default(now())
-  updatedAt  DateTime? @updatedAt
-  UserMeta   UserMeta? @relation(fields: [userMetaId], references: [id])
-  userMetaId String?
-
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
   deletedAt DateTime?
 
-  @@index([userId])
+  UserMeta   UserMeta @relation(fields: [userMetaId], references: [id])
+  userMetaId String
 }
 
 model WalletRequisition {
   id            String @id @default(cuid())
   requisitionId String @unique
-  userId        String
   agreementId   String
 
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
+  deletedAt DateTime?
+
+  WalletAccount WalletAccount[]
+  UserMeta      UserMeta        @relation(fields: [userMetaId], references: [id])
+  userMetaId    String
 }
 
 model WalletAccount {
-  id            String @id @default(cuid())
-  userId        String @unique
-  accountId     String @unique
+  id            String            @id @default(cuid())
+  accountId     String            @unique
+  requisition   WalletRequisition @relation(fields: [requisitionId], references: [id])
   requisitionId String
   balance       String
 
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
   deletedAt DateTime?
+
+  WalletTransaction WalletTransaction[]
+  UserMeta          UserMeta            @relation(fields: [userMetaId], references: [id])
+  userMetaId        String
+}
+
+model WalletAccountResource {
+  id              String   @id @default(cuid())
+  resourceId      String
+  cashAccountType String
+  currency        String?
+  name            String?
+  displayName     String?
+  details         String?
+  iban            String?
+  status          String?
+  product         String?
+  usage           String?
+  linkedAccounts  String[]
 }
 
 model WalletTransaction {
-  id        String @id @default(cuid())
-  accountId String
-  userId    String
-  status    String
+  id            String @id @default(cuid())
+  transactionId String @unique
+  status        String
 
-  transactionId     String   @unique
   bookingDate       String
   valueDate         String
   bookingDateTime   DateTime
@@ -118,4 +129,7 @@ model WalletTransaction {
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
   deletedAt DateTime?
+
+  walletAccount   WalletAccount @relation(fields: [walletAccountId], references: [id])
+  walletAccountId String
 }

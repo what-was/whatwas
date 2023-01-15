@@ -1,11 +1,14 @@
 import { StatGroup } from '@chakra-ui/react';
 import { useLoaderData } from '@remix-run/react';
 import { Stat } from '~/components/stat';
-import type { DataFunctionArgs } from '@remix-run/node';
+import { reuseUsefulLoaderHeaders } from '~/lib/utils/misc';
+import type { DataFunctionArgs, HeadersFunction } from '@remix-run/node';
 
 export const loader = async (args: DataFunctionArgs) => {
   return { balance: { start: 0, end: 0 }, expense: 0, income: 0 };
 };
+
+export const headers: HeadersFunction = reuseUsefulLoaderHeaders;
 
 export default function WalletPage() {
   const { balance, expense, income } = useLoaderData<typeof loader>();

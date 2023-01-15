@@ -14,7 +14,7 @@ export async function getNotesOfUser(
 
   return await db.note.findMany({
     where: {
-      userId,
+      userMetaId: userId,
     },
     take: limit,
     skip,

@@ -1,3 +1,5 @@
+import { getSafeRequiredEnvVar } from './utils/misc';
+
 /**
  * Auth Keys.
  */
@@ -27,6 +29,9 @@ export const MISC_KEYS = {
  * after a successful login or logout.
  */
 export const REDIRECT_ROUTES = {
-  AUTHENTICATED: '/',
+  AUTHENTICATED: '/wallet',
   GUEST: '/login',
+  AUTH_SUCCESSFUL: '/api/auth',
+  REDIRECT_BASE:
+    getSafeRequiredEnvVar('REDIRECT_BASE') ?? 'http://localhost:3000', // TODO: change this to the actual URL
 };
