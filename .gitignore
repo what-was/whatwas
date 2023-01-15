@@ -32,15 +32,13 @@ node_modules
 
 # Docker PostgreSQL.
 postgres-data
+redis-data
 
 # Tailwind CSS.
 # /app/styles/tailwind.css
 
 /coverage
 tsconfig.tsbuildinfo
-/prisma/sqlite.db
-/prisma/migrations
-/prisma/docs
 
 /app/styles/**/*.css
 other/postcss.ignored
