@@ -17,8 +17,8 @@ node_modules
 
 /.cache
 /build
+/server-build
 /public/build
-.env
 
 # Tests.
 /test-results/
@@ -35,3 +35,21 @@ postgres-data
 
 # Tailwind CSS.
 # /app/styles/tailwind.css
+
+/coverage
+tsconfig.tsbuildinfo
+/prisma/sqlite.db
+/prisma/migrations
+/prisma/docs
+
+/app/styles/**/*.css
+other/postcss.ignored
+
+*.local.*
+
+.env
+.env.production
+.envrc
+/test-results/
+/playwright-report/
+/playwright/.cache/
