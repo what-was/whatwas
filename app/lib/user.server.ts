@@ -47,12 +47,14 @@ export const authenticatedRequest = async (
 };
 
 export const unauthenticatedRequest = async (request: Request) => {
-  const { userId } = await getAuth(request);
-  const redirectTo = getRedirectTo(request, REDIRECT_ROUTES.AUTHENTICATED);
+  try {
+    const { userId } = await getAuth(request);
+    const redirectTo = getRedirectTo(request, REDIRECT_ROUTES.AUTHENTICATED);
 
-  if (userId) {
-    throw redirect(redirectTo);
-  }
+    if (userId) {
+      throw redirect(redirectTo);
+    }
+  } catch (error) {}
 
   return;
 };
