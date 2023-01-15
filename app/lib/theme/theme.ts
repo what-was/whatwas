@@ -6,10 +6,16 @@ import sizes from './foundations/sizes';
 import shadows from './foundations/shadows';
 import semanticTokens from './foundations/semantic-tokens';
 import components from './components';
-import type { ChakraTheme } from '@chakra-ui/react';
+import type { ChakraTheme, ThemeConfig } from '@chakra-ui/react';
+
+const config: ThemeConfig = {
+  initialColorMode: 'dark',
+  useSystemColorMode: true,
+};
 
 export const theme = extendTheme(
   {
+    config,
     colors,
     fonts,
     fontSizes,
