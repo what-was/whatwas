@@ -25,10 +25,9 @@ export async function initializeAuthQueue(input: { user: User }) {
     await redisClient.sadd('init-auth:active', user.id);
     await queue.add({ user });
     console.log(`${user.id} is added to queue: ${queue.name}`);
+    return true;
   } catch (error) {
     console.log(error);
     return false;
   }
-
-  return true;
 }

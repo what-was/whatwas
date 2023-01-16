@@ -69,24 +69,29 @@ const getUserFromCache = async (clerkId: string) => {
 
 export async function getUser(clerkId: string, opts?: RequestOpts) {
   const handler = async () => {
-    const cachedUser = await getUserFromCache(clerkId);
-    if (cachedUser) {
-      return cachedUser;
+    try {
+      const cachedUser = await getUserFromCache(clerkId);
+      if (cachedUser) {
+        return cachedUser;
+      }
+
+      const user = await clerkClient.users.getUser(clerkId);
+      if (!user) {
+        throw new Error(`User not found: ${clerkId}`);
+      }
+
+      const redisClient = await getRedisClient();
+      await redisClient.setex(
+        `user:${user.id}`,
+        60 * 60 * 24,
+        JSON.stringify(user),
+      );
+
+      return user;
+    } catch (error: any) {
+      console.error(error);
+      throw error;
     }
-
-    const user = await clerkClient.users.getUser(clerkId);
-    if (!user) {
-      throw new Error(`User not found: ${clerkId}`);
-    }
-
-    const redisClient = await getRedisClient();
-    await redisClient.setex(
-      `user:${user.id}`,
-      60 * 60 * 24,
-      JSON.stringify(user),
-    );
-
-    return user;
   };
 
   if (opts?.timings)
