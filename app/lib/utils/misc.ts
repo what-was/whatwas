@@ -66,3 +66,7 @@ export const reuseUsefulLoaderHeaders: HeadersFunction = ({
 
   return headers;
 };
+
+export function removeTrailSlash(path: string) {
+  return path.replace(/\/$/, '');
+}

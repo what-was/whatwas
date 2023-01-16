@@ -7,6 +7,7 @@ import { getRedirectTo } from '~/lib/utils/http';
 import { initializeAuthQueue } from './queues/auth/auth.queue';
 import { time } from './timing.server';
 import { getRedisClient } from './redis.server';
+import { removeTrailSlash } from './utils/misc';
 import type { Prisma } from '@prisma/client';
 import type { Timings } from './timing.server';
 
@@ -22,7 +23,7 @@ export const authenticatedRequest = async (
 ) => {
   const handler = async () => {
     const { pathname } = new URL(request.url);
-    const redirectTo = getRedirectTo(request, pathname);
+    const redirectTo = getRedirectTo(request, removeTrailSlash(pathname));
     const unauthenticatedRedirect = `${REDIRECT_ROUTES.GUEST}?redirectTo=${redirectTo}`;
 
     try {
