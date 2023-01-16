@@ -4,6 +4,7 @@ import { getNordigenClient } from '~/lib/nordigen.server';
 import { getUserFromRequest } from '~/lib/user.server';
 import { initializeMultipleAccountsQueue } from '~/lib/queues/wallet/account.queue';
 import { getRequisition } from '~/lib/wallet/requisition.server';
+import { REDIRECT_ROUTES } from '~/lib/constants';
 import type { LoaderFunction } from '@remix-run/node';
 
 export const loader: LoaderFunction = async (args) => {
@@ -17,17 +18,22 @@ export const loader: LoaderFunction = async (args) => {
     session.get('requisitionId') ??
     new URL(request.url).searchParams.get('requisitionId');
   if (!requisitionId) {
-    return redirect(`/${username}/wallet`);
+    return redirect(
+      username ? `/${username}/wallet` : REDIRECT_ROUTES.AUTHENTICATED,
+    );
   }
 
   const existingRequisition = await getRequisition(requisitionId);
   if (existingRequisition) {
     await session.unset('requisitionId');
-    return redirect(`/${username}/wallet`, {
-      headers: {
-        'Set-Cookie': await commitSession(session),
+    return redirect(
+      username ? `/${username}/wallet` : REDIRECT_ROUTES.AUTHENTICATED,
+      {
+        headers: {
+          'Set-Cookie': await commitSession(session),
+        },
       },
-    });
+    );
   }
 
   const { client: nordigenClient, access } = await getNordigenClient(args);
@@ -43,9 +49,12 @@ export const loader: LoaderFunction = async (args) => {
 
   await session.unset('requisitionId');
 
-  return redirect(`/${username}/wallet`, {
-    headers: {
-      'Set-Cookie': await commitSession(session),
+  return redirect(
+    username ? `/${username}/wallet` : REDIRECT_ROUTES.AUTHENTICATED,
+    {
+      headers: {
+        'Set-Cookie': await commitSession(session),
+      },
     },
-  });
+  );
 };

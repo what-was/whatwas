@@ -103,7 +103,7 @@ export async function getUser(clerkId: string, opts?: RequestOpts) {
       type: 'get-user',
     });
 
-  return (await handler()) as User;
+  return await handler();
 }
 
 export async function getUserFromRequest(request: Request, opts?: RequestOpts) {
@@ -113,9 +113,14 @@ export async function getUserFromRequest(request: Request, opts?: RequestOpts) {
         timings: opts?.timings,
       });
 
-      return await getUser(userId, { timings: opts?.timings });
+      const user = await getUser(userId, { timings: opts?.timings });
+      if (!user) {
+        throw redirect(getRedirectTo(request, REDIRECT_ROUTES.GUEST));
+      }
+
+      return user;
     } catch (error) {
-      return null;
+      throw redirect(getRedirectTo(request, REDIRECT_ROUTES.GUEST));
     }
   };
 
@@ -125,7 +130,7 @@ export async function getUserFromRequest(request: Request, opts?: RequestOpts) {
       type: 'get-user-from-request',
     });
 
-  throw await handler();
+  return await handler();
 }
 
 export async function getUserMeta(clerkId: string) {
