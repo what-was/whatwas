@@ -81,7 +81,6 @@ export default function Layout() {
         gap="4"
         flexDirection="column"
         justifyContent="space-between"
-        backgroundColor="Background"
         p="0"
       >
         <Box flexGrow="1" maxH="calc(100vh - 40px)" overflowY="auto" p="4">
