@@ -70,7 +70,7 @@
     "@saas-ui/react": "^1.7.4",
     "@saas-ui/sidebar": "^0.7.0",
     "@saas-ui/theme": "^1.6.2",
-    "@saas-ui/theme-glass": "^0.2.0",
+    "@saas-ui/theme-glass": "^0.3.0",
     "@stytch/nextjs": "^0.5.0",
     "@stytch/react": "^0.5.0",
     "@stytch/stytch-react": "^4.1.1",
