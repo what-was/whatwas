@@ -29,6 +29,9 @@ export const theme = extendTheme(
         'html, body': {
           height: '100%',
         },
+        '@-ms-viewport': {
+          width: 'device-width',
+        },
       },
     },
   },
