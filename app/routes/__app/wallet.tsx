@@ -1,10 +1,20 @@
 import { StatGroup } from '@chakra-ui/react';
 import { useLoaderData } from '@remix-run/react';
+import { redirect } from '@remix-run/node';
 import { Stat } from '~/components/stat';
 import { reuseUsefulLoaderHeaders } from '~/lib/utils/misc';
-import type { DataFunctionArgs, HeadersFunction } from '@remix-run/node';
+import { authenticatedRequest } from '~/lib/user.server';
+import { getRedirectTo } from '~/lib/http';
+import { REDIRECT_ROUTES } from '~/lib/constants';
+import type { HeadersFunction, LoaderFunction } from '@remix-run/node';
 
-export const loader = async (args: DataFunctionArgs) => {
+export const loader: LoaderFunction = async ({ request }) => {
+  try {
+    await authenticatedRequest(request);
+  } catch (error) {
+    return redirect(getRedirectTo(request, REDIRECT_ROUTES.GUEST));
+  }
+
   return { balance: { start: 0, end: 0 }, expense: 0, income: 0 };
 };
 
@@ -19,7 +29,7 @@ export default function WalletPage() {
           label="Current balance"
           value={balance.end}
           type={balance.end > balance.start ? 'increase' : 'decrease'}
-          difference={balance.start}
+          difference={balance.start > 0 && balance.start}
         />
         <Stat label="Expense" value={expense} color="red.500" />
         <Stat label="Income" value={income} color="green.500" />

@@ -19,7 +19,10 @@ import type {
 } from '@remix-run/node';
 let [seoMeta, seoLinks] = getSeo();
 
-export let meta: MetaFunction = () => ({ ...seoMeta });
+export let meta: MetaFunction = () => ({
+  ...seoMeta,
+  viewport: 'width=device-width, initial-scale=1',
+});
 export let links: LinksFunction = () => [
   ...seoLinks,
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -77,6 +80,9 @@ export default ClerkApp(App, {
       colorPrimary: colors.primary[400],
       colorBackground: colors.gray[900],
       colorInputBackground: colors.gray[800],
+    },
+    layout: {
+      logoPlacement: 'none',
     },
   },
 });

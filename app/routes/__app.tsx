@@ -1,9 +1,17 @@
 import { json } from '@remix-run/node';
-import { Box } from '@chakra-ui/react';
+import {
+  Box,
+  ButtonGroup,
+  Divider,
+  Heading,
+  IconButton,
+  useBreakpointValue,
+} from '@chakra-ui/react';
 import { NavLink, Outlet, useLocation, Link } from '@remix-run/react';
 import { AppShell, Button, useCollapse } from '@saas-ui/react';
 import { NavItem, Sidebar, SidebarSection } from '@saas-ui/sidebar';
 import { UserButton, useUser } from '@clerk/remix';
+import { RxPlus } from 'react-icons/rx';
 import { authenticatedRequest } from '~/lib/user.server';
 import { Logo } from '~/components/logo';
 import { REDIRECT_ROUTES } from '~/lib/constants';
@@ -22,44 +30,47 @@ const isActiveRoute = (route: string, location: Location) => {
 
 export default function Layout() {
   const { user } = useUser();
-
+  const sidebarWidth = useBreakpointValue(
+    { base: '40', md: '96' },
+    { fallback: '96', ssr: true },
+  );
   const { onToggle, isOpen } = useCollapse({
-    defaultIsOpen: true,
+    defaultIsOpen: !!(sidebarWidth && Number(sidebarWidth) > 96) ?? true,
   });
 
   const location = useLocation();
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <AppShell
-      navbar={
-        <Box
-          as="header"
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          py="2"
-          px="4"
-          gap="4"
-          borderBlockEnd="1px solid"
-          borderColor={'chakra-border-color'}
-        >
-          <Box display="flex" alignItems="center" gap="4">
-            <Link to={REDIRECT_ROUTES.AUTHENTICATED}>
-              <Logo />
-            </Link>
-
-            <Button size="xs" onClick={onToggle}>
-              Collapse
-            </Button>
-          </Box>
-
-          <UserButton afterSignOutUrl={REDIRECT_ROUTES.GUEST} />
-        </Box>
-      }
       sidebar={
         isOpen ? (
-          <Sidebar position="sticky" top="40px">
+          <Sidebar h="full" w={sidebarWidth} isOpen={isOpen}>
             <SidebarSection>
+              <Box
+                display="flex"
+                alignItems="center"
+                gap="4"
+                justifyContent="space-between"
+              >
+                <Link to={REDIRECT_ROUTES.AUTHENTICATED}>
+                  <Logo />
+                </Link>
+                <UserButton afterSignOutUrl={REDIRECT_ROUTES.GUEST} />
+              </Box>
+            </SidebarSection>
+            <SidebarSection>
+              {user.firstName && (
+                <>
+                  <Heading as="h3" size="md" fontWeight="normal">
+                    Hi {user.firstName} 👋
+                  </Heading>
+                  <Divider my="4" />
+                </>
+              )}
               <NavItem
                 as={NavLink}
                 to="/"
@@ -69,17 +80,29 @@ export default function Layout() {
               </NavItem>
               <NavItem
                 as={NavLink}
-                to={`/${user?.username}/wallet`}
+                to={`/${user.username}/wallet`}
                 isActive={isActiveRoute(`/${user?.username}/wallet`, location)}
               >
                 Wallet
               </NavItem>
+            </SidebarSection>
+            <SidebarSection>
+              <ButtonGroup size="sm" isAttached variant="outline">
+                <Button>Save</Button>
+                <IconButton aria-label="Add to friends" icon={<RxPlus />} />
+                <Button onClick={onToggle}>Toggle</Button>
+              </ButtonGroup>
             </SidebarSection>
           </Sidebar>
         ) : null
       }
     >
       <Box as="main" flex="1" py="2" px="4">
+        {sidebarWidth && Number(sidebarWidth) <= 96 && !isOpen && (
+          <Button onClick={onToggle} position="absolute" bottom="4">
+            Toggle
+          </Button>
+        )}
         <Outlet />
       </Box>
     </AppShell>

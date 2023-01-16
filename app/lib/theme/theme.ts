@@ -24,6 +24,13 @@ export const theme = extendTheme(
     components,
     shadows,
     semanticTokens,
+    styles: {
+      global: {
+        'html, body': {
+          height: '100%',
+        },
+      },
+    },
   },
   withDefaultColorScheme({
     colorScheme: 'primary',

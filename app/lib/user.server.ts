@@ -103,24 +103,29 @@ export async function getUser(clerkId: string, opts?: RequestOpts) {
       type: 'get-user',
     });
 
-  return await handler();
+  return (await handler()) as User;
 }
 
 export async function getUserFromRequest(request: Request, opts?: RequestOpts) {
   const handler = async () => {
-    const { userId } = await authenticatedRequest(request, {
-      timings: opts?.timings,
-    });
-    return await getUser(userId, { timings: opts?.timings });
+    try {
+      const { userId } = await authenticatedRequest(request, {
+        timings: opts?.timings,
+      });
+
+      return await getUser(userId, { timings: opts?.timings });
+    } catch (error) {
+      return null;
+    }
   };
 
   if (opts?.timings)
-    return time(handler, {
+    return time(handler(), {
       timings: opts.timings,
       type: 'get-user-from-request',
     });
 
-  return await handler();
+  throw await handler();
 }
 
 export async function getUserMeta(clerkId: string) {

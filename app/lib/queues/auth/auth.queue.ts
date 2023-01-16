@@ -31,7 +31,7 @@ export async function initializeAuthQueue(input: { user: User }) {
     console.log(`${user.id} is added to queue: ${queue.name}`);
     return true;
   } catch (error) {
-    console.log(error);
+    console.log('initializeAuthQueue', error);
     return false;
   }
 }

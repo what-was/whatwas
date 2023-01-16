@@ -1,4 +1,4 @@
-import { json } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
 import { Box } from '@chakra-ui/react';
 import { useLoaderData } from '@remix-run/react';
 import { SignIn } from '@clerk/remix';
@@ -7,7 +7,13 @@ import { getRedirectTo } from '~/lib/http';
 import type { DataFunctionArgs } from '@remix-run/node';
 
 export async function loader({ request }: DataFunctionArgs) {
-  await unauthenticatedRequest(request);
+  try {
+    await unauthenticatedRequest(request);
+  } catch (error: any) {
+    if (error.redirectTo) {
+      return redirect(error.redirectTo);
+    }
+  }
 
   return json({
     redirectTo: getRedirectTo(request),

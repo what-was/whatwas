@@ -4,12 +4,14 @@ import { Button, EmptyState } from '@saas-ui/react';
 import { json, redirect } from '@remix-run/node';
 import { RxPlus } from 'react-icons/rx';
 import { BsWallet2 } from 'react-icons/bs';
+import { jsonHash } from 'remix-utils';
 import { getRequisitionsOfUser } from '~/lib/wallet/requisition.server';
 import { getUserFromRequest } from '~/lib/user.server';
 import { getWalletAccountListOfUser } from '~/lib/wallet/account.server';
 // import { Transactions } from '~/containers/wallet';
 import { reuseUsefulLoaderHeaders } from '~/lib/utils/misc';
 import { getServerTimeHeader } from '~/lib/timing.server';
+import { REDIRECT_ROUTES } from '~/lib/constants';
 import type { HeadersFunction, LoaderFunction } from '@remix-run/node';
 
 const defaultCountry = 'NL';
@@ -17,18 +19,21 @@ const defaultCountry = 'NL';
 export const loader: LoaderFunction = async ({ request, params }) => {
   const timings = {};
   const { username: requestUsername } = params;
-  const { id: userId, username } = await getUserFromRequest(request, {
+  const currentUser = await getUserFromRequest(request, {
     timings,
+  }).catch(() => {
+    throw redirect(REDIRECT_ROUTES.GUEST);
   });
-  if (requestUsername !== username) {
-    return redirect(`/${requestUsername}`);
+
+  if (!currentUser || currentUser.username !== requestUsername) {
+    return redirect(REDIRECT_ROUTES.AUTHENTICATED);
   }
 
   return json(
-    {
-      walletAccounts: await getRequisitionsOfUser(userId, { timings }),
-      requisitions: await getWalletAccountListOfUser(userId, { timings }),
-    },
+    jsonHash({
+      walletAccounts: getRequisitionsOfUser(currentUser.id, { timings }),
+      requisitions: getWalletAccountListOfUser(currentUser.id, { timings }),
+    }),
     {
       headers: {
         'Server-Timing': getServerTimeHeader(timings),
@@ -67,7 +72,7 @@ export default function WalletPage() {
           My Wallet
         </Heading>
         <Box>
-          {walletAccounts.length ? <AddBankButton /> : null}
+          {walletAccounts?.length ? <AddBankButton /> : null}
 
           <Button as={Link} to={`.`} colorScheme="red" variant="outline">
             Delete all transactions
@@ -75,7 +80,7 @@ export default function WalletPage() {
         </Box>
       </Box>
 
-      {walletAccounts.length === 0 && (
+      {walletAccounts?.length === 0 ? (
         <EmptyState
           colorScheme="gray"
           icon={BsWallet2}
@@ -87,7 +92,7 @@ export default function WalletPage() {
             </>
           }
         />
-      )}
+      ) : null}
 
       {/* <Box>
         <ul>
