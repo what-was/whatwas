@@ -10,21 +10,23 @@ let client = new Redis(REDIS_URL, {
 
 export async function getRedisClient() {
   if (!client || client.status === 'end') {
+    console.log('Creating new Redis client');
+    console.log('redis', client);
     client = new Redis(REDIS_URL);
   }
 
   return client;
 }
 
-client.on('ready', () => {
-  console.log('Redis client connected and ready to use');
-});
+// client.on('ready', () => {
+//   console.log('Redis client connected and ready to use');
+// });
 
 client.on('error', (err) => {
   console.log(`Something went wrong ${err}`);
 });
 
-client.on('', () => {
+client.on('quit', () => {
   console.log('Redis client disconnected');
 });
 

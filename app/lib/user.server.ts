@@ -134,15 +134,15 @@ export async function initializeUserMeta(request: Request) {
   const redirectTo = getRedirectTo(request, REDIRECT_ROUTES.AUTHENTICATED);
 
   try {
-    const existingUserMeta = await getUserMeta(userId);
-    if (existingUserMeta) {
-      return;
-    }
-
     const clerkUser = await getUser(userId);
     if (!clerkUser) {
       // throw new Error(`No registered user associated with id: ${userId} found`);
       throw redirect(`${REDIRECT_ROUTES.GUEST}/?redirectTo=${redirectTo}`);
+    }
+
+    const existingUserMeta = await getUserMeta(userId);
+    if (existingUserMeta) {
+      return;
     }
 
     return await initializeAuthQueue({ user: clerkUser });
