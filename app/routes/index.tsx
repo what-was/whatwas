@@ -11,9 +11,13 @@ export default function AppIndex() {
   const { user } = useUser();
   return (
     <>
-      {!user?.id && (
+      {!user?.id ? (
         <Button as={Link} to={REDIRECT_ROUTES.GUEST} prefetch="intent">
           Login
+        </Button>
+      ) : (
+        <Button as={Link} to={`${user.username}/wallet`} prefetch="intent">
+          Wallet
         </Button>
       )}
       <Outlet />
