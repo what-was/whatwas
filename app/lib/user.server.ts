@@ -21,8 +21,8 @@ export const authenticatedRequest = async (
   opts?: RequestOpts,
 ) => {
   const handler = async () => {
-    const { href } = new URL(request.url);
-    const redirectTo = getRedirectTo(request, href);
+    const { pathname } = new URL(request.url);
+    const redirectTo = getRedirectTo(request, pathname);
     const unauthenticatedRedirect = `${REDIRECT_ROUTES.GUEST}?redirectTo=${redirectTo}`;
 
     try {
@@ -49,15 +49,13 @@ export const authenticatedRequest = async (
 export const unauthenticatedRequest = async (request: Request) => {
   try {
     const { userId } = await getAuth(request);
-
     if (userId) {
       const redirectTo = getRedirectTo(request, REDIRECT_ROUTES.AUTHENTICATED);
       throw redirect(redirectTo);
     }
   } catch (error: any) {}
 
-  console.log('keeps going');
-  return { userId: null };
+  return null;
 };
 
 const getUserFromCache = async (clerkId: string) => {
@@ -138,13 +136,13 @@ export async function initializeUserMeta(request: Request) {
   const { userId } = await authenticatedRequest(request);
   const redirectTo = getRedirectTo(request, REDIRECT_ROUTES.AUTHENTICATED);
 
-  try {
-    const clerkUser = await getUser(userId);
-    if (!clerkUser) {
-      // throw new Error(`No registered user associated with id: ${userId} found`);
-      throw redirect(`${REDIRECT_ROUTES.GUEST}/?redirectTo=${redirectTo}`);
-    }
+  const clerkUser = await getUser(userId);
+  if (!clerkUser) {
+    // throw new Error(`No registered user associated with id: ${userId} found`);
+    throw redirect(`${REDIRECT_ROUTES.GUEST}/?redirectTo=${redirectTo}`);
+  }
 
+  try {
     const existingUserMeta = await getUserMeta(userId);
     if (existingUserMeta) {
       return;
@@ -152,7 +150,7 @@ export async function initializeUserMeta(request: Request) {
 
     return await initializeAuthQueue({ user: clerkUser });
   } catch (error) {
-    throw redirect(`${REDIRECT_ROUTES.GUEST}/?redirectTo=${redirectTo}`);
+    throw error;
   }
 }
 
