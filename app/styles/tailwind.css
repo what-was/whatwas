@@ -560,10 +560,6 @@ video {
   position: absolute;
 }
 
-.sticky {
-  position: sticky;
-}
-
 .block {
   display: block;
 }

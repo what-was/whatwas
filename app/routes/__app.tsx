@@ -2,7 +2,9 @@ import { json } from '@remix-run/node';
 import {
   Box,
   ButtonGroup,
+  Container,
   Divider,
+  Flex,
   Heading,
   IconButton,
   useBreakpointValue,
@@ -12,9 +14,11 @@ import { AppShell, Button, useCollapse } from '@saas-ui/react';
 import { NavItem, Sidebar, SidebarSection } from '@saas-ui/sidebar';
 import { UserButton, useUser } from '@clerk/remix';
 import { RxPlus } from 'react-icons/rx';
+import { AiFillHome } from 'react-icons/ai';
 import { authenticatedRequest } from '~/lib/user.server';
 import { Logo } from '~/components/logo';
 import { REDIRECT_ROUTES } from '~/lib/constants';
+import type { ButtonProps } from '@saas-ui/react';
 import type { Location } from '@remix-run/react';
 import type { DataFunctionArgs } from '@remix-run/node';
 
@@ -25,17 +29,44 @@ export async function loader({ request }: DataFunctionArgs) {
 }
 
 const isActiveRoute = (route: string, location: Location) => {
-  return location.pathname.startsWith(route);
+  console.log('location.pathname', location.pathname);
+  console.log('route', route);
+  return location.pathname === route;
 };
+
+interface MobileNavButtonProps extends ButtonProps {
+  to: string;
+}
+
+const MobileNavButton = ({
+  to,
+  isActive,
+  children,
+  label,
+  ...rest
+}: MobileNavButtonProps) => (
+  <Button
+    {...rest}
+    as={NavLink}
+    to={to}
+    variant={isActive ? 'solid' : 'ghost'}
+    isActive={isActive}
+    size="lg"
+    label={label}
+  >
+    {label ?? children}
+  </Button>
+);
 
 export default function Layout() {
   const { user } = useUser();
   const sidebarWidth = useBreakpointValue(
-    { base: '40', md: '96' },
+    { base: 0, md: '96' },
     { fallback: '96', ssr: true },
   );
+
   const { onToggle, isOpen } = useCollapse({
-    defaultIsOpen: !!(sidebarWidth && Number(sidebarWidth) > 96) ?? true,
+    defaultIsOpen: !!(sidebarWidth && Number(sidebarWidth) > 96) || true,
   });
 
   const location = useLocation();
@@ -44,10 +75,33 @@ export default function Layout() {
     return null;
   }
 
+  if (!sidebarWidth) {
+    return (
+      <Container h="full" display="flex" gap="4" flexDirection="column">
+        <Box flexGrow="1">
+          <Outlet />
+        </Box>
+
+        <Flex gap="4" justifyContent="space-between" alignItems="center" p="4">
+          <MobileNavButton to="/" isActive={isActiveRoute('/', location)}>
+            <AiFillHome />
+          </MobileNavButton>
+          <MobileNavButton
+            to={`/${user.username}/wallet`}
+            isActive={isActiveRoute(`/${user?.username}/wallet`, location)}
+          >
+            Wallet
+          </MobileNavButton>
+          <UserButton afterSignOutUrl={REDIRECT_ROUTES.GUEST} />
+        </Flex>
+      </Container>
+    );
+  }
+
   return (
     <AppShell
       sidebar={
-        isOpen ? (
+        isOpen && sidebarWidth ? (
           <Sidebar h="full" w={sidebarWidth} isOpen={isOpen}>
             <SidebarSection>
               <Box

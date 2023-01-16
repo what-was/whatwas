@@ -5,14 +5,13 @@ import { Stat } from '~/components/stat';
 import { reuseUsefulLoaderHeaders } from '~/lib/utils/misc';
 import { authenticatedRequest } from '~/lib/user.server';
 import { getRedirectTo } from '~/lib/http';
-import { REDIRECT_ROUTES } from '~/lib/constants';
 import type { HeadersFunction, LoaderFunction } from '@remix-run/node';
 
 export const loader: LoaderFunction = async ({ request }) => {
   try {
     await authenticatedRequest(request);
   } catch (error) {
-    return redirect(getRedirectTo(request, REDIRECT_ROUTES.GUEST));
+    return redirect(getRedirectTo(request));
   }
 
   return { balance: { start: 0, end: 0 }, expense: 0, income: 0 };
