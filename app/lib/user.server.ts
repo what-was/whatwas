@@ -2,6 +2,7 @@ import { unauthorized } from 'remix-utils';
 import { clerkClient } from '@clerk/remix/api.server';
 import { redirect } from '@remix-run/node';
 import { getAuth } from '@clerk/remix/ssr.server';
+import { hoursToMinutes } from 'date-fns';
 import { db } from '~/lib/db';
 import { REDIRECT_ROUTES } from '~/lib/constants';
 import { getRedirectTo, removeTrailSlash } from '~/lib/http';
@@ -88,11 +89,14 @@ export async function getUser(clerkId: string, opts?: RequestOpts) {
         throw new Error(`User not found: ${clerkId}`);
       }
 
-      await redis.setex(`user:${user.id}`, 60 * 60 * 24, JSON.stringify(user));
+      await redis.setex(
+        `user:${user.id}`,
+        hoursToMinutes(6),
+        JSON.stringify(user),
+      );
 
       return user;
     } catch (error: any) {
-      console.error(error);
       throw error;
     }
   };

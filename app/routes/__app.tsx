@@ -29,8 +29,6 @@ export async function loader({ request }: DataFunctionArgs) {
 }
 
 const isActiveRoute = (route: string, location: Location) => {
-  console.log('location.pathname', location.pathname);
-  console.log('route', route);
   return location.pathname === route;
 };
 
@@ -77,8 +75,16 @@ export default function Layout() {
 
   if (!sidebarWidth) {
     return (
-      <Container h="full" display="flex" gap="4" flexDirection="column">
-        <Box flexGrow="1">
+      <Container
+        h="full"
+        display="flex"
+        gap="4"
+        flexDirection="column"
+        justifyContent="space-between"
+        backgroundColor="Background"
+        p="0"
+      >
+        <Box flexGrow="1" maxH="calc(100vh - 40px)" overflowY="auto" p="4">
           <Outlet />
         </Box>
 
