@@ -17,20 +17,3 @@ export async function getRedisClient() {
 
   return client;
 }
-
-// client.on('ready', () => {
-//   console.log('Redis client connected and ready to use');
-// });
-
-client.on('error', (err) => {
-  console.log(`Something went wrong ${err}`);
-});
-
-client.on('quit', () => {
-  console.log('Redis client disconnected');
-});
-
-process.on('SIGINT', () => {
-  console.log('Redis client disconnected due to application termination');
-  client?.quit();
-});
