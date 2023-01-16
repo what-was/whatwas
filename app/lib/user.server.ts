@@ -49,14 +49,15 @@ export const authenticatedRequest = async (
 export const unauthenticatedRequest = async (request: Request) => {
   try {
     const { userId } = await getAuth(request);
-    const redirectTo = getRedirectTo(request, REDIRECT_ROUTES.AUTHENTICATED);
 
     if (userId) {
+      const redirectTo = getRedirectTo(request, REDIRECT_ROUTES.AUTHENTICATED);
       throw redirect(redirectTo);
     }
-  } catch (error) {}
+  } catch (error: any) {}
 
-  return;
+  console.log('keeps going');
+  return { userId: null };
 };
 
 const getUserFromCache = async (clerkId: string) => {
@@ -79,7 +80,6 @@ export async function getUser(clerkId: string, opts?: RequestOpts) {
     }
 
     const redisClient = await getRedisClient();
-
     await redisClient.setex(
       `user:${user.id}`,
       60 * 60 * 24,
