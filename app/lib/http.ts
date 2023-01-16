@@ -1,3 +1,5 @@
+import { safeRedirect } from 'remix-utils';
+
 export function getDomainUrl(request: Request) {
   const host =
     request.headers.get('X-Forwarded-Host') ?? request.headers.get('host');
@@ -14,11 +16,12 @@ export function getDomainPathname(request: Request) {
   return pathname;
 }
 
-type Fallback = string | undefined;
-export function getRedirectTo<FB extends Fallback>(
-  request: Request,
-  fallback?: FB,
-): FB {
-  const url = new URL(request.url);
-  return (url.searchParams.get('redirectTo') ?? fallback) as FB;
+export function getRedirectTo(request: Request, fallback?: string) {
+  let { searchParams } = new URL(request.url);
+  let redirectTo = searchParams.get('redirectTo');
+  return safeRedirect(redirectTo, fallback);
+}
+
+export function removeTrailSlash(path: string) {
+  return path.replace(/\/$/, '');
 }

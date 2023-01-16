@@ -1,19 +1,8 @@
-import Redis from 'ioredis';
-import { getRequiredServerEnvVar } from './utils/misc';
+import { Redis } from '@upstash/redis';
 
-const REDIS_URL = getRequiredServerEnvVar('REDIS_URL');
-
-let client = new Redis(REDIS_URL, {
-  timeout: 5000,
-  disconnectTimeout: 10000,
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL ?? '',
+  token: process.env.UPSTASH_REDIS_REST_TOKEN ?? '',
 });
 
-export async function getRedisClient() {
-  if (!client || client.status === 'end') {
-    console.log('Creating new Redis client');
-    console.log('redis', client);
-    client = new Redis(REDIS_URL);
-  }
-
-  return client;
-}
+export { redis };

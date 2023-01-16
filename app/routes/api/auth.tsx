@@ -1,16 +1,12 @@
 import { redirect } from '@remix-run/node';
-import { initializeUserMeta } from '~/lib/user.server';
-import { getRedirectTo } from '~/lib/utils/http';
+import { authenticatedRequest, initializeUserMeta } from '~/lib/user.server';
+import { getRedirectTo } from '~/lib/http';
 import { REDIRECT_ROUTES } from '~/lib/constants';
 import type { LoaderFunction } from '@remix-run/node';
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const isInitialized = await initializeUserMeta(request);
-  console.log('isInitialized', isInitialized);
-  const redirectTo = getRedirectTo(
-    request,
-    isInitialized ? REDIRECT_ROUTES.AUTHENTICATED : REDIRECT_ROUTES.GUEST,
-  );
-
+  const { userId } = await authenticatedRequest(request);
+  const redirectTo = getRedirectTo(request, REDIRECT_ROUTES.AUTHENTICATED);
+  await initializeUserMeta(userId, redirectTo);
   return redirect(redirectTo);
 };

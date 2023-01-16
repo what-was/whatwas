@@ -1,13 +1,14 @@
+import { unauthorized } from 'remix-utils';
 import { clerkClient } from '@clerk/remix/api.server';
 import { redirect } from '@remix-run/node';
 import { getAuth } from '@clerk/remix/ssr.server';
 import { db } from '~/lib/db';
 import { REDIRECT_ROUTES } from '~/lib/constants';
-import { getRedirectTo } from '~/lib/utils/http';
+import { getRedirectTo, removeTrailSlash } from '~/lib/http';
 import { initializeAuthQueue } from './queues/auth/auth.queue';
 import { time } from './timing.server';
-import { getRedisClient } from './redis.server';
-import { removeTrailSlash } from './utils/misc';
+import { redis } from './redis.server';
+import type { User } from '@clerk/remix/api.server';
 import type { Prisma } from '@prisma/client';
 import type { Timings } from './timing.server';
 
@@ -28,13 +29,11 @@ export const authenticatedRequest = async (
 
     try {
       const { userId } = await getAuth(request);
-      if (!userId) {
-        throw redirect(unauthenticatedRedirect);
-      }
+      if (!userId) throw unauthorized({ redirectTo: unauthenticatedRedirect });
 
       return { userId };
     } catch (error) {
-      throw redirect(unauthenticatedRedirect);
+      throw unauthorized({ redirectTo: unauthenticatedRedirect });
     }
   };
 
@@ -47,23 +46,33 @@ export const authenticatedRequest = async (
   return await handler();
 };
 
-export const unauthenticatedRequest = async (request: Request) => {
-  try {
-    const { userId } = await getAuth(request);
-    if (userId) {
-      const redirectTo = getRedirectTo(request, REDIRECT_ROUTES.AUTHENTICATED);
-      throw redirect(redirectTo);
-    }
-  } catch (error: any) {}
+export const unauthenticatedRequest = async (
+  request: Request,
+  opts?: RequestOpts,
+) => {
+  const handler = async () => {
+    try {
+      const { userId } = await getAuth(request);
+      if (!userId) {
+        return;
+      }
+    } catch (error: any) {}
 
-  return null;
+    const redirectTo = getRedirectTo(request, REDIRECT_ROUTES.AUTHENTICATED);
+    throw { redirectTo };
+  };
+
+  if (opts?.timings)
+    return time(handler, {
+      timings: opts.timings,
+      type: 'authenticated-request',
+    });
+
+  return await handler();
 };
 
-const getUserFromCache = async (clerkId: string) => {
-  const redisClient = await getRedisClient();
-
-  const user = await redisClient.get(`user:${clerkId}`);
-  return user ? JSON.parse(user) : null;
+const getUserFromCache = async (clerkId: string): Promise<User> => {
+  return (await redis.get(`user:${clerkId}`)) as User;
 };
 
 export async function getUser(clerkId: string, opts?: RequestOpts) {
@@ -79,12 +88,7 @@ export async function getUser(clerkId: string, opts?: RequestOpts) {
         throw new Error(`User not found: ${clerkId}`);
       }
 
-      const redisClient = await getRedisClient();
-      await redisClient.setex(
-        `user:${user.id}`,
-        60 * 60 * 24,
-        JSON.stringify(user),
-      );
+      await redis.setex(`user:${user.id}`, 60 * 60 * 24, JSON.stringify(user));
 
       return user;
     } catch (error: any) {
@@ -133,25 +137,18 @@ export async function createUserMeta(input: UserMetaCreateInput) {
   });
 }
 
-export async function initializeUserMeta(request: Request) {
-  const { userId } = await authenticatedRequest(request);
-  const redirectTo = getRedirectTo(request, REDIRECT_ROUTES.AUTHENTICATED);
-
+export async function initializeUserMeta(
+  userId: string,
+  redirectTo: string,
+): Promise<void> {
   const clerkUser = await getUser(userId);
   if (!clerkUser) {
-    // throw new Error(`No registered user associated with id: ${userId} found`);
-    throw redirect(`${REDIRECT_ROUTES.GUEST}/?redirectTo=${redirectTo}`);
+    throw redirect(`${REDIRECT_ROUTES.GUEST}?redirectTo=${redirectTo}`);
   }
 
-  try {
-    const existingUserMeta = await getUserMeta(userId);
-    if (existingUserMeta) {
-      return;
-    }
-
-    return await initializeAuthQueue({ user: clerkUser });
-  } catch (error) {
-    throw error;
+  const existingUserMeta = await getUserMeta(userId);
+  if (!existingUserMeta) {
+    await initializeAuthQueue({ user: clerkUser });
   }
 }
 

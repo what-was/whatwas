@@ -3,7 +3,7 @@ import { Box } from '@chakra-ui/react';
 import { useLoaderData } from '@remix-run/react';
 import { SignIn } from '@clerk/remix';
 import { unauthenticatedRequest } from '~/lib/user.server';
-import { getRedirectTo } from '~/lib/utils/http';
+import { getRedirectTo } from '~/lib/http';
 import type { DataFunctionArgs } from '@remix-run/node';
 
 export async function loader({ request }: DataFunctionArgs) {

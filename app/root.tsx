@@ -1,16 +1,21 @@
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { rootAuthLoader } from '@clerk/remix/ssr.server';
 import { SaasProvider } from '@saas-ui/react';
-import { cookieStorageManagerSSR, localStorageManager } from '@chakra-ui/react';
+import {
+  cookieStorageManagerSSR,
+  localStorageManager,
+  ColorModeScript,
+} from '@chakra-ui/react';
 import { ClerkApp, ClerkCatchBoundary } from '@clerk/remix';
 import { dark } from '@clerk/themes';
-// import { redirect } from '@remix-run/node';
 import { getSeo } from '~/lib/seo';
 import { initializeUserMeta } from './lib/user.server';
 import { theme } from './lib/theme';
 import { Document } from './components/document';
 import colors from './lib/theme/foundations/colors';
 import { fonts } from './lib/theme/foundations/typography';
+import { getRedirectTo } from './lib/http';
+import { REDIRECT_ROUTES } from './lib/constants';
 import type {
   MetaFunction,
   LinksFunction,
@@ -39,7 +44,9 @@ export const loader: LoaderFunction = async (args) => {
       const { userId } = request.auth;
       if (!userId) return returnData;
 
-      await initializeUserMeta(request);
+      const redirectTo = getRedirectTo(request, REDIRECT_ROUTES.AUTHENTICATED);
+      await initializeUserMeta(userId, redirectTo);
+
       return {
         ...returnData,
       };

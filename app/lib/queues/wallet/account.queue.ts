@@ -1,10 +1,15 @@
 import Bull from 'bull';
-import { getRequiredServerEnvVar } from '~/lib/utils/misc';
 import { fetchAccountProcess } from './account.process';
 
-const redisUrl = getRequiredServerEnvVar('REDIS_URL');
+const settings = {
+  stalledInterval: 300000, // How often check for stalled jobs (use 0 for never checking).
+  guardInterval: 5000, // Poll interval for delayed jobs and added jobs.
+  drainDelay: 300, // A timeout for when the queue is in drained state (empty waiting for jobs).
+};
+
 const queue = new Bull('walletAccount', {
-  redis: redisUrl,
+  redis: process.env.UPSTASH_REDIS_URL,
+  settings,
 });
 
 queue.process(fetchAccountProcess);

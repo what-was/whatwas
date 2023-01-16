@@ -3,14 +3,14 @@ import { Box } from '@chakra-ui/react';
 import { SignUp } from '@clerk/remix';
 import { useLoaderData } from '@remix-run/react';
 import { unauthenticatedRequest } from '~/lib/user.server';
-import { getRedirectTo } from '~/lib/utils/http';
+import { REDIRECT_ROUTES } from '~/lib/constants';
 import type { DataFunctionArgs } from '@remix-run/node';
 
 export async function loader({ request }: DataFunctionArgs) {
   await unauthenticatedRequest(request);
 
   return json({
-    redirectTo: getRedirectTo(request),
+    redirectTo: REDIRECT_ROUTES.AUTH_SUCCESSFUL,
   });
 }
 
