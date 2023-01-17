@@ -1,7 +1,7 @@
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { rootAuthLoader } from '@clerk/remix/ssr.server';
 import { SaasProvider } from '@saas-ui/react';
-import { cookieStorageManagerSSR, localStorageManager } from '@chakra-ui/react';
+import { cookieStorageManagerSSR } from '@chakra-ui/react';
 import { ClerkApp, ClerkCatchBoundary } from '@clerk/remix';
 import { dark } from '@clerk/themes';
 import { getSeo } from '~/lib/seo';
@@ -60,9 +60,7 @@ function App() {
   return (
     <Document>
       <SaasProvider
-        colorModeManager={
-          cookies ? cookieStorageManagerSSR(cookies) : localStorageManager
-        }
+        colorModeManager={cookieStorageManagerSSR(cookies)}
         theme={theme}
         resetCSS
       >

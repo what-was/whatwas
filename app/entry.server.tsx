@@ -18,20 +18,22 @@ export default function handleRequest(
   const cache = createEmotionCache();
   const { extractCriticalToChunks } = createEmotionServer(cache);
 
+  const App = () => (
+    <CacheProvider value={cache}>
+      <RemixServer context={remixContext} url={request.url} />
+    </CacheProvider>
+  );
+
   const html = renderToString(
     <ServerStyleContext.Provider value={null}>
-      <CacheProvider value={cache}>
-        <RemixServer context={remixContext} url={request.url} />
-      </CacheProvider>
+      <App />
     </ServerStyleContext.Provider>,
   );
 
   const chunks = extractCriticalToChunks(html);
   const markup = renderToString(
     <ServerStyleContext.Provider value={chunks.styles}>
-      <CacheProvider value={cache}>
-        <RemixServer context={remixContext} url={request.url} />
-      </CacheProvider>
+      <App />
     </ServerStyleContext.Provider>,
   );
 
