@@ -1,4 +1,5 @@
 import { safeRedirect } from 'remix-utils';
+import { REDIRECT_ROUTES } from './constants';
 
 export function getDomainUrl(request: Request) {
   const host =
@@ -21,6 +22,25 @@ export function getRedirectTo(request: Request, fallback?: string) {
   let redirectTo = searchParams.get('redirectTo');
   return safeRedirect(redirectTo, fallback);
 }
+
+export const createRedirectToHere = (
+  request: Request,
+  to: string,
+  fromFallback: string,
+) => {
+  const { pathname } = new URL(request.url);
+  const from = pathname === to ? fromFallback : pathname;
+  return `${removeTrailSlash(to)}?redirectTo=${encodeURIComponent(from)}`;
+};
+
+export const authRedirectUrl = (
+  request: Request,
+  fallback?: string,
+  shouldRedirectAfterAuth = true,
+) =>
+  shouldRedirectAfterAuth
+    ? createRedirectToHere(request, REDIRECT_ROUTES.GUEST, fallback ?? '/')
+    : REDIRECT_ROUTES.GUEST;
 
 export function removeTrailSlash(path: string) {
   return path.replace(/\/$/, '');

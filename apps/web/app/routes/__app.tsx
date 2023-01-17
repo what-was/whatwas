@@ -3,22 +3,16 @@ import {
   Box,
   ButtonGroup,
   Container,
-  Divider,
   Flex,
-  Heading,
-  IconButton,
   useBreakpointValue,
 } from '@chakra-ui/react';
 import { NavLink, Outlet, useLocation, Link } from '@remix-run/react';
 import { AppShell, Button, useCollapse } from '@saas-ui/react';
 import { NavItem, Sidebar, SidebarSection } from '@saas-ui/sidebar';
-import { UserButton, useUser } from '@clerk/remix';
-import { RxPlus } from 'react-icons/rx';
-import { AiFillHome } from 'react-icons/ai';
+import { UserButton } from '@clerk/remix';
 import { authenticatedRequest } from '~/lib/user.server';
 import { Logo } from '~/components/logo';
 import { REDIRECT_ROUTES } from '~/lib/constants';
-import type { ButtonProps } from '@saas-ui/react';
 import type { Location } from '@remix-run/react';
 import type { DataFunctionArgs } from '@remix-run/node';
 
@@ -32,32 +26,7 @@ const isActiveRoute = (route: string, location: Location) => {
   return location.pathname === route;
 };
 
-interface MobileNavButtonProps extends ButtonProps {
-  to: string;
-}
-
-const MobileNavButton = ({
-  to,
-  isActive,
-  children,
-  label,
-  ...rest
-}: MobileNavButtonProps) => (
-  <Button
-    {...rest}
-    as={NavLink}
-    to={to}
-    variant={isActive ? 'solid' : 'ghost'}
-    isActive={isActive}
-    size="lg"
-    label={label}
-  >
-    {label ?? children}
-  </Button>
-);
-
 export default function Layout() {
-  const { user } = useUser();
   const sidebarWidth = useBreakpointValue(
     { base: 0, md: '96' },
     { fallback: '96', ssr: true },
@@ -69,36 +38,42 @@ export default function Layout() {
 
   const location = useLocation();
 
-  if (!user) {
-    return null;
-  }
-
   if (!sidebarWidth) {
     return (
       <Container
         h="full"
-        display="flex"
         gap="4"
+        alignItems="center"
         flexDirection="column"
         justifyContent="space-between"
-        p="0"
+        p="2"
       >
-        <Box flexGrow="1" maxH="calc(100vh - 40px)" overflowY="auto" p="4">
+        <Box
+          display="flex"
+          alignItems="center"
+          position="sticky"
+          top={0}
+          pb="2"
+          zIndex="99"
+          backgroundColor="gray.800"
+          justifyContent="center"
+        >
+          <Flex flexGrow={2} justifyContent="center">
+            <Link to={REDIRECT_ROUTES.AUTHENTICATED}>
+              <Logo />
+            </Link>
+          </Flex>
+          <UserButton afterSignOutUrl={REDIRECT_ROUTES.GUEST} />
+        </Box>
+        <Box
+          flexGrow="1"
+          maxH="calc(100vh - 40px)"
+          overflowY="auto"
+          w="full"
+          py={2}
+        >
           <Outlet />
         </Box>
-
-        <Flex gap="4" justifyContent="space-between" alignItems="center" p="4">
-          <MobileNavButton to="/" isActive={isActiveRoute('/', location)}>
-            <AiFillHome />
-          </MobileNavButton>
-          <MobileNavButton
-            to={`/${user.username}/wallet`}
-            isActive={isActiveRoute(`/${user?.username}/wallet`, location)}
-          >
-            Wallet
-          </MobileNavButton>
-          <UserButton afterSignOutUrl={REDIRECT_ROUTES.GUEST} />
-        </Flex>
       </Container>
     );
   }
@@ -122,14 +97,6 @@ export default function Layout() {
               </Box>
             </SidebarSection>
             <SidebarSection>
-              {user.firstName && (
-                <>
-                  <Heading as="h3" size="md" fontWeight="normal">
-                    Hi {user.firstName} 👋
-                  </Heading>
-                  <Divider my="4" />
-                </>
-              )}
               <NavItem
                 as={NavLink}
                 to="/"
@@ -139,16 +106,14 @@ export default function Layout() {
               </NavItem>
               <NavItem
                 as={NavLink}
-                to={`/${user.username}/wallet`}
-                isActive={isActiveRoute(`/${user?.username}/wallet`, location)}
+                to={'/wallet'}
+                isActive={isActiveRoute('/wallet', location)}
               >
                 Wallet
               </NavItem>
             </SidebarSection>
             <SidebarSection>
               <ButtonGroup size="sm" isAttached variant="outline">
-                <Button>Save</Button>
-                <IconButton aria-label="Add to friends" icon={<RxPlus />} />
                 <Button onClick={onToggle}>Toggle</Button>
               </ButtonGroup>
             </SidebarSection>
@@ -158,10 +123,17 @@ export default function Layout() {
     >
       <Box as="main" flex="1" py="2" px="4">
         {sidebarWidth && Number(sidebarWidth) <= 96 && !isOpen && (
-          <Button onClick={onToggle} position="absolute" bottom="4">
-            Toggle
+          <Button onClick={onToggle} position="fixed" bottom="2">
+            Sidebar
           </Button>
         )}
+        {!isOpen ? (
+          <Box mt="1" mb="4">
+            <Link to={REDIRECT_ROUTES.AUTHENTICATED}>
+              <Logo />
+            </Link>
+          </Box>
+        ) : null}
         <Outlet />
       </Box>
     </AppShell>

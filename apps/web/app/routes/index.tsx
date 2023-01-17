@@ -16,7 +16,7 @@ export default function AppIndex() {
           Login
         </Button>
       ) : (
-        <Button as={Link} to={`${user.username}/wallet`} prefetch="intent">
+        <Button as={Link} to={`wallet`} prefetch="intent">
           Wallet
         </Button>
       )}

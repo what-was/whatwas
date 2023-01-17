@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 import { redirect } from '@remix-run/node';
-import { getUser, authenticatedRequest } from '~/lib/user.server';
+import { authenticatedRequest } from '~/lib/user.server';
 import { getNordigenClient } from '~/lib/nordigen.server';
 import { commitSession, getSession } from '~/services/session.server';
 import { createRequisition } from '~/lib/wallet/requisition.server';
@@ -13,10 +13,8 @@ export const loader: LoaderFunction = async (args) => {
   const institutionId = params.id;
 
   const { userId } = await authenticatedRequest(request);
-  const user = await getUser(userId);
-
   if (!institutionId) {
-    throw redirect(`${user.username}/wallet`);
+    throw redirect('/wallet');
   }
 
   const cookie = request.headers.get('Cookie');
@@ -24,7 +22,7 @@ export const loader: LoaderFunction = async (args) => {
   const { client: nordigenClient } = await getNordigenClient(args);
 
   if (!session) {
-    throw redirect(`${user.username}/wallet`);
+    throw redirect('/wallet');
   }
 
   // @ts-ignore

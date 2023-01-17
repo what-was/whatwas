@@ -1,5 +1,5 @@
 import { json, redirect } from '@remix-run/node';
-import { useCatch, useLoaderData, useParams } from '@remix-run/react';
+import { useCatch, useLoaderData } from '@remix-run/react';
 import {
   Alert,
   AlertDescription,
@@ -89,7 +89,6 @@ export const loader: LoaderFunction = async (args) => {
 
 export default function Banks() {
   const { availableBanks } = useLoaderData<LoaderData>();
-  const { username } = useParams();
 
   return (
     <Box>
@@ -102,7 +101,7 @@ export default function Banks() {
             // <GridItem key={bank.id} w="100%">
             <BankListItem
               key={bank.id}
-              to={`/${username}/wallet/agreements/${bank.id}`}
+              to={`/wallet/agreements/${bank.id}`}
               name={bank.name}
               logoSrc={bank.logo}
             />

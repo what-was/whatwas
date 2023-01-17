@@ -1,7 +1,15 @@
 import { Box, Heading } from '@chakra-ui/react';
 import { useLoaderData, Link } from '@remix-run/react';
-import { Button, EmptyState } from '@saas-ui/react';
-import { json, redirect } from '@remix-run/node';
+import {
+  Button,
+  EmptyState,
+  EmptyStateActions,
+  EmptyStateBody,
+  EmptyStateContainer,
+  EmptyStateDescription,
+  EmptyStateIcon,
+  EmptyStateTitle,
+} from '@saas-ui/react';
 import { RxPlus } from 'react-icons/rx';
 import { BsWallet2 } from 'react-icons/bs';
 import { jsonHash } from 'remix-utils';
@@ -11,29 +19,21 @@ import { getWalletAccountListOfUser } from '~/lib/wallet/account.server';
 // import { Transactions } from '~/containers/wallet';
 import { reuseUsefulLoaderHeaders } from '~/lib/utils/misc';
 import { getServerTimeHeader } from '~/lib/timing.server';
-import { REDIRECT_ROUTES } from '~/lib/constants';
 import type { HeadersFunction, LoaderFunction } from '@remix-run/node';
 
 const defaultCountry = 'NL';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const timings = {};
-  const { username: requestUsername } = params;
   const currentUser = await getUserFromRequest(request, {
     timings,
-  }).catch(() => {
-    throw redirect(REDIRECT_ROUTES.GUEST);
   });
 
-  if (!currentUser || currentUser.username !== requestUsername) {
-    return redirect(REDIRECT_ROUTES.AUTHENTICATED);
-  }
-
-  return json(
-    jsonHash({
+  return jsonHash(
+    {
       walletAccounts: getRequisitionsOfUser(currentUser.id, { timings }),
       requisitions: getWalletAccountListOfUser(currentUser.id, { timings }),
-    }),
+    },
     {
       headers: {
         'Server-Timing': getServerTimeHeader(timings),
@@ -63,9 +63,9 @@ export default function WalletPage() {
   return (
     <>
       <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
+        // display="flex"
+        // justifyContent="space-between"
+        // alignItems="center"
         mb="6"
       >
         <Heading as="h2" size="md">
@@ -79,20 +79,30 @@ export default function WalletPage() {
           </Button>
         </Box>
       </Box>
+      <EmptyState
+        // colorScheme="gray"
+        icon={BsWallet2}
+        title="No connected banks"
+        description="You haven't connected any bank accounts yet. Connect a bank account to start tracking your transactions."
+        actions={<AddBankButton />}
+      />
 
-      {walletAccounts?.length === 0 ? (
-        <EmptyState
-          colorScheme="gray"
-          icon={BsWallet2}
-          title="No connected banks"
-          description="You haven't connected any bank accounts yet. Connect a bank account to start tracking your transactions."
-          actions={
-            <>
-              <AddBankButton />
-            </>
-          }
-        />
-      ) : null}
+      <EmptyStateContainer colorScheme="purple">
+        <EmptyStateBody>
+          <EmptyStateIcon as={BsWallet2} />
+
+          <EmptyStateTitle>Whoops, something went wrong</EmptyStateTitle>
+          <EmptyStateDescription>
+            Where do you want to go?
+          </EmptyStateDescription>
+          <EmptyStateActions>
+            <AddBankButton />
+          </EmptyStateActions>
+        </EmptyStateBody>
+      </EmptyStateContainer>
+      {/* {walletAccounts?.length === 0 ? (
+
+      ) : null} */}
 
       {/* <Box>
         <ul>

@@ -5,7 +5,7 @@ import { getAuth } from '@clerk/remix/ssr.server';
 import { hoursToMinutes } from 'date-fns';
 import { db } from '~/lib/db';
 import { REDIRECT_ROUTES } from '~/lib/constants';
-import { getRedirectTo, removeTrailSlash } from '~/lib/http';
+import { authRedirectUrl } from '~/lib/http';
 import { initializeAuthQueue } from './queues/auth/auth.queue';
 import { time } from './timing.server';
 import { redis } from './redis.server';
@@ -19,22 +19,27 @@ interface RequestOpts {
   timings?: Timings;
 }
 
+export const redirectAfterAuth = (request: Request, shouldRedirect = true) => {
+  throw shouldRedirect
+    ? redirect(authRedirectUrl(request))
+    : unauthorized({ redirectTo: authRedirectUrl(request) });
+};
+
 export const authenticatedRequest = async (
   request: Request,
   opts?: RequestOpts,
+  shouldRedirectAfterAuth = true,
 ) => {
   const handler = async () => {
-    const { pathname } = new URL(request.url);
-    const redirectTo = getRedirectTo(request, removeTrailSlash(pathname));
-    const unauthenticatedRedirect = `${REDIRECT_ROUTES.GUEST}?redirectTo=${redirectTo}`;
-
     try {
       const { userId } = await getAuth(request);
-      if (!userId) throw unauthorized({ redirectTo: unauthenticatedRedirect });
+      if (!userId) {
+        throw redirectAfterAuth(request, shouldRedirectAfterAuth);
+      }
 
       return { userId };
     } catch (error) {
-      throw unauthorized({ redirectTo: unauthenticatedRedirect });
+      throw redirectAfterAuth(request, shouldRedirectAfterAuth);
     }
   };
 
@@ -50,23 +55,23 @@ export const authenticatedRequest = async (
 export const unauthenticatedRequest = async (
   request: Request,
   opts?: RequestOpts,
+  shouldRedirectAfterAuth = true,
 ) => {
   const handler = async () => {
     try {
       const { userId } = await getAuth(request);
-      if (!userId) {
-        return;
+      if (userId) {
+        throw redirectAfterAuth(request, shouldRedirectAfterAuth);
       }
     } catch (error: any) {}
 
-    const redirectTo = getRedirectTo(request, REDIRECT_ROUTES.AUTHENTICATED);
-    throw { redirectTo };
+    throw redirectAfterAuth(request, shouldRedirectAfterAuth);
   };
 
   if (opts?.timings)
     return time(handler, {
       timings: opts.timings,
-      type: 'authenticated-request',
+      type: 'unauthenticatedRequest-request',
     });
 
   return await handler();
@@ -110,7 +115,11 @@ export async function getUser(clerkId: string, opts?: RequestOpts) {
   return await handler();
 }
 
-export async function getUserFromRequest(request: Request, opts?: RequestOpts) {
+export async function getUserFromRequest(
+  request: Request,
+  opts?: RequestOpts,
+  shouldRedirectAfterAuth = true,
+) {
   const handler = async () => {
     try {
       const { userId } = await authenticatedRequest(request, {
@@ -119,12 +128,12 @@ export async function getUserFromRequest(request: Request, opts?: RequestOpts) {
 
       const user = await getUser(userId, { timings: opts?.timings });
       if (!user) {
-        throw redirect(getRedirectTo(request, REDIRECT_ROUTES.GUEST));
+        throw redirectAfterAuth(request, shouldRedirectAfterAuth);
       }
 
       return user;
     } catch (error) {
-      throw redirect(getRedirectTo(request, REDIRECT_ROUTES.GUEST));
+      throw redirectAfterAuth(request, shouldRedirectAfterAuth);
     }
   };
 
