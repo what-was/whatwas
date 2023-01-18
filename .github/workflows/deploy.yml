@@ -1,13 +1,11 @@
 name: 🚀 Deploy [WEB]
 on:
-  push:
+  pull_request:
     branches:
       - main
       - dev
-  pull_request_target:
-    branches:
-      - main
-      - dev
+    paths:
+      - 'apps/web/**/*'
 permissions:
   actions: write
   contents: read
@@ -111,7 +109,7 @@ jobs:
     name: 🐳 Build
     defaults:
       run:
-        working-directory: ./apps/web
+        working-directory: apps/web
     # # Only build / deploy main & dev branch on pushes.
     # if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') &&
     #   github.event_name == 'push' }}
