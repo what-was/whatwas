@@ -32,7 +32,7 @@ jobs:
             node-version: 16
 
       - name: 📥 Download Dependencies
-        run: npm ci
+        uses: bahmutov/npm-install@v1
 
       - name: 🔬 Lint
         run: npm run lint
