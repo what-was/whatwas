@@ -19,5 +19,6 @@
   "engines": {
     "node": ">=16",
     "npm": ">=7.0.0"
-  }
+  },
+  "packageManager": "npm@8.19.3"
 }
