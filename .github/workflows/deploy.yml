@@ -122,7 +122,8 @@ jobs:
 
       ## cd into the directory where the Dockerfile is located
       - name: 📂 Change Directory
-        run: cd ./apps/web
+      #   run: cd ./apps/web
+        run: ls
 
       - name: 👀 Read App Name
         uses: SebRollen/toml-action@v1.0.0
