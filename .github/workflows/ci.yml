@@ -20,11 +20,11 @@ jobs:
     steps:
       - name: 🛑 Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.11.0
-        with:
-          fetch-depth: 2
 
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
       - name: ⎔ Setup Node
         uses: actions/setup-node@v3
