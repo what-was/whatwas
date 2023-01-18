@@ -109,6 +109,9 @@ jobs:
   #         retention-days: 30
   build:
     name: 🐳 Build
+    defaults:
+      run:
+        working-directory: ./apps/web
     # # Only build / deploy main & dev branch on pushes.
     # if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') &&
     #   github.event_name == 'push' }}
@@ -119,11 +122,6 @@ jobs:
 
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v3
-
-      ## cd into the directory where the Dockerfile is located
-      - name: 📂 Change Directory
-      #   run: cd ./apps/web
-        run: ls
 
       - name: 👀 Read App Name
         uses: SebRollen/toml-action@v1.0.0
