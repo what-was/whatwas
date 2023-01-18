@@ -34,9 +34,7 @@ jobs:
           cache: 'npm'
 
       - name: 📥 Download Dependencies
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: true
+        run: npm ci
 
       - name: 🔬 Lint
         run: npm run lint
