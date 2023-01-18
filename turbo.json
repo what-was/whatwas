@@ -3,16 +3,15 @@
   "baseBranch": "origin/dev",
   "pipeline": {
     "build": {
-      "outputs": ["dist/**", "public/dist/**"],
-      "dependsOn": ["^build"]
-    },
-    "test": {
-      "outputs": ["coverage/**"],
-      "dependsOn": []
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
     },
     "lint": {
-      "dependsOn": ["^build"],
       "outputs": []
+    },
+    "test": {
+      "outputs": [],
+      "dependsOn": ["^build"]
     },
     "dev": {
       "cache": false

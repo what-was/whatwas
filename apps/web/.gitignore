@@ -53,3 +53,5 @@ other/postcss.ignored
 /playwright/.cache/
 
 *.conf
+
+.turbo
