@@ -33,6 +33,8 @@ jobs:
 
       - name: 📥 Download Dependencies
         uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
 
       - name: 🔬 Lint
         run: npm run lint
