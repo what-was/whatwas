@@ -1,0 +1,109 @@
+name: lint-and-typecheck
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      - dev
+permissions:
+  actions: write
+  contents: read
+
+
+jobs:
+  lint:
+    name: ⬣ Lint & Type Check
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: 📥 Download Dependencies
+        run: npm ci
+
+      - name: 🔬 Lint
+        run: npm run lint
+
+      - name: 🔎 Type Check
+        run: npm run typecheck --if-present
+
+  # typecheck:
+  #   name: ʦ TypeScript
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: 🛑 Cancel Previous Runs
+  #       uses: styfle/cancel-workflow-action@0.11.0
+
+  #     - name: ⬇️ Checkout Repository
+  #       uses: actions/checkout@v3
+
+  #     - name: ⎔ Setup Node
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16
+
+  #     - name: 📥 Download Dependencies
+  #       uses: bahmutov/npm-install@v1
+  #       with:
+  #         useLockFile: false
+
+  #     - name: 🔎 Type Check
+  #       run: npm run typecheck --if-present
+  # playwright:
+  #   name: 🎭 Playwright
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 60
+  #   steps:
+  #     - name: 🛑 Cancel Previous Runs
+  #       uses: styfle/cancel-workflow-action@0.10.0
+
+  #     - name: ⬇️ Checkout Repository
+  #       uses: actions/checkout@v3
+
+  #     - name: 🏄 Copy Env Variables
+  #       run: cp .env.example .env
+
+  #     - name: ⎔ Setup Node
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16
+
+  #     - name: 📥 Download Dependencies
+  #       uses: bahmutov/npm-install@v1
+  #       with:
+  #         useLockFile: false
+
+  #     - name: 🌐 Install Playwright Browsers
+  #       run: npx playwright install --with-deps
+
+  #     - name: 🛠 Setup Database
+  #       run: npx prisma migrate reset --force
+
+  #     - name: 🏗 Build
+  #       run: npm run build
+
+  #     - name: 🎭 Run Playwright Tests
+  #       run: npx playwright test
+
+  #     - name: 📊 Upload Report
+  #       uses: actions/upload-artifact@v2
+  #       if: always()
+  #       with:
+  #         name: playwright-report
+  #         path: playwright-report/
+  #         retention-days: 30
