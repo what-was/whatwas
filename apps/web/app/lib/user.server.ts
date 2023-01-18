@@ -3,6 +3,9 @@ import { redirect } from '@remix-run/node';
 import { getAuth } from '@clerk/remix/ssr.server';
 import { hoursToMinutes } from 'date-fns';
 import clerkClient from '@clerk/clerk-sdk-node';
+import { authRedirectUrl } from '~/lib/http';
+import { REDIRECT_ROUTES } from '~/lib/constants';
+import { db } from '~/lib/db';
 import { initializeAuthQueue } from './queues/auth/auth.queue';
 import { time } from './timing.server';
 import { redis } from './redis.server';
@@ -10,9 +13,6 @@ import type { DataFunctionArgs } from '@remix-run/node';
 import type { User } from '@clerk/remix/api.server';
 import type { Prisma } from '@prisma/client';
 import type { Timings } from './timing.server';
-import { authRedirectUrl } from '~/lib/http';
-import { REDIRECT_ROUTES } from '~/lib/constants';
-import { db } from '~/lib/db';
 
 type UserMetaCreateInput = Prisma.UserMetaCreateInput;
 
