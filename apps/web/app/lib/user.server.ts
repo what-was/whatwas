@@ -1,17 +1,18 @@
 import { unauthorized } from 'remix-utils';
-import { clerkClient } from '@clerk/remix/api.server';
 import { redirect } from '@remix-run/node';
 import { getAuth } from '@clerk/remix/ssr.server';
 import { hoursToMinutes } from 'date-fns';
-import { db } from '~/lib/db';
-import { REDIRECT_ROUTES } from '~/lib/constants';
-import { authRedirectUrl } from '~/lib/http';
+import clerkClient from '@clerk/clerk-sdk-node';
 import { initializeAuthQueue } from './queues/auth/auth.queue';
 import { time } from './timing.server';
 import { redis } from './redis.server';
+import type { DataFunctionArgs } from '@remix-run/node';
 import type { User } from '@clerk/remix/api.server';
 import type { Prisma } from '@prisma/client';
 import type { Timings } from './timing.server';
+import { authRedirectUrl } from '~/lib/http';
+import { REDIRECT_ROUTES } from '~/lib/constants';
+import { db } from '~/lib/db';
 
 type UserMetaCreateInput = Prisma.UserMetaCreateInput;
 
@@ -26,13 +27,14 @@ export const redirectAfterAuth = (request: Request, shouldRedirect = true) => {
 };
 
 export const authenticatedRequest = async (
-  request: Request,
+  args: DataFunctionArgs,
   opts?: RequestOpts,
   shouldRedirectAfterAuth = true,
 ) => {
+  const { request } = args;
   const handler = async () => {
     try {
-      const { userId } = await getAuth(request);
+      const { userId } = await getAuth(args);
       if (!userId) {
         throw redirectAfterAuth(request, shouldRedirectAfterAuth);
       }
@@ -53,13 +55,15 @@ export const authenticatedRequest = async (
 };
 
 export const unauthenticatedRequest = async (
-  request: Request,
+  args: DataFunctionArgs,
   opts?: RequestOpts,
   shouldRedirectAfterAuth = true,
 ) => {
+  const { request } = args;
+
   const handler = async () => {
     try {
-      const { userId } = await getAuth(request);
+      const { userId } = await getAuth(args);
       if (userId) {
         throw redirectAfterAuth(request, shouldRedirectAfterAuth);
       }
@@ -116,13 +120,15 @@ export async function getUser(clerkId: string, opts?: RequestOpts) {
 }
 
 export async function getUserFromRequest(
-  request: Request,
+  args: DataFunctionArgs,
   opts?: RequestOpts,
   shouldRedirectAfterAuth = true,
 ) {
+  const { request } = args;
+
   const handler = async () => {
     try {
-      const { userId } = await authenticatedRequest(request, {
+      const { userId } = await authenticatedRequest(args, {
         timings: opts?.timings,
       });
 

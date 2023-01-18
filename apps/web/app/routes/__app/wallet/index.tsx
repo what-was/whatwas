@@ -23,9 +23,9 @@ import type { HeadersFunction, LoaderFunction } from '@remix-run/node';
 
 const defaultCountry = 'NL';
 
-export const loader: LoaderFunction = async ({ request, params }) => {
+export const loader: LoaderFunction = async (args) => {
   const timings = {};
-  const currentUser = await getUserFromRequest(request, {
+  const currentUser = await getUserFromRequest(args, {
     timings,
   });
 

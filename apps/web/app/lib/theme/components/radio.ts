@@ -1,4 +1,4 @@
-import { StyleFunctionProps } from '@chakra-ui/theme-tools';
+import type { StyleFunctionProps } from '@chakra-ui/theme-tools';
 
 export default {
   baseStyle: (props: StyleFunctionProps) => {

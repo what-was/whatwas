@@ -4,5 +4,5 @@
 module.exports = {
   cacheDirectory: './node_modules/.cache/remix',
   ignoredRouteFiles: ['**/.*', '**/*.css', '**/*.test.{js,jsx,ts,tsx}'],
-  serverDependenciesToBundle: ['nordigen-node', 'axios', '@clerk/backend-core'],
+  serverDependenciesToBundle: ['nordigen-node', 'axios'],
 };

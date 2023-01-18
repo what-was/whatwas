@@ -1,4 +1,5 @@
-import { cssVar, SystemStyleFunction } from '@chakra-ui/theme-tools';
+import { cssVar } from '@chakra-ui/theme-tools';
+import type { SystemStyleFunction } from '@chakra-ui/theme-tools';
 
 const $bg = cssVar('tooltip-bg');
 const $fg = cssVar('tooltip-fg');

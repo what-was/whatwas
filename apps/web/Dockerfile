@@ -42,6 +42,11 @@ FROM base
 
 WORKDIR /myapp
 
+# Don't run production as root
+# RUN addgroup --system --gid 1001 nodejs
+# RUN adduser --system --uid 1001 remix
+# USER remix
+
 COPY --from=production-deps /myapp/node_modules /myapp/node_modules
 COPY --from=build /myapp/node_modules/.prisma /myapp/node_modules/.prisma
 
