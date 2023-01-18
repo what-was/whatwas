@@ -12,7 +12,7 @@
     "lint": "turbo run lint"
   },
   "dependencies": {
-    "turbo": "^1.7.0"
+    "turbo": "^1.6.3"
   },
   "engines": {
     "node": ">=16"
