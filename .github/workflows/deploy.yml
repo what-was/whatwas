@@ -1,7 +1,7 @@
-name: Release
+name: release
 on:
   workflow_run:
-    workflows: ["CI"]
+    workflows: ["lint-and-typecheck"]
     branches:
       - main
       - dev

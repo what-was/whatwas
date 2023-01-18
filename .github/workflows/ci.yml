@@ -1,7 +1,4 @@
-# A GitHub Action to test and lint
-
-name: CI
-
+name: lint-and-typecheck
 on:
   push:
     branches:
@@ -16,7 +13,7 @@ permissions:
 
 jobs:
   lint:
-    name: ⬣ ESLint
+    name: ⬣ Lint & Type Check
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel Previous Runs
