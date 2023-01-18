@@ -14,10 +14,14 @@ permissions:
 jobs:
   lint:
     name: ⬣ Lint & Type Check
+    timeout-minutes: 15
     runs-on: ubuntu-latest
+
     steps:
       - name: 🛑 Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.11.0
+        with:
+          fetch-depth: 2
 
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v3
@@ -25,12 +29,11 @@ jobs:
       - name: ⎔ Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+            node-version: 16
+            cache: 'npm'
 
       - name: 📥 Download Dependencies
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+        run: npm ci
 
       - name: 🔬 Lint
         run: npm run lint

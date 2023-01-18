@@ -6,9 +6,9 @@ import { unauthenticatedRequest } from '~/lib/user.server';
 import { getRedirectTo } from '~/lib/http';
 import type { DataFunctionArgs } from '@remix-run/node';
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader(args: DataFunctionArgs) {
   try {
-    await unauthenticatedRequest(request);
+    await unauthenticatedRequest(args);
   } catch (error: any) {
     if (error.redirectTo) {
       return redirect(error.redirectTo);
@@ -16,7 +16,7 @@ export async function loader({ request }: DataFunctionArgs) {
   }
 
   return json({
-    redirectTo: getRedirectTo(request),
+    redirectTo: getRedirectTo(args.request),
   });
 }
 

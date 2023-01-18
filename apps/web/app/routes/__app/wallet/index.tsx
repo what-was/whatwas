@@ -29,6 +29,24 @@ export const loader: LoaderFunction = async (args) => {
     timings,
   });
 
+  if (typeof currentUser?.id !== 'string') {
+    return jsonHash(
+      {
+        redirect: {
+          destination: `/login?redirectTo=${encodeURIComponent(
+            args.request.url,
+          )}`,
+          permanent: false,
+        },
+      },
+      {
+        headers: {
+          'Server-Timing': getServerTimeHeader(timings),
+        },
+      },
+    );
+  }
+
   return jsonHash(
     {
       walletAccounts: getRequisitionsOfUser(currentUser.id, { timings }),

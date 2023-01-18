@@ -16,8 +16,8 @@ import { REDIRECT_ROUTES } from '~/lib/constants';
 import type { Location } from '@remix-run/react';
 import type { DataFunctionArgs } from '@remix-run/node';
 
-export async function loader({ request }: DataFunctionArgs) {
-  const { userId } = await authenticatedRequest(request);
+export async function loader(args: DataFunctionArgs) {
+  const { userId } = await authenticatedRequest(args);
 
   return json({ userId });
 }

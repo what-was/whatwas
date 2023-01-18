@@ -1,8 +1,8 @@
 import { unauthorized } from 'remix-utils';
 import { redirect } from '@remix-run/node';
 import { getAuth } from '@clerk/remix/ssr.server';
+import clerk from '@clerk/clerk-sdk-node';
 import { hoursToMinutes } from 'date-fns';
-import clerkClient from '@clerk/clerk-sdk-node';
 import { authRedirectUrl } from '~/lib/http';
 import { REDIRECT_ROUTES } from '~/lib/constants';
 import { db } from '~/lib/db';
@@ -93,7 +93,7 @@ export async function getUser(clerkId: string, opts?: RequestOpts) {
         return cachedUser;
       }
 
-      const user = await clerkClient.users.getUser(clerkId);
+      const user = await clerk.users.getUser(clerkId);
       if (!user) {
         throw new Error(`User not found: ${clerkId}`);
       }
