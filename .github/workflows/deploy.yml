@@ -107,9 +107,6 @@ jobs:
   #         retention-days: 30
   build:
     name: 🐳 Build
-    defaults:
-      run:
-        working-directory: apps/web
     # # Only build / deploy main & dev branch on pushes.
     # if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') &&
     #   github.event_name == 'push' }}
@@ -125,6 +122,7 @@ jobs:
         uses: SebRollen/toml-action@v1.0.0
         id: app_name
         with:
+          path: apps/web
           file: "fly.toml"
           field: "app"
 
