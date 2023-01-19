@@ -1,36 +1,38 @@
-# Base node image.
-FROM node:16-bullseye-slim as base
+FROM node:alpine AS builder
+RUN apk add --no-cache libc6-compat
+RUN apk update
+# Set working directory
+WORKDIR /app
+RUN yarn global add turbo
+COPY . .
+RUN turbo prune --scope=web --docker
 
-# Set for base and all layer that inherit from it.
-ENV NODE_ENV=production
+# Add lockfile and package.json's of isolated subworkspace
+FROM node:alpine AS installer
+RUN apk add --no-cache libc6-compat
+RUN apk update
+WORKDIR /app
 
-# Install openssl for Prisma.
-RUN apt-get update && apt-get install -y openssl
+# First install the dependencies (as they change less often)
+COPY .gitignore .gitignore
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/package-lock.json ./package-lock.json
+RUN yarn install
 
-# Install all node_modules, including dev dependencies.
-FROM base as deps
+# Setup production node_modules
+FROM builder as production-deps
 
 WORKDIR /myapp
 
-ADD package.json package-lock.json ./
-RUN npm install --production=false
-
-# Setup production node_modules.
-FROM base as production-deps
-
-WORKDIR /myapp
-
-COPY --from=deps /myapp/node_modules /myapp/node_modules
-RUN ls
-ADD package.json package-lock.json ./
+COPY --from=installer /myapp/node_modules /myapp/node_modules
 RUN npm prune --production
 
-# Build the app.
-FROM base as build
+# Build the app
+FROM builder as build
 
 WORKDIR /myapp
 
-COPY --from=deps /myapp/node_modules /myapp/node_modules
+COPY --from=installer /myapp/node_modules /myapp/node_modules
 
 ADD prisma .
 RUN npx prisma generate
@@ -38,15 +40,10 @@ RUN npx prisma generate
 ADD . .
 RUN npm run build
 
-# Finally, build the production image with minimal footprint.
-FROM base
+# Finally, build the production image with minimal footprint
+FROM builder
 
 WORKDIR /myapp
-
-# Don't run production as root
-# RUN addgroup --system --gid 1001 nodejs
-# RUN adduser --system --uid 1001 remix
-# USER remix
 
 COPY --from=production-deps /myapp/node_modules /myapp/node_modules
 COPY --from=build /myapp/node_modules/.prisma /myapp/node_modules/.prisma
