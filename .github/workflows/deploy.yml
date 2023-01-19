@@ -37,12 +37,15 @@ jobs:
 
       - name: 📥 Download Dependencies
         run: yarn
+        working-directory: apps/web
 
       - name: 🔬 Lint
         run: yarn lint
+        working-directory: apps/web
 
       - name: 🔎 Type Check
         run: yarn typecheck --if-present
+        working-directory: apps/web
 
   # typecheck:
   #   name: ʦ TypeScript
@@ -151,7 +154,6 @@ jobs:
       - name: 🐳 Docker build
         uses: docker/build-push-action@v3
         with:
-          entrypoint: apps/web
           context: apps/web
           push: true
           tags: registry.fly.io/${{ steps.app_name.outputs.value }}:${{
