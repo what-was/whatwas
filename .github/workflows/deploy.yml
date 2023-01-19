@@ -33,16 +33,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'npm'
+          cache: 'yarn'
 
       - name: 📥 Download Dependencies
-        run: npm ci
+        run: yarn
 
       - name: 🔬 Lint
-        run: npm run lint
+        run: yarn lint
 
       - name: 🔎 Type Check
-        run: npm run typecheck --if-present
+        run: yarn typecheck --if-present
 
   # typecheck:
   #   name: ʦ TypeScript
