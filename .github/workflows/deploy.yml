@@ -114,7 +114,7 @@ jobs:
   #         retention-days: 30
   build:
     name: 🐳 Build
-    timeout-minutes: 5
+    timeout-minutes: 15
     # only build/deploy main branch on pushes
     if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') && github.event_name == 'push' }}
     runs-on: ubuntu-latest
