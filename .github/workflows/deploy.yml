@@ -44,7 +44,7 @@ jobs:
         working-directory: apps/web
 
       - name: 🔎 Type Check
-        run: yarn typecheck --if-present
+        run: yarn typecheck
         working-directory: apps/web
 
   # typecheck:
