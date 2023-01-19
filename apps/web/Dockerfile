@@ -21,6 +21,7 @@ FROM base as production-deps
 WORKDIR /myapp
 
 COPY --from=deps /myapp/node_modules /myapp/node_modules
+RUN ls
 ADD package.json package-lock.json ./
 RUN npm prune --production
 
