@@ -9,18 +9,18 @@ import { getSeoMeta } from '~/lib/seo';
 import type { Note } from '@prisma/client';
 import type { LoaderFunction, MetaFunction } from '@remix-run/node';
 
-export const loader: LoaderFunction = async ({ request, params }) => {
-  const { userId } = await getAuth(request);
+export const loader: LoaderFunction = async (args) => {
+  const { userId } = await getAuth(args);
   if (!userId) return json({ error: 'Invalid userId' }, { status: 404 });
 
-  const requestUsername = params.username;
+  const requestUsername = args.params.username;
   if (!requestUsername) return json({ error: 'Invalid user' }, { status: 404 });
 
-  const requestUser = await getUserFromRequest(request);
+  const requestUser = await getUserFromRequest(args);
   if (!requestUser) return json({ error: 'User not found!' }, { status: 404 });
 
-  const limit = params.limit ? parseInt(params.limit) : 10;
-  const skip = params.skip ? parseInt(params.skip) : 0;
+  const limit = args.params.limit ? parseInt(args.params.limit) : 10;
+  const skip = args.params.skip ? parseInt(args.params.skip) : 0;
 
   const notes = await getNotesOfUser({ userId: requestUser.id, limit, skip });
 

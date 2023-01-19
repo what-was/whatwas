@@ -6,8 +6,8 @@ import { unauthenticatedRequest } from '~/lib/user.server';
 import { REDIRECT_ROUTES } from '~/lib/constants';
 import type { DataFunctionArgs } from '@remix-run/node';
 
-export async function loader({ request }: DataFunctionArgs) {
-  await unauthenticatedRequest(request);
+export async function loader(args: DataFunctionArgs) {
+  await unauthenticatedRequest(args);
 
   return json({
     redirectTo: REDIRECT_ROUTES.AUTH_SUCCESSFUL,

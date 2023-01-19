@@ -12,7 +12,7 @@ export const loader: LoaderFunction = async (args) => {
   const { request, params } = args;
   const institutionId = params.id;
 
-  const { userId } = await authenticatedRequest(request);
+  const { userId } = await authenticatedRequest(args);
   if (!institutionId) {
     throw redirect('/wallet');
   }

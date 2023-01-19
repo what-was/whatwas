@@ -26,7 +26,7 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async (args) => {
   const { request } = args;
-  await authenticatedRequest(request);
+  await authenticatedRequest(args);
   const headers = new Headers(args.request.headers);
 
   // if (isPrefetch(request)) {

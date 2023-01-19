@@ -10,8 +10,8 @@ interface LoaderData {
   initialValue: EditorProps['initialValue'];
 }
 
-export async function loader({ request }: DataFunctionArgs) {
-  const user = await getAuth(request);
+export async function loader(args: DataFunctionArgs) {
+  const user = await getAuth(args);
 
   if (!user) return json({ user: null }, { status: 401 });
 

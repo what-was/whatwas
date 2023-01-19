@@ -9,8 +9,8 @@ interface LoaderData {
   user: User;
 }
 
-export async function loader({ request }: DataFunctionArgs) {
-  const user = await getUserFromRequest(request);
+export async function loader(args: DataFunctionArgs) {
+  const user = await getUserFromRequest(args);
 
   return json({ user });
 }

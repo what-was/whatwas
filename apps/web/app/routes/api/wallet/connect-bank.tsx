@@ -9,7 +9,7 @@ import type { LoaderFunction } from '@remix-run/node';
 
 export const loader: LoaderFunction = async (args) => {
   const { request } = args;
-  const { id: userId, username } = await getUserFromRequest(request);
+  const { id: userId, username } = await getUserFromRequest(args);
 
   const cookie = request.headers.get('Cookie');
   const session = await getSession(cookie);

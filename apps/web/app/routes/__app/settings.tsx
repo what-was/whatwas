@@ -15,8 +15,8 @@ const ThemePreferenceOptions: ThemePreferenceOptionProps[] = [
   { label: 'System', value: 'auto' },
 ];
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const { userId } = await authenticatedRequest(request);
+export const loader: LoaderFunction = async (args) => {
+  const { userId } = await authenticatedRequest(args);
 
   const clerkUser = await getUser(userId);
   const userMeta = await getUserMeta(userId);
