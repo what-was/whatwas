@@ -11,11 +11,12 @@
     "format": "prettier --write .",
     "lint": "turbo run lint"
   },
+  "private": true,
   "dependencies": {
     "turbo": "^1.6.3"
   },
   "engines": {
     "node": ">=16"
   },
-  "packageManager": "npm@8.19.3"
+  "packageManager": "yarn@1.22.19"
 }

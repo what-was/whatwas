@@ -10,8 +10,7 @@
     "build:remix": "remix build",
     "dev": "run-p dev:*",
     "dev:remix": "cross-env NODE_ENV=development binode -- @remix-run/dev:remix dev",
-    "docs:serve": "npx prisma-docs-generator serve",
-    "setup": "npm install && docker compose up -d && prisma migrate reset --force && npm run validate && npm run test:e2e:run",
+    "setup": "yarn && docker compose up -d && prisma migrate reset --force && yarn validate && yarn test:e2e:run",
     "setup:generate": "prisma generate",
     "setup:deploy": "prisma migrate deploy",
     "setup:seed": "prisma db seed",
@@ -21,7 +20,7 @@
     "test": "run-p lint typecheck clear test:e2e:run",
     "clear": "rimraf playwright-report",
     "test:e2e:dev": "playwright test",
-    "pretest:e2e:run": "npm run build",
+    "pretest:e2e:run": "yarn build",
     "test:e2e:run": "cross-env CI=true playwright test",
     "typecheck": "tsc -b",
     "validate": "run-p lint typecheck test:e2e:run"
