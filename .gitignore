@@ -13,3 +13,5 @@ apps/**/api/index.js.map
 postgres-data
 redis-data
 *.conf
+
+out

@@ -1,0 +1,12 @@
+node_modules/
+.env.local
+.env.production
+.env.dev
+.env.*
+
+dev.Dockerfile
+prod.Dockerfile
+Dockerfile
+README.md
+node_modules
+npm-debug.log

@@ -1,9 +1,10 @@
 FROM node:alpine AS builder
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat openssl
 RUN apk update
+
 # Set working directory
 WORKDIR /app
-RUN yarn global add turbo
+RUN yarn global add turbo@1.6.3
 COPY . .
 RUN turbo prune --scope=web --docker
 
@@ -16,40 +17,36 @@ WORKDIR /app
 # First install the dependencies (as they change less often)
 COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/package-lock.json ./package-lock.json
+COPY --from=builder /app/out/yarn.lock ./yarn.lock
 RUN yarn install
 
-# Setup production node_modules
-FROM builder as production-deps
-
-WORKDIR /myapp
-
-COPY --from=installer /myapp/node_modules /myapp/node_modules
-RUN npm prune --production
-
-# Build the app
-FROM builder as build
-
-WORKDIR /myapp
-
-COPY --from=installer /myapp/node_modules /myapp/node_modules
+COPY --from=builder /app/out/full/ .
+COPY turbo.json turbo.json
 
 ADD prisma .
 RUN npx prisma generate
 
-ADD . .
-RUN npm run build
+RUN yarn turbo run build --filter=web
 
-# Finally, build the production image with minimal footprint
-FROM builder
+# Build the app
+FROM builder as runner
+WORKDIR /app
 
-WORKDIR /myapp
+# COPY --from=installer /app/node_modules /app/node_modules
 
-COPY --from=production-deps /myapp/node_modules /myapp/node_modules
-COPY --from=build /myapp/node_modules/.prisma /myapp/node_modules/.prisma
+# ADD . .
+# RUN npm run build
 
-COPY --from=build /myapp/build /myapp/build
-COPY --from=build /myapp/public /myapp/public
-ADD . .
+# # Finally, build the production image with minimal footprint
+# FROM installer
 
-CMD ["npm", "start"]
+# WORKDIR /app
+
+# COPY --from=production-deps /app/node_modules /app/node_modules
+# COPY --from=build /app/node_modules/.prisma /app/node_modules/.prisma
+
+# COPY --from=build /app/build /app/build
+# COPY --from=build /app/public /app/public
+# ADD . .
+
+CMD ["yarn", "start"]
