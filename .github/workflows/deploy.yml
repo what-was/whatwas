@@ -193,11 +193,12 @@ jobs:
           file: "apps/web/fly.toml"
           field: "app"
 
+      - name: 🔧 Setup Flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
       - name: 🚀 Deploy Dev
         if: ${{ github.ref == 'refs/heads/dev' }}
-      - uses: actions/checkout@v2
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --app ${{ steps.app_name.outputs.value }}-dev --remote-only --config ./apps/web/fly.toml --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}
+        run: flyctl deploy --app ${{ steps.app_name.outputs.value }}-dev --remote-only --config ./apps/web/fly.toml --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
