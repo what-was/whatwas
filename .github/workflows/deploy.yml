@@ -114,20 +114,19 @@ jobs:
   #         retention-days: 30
   build:
     name: 🐳 Build
-    needs: [lint]
-    # # Only build / deploy main & dev branch on pushes.
-    # if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') &&
-    #   github.event_name == 'push' }}
+    timeout-minutes: 5
+    # only build/deploy main branch on pushes
+    if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') && github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.11.0
 
-      - name: ⬇️ Checkout Repository
+      - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
 
-      - name: 👀 Read App Name
-        uses: SebRollen/toml-action@v1.0.0
+      - name: 👀 Read app name
+        uses: SebRollen/toml-action@v1.0.2
         id: app_name
         with:
           file: "apps/web/fly.toml"
@@ -137,14 +136,13 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       # Setup cache
-      - name: ⚡️ Cache Docker Layers
+      - name: ⚡️ Cache Docker layers
         uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-
       - name: 🔑 Fly Registry Auth
         uses: docker/login-action@v2
         with:
@@ -155,53 +153,51 @@ jobs:
       - name: 🐳 Docker build
         uses: docker/build-push-action@v3
         with:
-          context: apps/web
+          context: .
+          file: apps/web/Dockerfile
           push: true
-          tags: registry.fly.io/${{ steps.app_name.outputs.value }}:${{
-            github.ref_name }}-${{ github.sha }}
+          tags: registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}
           build-args: |
             COMMIT_SHA=${{ github.sha }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache-new
 
-      # This ugly bit is necessary if you don't want your cache to grow forever till it hits GitHub's limit of 5GB.
-      # Temp fix.
+      # This ugly bit is necessary if you don't want your cache to grow forever
+      # till it hits GitHub's limit of 5GB.
+      # Temp fix
       # https://github.com/docker/build-push-action/issues/252
       # https://github.com/moby/buildkit/issues/1896
-      - name: 🚚 Move Cache
+      - name: 🚚 Move cache
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-
   deploy:
     name: 🚀 Deploy
     runs-on: ubuntu-latest
-    needs: [build]
-    # Only build / deploy main branch on pushes.
-    # if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') &&
-    #   github.event_name == 'push' }}
+    needs: [lint, typecheck, build]
+    timeout-minutes: 5
+    # only build/deploy main branch on pushes
+    if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') && github.event_name == 'push' }}
 
     steps:
       - name: 🛑 Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.11.0
 
-      - name: ⬇️ Checkout Repository
+      - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
 
-      - name: 👀 Read App Name
-        uses: SebRollen/toml-action@v1.0.0
+      - name: 👀 Read app name
+        uses: SebRollen/toml-action@v1.0.2
         id: app_name
         with:
-          file: "fly.toml"
+          file: "apps/web/fly.toml"
           field: "app"
 
-      - name: 🚀 Deploy Dev
+      - name: 🚀 Deploy Staging
         if: ${{ github.ref == 'refs/heads/dev' }}
         uses: superfly/flyctl-actions@1.3
         with:
-          args: "deploy --app ${{ steps.app_name.outputs.value }}-dev --image
-            registry.fly.io/${{ steps.app_name.outputs.value }}:${{
-            github.ref_name }}-${{ github.sha }}"
+          args: "deploy --app ${{ steps.app_name.outputs.value }}-staging --config ./apps/web/fly.toml --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
@@ -209,7 +205,6 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         uses: superfly/flyctl-actions@1.3
         with:
-          args: "deploy --image registry.fly.io/${{ steps.app_name.outputs.value
-            }}:${{ github.ref_name }}-${{ github.sha }}"
+          args: "deploy --config ./apps/web/fly.toml --image registry.fly.io/${{ steps.app_name.outputs.value }}:${{ github.ref_name }}-${{ github.sha }}"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
