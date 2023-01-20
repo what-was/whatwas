@@ -151,8 +151,9 @@ jobs:
           password: ${{ secrets.FLY_API_TOKEN }}
 
       - name: 🐳 Docker build
-        uses: docker/build-push-action@v3
+        uses: docker/setup-buildx-action@v2
         with:
+          version: v0.9.1
           context: .
           file: apps/web/Dockerfile
           push: true
