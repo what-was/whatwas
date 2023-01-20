@@ -1,4 +1,4 @@
-FROM node:16-bullseye-slim AS pruner
+FROM node:18-bullseye-slim AS pruner
 RUN apt-get update && apt-get install -y openssl
 WORKDIR /app
 RUN yarn global add turbo
@@ -7,7 +7,7 @@ RUN turbo prune --scope=web --docker
 RUN find . -name "node_modules" -type d -prune -exec rm -rf '{}' +
 
 # Base strategy to have layer caching
-FROM node:16-bullseye-slim AS base
+FROM node:18-bullseye-slim AS base
 RUN apt-get update && apt-get install -y openssl
 WORKDIR /app
 COPY .gitignore .gitignore
@@ -55,7 +55,7 @@ COPY --from=builder --chown=remixjs:nodejs /app/apps/web/build/index.js ./apps/w
 COPY --from=builder --chown=remixjs:nodejs /app/apps/web/build ./apps/web/build
 COPY --from=builder --chown=remixjs:nodejs /app/apps/web/public ./apps/web/public
 
-CMD ["turbo", "run", "web"]
+CMD ["yarn", "web"]
 
 
 # COPY --from=pruner /app/out/full/apps/web/prisma/schema.prisma /app/apps/web/prisma/schema.prisma
