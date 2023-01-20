@@ -1,4 +1,4 @@
-FROM node:18-bullseye-slim AS pruner
+FROM node:16-bullseye-slim AS pruner
 RUN apt-get update && apt-get install -y openssl
 WORKDIR /app
 RUN yarn global add turbo
@@ -7,7 +7,7 @@ RUN turbo prune --scope=web --docker
 RUN find . -name "node_modules" -type d -prune -exec rm -rf '{}' +
 
 # Base strategy to have layer caching
-FROM node:18-bullseye-slim AS base
+FROM node:16-bullseye-slim AS base
 RUN apt-get update && apt-get install -y openssl
 WORKDIR /app
 COPY .gitignore .gitignore
