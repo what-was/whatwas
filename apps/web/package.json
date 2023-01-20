@@ -47,7 +47,7 @@
   ],
   "dependencies": {
     "@chakra-ui/react": "^2.4.9",
-    "@clerk/clerk-sdk-node": "^4.6.0",
+    "@clerk/clerk-sdk-node": "^4.6.2",
     "@clerk/remix": "^2.0.1",
     "@clerk/themes": "^1.2.37",
     "@clerk/types": "^3.24.0",
