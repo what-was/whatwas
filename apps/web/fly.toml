@@ -4,7 +4,7 @@ kill_timeout = 5
 processes = [ ]
 
 [deploy]
-release_command = "ls && npx prisma migrate deploy"
+release_command = "npx prisma migrate deploy --schema=./prisma/schema.prisma"
 
 [env]
 PORT = "8080"
