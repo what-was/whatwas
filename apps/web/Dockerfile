@@ -51,10 +51,10 @@ USER remixjs
 
 COPY --from=pruner --chown=remixjs:nodejs /app/out/full/ .
 COPY --from=production-deps --chown=remixjs:nodejs /app .
-COPY --from=builder --chown=remixjs:nodejs /app/apps/web/prisma/prisma.schema ./apps/web/prisma/prisma.schema
-COPY --from=builder --chown=remixjs:nodejs /app/apps/web/build/index.js ./apps/web/build/index.js
-COPY --from=builder --chown=remixjs:nodejs /app/apps/web/build ./apps/web/build
-COPY --from=builder --chown=remixjs:nodejs /app/apps/web/public ./apps/web/public
+COPY --from=builder --chown=remixjs:nodejs ./apps/web/prisma/prisma.schema ./apps/web/prisma/prisma.schema
+COPY --from=builder --chown=remixjs:nodejs ./apps/web/build/index.js ./apps/web/build/index.js
+COPY --from=builder --chown=remixjs:nodejs ./apps/web/build ./apps/web/build
+COPY --from=builder --chown=remixjs:nodejs ./apps/web/public ./apps/web/public
 
 CMD ["turbo", "run", "web"]
 
