@@ -49,11 +49,11 @@ ENV NODE_ENV production
 # RUN chown -R remixjs:nodejs /app
 USER remixjs
 
-COPY --from=pruner --chown=remixjs:nodejs /app/out/full/ .
-COPY --from=production-deps --chown=remixjs:nodejs /app .
-COPY --from=builder --chown=remixjs:nodejs /app/apps/web/build/index.js ./apps/web/build/index.js
-COPY --from=builder --chown=remixjs:nodejs /app/apps/web/build ./apps/web/build
-COPY --from=builder --chown=remixjs:nodejs /app/apps/web/public ./apps/web/public
+COPY --from=pruner /app/out/full/ .
+COPY --from=production-deps /app .
+COPY --from=builder /app/apps/web/build/index.js ./apps/web/build/index.js
+COPY --from=builder /app/apps/web/build ./apps/web/build
+COPY --from=builder /app/apps/web/public ./apps/web/public
 
 CMD ["turbo", "run", "web"]
 
