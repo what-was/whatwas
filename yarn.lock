@@ -1993,10 +1993,10 @@
   resolved "https://registry.yarnpkg.com/@clerk/shared/-/shared-0.9.0.tgz#189b3eb30f0cf75385ab167dccaeda7c9973f22c"
   integrity sha512-2OM+BR72uVluMg8tr8n6mXmJA8v+37I48eB+s+wXEZfenCCS5fGZc/sHXeHOdJj2JzQlo0cYqF8qjly9PY6hEA==
 
-"@clerk/themes@^1.2.37":
-  version "1.2.38"
-  resolved "https://registry.yarnpkg.com/@clerk/themes/-/themes-1.2.38.tgz#18fb8c23d4eee2f5799e1c4c5fe95166f8277e83"
-  integrity sha512-GLC6SjkUje2fu3q+U88HwmuuKTMfaaMpqc4qjaFFZdhq0jaBjbLO47RJi+m48T5aLvTsSz+uC4lcBDx62ozDDw==
+"@clerk/themes@^1.2.39":
+  version "1.2.39"
+  resolved "https://registry.yarnpkg.com/@clerk/themes/-/themes-1.2.39.tgz#2e1fadb4304959d9b10bcc910136adf814a7389d"
+  integrity sha512-fwzhGN1hLBJWXPNilRdR1OrgOhzdqu9XHe7tmdSY3xQcx3FKhDqsGw6gJMbaNeP5wr7YN4vo7JieGWJ76CoH0g==
 
 "@clerk/types@^3.24.0":
   version "3.24.0"
