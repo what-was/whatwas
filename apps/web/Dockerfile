@@ -47,7 +47,7 @@ ENV NODE_ENV production
 # RUN addgroup --system --gid 1001 nodejs
 # RUN adduser --system --uid 1001 remixjs
 # RUN chown -R remixjs:nodejs /app
-USER remixjs
+# USER remixjs
 
 COPY --from=pruner /app/out/full/ .
 COPY --from=production-deps /app .
