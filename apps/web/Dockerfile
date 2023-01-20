@@ -44,9 +44,9 @@ RUN apt-get update && apt-get install -y openssl
 WORKDIR /app
 RUN corepack enable
 ENV NODE_ENV production
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 remixjs
-RUN chown -R remixjs:nodejs /app
+# RUN addgroup --system --gid 1001 nodejs
+# RUN adduser --system --uid 1001 remixjs
+# RUN chown -R remixjs:nodejs /app
 USER remixjs
 
 COPY --from=pruner --chown=remixjs:nodejs /app/out/full/ .
@@ -55,7 +55,7 @@ COPY --from=builder --chown=remixjs:nodejs /app/apps/web/build/index.js ./apps/w
 COPY --from=builder --chown=remixjs:nodejs /app/apps/web/build ./apps/web/build
 COPY --from=builder --chown=remixjs:nodejs /app/apps/web/public ./apps/web/public
 
-CMD ["yarn", "web"]
+CMD ["turbo", "run", "web"]
 
 
 # COPY --from=pruner /app/out/full/apps/web/prisma/schema.prisma /app/apps/web/prisma/schema.prisma
