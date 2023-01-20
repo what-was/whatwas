@@ -1998,10 +1998,10 @@
   resolved "https://registry.yarnpkg.com/@clerk/themes/-/themes-1.2.38.tgz#18fb8c23d4eee2f5799e1c4c5fe95166f8277e83"
   integrity sha512-GLC6SjkUje2fu3q+U88HwmuuKTMfaaMpqc4qjaFFZdhq0jaBjbLO47RJi+m48T5aLvTsSz+uC4lcBDx62ozDDw==
 
-"@clerk/types@^3.24.0":
-  version "3.24.0"
-  resolved "https://registry.yarnpkg.com/@clerk/types/-/types-3.24.0.tgz#d5e5ac6883fb717f1b9efee30e23ac982e761087"
-  integrity sha512-h5C4xFpRLIznYrcKU9KXP9y36z5j9FplGJmqGTVagHD7dL8LAuymOGawLINuBiNFO1P2VS9nb+/mdMC0vGYdiQ==
+"@clerk/types@^3.24.0", "@clerk/types@^3.24.1":
+  version "3.24.1"
+  resolved "https://registry.yarnpkg.com/@clerk/types/-/types-3.24.1.tgz#37fa723697269806ba14396c5b1c13e13b6bd864"
+  integrity sha512-DAzX1ALF4fKaF5FExw/eOoRrBwrFZ2BOMWmjHlev7LCLrIK6oH0K9eLvD2emlPKkEOgd02wxNUCQ5irXZzE3Kw==
   dependencies:
     csstype "3.1.1"
 
