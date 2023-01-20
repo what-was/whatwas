@@ -55,7 +55,7 @@ COPY --from=builder /app/apps/web/build/index.js ./apps/web/build/index.js
 COPY --from=builder /app/apps/web/build ./apps/web/build
 COPY --from=builder /app/apps/web/public ./apps/web/public
 
-CMD ["turbo", "run", "web"]
+CMD ["yarn", "web"]
 
 
 # COPY --from=pruner /app/out/full/apps/web/prisma/schema.prisma /app/apps/web/prisma/schema.prisma
