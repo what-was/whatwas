@@ -16,8 +16,34 @@
       "cache": false,
       "persistent": true
     },
-    "start": {
+    "web#start": {
       "dependsOn": ["^build"],
+      "env": [
+        "NODE_ENV",
+        "SESSION_SECRET",
+        "DATABASE_URL",
+        "UPSTASH_REDIS_REST_URL",
+        "UPSTASH_REDIS_REST_TOKEN",
+        "UPSTASH_REDIS_URL",
+        "CLERK_FRONTEND_API",
+        "CLERK_API_KEY",
+        "CLERK_JWT_KEY"
+      ],
+      "outputs": ["dist/**"]
+    },
+    "web#build": {
+      "dependsOn": ["^build"],
+      "env": [
+        "NODE_ENV",
+        "SESSION_SECRET",
+        "DATABASE_URL",
+        "UPSTASH_REDIS_REST_URL",
+        "UPSTASH_REDIS_REST_TOKEN",
+        "UPSTASH_REDIS_URL",
+        "CLERK_FRONTEND_API",
+        "CLERK_API_KEY",
+        "CLERK_JWT_KEY"
+      ],
       "outputs": ["dist/**"]
     }
   }
