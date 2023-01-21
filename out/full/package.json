@@ -1,0 +1,23 @@
+{
+  "name": "whatwas",
+  "license": "MIT",
+  "author": "https://github.com/what-was",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "format": "prettier --write .",
+    "lint": "turbo run lint",
+    "web": "turbo run --scope=web start"
+  },
+  "private": true,
+  "dependencies": {
+    "turbo": "^1.6.3"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "packageManager": "yarn@1.22.19"
+}

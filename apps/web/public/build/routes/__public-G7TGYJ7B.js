@@ -1,0 +1,1 @@
+import{w as e}from"/build/_shared/chunk-B376NDD2.js";import"/build/_shared/chunk-G7LPNSEH.js";import"/build/_shared/chunk-4F2YHSB3.js";import{D as i,E as n,q as o}from"/build/_shared/chunk-PHGUOH4A.js";import{d as r}from"/build/_shared/chunk-G5WX4PPA.js";i();var t=r(n());function u(){return(0,t.jsx)(e,{size:"lg",height:"100vh",children:(0,t.jsx)(o,{})})}export{u as default};

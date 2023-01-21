@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../app/routes/__app/profile.tsx"],
+  "sourcesContent": ["import { json } from '@remix-run/node';\nimport { useLoaderData } from '@remix-run/react';\nimport { Box, Text } from '@chakra-ui/react';\nimport { getUserFromRequest } from '~/lib/user.server';\nimport type { User } from '@clerk/clerk-sdk-node';\nimport type { DataFunctionArgs } from '@remix-run/node';\n\ninterface LoaderData {\n  user: User;\n}\n\nexport async function loader(args: DataFunctionArgs) {\n  const user = await getUserFromRequest(args);\n\n  return json({ user });\n}\n\nexport default function Profile() {\n  const { user } = useLoaderData<LoaderData>();\n\n  return (\n    <Box>\n      <Text>{user.username}</Text>\n    </Box>\n  );\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;AACA;AAEA,kBAAmC;AAmB7B;AALS,SAAR,UAA2B;AAChC,QAAM,EAAE,KAAK,IAAI,cAA0B;AAE3C,SACE,mDAAC,OACC,6DAAC,QAAM,eAAK,YAAZ;AAAA;AAAA;AAAA;AAAA,SAAqB,KADvB;AAAA;AAAA;AAAA;AAAA,SAEA;AAEJ;",
+  "names": []
+}

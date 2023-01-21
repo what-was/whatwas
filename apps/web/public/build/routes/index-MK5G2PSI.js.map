@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../app/routes/index.tsx"],
+  "sourcesContent": ["import { useUser } from '@clerk/remix';\nimport { Outlet, Link } from '@remix-run/react';\nimport { Button } from '@saas-ui/react';\nimport { REDIRECT_ROUTES } from '~/lib/constants';\n// export const loader: LoaderFunction = async ({ request }) => {\n\n//   return json({ userId });\n// };\n\nexport default function AppIndex() {\n  const { user } = useUser();\n  return (\n    <>\n      {!user?.id ? (\n        <Button as={Link} to={REDIRECT_ROUTES.GUEST} prefetch=\"intent\">\n          Login\n        </Button>\n      ) : (\n        <Button as={Link} to={`wallet`} prefetch=\"intent\">\n          Wallet\n        </Button>\n      )}\n      <Outlet />\n    </>\n  );\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;AAAA,mBAAwB;AACxB;AAWI;AAHW,SAAR,WAA4B;AACjC,QAAM,EAAE,KAAK,QAAI,sBAAQ;AACzB,SACE,sFACG;AAAA,KAAC,MAAM,KACN,mDAAC,KAAO,IAAI,MAAM,IAAI,gBAAgB,OAAO,UAAS,UAAS,qBAA/D;AAAA;AAAA;AAAA;AAAA,WAEA,IAEA,mDAAC,KAAO,IAAI,MAAM,IAAI,UAAU,UAAS,UAAS,sBAAlD;AAAA;AAAA;AAAA;AAAA,WAEA;AAAA,IAEF,mDAAC,YAAD;AAAA;AAAA;AAAA;AAAA,WAAQ;AAAA,OAVV;AAAA;AAAA;AAAA;AAAA,SAWA;AAEJ;",
+  "names": []
+}

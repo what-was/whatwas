@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../app/routes/__public.tsx"],
+  "sourcesContent": ["import { Outlet } from '@remix-run/react';\nimport { Container } from '@chakra-ui/react';\nimport type { DataFunctionArgs } from '@remix-run/node';\n\nexport async function loader({ request }: DataFunctionArgs) {\n  return null;\n}\n\nexport default function Layout() {\n  return (\n    <Container size=\"lg\" height=\"100vh\">\n      <Outlet />\n    </Container>\n  );\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;;AAAA;AAWM;AAHS,SAAR,SAA0B;AAC/B,SACE,mDAAC,aAAU,MAAK,MAAK,QAAO,SAC1B,6DAAC,YAAD;AAAA;AAAA;AAAA;AAAA,SAAQ,KADV;AAAA;AAAA;AAAA;AAAA,SAEA;AAEJ;",
+  "names": []
+}
