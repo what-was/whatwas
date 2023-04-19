@@ -56,7 +56,7 @@
     "@clerk/clerk-sdk-node": "^4.5.15",
     "@clerk/remix": "^1.4.10",
     "@clerk/themes": "^1.2.37",
-    "@clerk/types": "^3.22.2",
+    "@clerk/types": "^3.35.2",
     "@conform-to/react": "^0.4.1",
     "@conform-to/zod": "^0.4.1",
     "@emotion/css": "^11.10.5",
