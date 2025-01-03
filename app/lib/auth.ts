@@ -8,11 +8,15 @@ import { getRedirectTo, removeTrailSlash } from '~/lib/http';
 import { initializeAuthQueue } from './queues/auth/auth.queue';
 import { time } from './timing.server';
 import { redis } from './redis.server';
+import type { UserResource } from '@clerk/types';
 import type { User } from '@clerk/remix/api.server';
 import type { Prisma } from '@prisma/client';
 import type { Timings } from './timing.server';
+import { MaybeJsonified } from '~/types';
 
 type UserMetaCreateInput = Prisma.UserMetaCreateInput;
+
+export type AuthUser = UserResource;
 
 interface RequestOpts {
   timings?: Timings;

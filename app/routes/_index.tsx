@@ -15,19 +15,17 @@ export default function AppIndex() {
       <>
         <Logo />
       </>
-      {!user?.id ? (
-        <Button asChild>
+      <Button asChild>
+        {!user?.id ? (
           <Link to={REDIRECT_ROUTES.GUEST} prefetch="intent">
             Login
           </Link>
-        </Button>
-      ) : (
-        <Button asChild>
+        ) : (
           <Link to={`${user.username}`} prefetch="intent">
             {user.username}
           </Link>
-        </Button>
-      )}
+        )}
+      </Button>
       <Outlet />
     </div>
   );

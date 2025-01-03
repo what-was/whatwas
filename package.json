@@ -127,6 +127,7 @@
     "morgan": "^1.10.0",
     "prismjs": "^1.29.0",
     "react": "18",
+    "react-activity-calendar": "^2.7.5",
     "react-day-picker": "^8.10.1",
     "react-dom": "18",
     "react-hook-form": "^7.54.2",
@@ -193,6 +194,7 @@
     "tailwindcss-animate": "^1.0.7",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.1.1",
+    "type-fest": "^4.31.0",
     "typescript": "^5.6.2",
     "vite": "^5.4.8",
     "vite-tsconfig-paths": "^5.0.1",
@@ -200,8 +202,5 @@
   },
   "engines": {
     "node": ">=20"
-  },
-  "prisma": {
-    "seed": "ts-node --require tsconfig-paths/register prisma/seed.ts"
   }
 }

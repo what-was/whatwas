@@ -24,7 +24,7 @@ export let meta: MetaFunction = () => {
     { charset: "utf-8" },
     { title: 'Whatwas' },
     { name: "description", content: "Whatwas" },
-    { viewport: 'width=device-width, initial-scale=1', },
+    { name: "viewport", content: 'width=device-width, initial-scale=1.0', },
     { name: "robots", content: allowIndexing ? "index, follow" : "noindex, nofollow" },
   ]
 };

@@ -5,6 +5,7 @@ import { UserButton, useUser } from '@clerk/remix';
 import { authenticatedRequest } from '~/lib/auth';
 import type { Location } from '@remix-run/react';
 import type { LoaderFunctionArgs } from '@remix-run/node';
+import { LayoutShell } from '~/components/layout';
 
 export async function loader(args: LoaderFunctionArgs) {
   const { userId } = await authenticatedRequest(args);
@@ -20,55 +21,9 @@ export default function Layout() {
 
 
   return (
-    <div
-    // sidebar={
-    //   (
-    //     <Sidebar h="full" w={sidebarWidth} isOpen={isOpen}>
-    //       <SidebarSection>
-    //         <Box
-    //           display="flex"
-    //           alignItems="center"
-    //           gap="4"
-    //           justifyContent="space-between"
-    //         >
-    //           <Link to={REDIRECT_ROUTES.AUTHENTICATED}>
-    //             <Logo />
-    //           </Link>
-    //           <UserButton afterSignOutUrl={REDIRECT_ROUTES.GUEST} />
-    //         </Box>
-    //       </SidebarSection>
-    //       <SidebarSection>
-    //         {user.firstName && (
-    //           <>
-    //             <Heading as="h3" size="md" fontWeight="normal">
-    //               Hi {user.firstName} 👋
-    //             </Heading>
-    //             <Divider my="4" />
-    //           </>
-    //         )}
-    //         <NavItem
-    //           as={NavLink}
-    //           to="/"
-    //         // isActive={isActiveRoute('/', location)}
-    //         >
-    //           Home
-    //         </NavItem>
-    //       </SidebarSection>
-    //       <SidebarSection>
-    //         <ButtonGroup size="sm" isAttached variant="outline">
-    //           <Button>Save</Button>
-    //           <IconButton aria-label="Add to friends" icon={<RxPlus />} />
-    //           <Button onClick={onToggle}>Toggle</Button>
-    //         </ButtonGroup>
-    //       </SidebarSection>
-    //     </Sidebar>
-    //   )
-    // }
-    >
-      <main>
-        <Outlet />
-      </main>
-    </div>
+    <LayoutShell>
+      <Outlet />
+    </LayoutShell>
   );
 }
 

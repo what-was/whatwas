@@ -15,12 +15,15 @@ export const initAuthProcess: ProcessCallbackFunction<
     return;
   }
 
-  await Promise.all([
-    job.queue.client.srem('init-auth:active', user.id),
-    createUserMeta({
+  try {
+    await createUserMeta({
       clerkId: user.id,
-    }),
-  ]);
+    });
+    await job.queue.client.srem('init-auth:active', user.id);
+  } catch (error) {
+    // await job.queue.client.
+    console.error(error);
+  }
 
   typeof done === 'function' && done();
   return;

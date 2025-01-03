@@ -13,6 +13,12 @@ enum ThemePreference {
   AUTO
 }
 
+enum HabitFrequency {
+  DAILY
+  WEEKLY
+  CUSTOM
+}
+
 model UserMeta {
   id      String @id @default(cuid())
   clerkId String @unique
@@ -22,6 +28,7 @@ model UserMeta {
 
   deletedAt DateTime?
   Event     Event[]
+  Habit     Habit[]
 }
 
 model Date {
@@ -46,4 +53,24 @@ model Event {
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
   deletedAt DateTime?
+}
+
+model Habit {
+  id          String         @id @default(cuid())
+  name        String
+  description String?
+  frequency   HabitFrequency
+  customDays  Int[]          @default([])
+
+  userMetaId String
+  userMeta   UserMeta @relation(fields: [userMetaId], references: [id])
+
+  reminderEnabled Boolean   @default(false)
+  reminderTime    DateTime?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([userMetaId])
 }
