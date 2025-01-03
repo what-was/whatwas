@@ -3,21 +3,13 @@
  * Run `npx prisma generate` after a clean `pnpm install`.
  */
 import { PrismaClient } from '@prisma/client';
-import { db } from '~/lib/db';
-
-/**
- * Inits Prisma Client.
- */
-const prisma = new PrismaClient();
+import { prisma } from '~/lib/db';
 
 /**
  * Seeds Database.
  */
 async function seed() {
-  await db.userMeta.deleteMany({});
-  await db.walletTransaction.deleteMany({});
-  await db.walletRequisition.deleteMany({});
-  await db.walletAccount.deleteMany({});
+  await prisma.userMeta.deleteMany({});
   console.log(`Database has been successfully seeded with fresh air. 🌱`);
 }
 

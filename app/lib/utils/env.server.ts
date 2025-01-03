@@ -4,7 +4,6 @@ export function getEnv() {
     NODE_ENV: process.env.NODE_ENV,
     // REDIS
     CLERK_FRONTEND_API: process.env.CLERK_FRONTEND_API,
-    NORDIGEN_NAME: process.env.NORDIGEN_NAME,
   };
 }
 

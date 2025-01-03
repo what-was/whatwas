@@ -1,6 +1,6 @@
-import { createUserMeta } from '~/lib/user.server';
+import { createUserMeta } from '~/lib/auth';
 import type { ProcessCallbackFunction } from 'bull';
-import type { User } from '@clerk/clerk-sdk-node';
+import type { User } from '@clerk/express';
 
 interface AccountQueueData {
   user: User;

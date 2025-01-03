@@ -27,8 +27,8 @@ export const MISC_KEYS = {
  * after a successful login or logout.
  */
 export const REDIRECT_ROUTES = {
-  AUTHENTICATED: '/wallet',
-  GUEST: '/login',
+  AUTHENTICATED: '/',
+  GUEST: '/sign-in',
   AUTH_SUCCESSFUL: '/api/auth/init-auth',
-  REDIRECT_BASE: 'http://localhost:3000', // TODO: change this to the actual URL
+  REDIRECT_BASE: 'http://localhost:56001', // TODO: change this to the actual URL
 };

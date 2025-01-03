@@ -1,4 +1,5 @@
-import { safeRedirect } from 'remix-utils';
+import { LoaderFunctionArgs, ActionFunctionArgs } from '@remix-run/node';
+import { safeRedirect } from 'remix-utils/safe-redirect';
 
 export function getDomainUrl(request: Request) {
   const host =
@@ -16,8 +17,8 @@ export function getDomainPathname(request: Request) {
   return pathname;
 }
 
-export function getRedirectTo(request: Request, fallback?: string) {
-  let { searchParams } = new URL(request.url);
+export function getRedirectTo(args: LoaderFunctionArgs | ActionFunctionArgs, fallback?: string) {
+  let { searchParams } = new URL(args.request.url);
   let redirectTo = searchParams.get('redirectTo');
   return safeRedirect(redirectTo, fallback);
 }

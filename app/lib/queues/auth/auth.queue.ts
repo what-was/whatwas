@@ -1,6 +1,6 @@
 import Bull from 'bull';
 import { initAuthProcess } from './auth.process';
-import type { User } from '@clerk/clerk-sdk-node';
+import type { User } from '@clerk/express';
 
 const settings = {
   stalledInterval: 300000, // How often check for stalled jobs (use 0 for never checking).
