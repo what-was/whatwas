@@ -1,7 +1,6 @@
 import { ActivityCalendar, Activity } from 'react-activity-calendar';
 import { Theme, useTheme } from 'remix-themes';
 
-
 /**
  * @param data - The data to display in the calendar.
  * - date: The date of the activity.

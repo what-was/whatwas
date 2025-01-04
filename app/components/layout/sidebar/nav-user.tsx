@@ -1,4 +1,4 @@
-import { Link } from '@remix-run/react';
+import { Link, useRouteLoaderData } from '@remix-run/react';
 import { DropdownMenuItem } from '~/components/ui/dropdown-menu';
 import {
   SidebarMenu,
@@ -11,9 +11,16 @@ import { UserButton } from '@clerk/remix';
 import { ModeToggle } from '~/components/mode-toggle';
 import { Typography } from '~/components/ui/typography';
 import { useTimelyString } from '~/hooks/use-timely-string';
-import { useTime } from '~/hooks/use-time';
+import { useDailyGreeting, useTime } from '~/hooks/use-time';
+import { useGreeting } from '~/hooks/use-greeting';
 
-export type NavUserProps = { user?: MaybeJsonified<AuthUser> | null };
+export type NavUserProps = { user?: MaybeJsonified<AuthUser> | null, greeting?: string };
+
+const dateOptions: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+};
 
 export function NavUser({ user }: NavUserProps) {
   const { isMobile } = useSidebar();
@@ -23,12 +30,7 @@ export function NavUser({ user }: NavUserProps) {
   const imageUrlToUse = user?.imageUrl;
 
   const time = useTime();
-  const greeting = useTimelyString({
-    morning: 'Good Morning',
-    afternoon: 'Good Afternoon',
-    evening: 'Good Evening',
-    night: 'Good Night',
-  });
+  const { greeting } = useGreeting();
 
   return (
     <div>
@@ -37,10 +39,14 @@ export function NavUser({ user }: NavUserProps) {
           <Typography variant='h3'>
             {greeting}
           </Typography>
-          <Typography variant='h3'>
-            {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
-
-          </Typography>
+          <div>
+            <Typography variant='muted'>
+              {time.toLocaleDateString('en-GB', dateOptions)}
+            </Typography>
+            <Typography variant='muted'>
+              {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+            </Typography>
+          </div>
         </div>
         <div>
 

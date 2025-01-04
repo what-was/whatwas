@@ -40,7 +40,7 @@ export async function action(args: ActionFunctionArgs) {
     },
   });
 
-  return redirect('/habits');
+  return redirect('/schedule');
 }
 
 export default function NewHabitPage() {

@@ -4,8 +4,10 @@ import type {
   LinksFunction,
   LoaderFunction,
 } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
 import { rootAuthLoader } from "@clerk/remix/ssr.server";
 import { ClerkApp } from '@clerk/remix';
+// import { clerkClient } from '@clerk/express';
 import { dark } from '@clerk/themes';
 import { ThemeProvider } from 'remix-themes'
 import { initializeUserMeta } from './lib/auth';
@@ -45,13 +47,24 @@ export const loader: LoaderFunction = async (args) => {
       };
       const { userId, sessionClaims } = request.auth;
 
-      if (userId) {
-        const redirectTo = getRedirectTo(args, REDIRECT_ROUTES.AUTHENTICATED);
-        await initializeUserMeta(userId, redirectTo);
+      if (userId && sessionClaims) {
+        const user = sessionClaims.user;
+        const hasIncompleteProfile = true;
+        const isOnboardingRoute = new URL(request.url).pathname.startsWith('/onboarding');
+
+        if (hasIncompleteProfile && !isOnboardingRoute) {
+          // throw redirect('/onboarding');
+          const redirectTo = getRedirectTo(args, REDIRECT_ROUTES.AUTHENTICATED);
+          await initializeUserMeta(userId, redirectTo);
+        }
       }
+
+
+
 
       return {
         ...returnData,
+        userId,
         theme: getTheme(),
       };
     }
@@ -59,7 +72,7 @@ export const loader: LoaderFunction = async (args) => {
 };
 
 function App() {
-  const { cookies, theme } = useLoaderData<typeof loader>();
+  const { cookies, theme, greeting } = useLoaderData<typeof loader>();
 
   return (
     <ThemeProvider specifiedTheme={theme} themeAction="/api/set-theme">
@@ -73,6 +86,9 @@ function App() {
 export default ClerkApp(App, {
   appearance: {
     baseTheme: dark,
+    layout: {
+      logoPlacement: "none"
+    }
   },
 });
 

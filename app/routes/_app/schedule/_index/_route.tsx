@@ -7,14 +7,8 @@ import { Page, PageContent, PageHeader } from '~/components/page';
 
 
 export default function HabitsRoute() {
-
-  const { user } = useUser();
-
-
-
   return (
     <>
-
     </>
   );
 }

@@ -1,11 +1,12 @@
 import { data } from '@remix-run/node';
-import { NavLink, Outlet, useLocation, Link } from '@remix-run/react';
+import { NavLink, Outlet, useLocation, Link, useRouteLoaderData } from '@remix-run/react';
 
 import { UserButton, useUser } from '@clerk/remix';
 import { authenticatedRequest } from '~/lib/auth';
 import type { Location } from '@remix-run/react';
 import type { LoaderFunctionArgs } from '@remix-run/node';
 import { LayoutShell } from '~/components/layout';
+import { BreadcrumbItem } from '~/components/breadcrumbs';
 
 export async function loader(args: LoaderFunctionArgs) {
   const { userId } = await authenticatedRequest(args);
@@ -13,15 +14,24 @@ export async function loader(args: LoaderFunctionArgs) {
   return data({ userId });
 }
 
-export default function Layout() {
-  const { user } = useUser();
-  if (!user) {
-    return null;
-  }
+const ROUTE_PATH = '/dashboard';
+export const handle = {
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  breadcrumb: (match: any, isActive?: boolean) => {
+    return (
+      <BreadcrumbItem path={ROUTE_PATH} isActive={isActive}>
+        Dashboard
+      </BreadcrumbItem>
+    );
+  },
+};
+
+export default function Layout() {
+  const { userId } = useRouteLoaderData('root') as { userId?: string };
 
   return (
-    <LayoutShell>
+    <LayoutShell userId={userId}>
       <Outlet />
     </LayoutShell>
   );

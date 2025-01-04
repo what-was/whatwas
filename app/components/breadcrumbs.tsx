@@ -30,7 +30,7 @@ export const BreadcrumbItem = ({
   className,
 }: BreadcrumbItemProps) => {
   return (
-    <BreadcrumbItemPrimitive className="hidden md:block">
+    <BreadcrumbItemPrimitive>
       {!_isActive ? (
         <BreadcrumbLink href={path}>{children}</BreadcrumbLink>
       ) : (
@@ -59,7 +59,7 @@ export const Breadcrumbs = ({ className }: { className?: string }) => {
 
     return (
       <Fragment key={index}>
-        {!isRoot && <BreadcrumbSeparator className="hidden md:block" />}
+        {!isRoot && <BreadcrumbSeparator />}
         {handle?.breadcrumb && handle.breadcrumb(match, isLast)}
       </Fragment>
     );

@@ -14,15 +14,16 @@ import { HabitSidebar } from '~/components/habit-sidebar';
 import { Breadcrumbs } from '~/components/breadcrumbs';
 
 export function LayoutShell({
+  userId,
   children,
   rightChildren,
 }: {
-  user?: MaybeJsonified<AuthUser>;
+  userId?: string;
   children?: React.ReactNode;
   rightChildren?: React.ReactNode;
 }) {
   const { user } = useUser();
-  const canSeeSidebar = !!user;
+  const canSeeSidebar = !!user || !!userId;
   return (
     <SidebarProvider>
       {canSeeSidebar && <AppSidebar user={user} />}

@@ -1,6 +1,7 @@
 import {
   BookOpen,
   Bot,
+  Calendar,
   FileQuestion,
   Home,
   LifeBuoy,
@@ -20,15 +21,22 @@ export interface NavMenuItem {
   isActive?: boolean;
   menuInvisible?: boolean;
   childrenInvisible?: boolean;
+  isRoot?: boolean;
   items?: NavMenuItem[];
 }
 
 export const mainNav: NavMenuItem[] = [
   {
     title: 'Home',
-    url: '/habits',
+    url: '/dashboard',
     icon: Home,
     exact: true,
+    isRoot: true,
+  },
+  {
+    title: 'Schedule',
+    url: '/schedule',
+    icon: Calendar,
   },
   // {
   //   title: 'FAQs',

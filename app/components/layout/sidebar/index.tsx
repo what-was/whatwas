@@ -49,9 +49,7 @@ export function AppSidebar({
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
-
         <NavUser user={user} />
-
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={mainNav} />

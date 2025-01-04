@@ -70,7 +70,7 @@ export async function getUser(clerkId: string, opts?: RequestOpts) {
 
       const user = await clerkClient.users.getUser(clerkId);
       if (!user) {
-        throw new Error(`User not found: ${clerkId}`);
+        return null;
       }
 
       await redis.setex(
@@ -81,7 +81,7 @@ export async function getUser(clerkId: string, opts?: RequestOpts) {
 
       return user;
     } catch (error: any) {
-      throw error;
+      return null;
     }
   };
 
@@ -147,6 +147,7 @@ export async function initializeUserMeta(
   const existingUserMeta = await getUserMeta(userId);
   if (!existingUserMeta) {
     await initializeAuthQueue({ user: clerkUser });
+    throw redirect(`/onboarding?redirectTo=${redirectTo}`);
   }
 }
 
@@ -160,6 +161,14 @@ export async function updateUserMeta(
     },
     data: input,
   });
+}
+
+export async function updateClerkMeta(userId: string, input: {
+  birthDate?: string
+}) {
+  return await clerkClient.users.updateUser(userId, {
+    privateMetadata: input,
+  })
 }
 
 export async function deleteUserMeta(clerkId: string) {

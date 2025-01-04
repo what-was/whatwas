@@ -2,8 +2,10 @@ export {}
 
 declare global {
   interface CustomJwtSessionClaims {
-    fullName?: string
-    primaryEmail?: string
+    username?: string
+    firstName?: string
+    lastName?: string
     imageUrl?: string
+    primaryEmail?: string
   }
 }

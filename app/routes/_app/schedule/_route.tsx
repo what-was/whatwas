@@ -6,13 +6,13 @@ import { PageContent, PageHeader } from '~/components/page';
 import { Sidebar, SidebarInset, SidebarProvider } from '~/components/ui/sidebar';
 import { cn } from '~/lib/utils';
 
-const ROUTE_PATH = '/habits';
+const ROUTE_PATH = '/schedule';
 export const handle = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   breadcrumb: (match: any, isActive?: boolean) => {
     return (
       <BreadcrumbItem path={ROUTE_PATH} isActive={isActive}>
-        Habits
+        Schedule
       </BreadcrumbItem>
     );
   },
