@@ -23,8 +23,9 @@ model UserMeta {
   id      String @id @default(cuid())
   clerkId String @unique
 
-  event Event[]
-  habit Habit[]
+  events Event[]
+  habits Habit[]
+  dates  Date[]
 
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
@@ -33,13 +34,18 @@ model UserMeta {
 
 model Date {
   id   String   @id @default(cuid())
-  date DateTime
+  date DateTime @unique
+
+  userMetaId String
+  userMeta   UserMeta @relation(fields: [userMetaId], references: [id])
 
   events Event[]
 
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
   deletedAt DateTime?
+
+  @@index([userMetaId])
 }
 
 model Event {
@@ -50,9 +56,16 @@ model Event {
   userMetaId String
   userMeta   UserMeta @relation(fields: [userMetaId], references: [id])
 
+  habitId String
+  habit   Habit  @relation(fields: [habitId], references: [id])
+
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
   deletedAt DateTime?
+
+  @@index([dateId])
+  @@index([userMetaId])
+  @@index([habitId])
 }
 
 model Habit {
@@ -64,6 +77,8 @@ model Habit {
 
   userMetaId String
   userMeta   UserMeta @relation(fields: [userMetaId], references: [id])
+
+  events Event[]
 
   reminderEnabled Boolean   @default(false)
   reminderTime    DateTime?

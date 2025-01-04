@@ -11,8 +11,7 @@ const formatDate = (date: string) => {
 
 export function HabitCarousel({ data }: { data: Activity[] }) {
   const [theme] = useTheme();
-
-  const { scrollYProgress } = useScroll()
+  console.log({ data })
 
   return (
     <ScrollArea className='w-full py-4'>
@@ -32,7 +31,7 @@ export function HabitCarousel({ data }: { data: Activity[] }) {
         }}
         blockMargin={8}
         blockRadius={2}
-        blockSize={24}
+        blockSize={16}
         weekStart={1}
         hideTotalCount
         hideColorLegend
