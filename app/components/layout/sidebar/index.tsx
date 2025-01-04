@@ -17,11 +17,12 @@ import { NavMain } from './nav-main';
 import { NavSecondary } from './nav-secondary';
 import { NavUser, type NavUserProps } from './nav-user';
 import { Logo } from '~/components/logo';
+import { ModeToggle } from '~/components/mode-toggle';
 
 const AppHeader = () => {
   return (
-    <SidebarMenu>
-      <SidebarMenuItem>
+    <>
+      <SidebarMenuItem className='flex justify-between items-center gap-2'>
         <SidebarMenuButton size="lg" asChild>
           <Link to="/dashboard">
             <div className="grid flex-1 text-left text-sm leading-tight">
@@ -34,8 +35,10 @@ const AppHeader = () => {
             </div>
           </Link>
         </SidebarMenuButton>
+
+        <ModeToggle />
       </SidebarMenuItem>
-    </SidebarMenu>
+    </>
   )
 }
 
@@ -46,6 +49,7 @@ export function AppSidebar({
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
+
         <NavUser user={user} />
 
       </SidebarHeader>

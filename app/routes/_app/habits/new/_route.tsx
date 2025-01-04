@@ -1,11 +1,12 @@
 import { redirect } from '@remix-run/node';
 import type { ActionFunctionArgs } from '@remix-run/node';
 import { HabitForm } from '~/components/habit-form';
-import { db } from '~/lib/db.server';
+import { prisma } from '~/lib/db';
 import { HabitFrequency } from '@prisma/client';
 import { getUserFromRequest } from '~/lib/auth';
 import { Typography } from '~/components/ui/typography';
 import { PageContent } from '~/components/page';
+import { HabitSidebar } from '~/components/habit-sidebar';
 
 export async function action(args: ActionFunctionArgs) {
   const { id: userId } = await getUserFromRequest(args);
@@ -20,7 +21,7 @@ export async function action(args: ActionFunctionArgs) {
   const reminderEnabled = formData.get('reminderEnabled') === 'on';
   const reminderTime = formData.get('reminderTime') as string;
 
-  const userMeta = await db.userMeta.findUnique({
+  const userMeta = await prisma.userMeta.findUnique({
     where: { clerkId: userId },
   });
 
@@ -28,7 +29,7 @@ export async function action(args: ActionFunctionArgs) {
     throw new Error('User not found');
   }
 
-  await db.habit.create({
+  await prisma.habit.create({
     data: {
       name,
       description,
@@ -44,9 +45,6 @@ export async function action(args: ActionFunctionArgs) {
 
 export default function NewHabitPage() {
   return (
-    <PageContent>
-      <Typography variant="h2" as="h1">Create New Habit</Typography>
-      <HabitForm />
-    </PageContent>
+    <HabitForm />
   );
 }

@@ -43,7 +43,7 @@ export const loader: LoaderFunction = async (args) => {
       let returnData = {
         cookies: request.headers.get('cookie') ?? '',
       };
-      const { userId } = request.auth;
+      const { userId, sessionClaims } = request.auth;
 
       if (userId) {
         const redirectTo = getRedirectTo(args, REDIRECT_ROUTES.AUTHENTICATED);
@@ -54,7 +54,7 @@ export const loader: LoaderFunction = async (args) => {
         ...returnData,
         theme: getTheme(),
       };
-    },
+    }
   );
 };
 

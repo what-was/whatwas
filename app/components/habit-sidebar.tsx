@@ -1,10 +1,23 @@
 import { Link } from '@remix-run/react'
+import { HabitForm } from '~/components/habit-form'
+import { PageContent } from '~/components/page'
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '~/components/ui/sidebar'
+import { Typography } from '~/components/ui/typography'
 
 export const HabitSidebar = () => {
   return (
-    <Sidebar variant="inset" side='right'>
+    <Sidebar
+      variant="inset"
+      side='right'
+      style={{
+        "--sidebar-width": "24rem",
+      }}
+      className='min-h-fit h-auto bg-background'
+    >
       <SidebarHeader>
+        <SidebarGroup>
+          <Typography variant="h2" as="h1">Create New Habit</Typography>
+        </SidebarGroup>
         {/* <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
@@ -23,20 +36,9 @@ export const HabitSidebar = () => {
         </SidebarMenu> */}
       </SidebarHeader>
       <SidebarContent>
+
         <SidebarGroup>
-          <SidebarGroupLabel>Platform</SidebarGroupLabel>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                asChild
-                tooltip="Habits"
-              >
-                <Link to="/habits">
-                  Habits
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
+          <HabitForm />
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>

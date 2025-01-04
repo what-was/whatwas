@@ -15,9 +15,11 @@ import { Breadcrumbs } from '~/components/breadcrumbs';
 
 export function LayoutShell({
   children,
+  rightChildren,
 }: {
   user?: MaybeJsonified<AuthUser>;
   children?: React.ReactNode;
+  rightChildren?: React.ReactNode;
 }) {
   const { user } = useUser();
   const canSeeSidebar = !!user;
@@ -36,6 +38,7 @@ export function LayoutShell({
           {children}
         </ScrollArea>
       </SidebarInset>
-    </SidebarProvider >
+      {rightChildren}
+    </SidebarProvider>
   );
 }

@@ -23,12 +23,12 @@ model UserMeta {
   id      String @id @default(cuid())
   clerkId String @unique
 
+  event Event[]
+  habit Habit[]
+
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
-
   deletedAt DateTime?
-  Event     Event[]
-  Habit     Habit[]
 }
 
 model Date {

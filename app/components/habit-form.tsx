@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Form } from '@remix-run/react';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
@@ -14,6 +15,8 @@ import { Switch } from '~/components/ui/switch';
 import { HabitFrequency } from '@prisma/client';
 
 export function HabitForm() {
+  const [reminderEnabled, setReminderEnabled] = useState(true);
+
   return (
     <Form method="post" className="space-y-6">
       <div className="space-y-2">
@@ -36,34 +39,46 @@ export function HabitForm() {
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="frequency">Frequency</Label>
-        <Select name="frequency" required defaultValue={HabitFrequency.DAILY}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select frequency" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={HabitFrequency.DAILY}>Daily</SelectItem>
-            <SelectItem value={HabitFrequency.WEEKLY}>Weekly</SelectItem>
-            <SelectItem value={HabitFrequency.CUSTOM}>Custom</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
       <div className="flex items-center space-x-2">
-        <Switch id="reminder" name="reminderEnabled" />
+        <Switch
+          id="reminder"
+          name="reminderEnabled"
+          checked={reminderEnabled}
+          onCheckedChange={(checked) => {
+            setReminderEnabled(checked)
+          }}
+        />
         <Label htmlFor="reminder">Enable Reminders</Label>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="reminderTime">Reminder Time</Label>
-        <Input
-          type="time"
-          id="reminderTime"
-          name="reminderTime"
-          className="w-full"
-        />
-      </div>
+      {reminderEnabled && (
+        <>
+          <div className="space-y-2">
+            <Label htmlFor="frequency">Frequency</Label>
+            <Select name="frequency" required defaultValue={HabitFrequency.DAILY}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select frequency" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={HabitFrequency.DAILY}>Daily</SelectItem>
+                <SelectItem value={HabitFrequency.WEEKLY}>Weekly</SelectItem>
+                <SelectItem value={HabitFrequency.CUSTOM}>Custom</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="reminderTime">Reminder Time</Label>
+            <Input
+              type="time"
+              id="reminderTime"
+              name="reminderTime"
+              defaultValue="08:00"
+              className="w-full"
+            />
+          </div>
+        </>
+      )}
+
 
       <Button type="submit" className="w-full">
         Create Habit

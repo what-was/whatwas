@@ -9,6 +9,9 @@ import { type MaybeJsonified } from '~/types';
 import { AuthUser } from '~/lib/auth';
 import { UserButton } from '@clerk/remix';
 import { ModeToggle } from '~/components/mode-toggle';
+import { Typography } from '~/components/ui/typography';
+import { useTimelyString } from '~/hooks/use-timely-string';
+import { useTime } from '~/hooks/use-time';
 
 export type NavUserProps = { user?: MaybeJsonified<AuthUser> | null };
 
@@ -19,11 +22,31 @@ export function NavUser({ user }: NavUserProps) {
   const emailToUse = user?.emailAddresses[0]?.emailAddress;
   const imageUrlToUse = user?.imageUrl;
 
+  const time = useTime();
+  const greeting = useTimelyString({
+    morning: 'Good Morning',
+    afternoon: 'Good Afternoon',
+    evening: 'Good Evening',
+    night: 'Good Night',
+  });
+
   return (
-    <SidebarMenu>
-      <SidebarMenuItem className='flex items-center justify-between'>
-        <UserButton />
-        <ModeToggle />
+    <div>
+      <div className='flex justify-between'>
+        <div>
+          <Typography variant='h3'>
+            {greeting}
+          </Typography>
+          <Typography variant='h3'>
+            {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+
+          </Typography>
+        </div>
+        <div>
+
+
+          <UserButton />
+        </div>
         {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
@@ -86,8 +109,8 @@ export function NavUser({ user }: NavUserProps) {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu> */}
-      </SidebarMenuItem>
-    </SidebarMenu>
+      </div>
+    </div>
   );
 }
 
