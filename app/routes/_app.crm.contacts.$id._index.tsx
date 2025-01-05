@@ -13,7 +13,8 @@ import {
 } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
 import { formatDate } from '~/lib/utils';
-import { ContactCategory } from '@prisma/client';
+import { ContactCategory, ReminderStatus } from '@prisma/client';
+import { Typography } from '~/components/ui/typography';
 
 const categoryColors: Record<ContactCategory, string> = {
   FAMILY: 'bg-red-100 text-red-800',
@@ -39,10 +40,14 @@ export async function loader(args: LoaderFunctionArgs) {
     include: {
       reminders: {
         where: {
-          status: 'PENDING',
+          reminder: {
+            status: ReminderStatus.PENDING,
+          }
         },
         orderBy: {
-          dueDate: 'asc',
+          reminder: {
+            dueDate: 'asc',
+          }
         },
       },
       eventTags: {
@@ -66,8 +71,6 @@ export async function loader(args: LoaderFunctionArgs) {
       reminders: contact.reminders.map(reminder => ({
         ...reminder,
         createdAt: reminder.createdAt.toISOString(),
-        updatedAt: reminder.updatedAt.toISOString(),
-        dueDate: reminder.dueDate.toISOString(),
       })),
       eventTags: contact.eventTags.map(tag => ({
         ...tag,
@@ -112,43 +115,43 @@ export default function ContactDetails() {
             <CardContent className="space-y-4">
               {contact.phone && (
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Phone</dt>
+                  <dt className="text-sm font-medium text-muted-foreground">Phone</dt>
                   <dd className="mt-1">📱 {contact.phone}</dd>
                 </div>
               )}
               {contact.customCategory && (
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Custom Category</dt>
+                  <dt className="text-sm font-medium text-muted-foreground">Custom Category</dt>
                   <dd className="mt-1">{contact.customCategory}</dd>
                 </div>
               )}
               {contact.notes && (
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Notes</dt>
+                  <dt className="text-sm font-medium text-muted-foreground">Notes</dt>
                   <dd className="mt-1 whitespace-pre-wrap">📝 {contact.notes}</dd>
                 </div>
               )}
               {contact.socialLinks && (
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Social Links</dt>
+                  <dt className="text-sm font-medium text-muted-foreground">Social Links</dt>
                   <dd className="mt-1">
                     {Object.entries(contact.socialLinks as Record<string, string>).map(([platform, url]) => (
-                      <a
+                      <Link
                         key={platform}
-                        href={url}
+                        to={url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="block text-blue-600 hover:underline"
                       >
                         {platform}
-                      </a>
+                      </Link>
                     ))}
                   </dd>
                 </div>
               )}
               <div>
-                <dt className="text-sm font-medium text-gray-500">Last Updated</dt>
-                <dd className="mt-1 text-sm text-gray-500">
+                <dt className="text-sm font-medium text-muted-foreground">Last Updated</dt>
+                <dd className="mt-1 text-sm text-muted-foreground">
                   {formatDate(contact.updatedAt)}
                 </dd>
               </div>
@@ -165,7 +168,9 @@ export default function ContactDetails() {
             </CardHeader>
             <CardContent>
               {contact.reminders.length === 0 ? (
-                <p className="text-sm text-gray-500">No upcoming reminders</p>
+                <Typography variant="muted" size="sm">
+                  No upcoming reminders
+                </Typography>
               ) : (
                 <div className="space-y-4">
                   {contact.reminders.map((reminder) => (
@@ -174,13 +179,17 @@ export default function ContactDetails() {
                       className="flex items-start justify-between border-b pb-4 last:border-0"
                     >
                       <div>
-                        <h4 className="font-medium">{reminder.title}</h4>
+                        <Typography variant="h4">
+                          {reminder.title}
+                        </Typography>
                         {reminder.description && (
-                          <p className="text-sm text-gray-500">{reminder.description}</p>
+                          <Typography variant="muted" size="sm">
+                            {reminder.description}
+                          </Typography>
                         )}
-                        <p className="text-sm text-gray-500">
+                        <Typography variant="muted" size="sm">
                           Due: {formatDate(reminder.dueDate)}
-                        </p>
+                        </Typography>
                       </div>
                       <Button asChild size="sm" variant="outline">
                         <Link to={`reminders/${reminder.id}`}>View</Link>
@@ -200,7 +209,9 @@ export default function ContactDetails() {
             </CardHeader>
             <CardContent>
               {contact.eventTags.length === 0 ? (
-                <p className="text-sm text-gray-500">No recent events</p>
+                <Typography variant="muted" size="sm">
+                  No recent events
+                </Typography>
               ) : (
                 <div className="space-y-4">
                   {contact.eventTags.map((tag) => (
@@ -212,9 +223,9 @@ export default function ContactDetails() {
                         >
                           View Event
                         </Link>
-                        <p className="text-sm text-gray-500">
+                        <Typography variant="muted" size="sm">
                           {formatDate(tag.createdAt)}
-                        </p>
+                        </Typography>
                       </div>
                     </div>
                   ))}

@@ -1,4 +1,5 @@
 import {
+  Bell,
   BookOpen,
   Bot,
   Calendar,
@@ -37,6 +38,18 @@ export const mainNav: NavMenuItem[] = [
     title: 'Schedule',
     url: '/schedule',
     icon: Calendar,
+  },
+  {
+    title: 'Contacts',
+    url: '/crm',
+    icon: UserRound,
+    items: [
+      {
+        title: 'Reminders',
+        url: '/crm/reminders',
+        icon: Bell,
+      },
+    ],
   },
   // {
   //   title: 'FAQs',

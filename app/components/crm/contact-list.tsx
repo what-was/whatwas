@@ -56,12 +56,12 @@ export function ContactList({ contacts }: ContactListProps) {
           <CardContent>
             <div className="space-y-2">
               {contact.phone && (
-                <p className="text-sm text-gray-500">📱 {contact.phone}</p>
+                <p className="text-sm text-muted-foreground">📱 {contact.phone}</p>
               )}
               {contact.notes && (
-                <p className="text-sm text-gray-500">📝 {contact.notes}</p>
+                <p className="text-sm text-muted-foreground">📝 {contact.notes}</p>
               )}
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 Last updated {formatDate(contact.updatedAt)}
               </p>
               <div className="flex gap-2 mt-4">

@@ -44,7 +44,7 @@
 - Leverage route-based loading, error boundaries, and catch boundaries.
 - Use the `useFetcher` hook for non-blocking data updates.
 - Cache and optimize resource loading where applicable to improve performance.
-- As per the latest updates, no need to use `json` for loader or action responses unless you need to send headers.
+- As per the latest updates, don't use `json` for loader or action responses unless you need to send headers.
 - Incase of needing to send headers, use `data` instead of `json` from `@remix-run/node`.
 
 **Import Order**

@@ -111,7 +111,7 @@ model GoogleCalendarIntegration {
 
 // CRM Models
 model Contact {
-  id             String          @id @default(cuid())
+  id             String            @id @default(cuid())
   userId         String // Foreign key to User
   firstName      String
   lastName       String?
@@ -121,31 +121,37 @@ model Contact {
   notes          String? // Free-text field for additional details
   category       ContactCategory
   customCategory String? // For user-defined categories
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  reminders      Reminder[]
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  reminders      ReminderContact[]
   eventTags      EventTag[]
 
   @@unique([userId, email])
   @@index([userId])
 }
 
+enum ReminderPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
 model Reminder {
   id          String             @id @default(cuid())
-  contactId   String
-  userId      String
+  userId      String // Foreign key to User
   title       String
   description String?
   dueDate     DateTime
   isRecurring Boolean            @default(false)
   frequency   ReminderFrequency?
   status      ReminderStatus
-  contact     Contact            @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  priority    ReminderPriority   @default(MEDIUM)
+  tags        String[]           @default([])
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
+  contacts    ReminderContact[]
 
   @@index([userId])
-  @@index([contactId])
 }
 
 model EventTag {
@@ -180,4 +186,19 @@ enum ReminderStatus {
   PENDING
   COMPLETED
   SNOOZED
+}
+
+model ReminderContact {
+  id         String   @id @default(cuid())
+  reminderId String
+  contactId  String
+  userId     String
+  reminder   Reminder @relation(fields: [reminderId], references: [id], onDelete: Cascade)
+  contact    Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([reminderId, contactId])
+  @@index([userId])
+  @@index([reminderId])
+  @@index([contactId])
 }
