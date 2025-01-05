@@ -26,7 +26,7 @@ function unauthorized({ redirectTo }: { redirectTo: string }) {
   throw redirect(redirectTo, { status: 401 });
 }
 
-export const authenticatedRequest = async (
+export const requireUserId = async (
   args: LoaderFunctionArgs | ActionFunctionArgs,
   opts?: RequestOpts,
 ) => {
@@ -97,7 +97,7 @@ export async function getUser(clerkId: string, opts?: RequestOpts) {
 export async function getUserFromRequest(args: LoaderFunctionArgs | ActionFunctionArgs, opts?: RequestOpts) {
   const handler = async () => {
     try {
-      const { userId } = await authenticatedRequest(args, {
+      const { userId } = await requireUserId(args, {
         timings: opts?.timings,
       });
 

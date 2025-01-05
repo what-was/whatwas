@@ -48,31 +48,31 @@ export const mainNav: NavMenuItem[] = [
   //   url: '/dashboard/topics',
   //   icon: Map,
   // },
-  // {
-  //   title: 'Settings',
-  //   url: '/dashboard/settings',
-  //   icon: Settings2,
-  //   exact: true,
-  //   childrenInvisible: true,
-  //   items: [
-  //     {
-  //       title: 'General',
-  //       url: '/dashboard/settings/general',
-  //     },
-  //     {
-  //       title: 'Team',
-  //       url: '/dashboard/settings/team',
-  //     },
-  //     {
-  //       title: 'Billing',
-  //       url: '/dashboard/settings/billing',
-  //     },
-  //     {
-  //       title: 'Limits',
-  //       url: '/dashboard/settings/limits',
-  //     },
-  //   ],
-  // },
+  {
+    title: 'Settings',
+    url: '/settings',
+    icon: Settings2,
+    // exact: true,
+    // childrenInvisible: true,
+    // items: [
+    //   {
+    //     title: 'General',
+    //     url: '/dashboard/settings/general',
+    //   },
+    //   {
+    //     title: 'Team',
+    //     url: '/dashboard/settings/team',
+    //   },
+    //   {
+    //     title: 'Billing',
+    //     url: '/dashboard/settings/billing',
+    //   },
+    //   {
+    //     title: 'Limits',
+    //     url: '/dashboard/settings/limits',
+    //   },
+    // ],
+  },
 ];
 
 export const secondaryNav: NavMenuItem[] = [

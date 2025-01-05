@@ -2,12 +2,8 @@ import { ActivityCalendar, Activity } from 'react-activity-calendar';
 import { Theme, useTheme } from 'remix-themes';
 import { ScrollArea, ScrollBar } from '~/components/ui/scroll-area';
 import { useScroll } from "motion/react"
+import { formatDate } from '~/lib/utils';
 
-
-// TODO: convert date from ISO string to "YYYY-MM-DD"
-const formatDate = (date: string) => {
-  return date.split('T')[0]
-}
 
 export function HabitCarousel({ data }: { data: Activity[] }) {
   const [theme] = useTheme();

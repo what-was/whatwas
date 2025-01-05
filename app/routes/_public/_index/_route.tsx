@@ -1,7 +1,7 @@
 import { useUser } from '@clerk/remix';
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { Outlet, Link, useLoaderData } from '@remix-run/react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useScroll, useSpring, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { HabitCarousel } from '~/components/habit-carousel';
 import { Logo } from '~/components/logo';
@@ -30,12 +30,36 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export default function AppIndex() {
   const { user } = useUser();
   const { mockData } = useLoaderData<typeof loader>();
+  const { scrollYProgress } = useScroll();
+  const springY = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  const scale = useTransform(springY, [0, 1], [1, 5]);
 
   return (
     <div className="flex flex-1 flex-col h-[calc(10*100vh)] mx-auto">
       {/* <div className='flex container mx-auto py-6'>
         <Logo />
       </div> */}
+
+      <>
+        <motion.div className={
+          cn('fixed bottom-0 max-w-full bg-sidebar/50 backdrop-blur-sm')
+        }
+
+          // // Fade in when the element enters the viewport:
+          // whileInView={{ bottom: '0' }}
+          // Animate the component when its layout changes:
+          // layout
+          // Style now supports indepedent transforms:
+          style={{ scale }}
+        // style={{ position: "relative", bottom: '-10svh' }}
+        >
+          <Marquee className='[--duration:180s]' pauseOnHover>
+            <HabitCarousel data={mockData} />
+          </Marquee>
+          <div className='pointer-events-none absolute inset-y-0 left-0 h-full w-1/3 bg-gradient-to-r from-sidebar' />
+          <div className='pointer-events-none absolute inset-y-0 right-0 h-full w-1/3 bg-gradient-to-l from-sidebar' />
+        </motion.div>
+      </>
 
       <div className="rounded-lg border bg-background text-foreground">
         <div className='flex min-h-64 items-center justify-center '>
@@ -46,25 +70,7 @@ export default function AppIndex() {
         </div>
       </div>
 
-      <div className='flex-1 relative'>
-        <div className={
-          cn('relative max-w-full bg-sidebar/50 backdrop-blur-sm -z-0')
-        }
-        // animate={{ bottom: 0 }}
-        // // Fade in when the element enters the viewport:
-        // whileInView={{ position: 'fixed', bottom: '0' }}
-        // Animate the component when its layout changes:
-        // layout
-        // Style now supports indepedent transforms:
-        // style={{ bottom: '-100svh' }}
-        // style={{ position: "relative", bottom: '-10svh' }}
-        >
-          <Marquee className='[--duration:180s]' pauseOnHover>
-            hi
-            {/* <HabitCarousel data={mockData} /> */}
-          </Marquee>
-        </div>
-      </div>
+
 
       <div className='container mx-auto my-[100svh]'>
         {!user?.id ? (

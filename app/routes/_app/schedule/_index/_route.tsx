@@ -4,7 +4,8 @@ import { useLoaderData, useSubmit } from '@remix-run/react';
 import { HabitTracker, type Habit } from '~/components/habit-tracker';
 import { Page, PageContent, PageHeader } from '~/components/page';
 import { prisma } from '~/lib/db';
-import { authenticatedRequest, getUserFromRequest } from '~/lib/auth';
+import { requireUserId, getUserFromRequest } from '~/lib/auth';
+import { createHabitEventInGoogleCalendar } from '~/lib/google-calendar';
 import type { Habit as PrismaHabit, Event, Date } from '@prisma/client';
 
 type HabitWithEvents = PrismaHabit & {
@@ -109,7 +110,7 @@ export async function loader(args: LoaderFunctionArgs) {
 }
 
 export async function action(args: ActionFunctionArgs) {
-  const { userId } = await authenticatedRequest(args);
+  const { userId } = await requireUserId(args);
   if (!userId) {
     throw redirect('/sign-in');
   }
@@ -150,7 +151,7 @@ export async function action(args: ActionFunctionArgs) {
   });
 
   // Create event for habit completion
-  await prisma.event.create({
+  const event = await prisma.event.create({
     data: {
       date: {
         connect: {
@@ -169,6 +170,20 @@ export async function action(args: ActionFunctionArgs) {
       },
     },
   });
+
+  // Try to sync with Google Calendar if integration exists
+  try {
+    const hasGoogleIntegration = await prisma.googleCalendarIntegration.findUnique({
+      where: { userMetaId: userMeta.id },
+    });
+
+    if (hasGoogleIntegration) {
+      await createHabitEventInGoogleCalendar(habitId, newDateRecord.id, userMeta.id);
+    }
+  } catch (error) {
+    console.error('Failed to sync with Google Calendar:', error);
+    // Continue without Google Calendar sync
+  }
 
   return { success: true };
 }

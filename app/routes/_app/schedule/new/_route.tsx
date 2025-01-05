@@ -7,6 +7,7 @@ import { getUserFromRequest } from '~/lib/auth';
 import { Typography } from '~/components/ui/typography';
 import { PageContent } from '~/components/page';
 import { HabitSidebar } from '~/components/habit-sidebar';
+import { syncHabitToGoogleCalendar } from '~/lib/google-calendar';
 
 export async function action(args: ActionFunctionArgs) {
   const { id: userId } = await getUserFromRequest(args);
@@ -29,7 +30,7 @@ export async function action(args: ActionFunctionArgs) {
     throw new Error('User not found');
   }
 
-  await prisma.habit.create({
+  const habit = await prisma.habit.create({
     data: {
       name,
       description,
@@ -39,6 +40,20 @@ export async function action(args: ActionFunctionArgs) {
       userMetaId: userMeta.id,
     },
   });
+
+  // Try to sync with Google Calendar if integration exists
+  try {
+    const hasGoogleIntegration = await prisma.googleCalendarIntegration.findUnique({
+      where: { userMetaId: userMeta.id },
+    });
+
+    if (hasGoogleIntegration) {
+      await syncHabitToGoogleCalendar(habit.id, userMeta.id);
+    }
+  } catch (error) {
+    console.error('Failed to sync with Google Calendar:', error);
+    // Continue without Google Calendar sync
+  }
 
   return redirect('/schedule');
 }

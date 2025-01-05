@@ -2,14 +2,14 @@ import { data } from '@remix-run/node';
 import { NavLink, Outlet, useLocation, Link, useRouteLoaderData } from '@remix-run/react';
 
 import { UserButton, useUser } from '@clerk/remix';
-import { authenticatedRequest } from '~/lib/auth';
+import { requireUserId } from '~/lib/auth';
 import type { Location } from '@remix-run/react';
 import type { LoaderFunctionArgs } from '@remix-run/node';
 import { LayoutShell } from '~/components/layout';
 import { BreadcrumbItem } from '~/components/breadcrumbs';
 
 export async function loader(args: LoaderFunctionArgs) {
-  const { userId } = await authenticatedRequest(args);
+  const { userId } = await requireUserId(args);
 
   return data({ userId });
 }

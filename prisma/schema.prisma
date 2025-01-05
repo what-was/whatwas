@@ -23,9 +23,10 @@ model UserMeta {
   id      String @id @default(cuid())
   clerkId String @unique
 
-  events Event[]
-  habits Habit[]
-  dates  Date[]
+  events                    Event[]
+  habits                    Habit[]
+  dates                     Date[]
+  googleCalendarIntegration GoogleCalendarIntegration?
 
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
@@ -88,4 +89,95 @@ model Habit {
   deletedAt DateTime?
 
   @@index([userMetaId])
+}
+
+model GoogleCalendarIntegration {
+  id           String    @id @default(cuid())
+  accessToken  String
+  refreshToken String
+  expiresAt    DateTime
+  calendarId   String?
+  lastSyncedAt DateTime?
+
+  userMetaId String   @unique
+  userMeta   UserMeta @relation(fields: [userMetaId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([userMetaId])
+}
+
+// CRM Models
+model Contact {
+  id             String          @id @default(cuid())
+  userId         String // Foreign key to User
+  firstName      String
+  lastName       String?
+  email          String?
+  phone          String?
+  socialLinks    Json? // Stores social media profile links
+  notes          String? // Free-text field for additional details
+  category       ContactCategory
+  customCategory String? // For user-defined categories
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  reminders      Reminder[]
+  eventTags      EventTag[]
+
+  @@unique([userId, email])
+  @@index([userId])
+}
+
+model Reminder {
+  id          String             @id @default(cuid())
+  contactId   String
+  userId      String
+  title       String
+  description String?
+  dueDate     DateTime
+  isRecurring Boolean            @default(false)
+  frequency   ReminderFrequency?
+  status      ReminderStatus
+  contact     Contact            @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@index([userId])
+  @@index([contactId])
+}
+
+model EventTag {
+  id        String   @id @default(cuid())
+  contactId String
+  userId    String
+  eventId   String
+  contact   Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([contactId])
+  @@index([eventId])
+}
+
+enum ContactCategory {
+  FAMILY
+  FRIENDS
+  COLLEAGUES
+  CLIENTS
+  OTHERS
+}
+
+enum ReminderFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+}
+
+enum ReminderStatus {
+  PENDING
+  COMPLETED
+  SNOOZED
 }

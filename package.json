@@ -115,6 +115,7 @@
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "get-port": "^7.1.0",
+    "googleapis": "^144.0.0",
     "helmet": "^8.0.0",
     "input-otp": "^1.4.1",
     "intl-parse-accept-language": "^1.0.0",
